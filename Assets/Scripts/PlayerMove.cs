@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-
+    [SerializeField] 
+    private Sprite itemPlayer; //아이템 얻은 후
     [SerializeField]
     private float max_speed;
     [SerializeField]
@@ -80,6 +81,21 @@ public class PlayerMove : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
+        }
+        if (collision.gameObject.tag == "Item")
+        {
+            //아이템 얻은 후 애니메이션이 따로 있어야할듯
+            //anim.SetBool("", true);
+            changeSprite(itemPlayer);
+            collision.gameObject.SetActive(false);
+        }
+    }
+    
+    void changeSprite(Sprite sprite)
+    {
+        if (sprite != null)
+        {
+           sprite_renderer.sprite = sprite;
         }
     }
 
