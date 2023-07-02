@@ -12,7 +12,12 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
-    
+
+    public enum PlayerState
+    {
+        PlayerDied
+    }
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -20,7 +25,6 @@ public class PlayerMove : MonoBehaviour
         anim = GetComponent<Animator>();
         max_speed = 3;
         jump_power = 8;
-       
     }
 
     // Update is called once per frame
