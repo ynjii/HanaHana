@@ -21,7 +21,6 @@ public class PlayerMove : MonoBehaviour
         anim = GetComponent<Animator>();
         max_speed = 3;
         jump_power = 8;
-       
     }
 
     // Update is called once per frame
@@ -71,6 +70,7 @@ public class PlayerMove : MonoBehaviour
 
 
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Platform")
@@ -85,8 +85,8 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.tag == "Item")
         {
             //아이템 얻은 후 애니메이션이 따로 있어야할듯
-            //anim.SetBool("", true);
-            changeSprite(itemPlayer);
+            anim.SetBool("isItemIdle", true);
+            //changeSprite(itemPlayer);
             collision.gameObject.SetActive(false);
         }
     }
@@ -95,7 +95,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (sprite != null)
         {
-           sprite_renderer.sprite = sprite;
+            sprite_renderer.sprite = sprite;
         }
     }
 
