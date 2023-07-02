@@ -82,6 +82,9 @@ public class PlayerMove : MonoBehaviour
         { 
             onDamaged(collision.transform.position);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision){
         if (collision.gameObject.tag == "Item")
         {
             //아이템 얻은 후 애니메이션이 따로 있어야할듯
