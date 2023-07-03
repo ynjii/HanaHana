@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,27 +31,27 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()//ë‹¨ë°œì  ì…ë ¥: ì—…ë°ì´íŠ¸í•¨ìˆ˜
+    void Update()//?‹¨ë°œì  ?…? ¥: ?—…?°?´?Š¸?•¨?ˆ˜
     {
-        //ì í”„
+        //? ?”„
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
         {
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             anim.SetBool("isJump", true);
         }
-        //ë¸Œë ˆì´í¬
+        //ë¸Œë ˆ?´?¬
         if (Input.GetButtonUp("Horizontal"))
         {
-            //normalized: ë²¡í„°í¬ê¸°ë¥¼ 1ë¡œ ë§Œë“  ìƒíƒœ. ë°©í–¥êµ¬í•  ë•Œ ì”€
-            //ë°©í–¥ì— ì†ë ¥ì„ 0ìœ¼ë¡œ 
+            //normalized: ë²¡í„°?¬ê¸°ë?? 1ë¡? ë§Œë“  ?ƒ?ƒœ. ë°©í–¥êµ¬í•  ?•Œ ???
+            //ë°©í–¥?— ?†? ¥?„ 0?œ¼ë¡? 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
         }
 
-        //ë°©í–¥ì „í™˜
+        //ë°©í–¥? „?™˜
         if (Input.GetButton("Horizontal"))
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
-        //ì• ë‹ˆë©”ì´ì…˜
+        //?• ?‹ˆë©”ì´?…˜
         if (rigid.velocity.normalized.x == 0)
         {
             anim.SetBool("isWalk", false);
@@ -63,26 +63,26 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()//ë¬¼ë¦¬ update
     {
-        //í‚¤ ì»¨íŠ¸ë¡¤ë¡œ ì›€ì§ì´ê¸°
+        //?‚¤ ì»¨íŠ¸ë¡¤ë¡œ ???ì§ì´ê¸?
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
       
-        if (rigid.velocity.x> max_speed)//ì˜¤ë¥¸ìª½
+        if (rigid.velocity.x> max_speed)//?˜¤ë¥¸ìª½
         {
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
         }
-        else if (rigid.velocity.x < max_speed*(-1))//ì™¼ìª½
+        else if (rigid.velocity.x < max_speed*(-1))//?™¼ìª?
         {
             rigid.velocity = new Vector2(max_speed*(-1), rigid.velocity.y);
         }
 
-        //ë²„íŠ¼ ì´ë™
+        //ë²„íŠ¼ ?´?™
         if (isButtonPressed)
         {
-            // ë²„íŠ¼ì„ ê³„ì† ëˆ„ë¥´ê³  ìˆì„ ë•Œ í˜¸ì¶œí•  ë©”ì†Œë“œë¥¼ ì—¬ê¸°ì— ì‘ì„±.
+            // ë²„íŠ¼?„ ê³„ì† ?ˆ„ë¥´ê³  ?ˆ?„ ?•Œ ?˜¸ì¶œí•  ë©”ì†Œ?“œë¥? ?—¬ê¸°ì— ?‘?„±.
             if (isJumpButton)
             {
-                //ì í”„
+                //? ?”„
                 if (!anim.GetBool("isJump"))
                 {
                     rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x < max_speed * (-1))//ì™¼ìª½
+                if (rigid.velocity.x < max_speed * (-1))//?™¼ìª?
                 {
                     rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
                 }
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x > max_speed)//ì˜¤ë¥¸ìª½
+                if (rigid.velocity.x > max_speed)//?˜¤ë¥¸ìª½
                 {
                     rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
                 }
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Item")
         {
             //¾ÆÀÌÅÛ ¾òÀº ÈÄ ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ µû·Î ÀÖ¾î¾ßÇÒµí
-            anim.SetBool("isItemIdle", true);
+            anim.SetBool("isItemGet", true);
             //changeSprite(itemPlayer);
             collision.gameObject.SetActive(false);
         }
@@ -142,28 +142,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    void onDamaged(Vector2 targetPos)
+    public void onDamaged(Vector2 targetPos)
     {
-        //ë ˆì´ì–´ ë°”ê¾¸ê¸°
+        //? ˆ?´?–´ ë°”ê¾¸ê¸?
         gameObject.layer = 7;
 
-        //íˆ¬ëª…í•˜ê²Œ ë°”ê¾¸ê¸°
+        //?ˆ¬ëª…í•˜ê²? ë°”ê¾¸ê¸?
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
 
-        //ë¦¬ì•¡ì…˜
+        //ë¦¬ì•¡?…˜
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
 
     }
 
-    //í™”ë©´ë°–ìœ¼ë¡œ ë‚˜ê°: ì£½ìŒ
+    //?™”ë©´ë°–?œ¼ë¡? ?‚˜ê°?: ì£½ìŒ
     private void OnBecameInvisible()
     {
         this.gameObject.SetActive(false);
     }
 
 
-    //ë²„íŠ¼ì„ ëˆŒë €ëŠ”ì§€ ë—ëŠ”ì§€
+    //ë²„íŠ¼?„ ?ˆŒ????Š”ì§? ?—?Š”ì§?
     public void jumpButtonDown()
     {
         isJumpButton = true;
@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
         isRightButton = false;
     }
     
-    //ë²„íŠ¼ ë²”ìœ„ì—ì„œ ë‚˜ê°”ìœ¼ë©´ false
+    //ë²„íŠ¼ ë²”ìœ„?—?„œ ?‚˜ê°”ìœ¼ë©? false
     public void jumpButtonExit()
     {
         isJumpButton= false;
@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
     {
         isRightButton = false;
     }
-    //ë²„íŠ¼ ë²”ìœ„ ë“¤ì–´ì˜¤ë©´ true
+    //ë²„íŠ¼ ë²”ìœ„ ?“¤?–´?˜¤ë©? true
     public void jumpButtonEnter()
     {
         if(isButtonPressed)
@@ -218,19 +218,19 @@ public class Player : MonoBehaviour
         if (isButtonPressed)
             isRightButton = true;
     }
-    //ì•„ë˜ 3ê°œ ë©”ì†Œë“œ : ë²„íŠ¼ì„ ê¾¹ ëˆ„ë¥´ê³  ìˆëŠ”ì§€ ì²´í¬
-    //ë²„íŠ¼ì„ ëˆ„ë¥´ê³  ìˆëŠ” ë™ì•ˆ ì²˜ë¦¬í•˜ëŠ” ë™ì‘.
+    //?•„?˜ 3ê°? ë©”ì†Œ?“œ : ë²„íŠ¼?„ ê¾? ?ˆ„ë¥´ê³  ?ˆ?Š”ì§? ì²´í¬
+    //ë²„íŠ¼?„ ?ˆ„ë¥´ê³  ?ˆ?Š” ?™?•ˆ ì²˜ë¦¬?•˜?Š” ?™?‘.
     public void OnPointerDown()
     {
         isButtonPressed = true;
     }
 
-    //ë²„íŠ¼ ë–¼ë©´ false ì „í™˜
+    //ë²„íŠ¼ ?–¼ë©? false ? „?™˜
     public void OnPointerUp()
     {
         isButtonPressed = false;
     }
-    //ë²„íŠ¼ ë²”ìœ„ ë‚˜ê°ˆ ë•Œ 
+    //ë²„íŠ¼ ë²”ìœ„ ?‚˜ê°? ?•Œ 
     public void OnPointerExit()
     {
         isButtonPressed = false;        

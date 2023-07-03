@@ -10,15 +10,19 @@ public class Follower : MonoBehaviour
     public Transform player;
     private Queue<Vector3> playerPos;
     private bool isTriggered = false;
-    
+    private Player playerScript;
     // Start is called before the first frame update
-    void OnTriggerEnter2D(Collider2D collision) {
+    void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.CompareTag("Player"))
         {
             isTriggered = true;   
+            this.gameObject.layer = 3;
+            playerScript = collision.gameObject.GetComponent<Player>();
         }
-        if(collision.gameObject.CompareTag("Enemy")){
-            //여기서 부딪히면 같이 죽게...
+        else if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("bomb!");
+            playerScript.onDamaged(collision.transform.position);
         }
     }
 
