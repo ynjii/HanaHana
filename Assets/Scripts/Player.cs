@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player : MonoBehaviour
 {
 
     [SerializeField]
@@ -31,7 +31,7 @@ public class PlayerMove : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
         //점프
-        if (Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
         { 
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             anim.SetBool("isJump", true);
@@ -41,12 +41,12 @@ public class PlayerMove : MonoBehaviour
         {
             //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
             //방향에 속력을 0으로 
-            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0f, rigid.velocity.y);
+            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
         }
 
         //방향전환
-        if (Input.GetButtonDown("Horizontal"))
-            sprite_renderer.flipX= Input.GetAxisRaw("Horizontal")==-1;
+        if (Input.GetButton("Horizontal"))
+            sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
         //애니메이션
         if (rigid.velocity.normalized.x == 0)
@@ -99,18 +99,11 @@ public class PlayerMove : MonoBehaviour
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
 
-        Invoke("Die", 0.1f);
     }
     private void OnBecameInvisible()
     {
         this.gameObject.SetActive(false);
-        this.gameObject.layer = 9;//PlayerDied
     }
-    void die()
-    {
-        //레이어 바꾸기
-        gameObject.layer = 7;
-
-    }
+   
 
 }

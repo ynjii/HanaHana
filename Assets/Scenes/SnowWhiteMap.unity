@@ -760,11 +760,12 @@ GameObject:
   - component: {fileID: 1458695388}
   - component: {fileID: 1458695387}
   - component: {fileID: 1458695386}
-  - component: {fileID: 1458695391}
-  - component: {fileID: 1458695390}
   - component: {fileID: 1458695389}
+  - component: {fileID: 1458695391}
+  - component: {fileID: 1458695392}
+  - component: {fileID: 1458695393}
   m_Layer: 3
-  m_Name: Player_0
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -831,7 +832,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1474374796, guid: 0695af31d5e673f4eba2df64cf453b4f, type: 3}
+  m_Sprite: {fileID: -415087791, guid: 3aea2d5c252e4b343b451f1ddcffc16e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -878,8 +879,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &1458695390
-BoxCollider2D:
+--- !u!114 &1458695391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458695385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d755e9fc29b3f024b9caa3b8092eae85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_speed: 0
+  jump_power: 0
+--- !u!70 &1458695392
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458695385}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00000047683716, y: 0}
+  m_Size: {x: 0.453331, y: 1}
+  m_Direction: 0
+--- !u!60 &1458695393
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -901,20 +932,49 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &1458695391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458695385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d755e9fc29b3f024b9caa3b8092eae85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max_speed: 0
-  jump_power: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.055555556, y: -0.44444445}
+      - {x: -0.055555556, y: -0.44444445}
+      - {x: -0.05100033, y: -0.4726665}
+      - {x: -0.217667, y: -0.45899987}
+      - {x: -0.22222222, y: -0.33333334}
+      - {x: -0.27322257, y: -0.2695553}
+      - {x: -0.2686664, y: -0.27322233}
+      - {x: -0.32877812, y: -0.21855533}
+      - {x: -0.27866635, y: -0.17577784}
+      - {x: -0.2732221, y: -0.17122225}
+      - {x: -0.2231108, y: -0.115666695}
+      - {x: -0.22222222, y: -0.11111111}
+      - {x: -0.22222222, y: -0.055555556}
+      - {x: -0.33333334, y: -0.055555556}
+      - {x: -0.33333334, y: 0}
+      - {x: -0.3888889, y: 0}
+      - {x: -0.3888889, y: 0.33333334}
+      - {x: -0.33333334, y: 0.33333334}
+      - {x: -0.33333334, y: 0.3888889}
+      - {x: -0.2777778, y: 0.3888889}
+      - {x: -0.2777778, y: 0.44444445}
+      - {x: -0.16666667, y: 0.44444445}
+      - {x: -0.16666667, y: 0.5}
+      - {x: 0.16666667, y: 0.5}
+      - {x: 0.16666667, y: 0.44444445}
+      - {x: 0.2777778, y: 0.44444445}
+      - {x: 0.2777778, y: 0.3888889}
+      - {x: 0.33333334, y: 0.3888889}
+      - {x: 0.33333334, y: 0}
+      - {x: 0.2777778, y: 0}
+      - {x: 0.2777778, y: 0}
+      - {x: 0.2777778, y: -0.055555556}
+      - {x: 0.22222222, y: -0.055555556}
+      - {x: 0.22222233, y: -0.111111164}
+      - {x: 0.22222222, y: -0.11111111}
+      - {x: 0.2231108, y: -0.12022228}
+      - {x: 0.2777778, y: -0.16666667}
+      - {x: 0.33788905, y: -0.21677797}
+      - {x: 0.28322205, y: -0.26411116}
+      - {x: 0.2777778, y: -0.2777778}
+      - {x: 0.22766602, y: -0.32422218}
+      - {x: 0.22222222, y: -0.33333334}
+      - {x: 0.217667, y: -0.46811128}
+      - {x: 0.073777884, y: -0.47722208}
