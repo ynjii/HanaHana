@@ -28,27 +28,27 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()//´Ü¹ßÀû ÀÔ·Â: ¾÷µ¥ÀÌÆ®ÇÔ¼ö
+    void Update()//ï¿½Ü¹ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ô¼ï¿½
     {
-        //Á¡ÇÁ
+        //ï¿½ï¿½ï¿½ï¿½
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
         { 
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             anim.SetBool("isJump", true);
         }
-        //ºê·¹ÀÌÅ©
+        //ï¿½ê·¹ï¿½ï¿½Å©
         if (Input.GetButtonUp("Horizontal"))
         {
-            //normalized: º¤ÅÍÅ©±â¸¦ 1·Î ¸¸µç »óÅÂ. ¹æÇâ±¸ÇÒ ¶§ ¾¸
-            //¹æÇâ¿¡ ¼Ó·ÂÀ» 0À¸·Î 
+            //normalized: ï¿½ï¿½ï¿½ï¿½Å©ï¿½â¸¦ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½â±¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
+            //ï¿½ï¿½ï¿½â¿¡ ï¿½Ó·ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
         }
 
-        //¹æÇâÀüÈ¯
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯
         if (Input.GetButton("Horizontal"))
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
-        //¾Ö´Ï¸ÞÀÌ¼Ç
+        //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
         if (rigid.velocity.normalized.x == 0)
         {
             anim.SetBool("isWalk", false);
@@ -58,16 +58,16 @@ public class Player : MonoBehaviour
             anim.SetBool("isWalk", true);
         }
     }
-    private void FixedUpdate()//¹°¸® update
+    private void FixedUpdate()//ï¿½ï¿½ï¿½ï¿½ update
     {
-        //Å° ÄÁÆ®·Ñ·Î ¿òÁ÷ÀÌ±â
+        //Å° ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right*h,ForceMode2D.Impulse);
-        if(rigid.velocity.x> max_speed)//¿À¸¥ÂÊ
+        if(rigid.velocity.x> max_speed)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
         }
-        else if (rigid.velocity.x < max_speed*(-1))//¿ÞÂÊ
+        else if (rigid.velocity.x < max_speed*(-1))//ï¿½ï¿½ï¿½ï¿½
         {
             rigid.velocity = new Vector2(max_speed*(-1), rigid.velocity.y);
         }
@@ -84,18 +84,27 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
+            //ê²Œìž„ ë§¤ë‹ˆì €ì˜ ê²Œìž„ì˜¤ë²„ ì²˜ë¦¬ ì‹¤í–‰
+            GameManager.instance.OnPlayerDead();
+        }
+
+        if(collision.gameObject.tag=="Flag")
+        {
+            //ë¦¬ìŠ¤í° ìœ„ì¹˜ë¥¼ í•´ë‹¹ Flag ìœ„ì¹˜ë¡œ ìž¬ì„¤ì •
+            Vector2 flagPosition=collision.gameObject.transform.position;
+            GetComponent<PlayerRespawn>().SetRespawnPoint();
         }
     }
 
     void onDamaged(Vector2 targetPos)
     {
-        //·¹ÀÌ¾î ¹Ù²Ù±â
+        //ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½Ù²Ù±ï¿½
         gameObject.layer = 7;
 
-        //Åõ¸íÇÏ°Ô ¹Ù²Ù±â
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ù²Ù±ï¿½
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
 
-        //¸®¾×¼Ç
+        //ï¿½ï¿½ï¿½×¼ï¿½
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
 
