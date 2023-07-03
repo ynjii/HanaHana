@@ -18,10 +18,7 @@ public class Player : MonoBehaviour
     public bool isRightButton = false;
     public bool isButtonPressed = false;
 
-    public enum PlayerState
-    {
-        PlayerDied
-    }
+   
 
     private void Awake()
     {

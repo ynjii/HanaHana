@@ -13,4 +13,9 @@ public class Define
         SnowWhiteMap,
         None
     }
+
+    public enum PlayerState
+    {
+        PlayerDied
+    }
 }
