@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     {
         //점프
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
-        { 
+        {
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             anim.SetBool("isJump", true);
         }
@@ -62,8 +62,9 @@ public class Player : MonoBehaviour
     {
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
-        rigid.AddForce(Vector2.right*h,ForceMode2D.Impulse);
-        if(rigid.velocity.x> max_speed)//오른쪽
+        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+      
+        if (rigid.velocity.x> max_speed)//오른쪽
         {
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
         }
@@ -104,6 +105,25 @@ public class Player : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-   
+
+
+
+    public void jumpButton()
+    {
+        if (!anim.GetBool("isJump"))
+        {
+            rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+            anim.SetBool("isJump", true);
+        }
+    }
+    public void leftButtonMoving()
+    {
+
+        rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
+    }
+    public void rightButtonMoving()
+    {
+        rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
+    }
 
 }
