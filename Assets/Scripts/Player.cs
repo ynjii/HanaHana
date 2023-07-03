@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
 
@@ -12,6 +13,10 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
+    public bool isJumpButton=false;
+    public bool isLeftButton = false;
+    public bool isRightButton = false;
+    public bool isButtonPressed = false;
 
     public enum PlayerState
     {
@@ -73,6 +78,38 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(max_speed*(-1), rigid.velocity.y);
         }
 
+        //버튼 이동
+        if (isButtonPressed)
+        {
+            // 버튼을 계속 누르고 있을 때 호출할 메소드를 여기에 작성.
+            if (isJumpButton)
+            {
+                //점프
+                if (!anim.GetBool("isJump"))
+                {
+                    rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+                    anim.SetBool("isJump", true);
+                }
+            }
+            if (isLeftButton)
+            {
+                rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
+
+                if (rigid.velocity.x < max_speed * (-1))//왼쪽
+                {
+                    rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
+                }
+            }
+            if (isRightButton)
+            {
+                rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
+
+                if (rigid.velocity.x > max_speed)//오른쪽
+                {
+                    rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
+                }
+            }
+        }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -101,29 +138,89 @@ public class Player : MonoBehaviour
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
 
     }
+
+    //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
         this.gameObject.SetActive(false);
     }
 
 
-
-    public void jumpButton()
+    //버튼을 눌렀는지 뗐는지
+    public void jumpButtonDown()
     {
-        if (!anim.GetBool("isJump"))
-        {
-            rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
-            anim.SetBool("isJump", true);
-        }
+        isJumpButton = true;
     }
-    public void leftButtonMoving()
+    public void jumpButtonUp()
     {
-
-        rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
+        isJumpButton = false;
     }
-    public void rightButtonMoving()
+    public void leftButtonDown()
     {
-        rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
+        isLeftButton = true;
+    }
+    public void leftButtonUp()
+    {
+        isLeftButton = false;
+    }
+    public void rightButtonDown()
+    {
+        isRightButton = true;
+    }
+    public void rightButtonUp()
+    {
+        isRightButton = false;
+    }
+    
+    //버튼 범위에서 나갔으면 false
+    public void jumpButtonExit()
+    {
+        isJumpButton= false;
+    }
+    public void leftButtonExit()
+    {
+        isLeftButton = false;
+    }
+    public void rightButtonExit()
+    {
+        isRightButton = false;
+    }
+    //버튼 범위 들어오면 true
+    public void jumpButtonEnter()
+    {
+        if(isButtonPressed)
+            isJumpButton = true;
+    }
+    public void leftButtonEnter()
+    {
+        if (isButtonPressed)
+            isLeftButton = true;
+    }
+    public void rightButtonEnter()
+    {
+        if (isButtonPressed)
+            isRightButton = true;
+    }
+    //아래 3개 메소드 : 버튼을 꾹 누르고 있는지 체크
+    //버튼을 누르고 있는 동안 처리하는 동작.
+    public void OnPointerDown()
+    {
+        isButtonPressed = true;
     }
 
+    //버튼 떼면 false 전환
+    public void OnPointerUp()
+    {
+        isButtonPressed = false;
+    }
+    //버튼 범위 나갈 때 
+    public void OnPointerExit()
+    {
+        isButtonPressed = false;        
+    }
+    public void OnPointerEnter()
+    {
+        isButtonPressed = true;
+    }
 }
+
