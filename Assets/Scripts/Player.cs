@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     [SerializeField]
     private float max_speed;
     [SerializeField]
@@ -17,8 +16,6 @@ public class Player : MonoBehaviour
     public bool isLeftButton = false;
     public bool isRightButton = false;
     public bool isButtonPressed = false;
-
-   
 
     private void Awake()
     {
@@ -65,7 +62,7 @@ public class Player : MonoBehaviour
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-      
+        
         if (rigid.velocity.x> max_speed)//오른쪽
         {
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
@@ -92,7 +89,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x < max_speed * (-1))//왼쪽
+                if (rigid.velocity.x < max_speed * (-1))//?占쏙옙占??
                 {
                     rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
                 }
@@ -101,7 +98,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x > max_speed)//오른쪽
+                if (rigid.velocity.x > max_speed)//?占쏙옙瑜몄そ
                 {
                     rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
                 }
@@ -109,6 +106,7 @@ public class Player : MonoBehaviour
         }
 
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Platform")
@@ -119,10 +117,29 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
+            //寃뚯엫 留ㅻ땲???寃뚯엫?ㅻ쾭 泥섎━ ?ㅽ뻾
+            GameManager.instance.OnPlayerDead();
+        }
+
+        if(collision.gameObject.tag=="Flag")
+        {
+            //由ъ뒪???꾩튂瑜??대떦 Flag ?꾩튂濡??ъ꽕??
+            Vector3 flagPosition=collision.gameObject.transform.position;
+            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
+            playerRespawn.SetRespawnPoint(flagPosition);
         }
     }
 
-    void onDamaged(Vector2 targetPos)
+    private void OnTriggerEnter2D(Collider2D collision){
+        if (collision.gameObject.tag == "Item")
+        {
+            //진짜 아이템 먹었을 때 animation 바꿈
+            anim.SetBool("isItemGet", true);
+            collision.gameObject.SetActive(false);
+        }
+    }
+
+    public void onDamaged(Vector2 targetPos)
     {
         //레이어 바꾸기
         gameObject.layer = 7;
