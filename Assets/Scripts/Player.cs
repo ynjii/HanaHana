@@ -13,11 +13,6 @@ public class Player : MonoBehaviour
     SpriteRenderer sprite_renderer;
     Animator anim;
 
-    public enum PlayerState
-    {
-        PlayerDied
-    }
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -91,8 +86,9 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag=="Flag")
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
-            Vector2 flagPosition=collision.gameObject.transform.position;
-            GetComponent<PlayerRespawn>().SetRespawnPoint();
+            Vector3 flagPosition=collision.gameObject.transform.position;
+            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
+            playerRespawn.SetRespawnPoint(flagPosition);
         }
     }
 

@@ -8,12 +8,13 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //싱글턴을 할당할 전역변수
-    public static Transform respawnPoint;//플레이어가 리스폰할 체크포인트 위치
     private static int death_count=0;//죽은 횟수
+    public static Vector3 respawnPoint; // 플레이어가 리스폰할 체크포인트 위치
 
     public bool isGameover=false; //게임오버 상태
     public TextMeshProUGUI death_text;//죽은 횟수를 출력할 UI 텍스트
     public GameObject gameoverUI; //게임오버 시 활성화할 UI 게임오브젝트
+    public GameObject player;//플레이어
 
     /// <summary>
     /// 게임 시작과 동시에 싱글턴을 구성
@@ -39,8 +40,32 @@ public class GameManager : MonoBehaviour
         {
             //게임오버 상태에서 마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            GetComponent<PlayerRespawn>().Respawn();
+            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
+            if (playerRespawn != null)
+            {
+            Debug.Log("Respawn");
+            playerRespawn.Respawn(player);
+            }
+
         }
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetInt("Death_Count", death_count);
+        PlayerPrefs.SetFloat("RespawnX", respawnPoint.x);
+        PlayerPrefs.SetFloat("RespawnY", respawnPoint.y);
+        PlayerPrefs.SetFloat("RespawnZ", respawnPoint.z);
+
+    }
+
+    public void Load()
+    {
+        death_count=PlayerPrefs.GetInt("Death_Count"+ death_count);
+        respawnPoint.x=PlayerPrefs.GetFloat("RespawnX"+ respawnPoint.x);
+        respawnPoint.y=PlayerPrefs.GetFloat("RespawnY"+ respawnPoint.y);
+        respawnPoint.z=PlayerPrefs.GetFloat("RespawnZ"+ respawnPoint.z);
+
     }
 
     /// <summary>
@@ -56,6 +81,7 @@ public class GameManager : MonoBehaviour
         //게임오버 UI를 활성화
         gameoverUI.SetActive(true);
     }
+
 
 
 
