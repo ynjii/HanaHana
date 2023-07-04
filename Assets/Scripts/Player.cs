@@ -18,8 +18,6 @@ public class Player : MonoBehaviour
     public bool isRightButton = false;
     public bool isButtonPressed = false;
 
-   
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -119,6 +117,16 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
+            //게임 매니저의 게임오버 처리 실행
+            GameManager.instance.OnPlayerDead();
+        }
+
+        if(collision.gameObject.tag=="Flag")
+        {
+            //리스폰 위치를 해당 Flag 위치로 재설정
+            Vector3 flagPosition=collision.gameObject.transform.position;
+            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
+            playerRespawn.SetRespawnPoint(flagPosition);
         }
     }
 
