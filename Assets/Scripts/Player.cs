@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
     public bool isRightButton = false;
     public bool isButtonPressed = false;
 
-   
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -119,6 +117,16 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
+            //ê²Œì„ ë§¤ë‹ˆì €ì˜ ê²Œì„ì˜¤ë²„ ì²˜ë¦¬ ì‹¤í–‰
+            GameManager.instance.OnPlayerDead();
+        }
+
+        if(collision.gameObject.tag=="Flag")
+        {
+            //ë¦¬ìŠ¤í° ìœ„ì¹˜ë¥¼ í•´ë‹¹ Flag ìœ„ì¹˜ë¡œ ì¬ì„¤ì •
+            Vector3 flagPosition=collision.gameObject.transform.position;
+            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
+            playerRespawn.SetRespawnPoint(flagPosition);
         }
     }
 
@@ -194,17 +202,14 @@ public class Player : MonoBehaviour
     //¹öÆ° ¹üÀ§ µé¾î¿À¸é true
     public void jumpButtonEnter()
     {
-        if(isButtonPressed)
             isJumpButton = true;
     }
     public void leftButtonEnter()
     {
-        if (isButtonPressed)
             isLeftButton = true;
     }
     public void rightButtonEnter()
     {
-        if (isButtonPressed)
             isRightButton = true;
     }
     //¾Æ·¡ 3°³ ¸Ş¼Òµå : ¹öÆ°À» ²Ú ´©¸£°í ÀÖ´ÂÁö Ã¼Å©
