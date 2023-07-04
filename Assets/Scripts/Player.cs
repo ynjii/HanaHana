@@ -185,17 +185,14 @@ public class Player : MonoBehaviour
     //버튼 범위 들어오면 true
     public void jumpButtonEnter()
     {
-        if(isButtonPressed)
             isJumpButton = true;
     }
     public void leftButtonEnter()
     {
-        if (isButtonPressed)
             isLeftButton = true;
     }
     public void rightButtonEnter()
     {
-        if (isButtonPressed)
             isRightButton = true;
     }
     //아래 3개 메소드 : 버튼을 꾹 누르고 있는지 체크
