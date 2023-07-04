@@ -27,5 +27,4 @@ public void Respawn(GameObject player)
 
     Debug.Log("New transform.position: " + player.transform.position);
 }
-
 }
