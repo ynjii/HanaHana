@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] 
-    private Sprite itemPlayer; //아이템 얻은 후
     [SerializeField]
     private float max_speed;
     [SerializeField]
@@ -31,27 +29,27 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()//?떒諛쒖쟻 ?엯?젰: ?뾽?뜲?씠?듃?븿?닔
+    void Update()//단발적 입력: 업데이트함수
     {
-        //?젏?봽
+        //점프
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
         {
             rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
             anim.SetBool("isJump", true);
         }
-        //釉뚮젅?씠?겕
+        //브레이크
         if (Input.GetButtonUp("Horizontal"))
         {
-            //normalized: 踰≫꽣?겕湲곕?? 1濡? 留뚮뱺 ?긽?깭. 諛⑺뼢援ы븷 ?븣 ???
-            //諛⑺뼢?뿉 ?냽?젰?쓣 0?쑝濡? 
+            //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
+            //방향에 속력을 0으로 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
         }
 
-        //諛⑺뼢?쟾?솚
+        //방향전환
         if (Input.GetButton("Horizontal"))
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
-        //?븷?땲硫붿씠?뀡
+        //애니메이션
         if (rigid.velocity.normalized.x == 0)
         {
             anim.SetBool("isWalk", false);
@@ -61,28 +59,28 @@ public class Player : MonoBehaviour
             anim.SetBool("isWalk", true);
         }
     }
-    private void FixedUpdate()//臾쇰━ update
+    private void FixedUpdate()//물리 update
     {
-        //?궎 而⑦듃濡ㅻ줈 ???吏곸씠湲?
+        //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-      
-        if (rigid.velocity.x> max_speed)//?삤瑜몄そ
+        
+        if (rigid.velocity.x> max_speed)//오른쪽
         {
             rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
         }
-        else if (rigid.velocity.x < max_speed*(-1))//?쇊履?
+        else if (rigid.velocity.x < max_speed*(-1))//왼쪽
         {
             rigid.velocity = new Vector2(max_speed*(-1), rigid.velocity.y);
         }
 
-        //踰꾪듉 ?씠?룞
+        //버튼 이동
         if (isButtonPressed)
         {
-            // 踰꾪듉?쓣 怨꾩냽 ?늻瑜닿퀬 ?엳?쓣 ?븣 ?샇異쒗븷 硫붿냼?뱶瑜? ?뿬湲곗뿉 ?옉?꽦.
+            // 버튼을 계속 누르고 있을 때 호출할 메소드를 여기에 작성.
             if (isJumpButton)
             {
-                //?젏?봽
+                //점프
                 if (!anim.GetBool("isJump"))
                 {
                     rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
@@ -93,7 +91,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x < max_speed * (-1))//?쇊履?
+                if (rigid.velocity.x < max_speed * (-1))//?占쏙옙占??
                 {
                     rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
                 }
@@ -102,7 +100,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x > max_speed)//?삤瑜몄そ
+                if (rigid.velocity.x > max_speed)//?占쏙옙瑜몄そ
                 {
                     rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
                 }
@@ -127,43 +125,34 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision){
         if (collision.gameObject.tag == "Item")
         {
-            //아이템 얻은 후 애니메이션이 따로 있어야할듯
+            //진짜 아이템 먹었을 때 animation 바꿈
             anim.SetBool("isItemGet", true);
-            //changeSprite(itemPlayer);
             collision.gameObject.SetActive(false);
-        }
-    }
-    
-    void changeSprite(Sprite sprite)
-    {
-        if (sprite != null)
-        {
-            sprite_renderer.sprite = sprite;
         }
     }
 
     public void onDamaged(Vector2 targetPos)
     {
-        //?젅?씠?뼱 諛붽씀湲?
+        //레이어 바꾸기
         gameObject.layer = 7;
 
-        //?닾紐낇븯寃? 諛붽씀湲?
+        //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
 
-        //由ъ븸?뀡
+        //리액션
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
 
     }
 
-    //?솕硫대컰?쑝濡? ?굹媛?: 二쎌쓬
+    //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
         this.gameObject.SetActive(false);
     }
 
 
-    //踰꾪듉?쓣 ?닃????뒗吏? ?뿉?뒗吏?
+    //버튼을 눌렀는지 뗐는지
     public void jumpButtonDown()
     {
         isJumpButton = true;
@@ -189,7 +178,7 @@ public class Player : MonoBehaviour
         isRightButton = false;
     }
     
-    //踰꾪듉 踰붿쐞?뿉?꽌 ?굹媛붿쑝硫? false
+    //버튼 범위에서 나갔으면 false
     public void jumpButtonExit()
     {
         isJumpButton= false;
@@ -202,7 +191,7 @@ public class Player : MonoBehaviour
     {
         isRightButton = false;
     }
-    //踰꾪듉 踰붿쐞 ?뱾?뼱?삤硫? true
+    //버튼 범위 들어오면 true
     public void jumpButtonEnter()
     {
         if(isButtonPressed)
@@ -218,19 +207,19 @@ public class Player : MonoBehaviour
         if (isButtonPressed)
             isRightButton = true;
     }
-    //?븘?옒 3媛? 硫붿냼?뱶 : 踰꾪듉?쓣 袁? ?늻瑜닿퀬 ?엳?뒗吏? 泥댄겕
-    //踰꾪듉?쓣 ?늻瑜닿퀬 ?엳?뒗 ?룞?븞 泥섎━?븯?뒗 ?룞?옉.
+    //아래 3개 메소드 : 버튼을 꾹 누르고 있는지 체크
+    //버튼을 누르고 있는 동안 처리하는 동작.
     public void OnPointerDown()
     {
         isButtonPressed = true;
     }
 
-    //踰꾪듉 ?뼹硫? false ?쟾?솚
+    //버튼 떼면 false 전환
     public void OnPointerUp()
     {
         isButtonPressed = false;
     }
-    //踰꾪듉 踰붿쐞 ?굹媛? ?븣 
+    //버튼 범위 나갈 때 
     public void OnPointerExit()
     {
         isButtonPressed = false;        

@@ -6,10 +6,10 @@ public class ObstacleUp : MonoBehaviour
 {
     [SerializeField] 
     private float speed = 3f;
+    private bool isTriggered = false;
     Rigidbody2D rigid;
-    bool isTriggered = false;
 
-    void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.CompareTag("Player"))
         {
             isTriggered = true;   
@@ -22,7 +22,7 @@ public class ObstacleUp : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
     }
