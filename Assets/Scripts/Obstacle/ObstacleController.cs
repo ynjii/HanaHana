@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class ObstacleController : MonoBehaviour
 {
-    private bool isTriggered = false;
 
     public enum Direction
         {
@@ -17,12 +16,12 @@ public class ObstacleController : MonoBehaviour
             Right
         }
 
-    protected Direction currentDirection;
-    protected float distance;
-    protected float speed;
-    private bool isMoving;
-    private Vector3 initialPosition;
-    private float movedDistance = 0f;
+    protected Direction currentDirection; //어디로 움직일지
+    protected float distance; 
+    protected float speed; 
+    private bool isMoving = false; //isTrigger 처리된 collider랑 부딪히면 true;
+    private Vector3 initialPosition; 
+    private float movedDistance = 0f; 
     public Rigidbody2D rigid;
 
     /// <summary>
@@ -61,7 +60,6 @@ public class ObstacleController : MonoBehaviour
         {
             ObstacleMove();
             movedDistance = Vector3.Distance(initialPosition, transform.position);
-        
         }
     }
 
