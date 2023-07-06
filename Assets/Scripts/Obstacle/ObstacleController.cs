@@ -20,6 +20,9 @@ public class ObstacleController : MonoBehaviour
     protected Direction currentDirection;
     protected float distance;
     protected float speed;
+    private bool isMoving;
+    private Vector3 initialPosition;
+    private float movedDistance = 0f;
     public Rigidbody2D rigid;
 
     /// <summary>
@@ -30,29 +33,35 @@ public class ObstacleController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.CompareTag("Player"))
         {
-            isTriggered = true;   
+            isMoving = true;   
             this.gameObject.tag = "Enemy";
         }
     }
 
     /// <summary>
     /// 화면 나가면 죽음
+    /// 현재 setActive(false);가 통하지 않는 버그가 있습니다 ㅠ
+    /// void onBecomInvisible까지는 잘됨.
+    /// 일단 보고 tilemapRnderer 사용하는 것도 하나의 방법같아요.
     /// </summary>
     void OnBecameInvisible()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     protected void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        initialPosition = transform.position;
     }
 
     private void Update() 
     {
-        if(isTriggered)
+        if(isMoving && movedDistance < distance)
         {
             ObstacleMove();
+            movedDistance = Vector3.Distance(initialPosition, transform.position);
+        
         }
     }
 
@@ -61,29 +70,23 @@ public class ObstacleController : MonoBehaviour
     /// </summary>
     private void ObstacleMove()
     {
-        Vector3 velocity = Vector3.zero;
+        Vector3 movement = Vector3.zero;
         switch (currentDirection)
         {
             case Direction.Up:
-                velocity = Vector3.up * speed;
+                movement = Vector3.up * speed * Time.deltaTime;
                 break;
             case Direction.Down:
-                velocity = Vector3.down * speed;
+                movement = Vector3.down * speed * Time.deltaTime;
                 break;
             case Direction.Left:
-                velocity = Vector3.left * speed;
+                movement = Vector3.left * speed * Time.deltaTime;
                 break;
             case Direction.Right:
-                velocity = Vector3.right * speed;
+                movement = Vector3.right * speed * Time.deltaTime;
                 break;
         }
 
-        rigid.velocity = velocity; 
-
-        //
-         if (Vector3.Distance(transform.position, transform.position + velocity * Time.deltaTime) >= distance)
-        {
-            rigid.velocity = Vector3.zero;
-        }
+        transform.position += movement;
     }
 }
