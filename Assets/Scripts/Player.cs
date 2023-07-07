@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x < max_speed * (-1))//?占쏙옙占??
+                if (rigid.velocity.x < max_speed * (-1))//왼쪽
                 {
                     rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
                 }
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
 
-                if (rigid.velocity.x > max_speed)//?占쏙옙瑜몄そ
+                if (rigid.velocity.x > max_speed)//오른쪽
                 {
                     rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
                 }
@@ -117,13 +117,13 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
-            //寃뚯엫 留ㅻ땲???寃뚯엫?ㅻ쾭 泥섎━ ?ㅽ뻾
+            //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
 
         if(collision.gameObject.tag=="Flag")
         {
-            //由ъ뒪???꾩튂瑜??대떦 Flag ?꾩튂濡??ъ꽕??
+            //리스폰 위치를 해당 Flag 위치로 재설정
             Vector3 flagPosition=collision.gameObject.transform.position;
             PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
             playerRespawn.SetRespawnPoint(flagPosition);
