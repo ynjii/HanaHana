@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 여기서 Obstacle 상태 정의.
+/// 조금만 왼쪽으로 움직인다는 소리
 /// </summary>
-public class ObstacleDown : ObstacleController
+public class SignMoveLeft : ObstacleController
 {
     [SerializeField]
-    private float dis = 10f;
+    private float dis = 5f;
     [SerializeField]
     private float spd = 5f;
 
     public new void Awake()
     {
         base.Awake();
-        currentDirection = Direction.Down;
+        currentDirection = Direction.Left;
         distance = dis;
         speed = spd;
     }

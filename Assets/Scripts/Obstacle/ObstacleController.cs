@@ -16,12 +16,16 @@ public class ObstacleController : MonoBehaviour
             Right
         }
 
+    //protected 처리된 애들은 받아올 애들
     protected Direction currentDirection; //어디로 움직일지
     protected float distance; 
     protected float speed; 
+    protected string tagName = "Enemy";
+    
     private bool isMoving = false; //isTrigger 처리된 collider랑 부딪히면 true;
     private Vector3 initialPosition; 
     private float movedDistance = 0f; 
+    
     public Rigidbody2D rigid;
 
     /// <summary>
@@ -29,11 +33,11 @@ public class ObstacleController : MonoBehaviour
     /// 부딪혔다는 사실을 isTriggred로 알리고, tag도 부딪히면 죽게 Enemy로 바꿔줍니다.
     /// 만약 isTriggred 처리된 collider를 사용하고 싶다면 주의해서 사용해주셔야해요.
     /// </summary>
-    private void OnTriggerEnter2D(Collider2D collision) {
+    protected void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.CompareTag("Player"))
         {
             isMoving = true;   
-            this.gameObject.tag = "Enemy";
+            this.gameObject.tag = tagName;
         }
     }
 
@@ -50,7 +54,6 @@ public class ObstacleController : MonoBehaviour
 
     protected void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
         initialPosition = transform.position;
     }
 
