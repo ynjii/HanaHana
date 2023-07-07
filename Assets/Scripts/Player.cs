@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        max_speed = 3;
-        jump_power = 8;
+        max_speed = 4;
+        jump_power = 10;
     }
 
     // Update is called once per frame
