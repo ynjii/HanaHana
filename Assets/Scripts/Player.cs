@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        max_speed = 3;
-        jump_power = 8;
+        max_speed = 5;
+        jump_power = 15;
 
 
     }
@@ -35,9 +35,11 @@ public class Player : MonoBehaviour
         //점프
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
         {
-            rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
         }
+      
+
         //브레이크
         if (Input.GetButtonUp("Horizontal"))
         {
@@ -84,7 +86,8 @@ public class Player : MonoBehaviour
                 //점프
                 if (!anim.GetBool("isJump"))
                 {
-                    rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
                 }
             }

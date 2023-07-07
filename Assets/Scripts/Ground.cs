@@ -9,7 +9,7 @@ public class Ground : MonoBehaviour
     {
         // Physics Material 2D 생성
         physicsMaterial = new PhysicsMaterial2D();
-        physicsMaterial.friction = 0.1f; // 마찰력 설정
+        physicsMaterial.friction = 0f; // 마찰력 설정
         physicsMaterial.bounciness = 0.2f; // 탄성 계수 설정
 
         // Collider2D에 Physics Material 2D 할당
