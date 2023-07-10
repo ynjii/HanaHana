@@ -120,14 +120,23 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
+    }
 
-        if(collision.gameObject.tag=="Flag")
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Flag"))
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
-            Vector3 flagPosition=collision.gameObject.transform.position;
-            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
-            playerRespawn.SetRespawnPoint(flagPosition);
+            Vector3 flagPosition = collision.gameObject.transform.position;
+            GameManager.respawnPoint = flagPosition;
         }
+
+        else if (collision.gameObject.CompareTag("Finish"))
+        {
+            GameManager.instance.OnPlayerFinish();
+        }
+
+        
     }
 
     void onDamaged(Vector2 targetPos)
@@ -225,4 +234,3 @@ public class Player : MonoBehaviour
         isButtonPressed = true;
     }
 }
-
