@@ -1233,7 +1233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &921199078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2650,6 +2650,10 @@ PrefabInstance:
     - target: {fileID: 228034918437477098, guid: ddd6da903778d428bb194ca8c85ba8f9, type: 3}
       propertyPath: m_Name
       value: PopupText
+      objectReference: {fileID: 0}
+    - target: {fileID: 228034918437477098, guid: ddd6da903778d428bb194ca8c85ba8f9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 228034918437477102, guid: ddd6da903778d428bb194ca8c85ba8f9, type: 3}
       propertyPath: m_Pivot.x
