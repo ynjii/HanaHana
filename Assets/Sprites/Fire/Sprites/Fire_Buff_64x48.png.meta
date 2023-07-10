@@ -1,7 +1,94 @@
 fileFormatVersion: 2
-guid: 62bc2a5ce2980fa459467e3084ca749f
+guid: d5ff55a84c6096e418300c7a20acfac9
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -8437792403702575450
+    second: Fire_Buff_64x48_0
+  - first:
+      213: 3322945532434844823
+    second: Fire_Buff_64x48_1
+  - first:
+      213: 745687578695084341
+    second: Fire_Buff_64x48_2
+  - first:
+      213: 5670858412777706161
+    second: Fire_Buff_64x48_3
+  - first:
+      213: -2648084617017727791
+    second: Fire_Buff_64x48_4
+  - first:
+      213: -1901616327327281957
+    second: Fire_Buff_64x48_5
+  - first:
+      213: -1194936349733665052
+    second: Fire_Buff_64x48_6
+  - first:
+      213: 3287266196238716141
+    second: Fire_Buff_64x48_7
+  - first:
+      213: 5556462100887858678
+    second: Fire_Buff_64x48_8
+  - first:
+      213: 4773417066565217312
+    second: Fire_Buff_64x48_9
+  - first:
+      213: -3129369624023187462
+    second: Fire_Buff_64x48_10
+  - first:
+      213: -8374086254019258004
+    second: Fire_Buff_64x48_11
+  - first:
+      213: 3393959942130703241
+    second: Fire_Buff_64x48_12
+  - first:
+      213: 3618811787221146087
+    second: Fire_Buff_64x48_0
+  - first:
+      213: -6766858190364353419
+    second: Fire_Buff_64x48_1
+  - first:
+      213: 8312808965140733070
+    second: Fire_Buff_64x48_2
+  - first:
+      213: -7092537851719755917
+    second: Fire_Buff_64x48_3
+  - first:
+      213: 339382594472108588
+    second: Fire_Buff_64x48_4
+  - first:
+      213: -7711000819123507833
+    second: Fire_Buff_64x48_5
+  - first:
+      213: -7476490390270134200
+    second: Fire_Buff_64x48_6
+  - first:
+      213: 3585123598908505827
+    second: Fire_Buff_64x48_7
+  - first:
+      213: -8105583910544298462
+    second: Fire_Buff_64x48_8
+  - first:
+      213: -1674382792865580524
+    second: Fire_Buff_64x48_9
+  - first:
+      213: -4080791497195799494
+    second: Fire_Buff_64x48_10
+  - first:
+      213: -6157463674645007019
+    second: Fire_Buff_64x48_11
+  - first:
+      213: -9068427075335475725
+    second: Fire_Buff_64x48_12
+  - first:
+      213: 3784294892058262995
+    second: Fire_Buff_64x48_13
+  - first:
+      213: -6382999142943797354
+    second: Fire_Buff_64x48_14
+  - first:
+      213: 287109352012039483
+    second: Fire_Buff_64x48_15
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -47,7 +134,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -63,14 +150,14 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -82,7 +169,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -90,11 +177,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Server
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,7 +193,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,7 +205,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,421 +228,337 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Object__0
+      name: Fire_Buff_64x48_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
-        width: 32
-        height: 32
+        y: 192
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3015ed79961729b4796ac8a28417a2f3
-      internalID: -83214171
+      spriteID: 7e9105ea52a983230800000000000000
+      internalID: -8437792403702575450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__4
+      name: Fire_Buff_64x48_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
-        width: 32
-        height: 32
+        x: 48
+        y: 192
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 673ae7fcb9e4083408ba72cc30064c73
-      internalID: -1868166354
+      spriteID: 57cd3e5045a4712a0800000000000000
+      internalID: 3322945532434844823
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__5
+      name: Fire_Buff_64x48_2
       rect:
         serializedVersion: 2
-        x: 161
-        y: 96
-        width: 32
-        height: 32
+        x: 96
+        y: 192
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0c44e1172d805044ad4f05ced9418aa
-      internalID: -1593465554
+      spriteID: e8c55ece5b70d5370800000000000000
+      internalID: 745687578695084341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__6
+      name: Fire_Buff_64x48_3
       rect:
         serializedVersion: 2
-        x: 193
-        y: 96
-        width: 32
-        height: 32
+        x: 144
+        y: 192
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d7fc2fe3dab9304cbcaeb3cf11c07ee
-      internalID: 1911665166
+      spriteID: 3775b38d66e329d90800000000000000
+      internalID: 5670858412777706161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__7
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 126e0f074a5f70e4ebc2331a6589f562
-      internalID: 579012249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Object__8
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74531ed4690f94e43b27887d904c7fac
-      internalID: 392179547
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Object__10
+      name: Fire_Buff_64x48_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 63
-        width: 32
-        height: 32
+        y: 128
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dab3d0e79f8221f43a7d8f56ca549fd0
-      internalID: -362167013
+      spriteID: c22e57aebaab5b400800000000000000
+      internalID: -2648084617017727791
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__11
+      name: Fire_Buff_64x48_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 63
-        width: 32
-        height: 32
+        x: 48
+        y: 128
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a96dabbec96f7d845971455e787c865e
-      internalID: -1058425600
+      spriteID: 78da5611c950df490800000000000000
+      internalID: -1901616327327281957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__16
+      name: Fire_Buff_64x48_6
       rect:
         serializedVersion: 2
-        x: 193
+        x: 96
+        y: 128
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 848b3592a9b2e3890800000000000000
+      internalID: -1194936349733665052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Buff_64x48_7
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 128
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3eebfcc1beae0c130800000000000000
+      internalID: 3287266196238716141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Buff_64x48_8
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 64
-        width: 32
-        height: 32
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 279dbaec8360cd146967011faa151efa
-      internalID: 1050459270
+      spriteID: 22ea2eae06e238f80800000000000000
+      internalID: 5556462100887858678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__21
+      name: Fire_Buff_64x48_9
       rect:
         serializedVersion: 2
-        x: 32
-        y: 34
-        width: 32
-        height: 32
+        x: 48
+        y: 64
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4c6f4237658a3a41b7238876c797e5b
-      internalID: 677684528
+      spriteID: 41a783d98b563c8e0800000000000000
+      internalID: 4773417066565217312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__23
+      name: Fire_Buff_64x48_10
       rect:
         serializedVersion: 2
-        x: 103
-        y: 34
-        width: 32
-        height: 32
+        x: 96
+        y: 64
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81565cd552fd7464b93633279a9c323d
-      internalID: 357681235
+      spriteID: a3cb53711cd1e57c0800000000000000
+      internalID: -3129369624023187462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__25
+      name: Fire_Buff_64x48_11
       rect:
         serializedVersion: 2
-        x: 172
-        y: 32
-        width: 32
-        height: 32
+        x: 144
+        y: 64
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e06dc3588fda894290fe8e17cb96f64
-      internalID: 1195114837
+      spriteID: 555b96b596b4c8aa0800000000000000
+      internalID: -8374086254019258004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__26
+      name: Fire_Buff_64x48_12
       rect:
         serializedVersion: 2
-        x: 206
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8259dfb35a5ba5745a9419200d06be01
-      internalID: 1433409580
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Object__30
-      rect:
-        serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40b33652133c6d4468b3f3ae6cf06c1c
-      internalID: -2093528099
+      spriteID: 3fd281f1f99762280800000000000000
+      internalID: 3393959942130703241
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__32
+      name: Fire_Buff_64x48_13
       rect:
         serializedVersion: 2
-        x: 65
+        x: 48
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37f57b9a89be79e42a7512abd0f599d5
-      internalID: 744924832
+      spriteID: 3dd357e7724848430800000000000000
+      internalID: 3784294892058262995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__33
+      name: Fire_Buff_64x48_14
       rect:
         serializedVersion: 2
-        x: 97
-        y: 2
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21cec8ae7573d7d4bbb4a565263241fb
-      internalID: -1114893736
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Object__34
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 1
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 115173f912c65d44aba648bd34707982
-      internalID: 1127710013
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Object__36
-      rect:
-        serializedVersion: 2
-        x: 193
+        x: 96
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3fc28db805bfba45b4be6dba141f599
-      internalID: 2123356951
+      spriteID: 69f463b19180b67a0800000000000000
+      internalID: -6382999142943797354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Object__37
+      name: Fire_Buff_64x48_15
       rect:
         serializedVersion: 2
-        x: 227
+        x: 144
         y: 0
-        width: 32
-        height: 32
+        width: 48
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5236afd1b730658448a55f44eb742c8f
-      internalID: -583541920
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Object__38
-      rect:
-        serializedVersion: 2
-        x: 265
-        y: 2
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dabea0d6725a3d34d97fff01d5bf5fed
-      internalID: -1902373038
+      spriteID: b35ce5a3f640cf300800000000000000
+      internalID: 287109352012039483
       vertices: []
       indices: 
       edges: []
@@ -559,46 +574,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Object__11: -1058425600
-      Object__3: -1842604389
-      Object__28: -1919862186
-      Object__33: -1114893736
-      Object__0: -83214171
-      Object__2: -1744522812
-      Object__1: 979010906
-      Object__36: 2123356951
-      Object__12: 59430696
-      Object__32: 744924832
-      Object__31: 1355104448
-      Object__38: -1902373038
-      Object__8: 392179547
-      Object__5: -1593465554
-      Object__13: -237592936
-      Object__16: 1050459270
-      Object__10: -362167013
-      Object__27: -351898150
-      Object__39: 1878615448
-      Object__6: 1911665166
-      Object__25: 1195114837
-      Object__9: -618441077
-      Object__17: -401897702
-      Object__19: -1360840515
-      Object__4: -1868166354
-      Object__35: 64363129
-      Object__26: 1433409580
-      Object__29: -362534853
-      Object__22: -48506234
-      Object__34: 1127710013
-      Object__14: 2024195064
-      Object__23: 357681235
-      Object__15: 770427497
-      Object__30: -2093528099
-      Object__7: 579012249
-      Object__24: -2075859362
-      Object__18: 810690144
-      Object__21: 677684528
-      Object__20: 551869177
-      Object__37: -583541920
+      Fire_Buff_64x48_2: 745687578695084341
+      Fire_Buff_64x48_3: 5670858412777706161
+      Fire_Buff_64x48_13: 3784294892058262995
+      Fire_Buff_64x48_8: 5556462100887858678
+      Fire_Buff_64x48_6: -1194936349733665052
+      Fire_Buff_64x48_11: -8374086254019258004
+      Fire_Buff_64x48_1: 3322945532434844823
+      Fire_Buff_64x48_5: -1901616327327281957
+      Fire_Buff_64x48_12: 3393959942130703241
+      Fire_Buff_64x48_4: -2648084617017727791
+      Fire_Buff_64x48_15: 287109352012039483
+      Fire_Buff_64x48_7: 3287266196238716141
+      Fire_Buff_64x48_14: -6382999142943797354
+      Fire_Buff_64x48_10: -3129369624023187462
+      Fire_Buff_64x48_9: 4773417066565217312
+      Fire_Buff_64x48_0: -8437792403702575450
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
