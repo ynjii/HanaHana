@@ -61,21 +61,27 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("isWalk", true);
         }
+
+        // 화면 위에 손가락이 없는지 확인
+        if (Input.touchCount == 0)
+        {
+            isButtonPressed = false;
+            isJumpButton=false;
+            isLeftButton=false;
+            isRightButton=false;
+   
+        }
+        // 화면 위에 손가락이 있는지 확인
+        if (Input.touchCount > 0)
+        {
+            isButtonPressed = true;
+        }
     }
     private void FixedUpdate()//물리 update
     {
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
-        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-        
-        if (rigid.velocity.x> max_speed)//오른쪽
-        {
-            rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
-        }
-        else if (rigid.velocity.x < max_speed*(-1))//왼쪽
-        {
-            rigid.velocity = new Vector2(max_speed*(-1), rigid.velocity.y);
-        }
+        rigid.velocity = new Vector2(max_speed*h, rigid.velocity.y);
 
         //버튼 이동
         if (isButtonPressed)
@@ -93,21 +99,11 @@ public class Player : MonoBehaviour
             }
             if (isLeftButton)
             {
-                rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
-
-                if (rigid.velocity.x < max_speed * (-1))
-                {
-                    rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
-                }
+                rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
             }
             if (isRightButton)
             {
-                rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
-
-                if (rigid.velocity.x > max_speed)
-                {
-                    rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
-                }
+                rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
             }
         }
 
@@ -163,77 +159,34 @@ public class Player : MonoBehaviour
 
 
     //버튼을 눌렀는지 뗐는지
-    public void jumpButtonDown()
+    public void jumpButtonTrue()
     {
         isJumpButton = true;
     }
-    public void jumpButtonUp()
+    public void jumpButtonFalse()
     {
         isJumpButton = false;
     }
-    public void leftButtonDown()
+    public void leftButtonTrue()
     {
         isLeftButton = true;
+        sprite_renderer.flipX = true;
     }
-    public void leftButtonUp()
+    public void leftButtonFalse()
     {
         isLeftButton = false;
+        sprite_renderer.flipX = false;
     }
-    public void rightButtonDown()
+    public void rightButtonTrue()
     {
         isRightButton = true;
     }
-    public void rightButtonUp()
+    public void rightButtonFalse()
     {
         isRightButton = false;
     }
     
-    //버튼 범위에서 나갔으면 false
-    public void jumpButtonExit()
-    {
-        isJumpButton= false;
-    }
-    public void leftButtonExit()
-    {
-        isLeftButton = false;
-    }
-    public void rightButtonExit()
-    {
-        isRightButton = false;
-    }
-    //버튼 범위 들어오면 true
-    public void jumpButtonEnter()
-    {
-            isJumpButton = true;
-    }
-    public void leftButtonEnter()
-    {
-            isLeftButton = true;
-    }
-    public void rightButtonEnter()
-    {
-            isRightButton = true;
-    }
-    //아래 3개 메소드 : 버튼을 꾹 누르고 있는지 체크
-    //버튼을 누르고 있는 동안 처리하는 동작.
-    public void OnPointerDown()
-    {
-        isButtonPressed = true;
-    }
 
-    //버튼 떼면 false 전환
-    public void OnPointerUp()
-    {
-        isButtonPressed = false;
-    }
-    //버튼 범위 나갈 때 
-    public void OnPointerExit()
-    {
-        isButtonPressed = false;        
-    }
-    public void OnPointerEnter()
-    {
-        isButtonPressed = true;
-    }
+
 }
 
