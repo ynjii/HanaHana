@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 307637962}
   - component: {fileID: 307637961}
   - component: {fileID: 307637960}
+  - component: {fileID: 307637963}
   m_Layer: 6
   m_Name: t_FallingBlockABC
   m_TagString: Platform
@@ -585,6 +586,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &307637963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307637957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &513074560
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,81 +733,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: jumpButtonEnter
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerEnter
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: jumpButtonExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: jumpButtonDown
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerDown
+          m_MethodName: jumpButtonTrue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -810,7 +755,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: jumpButtonUp
+          m_MethodName: jumpButtonFalse
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -820,9 +765,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerUp
+          m_MethodName: jumpButtonFalse
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1495,7 +1444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &921199078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4048,13 +3997,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 3
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: leftButtonUp
+          m_MethodName: leftButtonTrue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4064,9 +4013,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerUp
+          m_MethodName: leftButtonFalse
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4082,47 +4035,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: leftButtonExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: leftButtonDown
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerDown
+          m_MethodName: leftButtonFalse
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4138,19 +4051,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: leftButtonEnter
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerEnter
+          m_MethodName: leftButtonTrue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4295,25 +4196,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 1
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: rightButtonExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerExit
+          m_MethodName: rightButtonTrue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4329,47 +4218,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: rightButtonUp
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerUp
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: rightButtonDown
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1458695391}
-          m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerDown
+          m_MethodName: rightButtonFalse
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4385,7 +4234,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: rightButtonEnter
+          m_MethodName: rightButtonTrue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4395,9 +4244,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 1458695391}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
-          m_MethodName: OnPointerEnter
+          m_MethodName: rightButtonFalse
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
