@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
         //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < 0))
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
@@ -90,9 +90,8 @@ public class Player : MonoBehaviour
             if (isJumpButton)
             {
                 //점프
-                if (!anim.GetBool("isJump"))
+                if (!anim.GetBool("isJump") && !(rigid.velocity.y < 0))
                 {
-
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
                 }
@@ -139,9 +138,9 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
-        //레이어 바꾸기
-        gameObject.layer = 7;
-
+        //레이어변경
+        this.gameObject.layer = 7;
+        
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
 
