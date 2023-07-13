@@ -139,9 +139,9 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
-        //레이어 바꾸기
-        gameObject.layer = 7;
-
+        //레이어변경
+        this.gameObject.layer = 7;
+       
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
 
