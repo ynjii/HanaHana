@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
         //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < 0))
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             if (isJumpButton)
             {
                 //점프
-                if (!anim.GetBool("isJump") && !(rigid.velocity.y < 0))
+                if (!anim.GetBool("isJump") && !(rigid.velocity.y < -0.5f))
                 {
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
