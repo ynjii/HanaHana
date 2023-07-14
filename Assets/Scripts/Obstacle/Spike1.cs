@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class Spike1 : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -22,3 +22,4 @@ public class Spike1 : MonoBehaviour
         }
     }
 }
+*/

@@ -1,93 +1,156 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// 움직이는 obstacle들의 부모 스크립트입니다.
 /// </summary>
 public class ObstacleController : MonoBehaviour
-{
+{   
+    //추후 define에 넣을 예정
+    public enum ObType 
+    {
+        Move, //단방향으로 움직임
+        MoveSide, //왔다갔다
+        ChangeStatus, //레이어랑 tag 바꿈
+        ChangeColor //색깔 바꿈
+    }
 
-    public enum Direction
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
+    public enum ObDirection
+    {
+        still, //안움직임
+        Up,
+        Down,
+        Left,
+        Right
+    }
+    
+    [SerializeField]
+    private ObType obType; //obstacle의 type을 inspector에서 받아옴.
+    [SerializeField]
+    private ObDirection obDirection; // direction을 inspector에서 받아옴. (필요할시)
 
-    //protected 처리된 애들은 받아올 애들
-    protected Direction currentDirection; //어디로 움직일지
-    protected float distance; 
-    protected float speed; 
-    protected string tagName = "Enemy";
+    [SerializeField]
+    private float distance = 0f; //움직일 거리, obstacle마다 다를 것 같아서 일단은 이렇게 해뒀습니다. 
+    
+    [SerializeField]
+    private float speed = 11f; //속도
+    
+    [SerializeField]
+    private string tagName = "Untagged";
+
+    [SerializeField]
+    private int layerIndex = 0;
     
     private bool isMoving = false; //isTrigger 처리된 collider랑 부딪히면 true;
-    private Vector3 initialPosition; 
+    private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private float movedDistance = 0f; 
     
-    public Rigidbody2D rigid;
+    private Rigidbody2D rigid;
+    private Tilemap tilemap;
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
     /// 부딪혔다는 사실을 isTriggred로 알리고, tag도 부딪히면 죽게 Enemy로 바꿔줍니다.
     /// 만약 isTriggred 처리된 collider를 사용하고 싶다면 주의해서 사용해주셔야해요.
     /// </summary>
-    protected void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.CompareTag("Player"))
         {
             isMoving = true;   
-            this.gameObject.tag = tagName;
         }
     }
 
-    /// <summary>
-    /// 화면 나가면 죽음
-    /// 현재 setActive(false);가 통하지 않는 버그가 있습니다 ㅠ
-    /// void onBecomInvisible까지는 잘됨.
-    /// 일단 보고 tilemapRnderer 사용하는 것도 하나의 방법같아요.
-    /// </summary>
-    void OnBecameInvisible()
-    {
-        gameObject.SetActive(false);
-    }
-
-    protected void Awake()
-    {
+    private void Awake(){
         initialPosition = transform.position;
+        tilemap = GetComponent<Tilemap>();
     }
 
     private void Update() 
     {
-        if(isMoving && movedDistance < distance)
+        if(isMoving)
         {
-            ObstacleMove();
-            movedDistance = Vector3.Distance(initialPosition, transform.position);
+            ObstacleMove(obType);
         }
     }
 
+
+    private void ObstacleMove(ObType obType){
+        switch (obType)  
+        {
+            case ObType.Move:
+                SimpleMove(obDirection, speed);
+                break;
+            case ObType.MoveSide:
+                
+                break;
+            case ObType.ChangeStatus:
+                ChangeStatus(tagName, layerIndex);
+            break;
+            case ObType.ChangeColor:
+                Debug.Log("됨");
+                tilemap.color = new Color(1, 1, 1, 0.8f); //투명하게 바꾸기. 추후 수정.
+            break;
+        }
+    }
     /// <summary>
     /// 이제 주어진 방향, 속도, 거리만큼 obstacle이 움직입니다. 
     /// </summary>
-    private void ObstacleMove()
-    {
+    private void SimpleMove(ObDirection obDirection, float speed)
+    {   
+        if(movedDistance > distance){
+            isMoving = false;
+        }
+
         Vector3 movement = Vector3.zero;
-        switch (currentDirection)
-        {
-            case Direction.Up:
+        switch (obDirection)
+        {   
+            case ObDirection.still:
+                break;
+            case ObDirection.Up:
                 movement = Vector3.up * speed * Time.deltaTime;
                 break;
-            case Direction.Down:
+            case ObDirection.Down:
                 movement = Vector3.down * speed * Time.deltaTime;
                 break;
-            case Direction.Left:
+            case ObDirection.Left:
                 movement = Vector3.left * speed * Time.deltaTime;
                 break;
-            case Direction.Right:
+            case ObDirection.Right:
                 movement = Vector3.right * speed * Time.deltaTime;
                 break;
         }
 
         transform.position += movement;
+        movedDistance = Vector3.Distance(initialPosition, transform.position);
     }
+    /// <summary>
+    /// 좌우로 왔다갔다 움직임
+    /// </summary>
+    private void MoveSide(){
+        
+    }
+
+    //tag 와 layer을 변경
+    private void ChangeStatus(string tagName, int layerIndex)
+    {
+        this.gameObject.tag = tagName;
+        this.gameObject.layer = layerIndex;
+    }
+
+    /// <summary>
+    /// 화면 나가면 죽음
+    /// 화면 나오면 살아남
+    /// </summary>
+    private void OnBecameInvisible()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnBecameVisible() {
+        gameObject.SetActive(true);
+    }
+
+
 }
