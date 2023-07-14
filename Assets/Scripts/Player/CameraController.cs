@@ -17,13 +17,15 @@ public class CameraController : MonoBehaviour
     {
         cameraState = Define.CameraState.Player;
         player = GameObject.FindWithTag("Player").transform;
-        delta = new Vector3(0f, 0f, -1f);
+        delta = new Vector3(0f, 3f, -1f);
     }
 
     void LateUpdate()
     {
+        // 플레이어가 피격당했다면 더 이상 따라가지 않음
+        // if (player) return;
+        
         // 카메라의 position은 플레이어의 position에 델타값을 더한 값
         transform.position = player.transform.position + delta;
-        transform.LookAt(player.transform);
     }
 }
