@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     {
         cameraState = Define.CameraState.Player;
         player = GameObject.FindWithTag("Player").transform;
-        delta = new Vector3(0f, 0f, 5f);
+        delta = new Vector3(0f, 0f, -1f);
     }
 
     void LateUpdate()

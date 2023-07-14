@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
+
     public bool isJumpButton=false;
     public bool isLeftButton = false;
     public bool isRightButton = false;
@@ -22,19 +23,23 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        max_speed = 4;
-        jump_power = 10;
+        max_speed = 5;
+        jump_power = 15;
+
+
     }
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
         //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
         {
-            rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
         }
+      
+
         //브레이크
         if (Input.GetButtonUp("Horizontal"))
         {
@@ -56,21 +61,27 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("isWalk", true);
         }
+
+        // 화면 위에 손가락이 없는지 확인
+        if (Input.touchCount == 0)
+        {
+            isButtonPressed = false;
+            isJumpButton=false;
+            isLeftButton=false;
+            isRightButton=false;
+   
+        }
+        // 화면 위에 손가락이 있는지 확인
+        if (Input.touchCount > 0)
+        {
+            isButtonPressed = true;
+        }
     }
     private void FixedUpdate()//물리 update
     {
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
-        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-        
-        if (rigid.velocity.x> max_speed)//오른쪽
-        {
-            rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
-        }
-        else if (rigid.velocity.x < max_speed*(-1))//왼쪽
-        {
-            rigid.velocity = new Vector2(max_speed*(-1), rigid.velocity.y);
-        }
+        rigid.velocity = new Vector2(max_speed*h, rigid.velocity.y);
 
         //버튼 이동
         if (isButtonPressed)
@@ -79,51 +90,37 @@ public class Player : MonoBehaviour
             if (isJumpButton)
             {
                 //점프
-                if (!anim.GetBool("isJump"))
+                if (!anim.GetBool("isJump") && !(rigid.velocity.y < -0.5f))
                 {
-                    rigid.AddForce(Vector2.up * jump_power, ForceMode2D.Impulse);
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
                 }
             }
             if (isLeftButton)
             {
-                rigid.AddForce(Vector2.right * -1, ForceMode2D.Impulse);
-
-                if (rigid.velocity.x < max_speed * (-1))//?占쏙옙占??
-                {
-                    rigid.velocity = new Vector2(max_speed * (-1), rigid.velocity.y);
-                }
+                rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
             }
             if (isRightButton)
             {
-                rigid.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
-
-                if (rigid.velocity.x > max_speed)//?占쏙옙瑜몄そ
-                {
-                    rigid.velocity = new Vector2(max_speed, rigid.velocity.y);
-                }
+                rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
             }
         }
 
     }
-
+ 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Platform")
-        {
-            anim.SetBool("isJump", false);
-        }
-
+        
         if(collision.gameObject.tag == "Enemy")
         { 
             onDamaged(collision.transform.position);
-            //寃뚯엫 留ㅻ땲???寃뚯엫?ㅻ쾭 泥섎━ ?ㅽ뻾
+            //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
 
         if(collision.gameObject.tag=="Flag")
         {
-            //由ъ뒪???꾩튂瑜??대떦 Flag ?꾩튂濡??ъ꽕??
+            //리스폰 위치를 해당 Flag 위치로 재설정
             Vector3 flagPosition=collision.gameObject.transform.position;
             PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
             playerRespawn.SetRespawnPoint(flagPosition);
@@ -141,9 +138,9 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
-        //레이어 바꾸기
-        gameObject.layer = 7;
-
+        //레이어변경
+        this.gameObject.layer = 7;
+        
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
 
@@ -161,77 +158,34 @@ public class Player : MonoBehaviour
 
 
     //버튼을 눌렀는지 뗐는지
-    public void jumpButtonDown()
+    public void jumpButtonTrue()
     {
         isJumpButton = true;
     }
-    public void jumpButtonUp()
+    public void jumpButtonFalse()
     {
         isJumpButton = false;
     }
-    public void leftButtonDown()
+    public void leftButtonTrue()
     {
         isLeftButton = true;
+        sprite_renderer.flipX = true;
     }
-    public void leftButtonUp()
+    public void leftButtonFalse()
     {
         isLeftButton = false;
+        sprite_renderer.flipX = false;
     }
-    public void rightButtonDown()
+    public void rightButtonTrue()
     {
         isRightButton = true;
     }
-    public void rightButtonUp()
+    public void rightButtonFalse()
     {
         isRightButton = false;
     }
     
-    //버튼 범위에서 나갔으면 false
-    public void jumpButtonExit()
-    {
-        isJumpButton= false;
-    }
-    public void leftButtonExit()
-    {
-        isLeftButton = false;
-    }
-    public void rightButtonExit()
-    {
-        isRightButton = false;
-    }
-    //버튼 범위 들어오면 true
-    public void jumpButtonEnter()
-    {
-            isJumpButton = true;
-    }
-    public void leftButtonEnter()
-    {
-            isLeftButton = true;
-    }
-    public void rightButtonEnter()
-    {
-            isRightButton = true;
-    }
-    //아래 3개 메소드 : 버튼을 꾹 누르고 있는지 체크
-    //버튼을 누르고 있는 동안 처리하는 동작.
-    public void OnPointerDown()
-    {
-        isButtonPressed = true;
-    }
 
-    //버튼 떼면 false 전환
-    public void OnPointerUp()
-    {
-        isButtonPressed = false;
-    }
-    //버튼 범위 나갈 때 
-    public void OnPointerExit()
-    {
-        isButtonPressed = false;        
-    }
-    public void OnPointerEnter()
-    {
-        isButtonPressed = true;
-    }
+
 }
 
