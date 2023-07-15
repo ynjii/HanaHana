@@ -181,12 +181,11 @@ public class Player : MonoBehaviour
     }
     public void leftButtonFalse()
     {
-        isLeftButton = false;
-        sprite_renderer.flipX = false;
+        isLeftButton = false;       
     }
     public void rightButtonTrue()
     {
-       
+        sprite_renderer.flipX = false;
         isRightButton = true;
     }
     public void rightButtonFalse()
