@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Define;
 
 public class Player : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
-
+    public Define.PlayerState player_state;
     public bool isJumpButton=false;
     public bool isLeftButton = false;
     public bool isRightButton = false;
@@ -25,8 +25,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         max_speed = 5;
         jump_power = 15;
-
-
+        player_state=new PlayerState();
     }
 
     // Update is called once per frame
@@ -37,6 +36,7 @@ public class Player : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
+            player_state = PlayerState.Jump;
         }
       
 
@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
             //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
             //방향에 속력을 0으로 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+            
         }
 
         //방향전환
@@ -56,10 +57,12 @@ public class Player : MonoBehaviour
         if (rigid.velocity.normalized.x == 0)
         {
             anim.SetBool("isWalk", false);
+            player_state=PlayerState.Idle;   
         }
         else
         {
             anim.SetBool("isWalk", true);
+            player_state = PlayerState.Walk;
         }
 
         // 화면 위에 손가락이 없는지 확인
@@ -94,6 +97,7 @@ public class Player : MonoBehaviour
                 {
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
+                    player_state=PlayerState.Jump;
                 }
             }
             if (isLeftButton)
@@ -116,6 +120,7 @@ public class Player : MonoBehaviour
             onDamaged(collision.transform.position);
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
+            player_state = PlayerState.Died;
         }
 
         if(collision.gameObject.tag=="Flag")
@@ -138,6 +143,8 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
+        //맞은 상태
+        player_state = PlayerState.Damaged;
         //레이어변경
         this.gameObject.layer = 7;
         
@@ -168,6 +175,7 @@ public class Player : MonoBehaviour
     }
     public void leftButtonTrue()
     {
+        
         isLeftButton = true;
         sprite_renderer.flipX = true;
     }
@@ -178,6 +186,7 @@ public class Player : MonoBehaviour
     }
     public void rightButtonTrue()
     {
+       
         isRightButton = true;
     }
     public void rightButtonFalse()
