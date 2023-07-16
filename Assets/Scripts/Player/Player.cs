@@ -138,9 +138,10 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Flag"))
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
-            Vector3 flagPosition=collision.gameObject.transform.position;
-            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
-            playerRespawn.SetRespawnPoint(flagPosition);
+            Vector3 flagPosition = collision.gameObject.transform.position;
+            GameManager.respawnPoint = flagPosition;
+            Debug.Log("flagPosition"+flagPosition);
+            Debug.Log("respawnpoint"+GameManager.respawnPoint);
         }
         
         else if(collision.gameObject.CompareTag("Enemy"))
