@@ -34,6 +34,12 @@ public class ObstacleController : MonoBehaviour
     private ObDirection obDirection; // direction을 inspector에서 받아옴. (필요할시)
 
     [SerializeField]
+    private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
+
+    [SerializeField]
+    private float waitingTime = 0f;
+
+    [SerializeField]
     private float distance = 0f; //움직일 거리, obstacle마다 다를 것 같아서 일단은 이렇게 해뒀습니다. 
     
     [SerializeField]
@@ -47,7 +53,10 @@ public class ObstacleController : MonoBehaviour
     
     private bool isMoving = false; //isTrigger 처리된 collider랑 부딪히면 true;
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
+    private Vector3 movement = Vector3.zero;
+    
     private float movedDistance = 0f; 
+    private bool moveRight = false; //moveside할때 사용됨
 
     private float floatingSpeed = 3f; //둥둥 떠다니는 속도
     private float floatingHeight = 0.1f; // 둥둥 떠다니는 높이
@@ -56,6 +65,8 @@ public class ObstacleController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private Tilemap tilemap;
+    private PolygonCollider2D polygonCollider;
+
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
@@ -63,11 +74,22 @@ public class ObstacleController : MonoBehaviour
     /// 만약 isTriggred 처리된 collider를 사용하고 싶다면 주의해서 사용해주셔야해요.
     /// </summary>
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            isMoving = true;   
+        if(!isCol && collision.gameObject.CompareTag("Player"))
+        {   
+            StartCoroutine(SetIsmoving(true));
         }
     }
+
+    /// <summary>
+    /// 트리거 없이 collisoin에 부딪혓을때 작동하는 경우.
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(isCol && collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(SetIsmoving(true));
+        }
+    }   
     
     private void Awake(){
         initialPosition = transform.position;
@@ -75,6 +97,11 @@ public class ObstacleController : MonoBehaviour
         //트리거 없어도 계쏙 움직여야하는 애들은 시작할때 true 처리
         if(obType == ObType.Floating){
             isMoving = true;
+        }
+        else if(obType == ObType.MoveSide)
+        {
+            // rayhit 그릴때 사용
+            polygonCollider = GetComponent<PolygonCollider2D>();
         }
     }
 
@@ -94,7 +121,7 @@ public class ObstacleController : MonoBehaviour
                 SimpleMove(obDirection, speed);
                 break;
             case ObType.MoveSide:
-                
+                MoveSide();
                 break;
             case ObType.Rotate:
                 Rotate();
@@ -104,9 +131,11 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.ChangeStatus:
                 ChangeStatus(tagName, layerIndex);
+                isMoving = false;
                 break;
             case ObType.ChangeColor:
                 tilemap.color = new Color(1, 1, 1, 0.8f); //투명하게 바꾸기. 추후 색깔바꿀일 있으면 수정.
+                isMoving = false;
                 break;
         }
     }
@@ -119,7 +148,6 @@ public class ObstacleController : MonoBehaviour
             isMoving = false;
         }
 
-        Vector3 movement = Vector3.zero;
         switch (obDirection)
         {   
             case ObDirection.still:
@@ -141,11 +169,39 @@ public class ObstacleController : MonoBehaviour
         transform.position += movement;
         movedDistance = Vector3.Distance(initialPosition, transform.position);
     }
+
     /// <summary>
     /// 좌우로 왔다갔다 움직임
     /// </summary>
     private void MoveSide()
     {
+        // 이동 방향 설정
+        float moveDirection = moveRight ? 1f : -1f;
+
+        movement = Vector3.right * moveDirection * speed * Time.deltaTime;
+        transform.position += movement;
+
+        // 지형체크
+        Vector2 bottomEdge;
+        
+        if(moveRight) //오른쪽을 향하고 있다면
+        {
+            bottomEdge = new Vector2(polygonCollider.bounds.max.x, polygonCollider.bounds.min.y - 0.1f);
+        }
+        else 
+        {
+            bottomEdge = new Vector2(polygonCollider.bounds.min.x, polygonCollider.bounds.min.y - 0.1f);
+        }
+
+
+        Debug.DrawRay(bottomEdge, Vector2.down, Color.green);
+        
+        RaycastHit2D rayHit = Physics2D.Raycast(bottomEdge, Vector2.down, 0.5f, LayerMask.GetMask("Platform"));
+        if (rayHit.collider == null)
+        {
+            moveRight = !moveRight;
+        }
+
     }
 
     /// <summary>
@@ -176,6 +232,11 @@ public class ObstacleController : MonoBehaviour
         this.gameObject.layer = layerIndex;
     }
 
+    IEnumerator SetIsmoving(bool n){
+        yield return new WaitForSeconds(waitingTime);
+        this.isMoving = n;
+    }
+
     /// <summary>
     /// 화면 나가면 죽음
     /// 화면 나오면 살아남
@@ -188,6 +249,5 @@ public class ObstacleController : MonoBehaviour
     private void OnBecameVisible() {
         gameObject.SetActive(true);
     }
-
 
 }
