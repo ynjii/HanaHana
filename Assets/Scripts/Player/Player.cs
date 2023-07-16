@@ -177,6 +177,8 @@ public class Player : MonoBehaviour
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
+        player_state = PlayerState.Damaged;
+        GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }
 
