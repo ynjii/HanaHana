@@ -9,9 +9,4 @@ public class SnowWhiteScene : BaseScene
         base.Init();
         SceneType = Define.Scene.SnowWhiteMap;
     }
-
-    public override void Clear()
-    {
-        
-    }
 }

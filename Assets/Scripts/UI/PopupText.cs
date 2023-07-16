@@ -2,38 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 
 public class PopupText : MonoBehaviour
 {
-    [SerializeField] private List<string> text_list;
-    [SerializeField] private TextMeshProUGUI popupText_txt;
-    [SerializeField] private int currentText = 0;
+    [SerializeField] private GameObject popup_text_GO;
+    [SerializeField] private GameObject fix_panel;
+    
+    private TextMeshProUGUI popup_text;
+    private int currentTextNum;
+    private List<string> text_list;
+
     void Awake()
     {
-        string tuto_text0 = "공주님이 어쩐일인지 화가 잔뜩 났어요!";
-        string tuto_text1 = "아이템을 전달해 공주를 진정시키세요.";
-        string tuto_text2 = "그거말고요.";
-        string tuto_text3 = "아이템을 전달 못하면 무시무시한 일이 생길거예요!";
-        string tuto_text4 = "세이브 포인트로 저장하세요!";
-        string tuto_text5 = "Good Luck!";
-        
-        text_list.Add(tuto_text0);
-        text_list.Add(tuto_text1);
-        text_list.Add(tuto_text2);
-        text_list.Add(tuto_text3);
-        text_list.Add(tuto_text4);
-        text_list.Add(tuto_text5);
+        currentTextNum = 0;
+        popup_text_GO.SetActive(false);
+        popup_text = popup_text_GO.transform.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    private void Start()
+    public void PopupTextList(List<string> text_list_input, bool is_fixed)
     {
-        WriteText(text_list[0]);
+        popup_text_GO.SetActive(true);
+        text_list = text_list_input;
+        popup_text.text = text_list[currentTextNum];
+
+        if (is_fixed)
+        {
+            fix_panel.SetActive(true);
+        }
     }
 
-    public void WriteText(string text)
+    public void BTN_NextText()
     {
-        popupText_txt.text = text;
+        if (++currentTextNum >= text_list.Count)
+        {
+            currentTextNum = 0;
+            fix_panel.SetActive(false);
+            popup_text_GO.SetActive(false);
+        }
+        popup_text.text = text_list[currentTextNum];
     }
 }

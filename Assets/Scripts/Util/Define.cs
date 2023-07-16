@@ -13,4 +13,13 @@ public class Define
         SnowWhiteMap,
         None
     }
+
+    public enum PlayerState
+    {
+        Died,
+        Jump,
+        Damaged,
+        Walk,
+        Idle
+    }
 }

@@ -9,9 +9,4 @@ public class MainScene : BaseScene
         base.Init();
         SceneType = Define.Scene.MainScene;
     }
-
-    public override void Clear()
-    {
-        
-    }
 }
