@@ -53,7 +53,10 @@ public class ObstacleController : MonoBehaviour
     
     private bool isMoving = false; //isTrigger 처리된 collider랑 부딪히면 true;
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
+    private Vector3 movement = Vector3.zero;
+    
     private float movedDistance = 0f; 
+    private bool moveRight = false; //moveside할때 사용됨
 
     private float floatingSpeed = 3f; //둥둥 떠다니는 속도
     private float floatingHeight = 0.1f; // 둥둥 떠다니는 높이
@@ -62,6 +65,8 @@ public class ObstacleController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private Tilemap tilemap;
+    private PolygonCollider2D polygonCollider;
+
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
@@ -93,6 +98,11 @@ public class ObstacleController : MonoBehaviour
         if(obType == ObType.Floating){
             isMoving = true;
         }
+        else if(obType == ObType.MoveSide)
+        {
+            // rayhit 그릴때 사용
+            polygonCollider = GetComponent<PolygonCollider2D>();
+        }
     }
 
     private void Update() 
@@ -111,7 +121,7 @@ public class ObstacleController : MonoBehaviour
                 SimpleMove(obDirection, speed);
                 break;
             case ObType.MoveSide:
-                
+                MoveSide();
                 break;
             case ObType.Rotate:
                 Rotate();
@@ -138,7 +148,6 @@ public class ObstacleController : MonoBehaviour
             isMoving = false;
         }
 
-        Vector3 movement = Vector3.zero;
         switch (obDirection)
         {   
             case ObDirection.still:
@@ -160,11 +169,39 @@ public class ObstacleController : MonoBehaviour
         transform.position += movement;
         movedDistance = Vector3.Distance(initialPosition, transform.position);
     }
+
     /// <summary>
     /// 좌우로 왔다갔다 움직임
     /// </summary>
     private void MoveSide()
     {
+        // 이동 방향 설정
+        float moveDirection = moveRight ? 1f : -1f;
+
+        movement = Vector3.right * moveDirection * speed * Time.deltaTime;
+        transform.position += movement;
+
+        // 지형체크
+        Vector2 bottomEdge;
+        
+        if(moveRight) //오른쪽을 향하고 있다면
+        {
+            bottomEdge = new Vector2(polygonCollider.bounds.max.x, polygonCollider.bounds.min.y - 0.1f);
+        }
+        else 
+        {
+            bottomEdge = new Vector2(polygonCollider.bounds.min.x, polygonCollider.bounds.min.y - 0.1f);
+        }
+
+
+        Debug.DrawRay(bottomEdge, Vector2.down, Color.green);
+        
+        RaycastHit2D rayHit = Physics2D.Raycast(bottomEdge, Vector2.down, 0.5f, LayerMask.GetMask("Platform"));
+        if (rayHit.collider == null)
+        {
+            moveRight = !moveRight;
+        }
+
     }
 
     /// <summary>
