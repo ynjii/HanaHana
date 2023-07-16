@@ -34,6 +34,9 @@ public class ObstacleController : MonoBehaviour
     private ObDirection obDirection; // direction을 inspector에서 받아옴. (필요할시)
 
     [SerializeField]
+    private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
+
+    [SerializeField]
     private float distance = 0f; //움직일 거리, obstacle마다 다를 것 같아서 일단은 이렇게 해뒀습니다. 
     
     [SerializeField]
@@ -68,6 +71,17 @@ public class ObstacleController : MonoBehaviour
             isMoving = true;   
         }
     }
+
+    /// <summary>
+    /// 트리거 없이 부딪혓을때 작동하는 경우. 추후 아이템 따라 수정할 수 있음.
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(isCol && collision.gameObject.CompareTag("Player"))
+        {
+            isMoving = true;
+        }
+    }   
     
     private void Awake(){
         initialPosition = transform.position;
