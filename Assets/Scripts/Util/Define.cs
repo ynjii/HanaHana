@@ -16,7 +16,6 @@ public class Define
 
     public enum PlayerState
     {
-        Died,
         Jump,
         Damaged,
         Walk,

@@ -34,9 +34,12 @@ public class Player : MonoBehaviour
         //점프
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
         {
+            if (player_state != PlayerState.Damaged) 
+            {
+               player_state = PlayerState.Jump;
+            } 
             rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
-            player_state = PlayerState.Jump;
         }
       
 
@@ -46,7 +49,6 @@ public class Player : MonoBehaviour
             //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
             //방향에 속력을 0으로 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
-            
         }
 
         //방향전환
@@ -56,13 +58,19 @@ public class Player : MonoBehaviour
         //애니메이션
         if (rigid.velocity.normalized.x == 0)
         {
+            if (player_state != PlayerState.Damaged)
+            {
+                 player_state = PlayerState.Idle;
+            }
             anim.SetBool("isWalk", false);
-            player_state=PlayerState.Idle;   
         }
         else
         {
+            if (player_state != PlayerState.Damaged)
+            {
+                player_state = PlayerState.Walk;
+            }
             anim.SetBool("isWalk", true);
-            player_state = PlayerState.Walk;
         }
 
         // 화면 위에 손가락이 없는지 확인
@@ -95,9 +103,12 @@ public class Player : MonoBehaviour
                 //점프
                 if (!anim.GetBool("isJump") && !(rigid.velocity.y < -0.5f))
                 {
+                    if (player_state != PlayerState.Damaged)
+                    {
+                        player_state = PlayerState.Jump;
+                    }
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
-                    player_state=PlayerState.Jump;
                 }
             }
             if (isLeftButton)
@@ -117,10 +128,9 @@ public class Player : MonoBehaviour
         
         if(collision.gameObject.tag == "Enemy")
         { 
-            onDamaged(collision.transform.position);
+            onDamaged(collision.transform.position);           
             //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();
-            player_state = PlayerState.Died;
+            GameManager.instance.OnPlayerDead();            
         }
 
         if(collision.gameObject.tag=="Flag")
@@ -192,8 +202,6 @@ public class Player : MonoBehaviour
     {
         isRightButton = false;
     }
-    
-
 
 }
 
