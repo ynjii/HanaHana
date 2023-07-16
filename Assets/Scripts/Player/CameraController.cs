@@ -25,17 +25,15 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        // 플레이어가 피격당했다면 더 이상 따라가지 않음
-        if (player_script.player_state == Define.PlayerState.Damaged)
+        if (player.IsUnityNull()) return;
+        
+        // 카메라의 position은 플레이어의 position에 델타값을 더한 값
+        transform.position = player.transform.position + delta;
+        
+        // 플레이어가 피격당했다면 플레이어를 버림
+        if (player_script.player_state == Define.PlayerState.Damaged || player.position.y < -3)
         {
             player = null;
-        }
-
-        if (!player.IsUnityNull())
-        {
-            // 카메라의 position은 플레이어의 position에 델타값을 더한 값
-            transform.position = player.transform.position + delta;
-            
         }
     }
 }
