@@ -23250,7 +23250,6 @@ GameObject:
   - component: {fileID: 307637963}
   - component: {fileID: 307637964}
   - component: {fileID: 307637965}
-  - component: {fileID: 307637966}
   m_Layer: 6
   m_Name: t_FallingBlockABC
   m_TagString: Platform
@@ -23506,6 +23505,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 0
   obDirection: 2
+  isCol: 0
+  waitingTime: 0.1
   distance: 10
   speed: 11
   tagName: Untagged
@@ -23536,24 +23537,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.682235, y: 0.023837566}
   m_EdgeRadius: 0
---- !u!114 &307637966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307637957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obType: 0
-  obDirection: 0
-  distance: 0
-  speed: 11
-  tagName: Untagged
-  layerIndex: 0
 --- !u!19719996 &323811531
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -28197,6 +28180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 3
   obDirection: 0
+  isCol: 0
+  waitingTime: 0
   distance: 0
   speed: 11
   tagName: Untagged
@@ -31194,6 +31179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 0
   obDirection: 3
+  isCol: 0
+  waitingTime: 0
   distance: 3
   speed: 11
   tagName: Untagged
@@ -31212,6 +31199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 4
   obDirection: 0
+  isCol: 0
+  waitingTime: 0
   distance: 0
   speed: 11
   tagName: Enemy
@@ -33978,6 +33967,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1253048738}
   - component: {fileID: 1253048739}
+  - component: {fileID: 1253048741}
+  - component: {fileID: 1253048743}
+  - component: {fileID: 1253048742}
   m_Layer: 8
   m_Name: t_MovingSpikes
   m_TagString: Enemy
@@ -34052,6 +34044,94 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &1253048741
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253048737}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: -0.5}
+      - {x: -0.33333334, y: 0}
+      - {x: -0.22222222, y: 0}
+      - {x: -0.11111111, y: 0}
+      - {x: -0.11111111, y: -0.055555556}
+      - {x: -0.055555556, y: -0.055555556}
+      - {x: -0.055555556, y: -0.16666667}
+      - {x: 0.055555556, y: -0.16666667}
+      - {x: 0.055555556, y: -0.055555556}
+      - {x: 0.11111111, y: -0.055555556}
+      - {x: 0.11111111, y: 0}
+      - {x: 0.33333334, y: 0}
+      - {x: 0.5, y: -0.5}
+    - - {x: -0.11111111, y: -0.055555556}
+      - {x: -0.11111111, y: -0.055555556}
+      - {x: -0.11111111, y: -0.055555556}
+      - {x: -0.11111111, y: -0.055555556}
+--- !u!114 &1253048742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253048737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 1
+  obDirection: 0
+  isCol: 0
+  waitingTime: 0
+  distance: 0
+  speed: 4
+  tagName: Untagged
+  layerIndex: 0
+--- !u!61 &1253048743
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253048737}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.0091658, y: -0.4767623}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9224224, y: 0.033296674}
+  m_EdgeRadius: 0
 --- !u!1 &1286718555
 GameObject:
   m_ObjectHideFlags: 0
@@ -35419,6 +35499,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 5
   obDirection: 0
+  isCol: 0
+  waitingTime: 0
   distance: 0
   speed: 11
   tagName: Untagged
@@ -36779,7 +36861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458695385}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.13, y: 1.95, z: 0}
+  m_LocalPosition: {x: 11.63, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52364,10 +52446,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2095833287}
-  - component: {fileID: 2095833292}
   - component: {fileID: 2095833297}
   - component: {fileID: 2095833295}
-  - component: {fileID: 2095833299}
   - component: {fileID: 2095833293}
   - component: {fileID: 2095833298}
   m_Layer: 6
@@ -52392,24 +52472,6 @@ Transform:
   m_Father: {fileID: 402931620}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2095833292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095833286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obType: 2
-  obDirection: 2
-  distance: 10
-  speed: 11
-  tagName: 
-  layerIndex: 0
 --- !u!114 &2095833293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52424,6 +52486,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 2
   obDirection: 0
+  isCol: 1
+  waitingTime: 0
   distance: 0
   speed: 11
   tagName: Untagged
@@ -52526,42 +52590,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 0
   obDirection: 2
+  isCol: 1
+  waitingTime: 0
   distance: 10
   speed: 11
   tagName: Untagged
   layerIndex: 0
---- !u!60 &2095833299
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095833286}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.74, y: 0.74}
-    newSize: {x: 0.74, y: 0.74}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.100158006, y: 0.30163032}
-      - {x: -0.2524314, y: 0.07779108}
-      - {x: -0.24364614, y: -0.10414384}
-      - {x: 0.17788307, y: -0.3128606}
-      - {x: 0.27764374, y: -0.33873284}
-      - {x: 0.27193505, y: 0.2319349}
-      - {x: 0.2698993, y: 0.23296767}
 --- !u!1 &2118555981
 GameObject:
   m_ObjectHideFlags: 0
