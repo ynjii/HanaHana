@@ -143,14 +143,6 @@ public class Player : MonoBehaviour
             Debug.Log("flagPosition"+flagPosition);
             Debug.Log("respawnpoint"+GameManager.respawnPoint);
         }
-        
-        else if(collision.gameObject.CompareTag("Enemy"))
-        { 
-            onDamaged(collision.transform.position);           
-            //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();            
-        }
-
         else if (collision.gameObject.CompareTag("Item"))
         {
             //진짜 아이템 먹었을 때 animation 바꿈
