@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Define;
 
 public class Player : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
-
+    public Define.PlayerState player_state;
     public bool isJumpButton=false;
     public bool isLeftButton = false;
     public bool isRightButton = false;
@@ -25,8 +25,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         max_speed = 5;
         jump_power = 15;
-
-
+        player_state=new PlayerState();
     }
 
     // Update is called once per frame
@@ -35,6 +34,10 @@ public class Player : MonoBehaviour
         //점프
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
         {
+            if (player_state != PlayerState.Damaged) 
+            {
+               player_state = PlayerState.Jump;
+            } 
             rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
         }
@@ -55,10 +58,18 @@ public class Player : MonoBehaviour
         //애니메이션
         if (rigid.velocity.normalized.x == 0)
         {
+            if (player_state != PlayerState.Damaged)
+            {
+                 player_state = PlayerState.Idle;
+            }
             anim.SetBool("isWalk", false);
         }
         else
         {
+            if (player_state != PlayerState.Damaged)
+            {
+                player_state = PlayerState.Walk;
+            }
             anim.SetBool("isWalk", true);
         }
 
@@ -92,6 +103,10 @@ public class Player : MonoBehaviour
                 //점프
                 if (!anim.GetBool("isJump") && !(rigid.velocity.y < -0.5f))
                 {
+                    if (player_state != PlayerState.Damaged)
+                    {
+                        player_state = PlayerState.Jump;
+                    }
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     anim.SetBool("isJump", true);
                 }
@@ -113,9 +128,9 @@ public class Player : MonoBehaviour
         
         if(collision.gameObject.tag == "Enemy")
         { 
-            onDamaged(collision.transform.position);
+            onDamaged(collision.transform.position);           
             //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();
+            GameManager.instance.OnPlayerDead();            
         }
 
         if(collision.gameObject.tag=="Flag")
@@ -138,6 +153,8 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
+        //맞은 상태
+        player_state = PlayerState.Damaged;
         //레이어변경
         this.gameObject.layer = 7;
         
@@ -168,24 +185,23 @@ public class Player : MonoBehaviour
     }
     public void leftButtonTrue()
     {
+        
         isLeftButton = true;
         sprite_renderer.flipX = true;
     }
     public void leftButtonFalse()
     {
-        isLeftButton = false;
-        sprite_renderer.flipX = false;
+        isLeftButton = false;       
     }
     public void rightButtonTrue()
     {
+        sprite_renderer.flipX = false;
         isRightButton = true;
     }
     public void rightButtonFalse()
     {
         isRightButton = false;
     }
-    
-
 
 }
 
