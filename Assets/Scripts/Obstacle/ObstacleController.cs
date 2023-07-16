@@ -37,6 +37,9 @@ public class ObstacleController : MonoBehaviour
     private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
 
     [SerializeField]
+    private float waitingTime = 0f;
+
+    [SerializeField]
     private float distance = 0f; //움직일 거리, obstacle마다 다를 것 같아서 일단은 이렇게 해뒀습니다. 
     
     [SerializeField]
@@ -66,20 +69,20 @@ public class ObstacleController : MonoBehaviour
     /// 만약 isTriggred 처리된 collider를 사용하고 싶다면 주의해서 사용해주셔야해요.
     /// </summary>
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            isMoving = true;   
+        if(!isCol && collision.gameObject.CompareTag("Player"))
+        {   
+            StartCoroutine(SetIsmoving(true));
         }
     }
 
     /// <summary>
-    /// 트리거 없이 부딪혓을때 작동하는 경우. 추후 아이템 따라 수정할 수 있음.
+    /// 트리거 없이 collisoin에 부딪혓을때 작동하는 경우.
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision) {
         if(isCol && collision.gameObject.CompareTag("Player"))
         {
-            isMoving = true;
+            StartCoroutine(SetIsmoving(true));
         }
     }   
     
@@ -118,9 +121,11 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.ChangeStatus:
                 ChangeStatus(tagName, layerIndex);
+                isMoving = false;
                 break;
             case ObType.ChangeColor:
                 tilemap.color = new Color(1, 1, 1, 0.8f); //투명하게 바꾸기. 추후 색깔바꿀일 있으면 수정.
+                isMoving = false;
                 break;
         }
     }
@@ -190,6 +195,11 @@ public class ObstacleController : MonoBehaviour
         this.gameObject.layer = layerIndex;
     }
 
+    IEnumerator SetIsmoving(bool n){
+        yield return new WaitForSeconds(waitingTime);
+        this.isMoving = n;
+    }
+
     /// <summary>
     /// 화면 나가면 죽음
     /// 화면 나오면 살아남
@@ -202,6 +212,5 @@ public class ObstacleController : MonoBehaviour
     private void OnBecameVisible() {
         gameObject.SetActive(true);
     }
-
 
 }
