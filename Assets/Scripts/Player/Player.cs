@@ -12,11 +12,12 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
+    private PlayerHead player_head;
     public Define.PlayerState player_state;
-    public bool isJumpButton=false;
-    public bool isLeftButton = false;
-    public bool isRightButton = false;
-    public bool isButtonPressed = false;
+    private bool isJumpButton=false;
+    private bool isLeftButton = false;
+    private bool isRightButton = false;
+    private bool isButtonPressed = false;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
         max_speed = 5;
         jump_power = 15;
         player_state=new PlayerState();
+        player_head=GetComponentInChildren<PlayerHead>();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
         {
             if (player_state != PlayerState.Damaged) 
             {
-               player_state = PlayerState.Jump;
+                player_state = PlayerState.Jump;
             } 
             rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             anim.SetBool("isJump", true);
@@ -92,8 +94,10 @@ public class Player : MonoBehaviour
     {
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
-        rigid.velocity = new Vector2(max_speed*h, rigid.velocity.y);
-
+        if (!player_head.ignore_Input)
+        {
+            rigid.velocity = new Vector2(max_speed * h, rigid.velocity.y);
+        }
         //버튼 이동
         if (isButtonPressed)
         {
@@ -149,6 +153,7 @@ public class Player : MonoBehaviour
             anim.SetBool("isItemGet", true);
             collision.gameObject.SetActive(false);
         }
+        
     }
 
     public void onDamaged(Vector2 targetPos)

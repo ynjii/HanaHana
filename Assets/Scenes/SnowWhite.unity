@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &5863939
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -635,6 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &33062621
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1210,6 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &35196668
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1965,6 +1968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &111058609
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4927,6 +4931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &139675324
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -21711,6 +21716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &154588827
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -22052,6 +22058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &195433139
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -22424,6 +22431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &214953192
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -22770,6 +22778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &256004130
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -23096,6 +23105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &293165719
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -23575,6 +23585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!114 &307637964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23820,6 +23831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &339310465
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -24209,6 +24221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &385835331
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -24461,6 +24474,68 @@ Transform:
   m_Father: {fileID: 823749767}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &407128915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407128916}
+  - component: {fileID: 407128917}
+  - component: {fileID: 407128918}
+  m_Layer: 3
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &407128916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407128915}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1458695388}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &407128917
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407128915}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.020577252, y: 0.13827062}
+  serializedVersion: 2
+  m_Radius: 0.35308772
+--- !u!114 &407128918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407128915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63afd6a145095724490f11afe4b88208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignore_Input: 0
 --- !u!1 &424273256
 GameObject:
   m_ObjectHideFlags: 0
@@ -24600,6 +24675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &424273261
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -24904,6 +24980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &444361928
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -25473,6 +25550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &513383229
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -25929,6 +26007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &531198083
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -26427,6 +26506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &557552011
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -26748,6 +26828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &568530952
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -27074,6 +27155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &617654666
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -27371,6 +27453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &634765699
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -27712,6 +27795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &674199751
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -28026,6 +28110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &698139290
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -28637,6 +28722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &777794509
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -28918,6 +29004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &784200698
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -29623,6 +29710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &878940852
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -30067,6 +30155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &950200536
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -31648,6 +31737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1104268334
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -31907,7 +31997,6 @@ GameObject:
   - component: {fileID: 1183534867}
   - component: {fileID: 1183534866}
   - component: {fileID: 1183534868}
-  - component: {fileID: 1183534869}
   m_Layer: 6
   m_Name: Ground
   m_TagString: Platform
@@ -33027,18 +33116,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!114 &1183534869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183534864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1197012488
 GameObject:
   m_ObjectHideFlags: 0
@@ -33205,6 +33282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1197012493
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -33559,6 +33637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1209810329
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -33908,6 +33987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1214380223
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -34598,6 +34678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1286718560
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -34899,6 +34980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1300393897
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -35315,6 +35397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1308109999
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -36266,6 +36349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1380718029
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -36902,6 +36986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1400879109
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -37122,7 +37207,6 @@ GameObject:
   - component: {fileID: 1458695386}
   - component: {fileID: 1458695389}
   - component: {fileID: 1458695391}
-  - component: {fileID: 1458695393}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -37210,11 +37294,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458695385}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.44, y: -0.15, z: 0}
+  m_LocalPosition: {x: 116.67, y: -4.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1773615317}
+  - {fileID: 407128916}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -37254,26 +37339,6 @@ MonoBehaviour:
   max_speed: 0
   jump_power: 0
   player_state: 0
-  isJumpButton: 0
-  isLeftButton: 0
-  isRightButton: 0
-  isButtonPressed: 0
---- !u!58 &1458695393
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458695385}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.020577252, y: 0.13827062}
-  serializedVersion: 2
-  m_Radius: 0.35308772
 --- !u!1 &1460294938
 GameObject:
   m_ObjectHideFlags: 0
@@ -37424,6 +37489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1460294943
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -37733,6 +37799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1508264902
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -38047,6 +38114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1520182003
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -38354,6 +38422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1553834597
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -42661,6 +42730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1626567807
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -42975,6 +43045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1662128679
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -43286,6 +43357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1719005880
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -43607,6 +43679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1719054754
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -43946,6 +44019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1747091752
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -44259,6 +44333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1761790160
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -44713,6 +44788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1774625612
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -45231,6 +45307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1810496029
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -45550,6 +45627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1826224109
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -45997,6 +46075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1855555551
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -46535,6 +46614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1906498815
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -46920,6 +47000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1910269321
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -47333,6 +47414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1946163456
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -49769,6 +49851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1969687314
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -51454,6 +51537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f979eee034bbd34484c3c43eb21b478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &2006246323
 TilemapCollider2D:
   m_ObjectHideFlags: 0
