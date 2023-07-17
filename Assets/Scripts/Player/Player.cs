@@ -161,11 +161,9 @@ public class Player : MonoBehaviour
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경
-        this.gameObject.layer = 7;
-        
+        this.gameObject.layer = 7;       
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
-
         //리액션
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
@@ -175,7 +173,7 @@ public class Player : MonoBehaviour
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
-        player_state = PlayerState.Damaged;
+        player_state = PlayerState.Damaged;        
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }

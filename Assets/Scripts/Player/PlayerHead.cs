@@ -12,6 +12,8 @@ public class PlayerHead : MonoBehaviour
         if (collision.gameObject.tag=="Platform") 
         {
             ignore_Input = true;
+            //레이어변경
+            this.gameObject.layer = 7;
         }
     }
 }
