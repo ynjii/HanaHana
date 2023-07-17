@@ -126,24 +126,24 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.CompareTag("Enemy"))
         { 
             onDamaged(collision.transform.position);           
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();            
         }
-
-        if(collision.gameObject.tag=="Flag")
-        {
-            //리스폰 위치를 해당 Flag 위치로 재설정
-            Vector3 flagPosition=collision.gameObject.transform.position;
-            PlayerRespawn playerRespawn = GetComponent<PlayerRespawn>();
-            playerRespawn.SetRespawnPoint(flagPosition);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.gameObject.tag == "Item")
+        if(collision.gameObject.CompareTag("Flag"))
+        {
+            //리스폰 위치를 해당 Flag 위치로 재설정
+            Vector3 flagPosition = collision.gameObject.transform.position;
+            GameManager.respawnPoint = flagPosition;
+            Debug.Log("flagPosition"+flagPosition);
+            Debug.Log("respawnpoint"+GameManager.respawnPoint);
+        }
+        else if (collision.gameObject.CompareTag("Item"))
         {
             //진짜 아이템 먹었을 때 animation 바꿈
             anim.SetBool("isItemGet", true);
