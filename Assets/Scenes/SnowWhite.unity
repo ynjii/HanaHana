@@ -68490,7 +68490,7 @@ TilemapCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -68524,6 +68524,7 @@ GameObject:
   - component: {fileID: 2704467025983268019}
   - component: {fileID: 2704467025983268012}
   - component: {fileID: 2704467025983268017}
+  - component: {fileID: 2704467025983268020}
   m_Layer: 6
   m_Name: t_FallingFloor
   m_TagString: Platform
@@ -68545,7 +68546,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 5
   obDirection: 0
-  isCol: 0
+  gravity_scale: 4
+  color: 0
+  isCol: 1
   waitingTime: 0
   distance: 0
   speed: 11
@@ -68952,6 +68955,28 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &2704467025983268020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704467025983268015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 4
+  obDirection: 0
+  gravity_scale: 4
+  color: 0
+  isCol: 1
+  waitingTime: 0
+  distance: 0
+  speed: 11
+  tagName: Player
+  layerIndex: 3
 --- !u!114 &6367387041185055122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68966,6 +68991,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 4
   obDirection: 0
+  gravity_scale: 4
+  color: 0
   isCol: 0
   waitingTime: 0
   distance: 0
@@ -69065,6 +69092,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 0
   obDirection: 3
+  gravity_scale: 4
+  color: 0
   isCol: 0
   waitingTime: 0
   distance: 3
@@ -69291,6 +69320,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 2
   obDirection: 0
+  gravity_scale: 4
+  color: 0
   isCol: 1
   waitingTime: 0
   distance: 0
@@ -69395,6 +69426,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 0
   obDirection: 2
+  gravity_scale: 4
+  color: 0
   isCol: 1
   waitingTime: 0
   distance: 10
@@ -69648,6 +69681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 0
   obDirection: 2
+  gravity_scale: 4
+  color: 0
   isCol: 0
   waitingTime: 0.1
   distance: 10
@@ -69761,6 +69796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 3
   obDirection: 0
+  gravity_scale: 4
+  color: 0
   isCol: 0
   waitingTime: 0
   distance: 0
@@ -70065,6 +70102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obType: 1
   obDirection: 0
+  gravity_scale: 4
+  color: 0
   isCol: 0
   waitingTime: 0
   distance: 0
