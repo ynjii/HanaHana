@@ -94,10 +94,9 @@ public class Player : MonoBehaviour
     {
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
-        if (!player_head.ignore_Input)
-        {
-            rigid.velocity = new Vector2(max_speed * h, rigid.velocity.y);
-        }
+       
+        rigid.velocity = new Vector2(max_speed * h, rigid.velocity.y);
+        
         //버튼 이동
         if (isButtonPressed)
         {
