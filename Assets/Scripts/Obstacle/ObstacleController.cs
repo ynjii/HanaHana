@@ -30,6 +30,7 @@ public class ObstacleController : MonoBehaviour
     }
     public enum IntoColor
     {
+        TransParent,
         Opaque
     }
 
@@ -151,7 +152,6 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.ChangeColor:
                 ChangeColor(color);
-                isMoving = false;
                 break;
             case ObType.Rolling:
                 Rolling(obDirection, speed, gravity_scale);
@@ -193,29 +193,43 @@ public class ObstacleController : MonoBehaviour
     {
         if (is_start)
         {
-            //intoOpaque
+            tile_map_renderer = GetComponent<TilemapRenderer>();
             switch (color)
             {
-                case IntoColor.Opaque:
-                    tile_map_renderer = GetComponent<TilemapRenderer>();
+                case IntoColor.TransParent:
                     tile_map_renderer.material.color = new Color(1f, 1f, 1f, 1f);
                     my_color = new Color(1f, 1f, 1f, 1f);
-                    is_start = false;
+                    break;
+                case IntoColor.Opaque:
+                    tile_map_renderer.material.color = new Color(1f, 1f, 1f, 0f);
+                    my_color = new Color(1f, 1f, 1f, 0f);
                     break;
             }
+            is_start = false;
         }
 
         if (!is_expired)
         {
             switch (color)
             {
-                case IntoColor.Opaque:
+                case IntoColor.TransParent:
                     my_color.a -= 0.05f; // 알파 값 조정
-
-                    // 알파 값이 1을 넘어가면 1로 고정
+                    // 알파 값이 0 이하면 0으로 고정
                     if (my_color.a <= 0f)
                     {
                         my_color.a = 0f;
+                        is_expired = true;
+                    }
+                    // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
+                    GetComponent<Renderer>().material.color = my_color;
+                    break;
+                case IntoColor.Opaque:
+                    my_color.a += 0.05f; // 알파 값 조정
+
+                    // 알파 값이 1을 넘어가면 1로 고정
+                    if (my_color.a >= 0f)
+                    {
+                        my_color.a = 1f;
                         is_expired = true;
                     }
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
