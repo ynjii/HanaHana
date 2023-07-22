@@ -16,7 +16,7 @@ public class PlayerLeg : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             player_anim.SetBool("isJump", false);
-            player_head.ignore_Input = false;
+            //player_head.ignore_Input = false;
         }
         if (collision.gameObject.tag == "Enemy")
         {
