@@ -2000,7 +2000,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 63
+  m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &29910708
 TilemapRenderer:
@@ -30603,7 +30603,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 59
+  m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &157751118
 CompositeCollider2D:
@@ -33268,7 +33268,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 64
+  m_RootOrder: 65
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &293696988
 CompositeCollider2D:
@@ -33576,7 +33576,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 68
+  m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &299428727
 CompositeCollider2D:
@@ -34258,7 +34258,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 58
+  m_RootOrder: 59
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &338821951
 CompositeCollider2D:
@@ -35395,7 +35395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373727981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 509.55, y: -28.36, z: 0}
+  m_LocalPosition: {x: 421.36, y: -27.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44021,7 +44021,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 66
+  m_RootOrder: 67
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &753650104
 CompositeCollider2D:
@@ -51451,7 +51451,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 62
+  m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &806351594
 CompositeCollider2D:
@@ -52142,6 +52142,7 @@ Transform:
   - {fileID: 1038139007}
   - {fileID: 598990164}
   - {fileID: 1526443960}
+  - {fileID: 1195774011}
   - {fileID: 338821950}
   - {fileID: 157751117}
   - {fileID: 1007879819}
@@ -52154,7 +52155,6 @@ Transform:
   - {fileID: 1532740904}
   - {fileID: 299428726}
   - {fileID: 1985840070}
-  - {fileID: 1195774011}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52629,7 +52629,15 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 884730757}
     m_ColliderPaths:
-    - - X: 5260000156
+    - - X: 5280000100
+        Y: -210000041
+      - X: 5280000100
+        Y: -199999959
+      - X: 5280000041
+        Y: -199999900
+      - X: 5260000215
+        Y: -199999900
+      - X: 5260000156
         Y: -199999959
       - X: 5260000156
         Y: -210000041
@@ -52637,14 +52645,6 @@ CompositeCollider2D:
         Y: -210000100
       - X: 5280000041
         Y: -210000100
-      - X: 5280000100
-        Y: -210000041
-      - X: 5280000100
-        Y: -199999959
-      - X: 5280000041
-        Y: -199999900
-      - X: 5260000215
-        Y: -199999900
   m_CompositePaths:
     m_Paths:
     - - {x: 528, y: -21.00001}
@@ -52851,7 +52851,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -10, y: -21, z: 0}
-  m_Size: {x: 539, y: 27, z: 1}
+  m_Size: {x: 540, y: 27, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -52905,7 +52905,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 65
+  m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &909255751
 CompositeCollider2D:
@@ -53559,7 +53559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &921199078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54706,7 +54706,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 61
+  m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &978728978
 CompositeCollider2D:
@@ -56575,7 +56575,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 60
+  m_RootOrder: 61
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &1007879820
 CompositeCollider2D:
@@ -63549,7 +63549,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 70
+  m_RootOrder: 58
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &1195774012
 CompositeCollider2D:
@@ -88671,7 +88671,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 67
+  m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &1532740905
 CompositeCollider2D:
@@ -117885,7 +117885,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 823749767}
-  m_RootOrder: 69
+  m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &1985840071
 CompositeCollider2D:
@@ -118061,7 +118061,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -118492,7 +118492,7 @@ GameObject:
   - component: {fileID: 2006246323}
   - component: {fileID: 2006246321}
   - component: {fileID: 2006246320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a_water
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -120595,7 +120595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2064677464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120714,7 +120714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!223 &1344240029157401887
 Canvas:
   m_ObjectHideFlags: 0
