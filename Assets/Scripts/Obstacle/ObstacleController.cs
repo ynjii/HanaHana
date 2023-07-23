@@ -14,7 +14,7 @@ public class ObstacleController : MonoBehaviour
         Move, //단방향으로 움직임
         MoveSide, //왔다갔다
         Rotate, //돌면서 떨어짐
-        Floating, //둥둥 떠있는 모션
+        Shake, //둥둥 떠있는 모션
         ChangeStatus, //레이어랑 tag 바꿈
         ChangeColor, //색깔 바꿈
         Rolling //굴러감
@@ -23,10 +23,19 @@ public class ObstacleController : MonoBehaviour
     public enum ObDirection
     {
         still, //안움직임
+        /// <summary>
+        /// Up, Down, Left, Right는 simpleMove용
+        /// </summary>
         Up,
         Down,
         Left,
-        Right
+        Right,
+
+        /// <summary>
+        /// UpDown, LeftRight은 moveSide랑 Shake용
+        /// </summary>
+        UpDown,
+        LeftRight
     }
     public enum IntoColor
     {
@@ -48,11 +57,14 @@ public class ObstacleController : MonoBehaviour
     private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
 
     [SerializeField]
+    private bool isMoving = false; //시작부터 움직이이려면 true 체크
+
+    [SerializeField]
     private float waitingTime = 0f;
 
     [SerializeField]
-    private float distance = 0f; //움직일 거리, obstacle마다 다를 것 같아서 일단은 이렇게 해뒀습니다. 
-
+    private float distance = 0f; //움직일 거리, SimpleMove(얼마나 움직일지) 랑 Shake(얼마만큼 왔다갔다할지)에서 사용  
+    
     [SerializeField]
     private float speed = 11f; //속도
 
@@ -62,15 +74,11 @@ public class ObstacleController : MonoBehaviour
     [SerializeField]
     private int layerIndex = 0;
 
-    private bool isMoving = false; //isTrigger 처리된 collider랑 부딪히면 true;
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private Vector3 movement = Vector3.zero;
 
     private float movedDistance = 0f;
     private bool moveRight = false; //moveside할때 사용됨
-
-    private float floatingSpeed = 3f; //둥둥 떠다니는 속도
-    private float floatingHeight = 0.1f; // 둥둥 떠다니는 높이
 
     private float rotateSpeed = 10000f;
 
@@ -83,6 +91,7 @@ public class ObstacleController : MonoBehaviour
     private Color my_color;
     private bool is_expired = false;
     private bool is_start = true;
+
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
@@ -112,17 +121,14 @@ public class ObstacleController : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
 
         //트리거 없어도 계쏙 움직여야하는 애들은 시작할때 true 처리
-        if (obType == ObType.Floating) {
-            isMoving = true;
-        }
-        else if (obType == ObType.MoveSide)
+        if(obType == ObType.MoveSide)
         {
             // rayhit 그릴때 사용
             polygonCollider = GetComponent<PolygonCollider2D>();
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isMoving)
         {
@@ -135,16 +141,19 @@ public class ObstacleController : MonoBehaviour
         switch (obType)
         {
             case ObType.Move:
-                SimpleMove(obDirection, speed);
+                StartCoroutine(MoveToTarget());
+                isMoving = false;
                 break;
-            case ObType.MoveSide:
-                MoveSide();
+            case ObType.MoveSide: //shake로 대체 가능 나중에 rigidbody로 바뀌어서 enemy로 옮겨갈 예정...
+                //MoveSide();
+                //StartCoroutine(MoveSideCoroutine());
                 break;
             case ObType.Rotate:
                 Rotate();
                 break;
-            case ObType.Floating:
-                StartCoroutine(FloatingCoroutine());
+            case ObType.Shake:
+                StartCoroutine(ShakeCoroutine());
+                isMoving = false;
                 break;
             case ObType.ChangeStatus:
                 ChangeStatus(tagName, layerIndex);
@@ -241,33 +250,38 @@ public class ObstacleController : MonoBehaviour
     /// <summary>
     /// 이제 주어진 방향, 속도, 거리만큼 obstacle이 움직입니다. 
     /// </summary>
-    private void SimpleMove(ObDirection obDirection, float speed)
-    {   
-        if(movedDistance > distance){
-            isMoving = false;
+    private IEnumerator MoveToTarget()
+    {
+        Vector3 targetPosition = CalculateTargetPosition(obDirection, distance);
+
+        while (movedDistance < distance)
+        {
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            movedDistance = Vector3.Distance(initialPosition, newPosition);
+            transform.position = newPosition;
+            yield return null;
         }
 
-        switch (obDirection)
-        {   
-            case ObDirection.still:
-                break;
-            case ObDirection.Up:
-                movement = Vector3.up * speed * Time.deltaTime;
-                break;
-            case ObDirection.Down:
-                movement = Vector3.down * speed * Time.deltaTime;
-                break;
-            case ObDirection.Left:
-                movement = Vector3.left * speed * Time.deltaTime;
-                break;
-            case ObDirection.Right:
-                movement = Vector3.right * speed * Time.deltaTime;
-                break;
-        }
-
-        transform.position += movement;
-        movedDistance = Vector3.Distance(initialPosition, transform.position);
+        // 보정을 위해 최종 위치를 목표 위치로 설정
+        transform.position = targetPosition;
     }
+
+    private Vector3 CalculateTargetPosition(ObDirection obDirection, float movement)
+    {
+        switch (obDirection)
+        {
+            case ObDirection.Up:
+                return initialPosition + Vector3.up * movement;
+            case ObDirection.Down:
+                return initialPosition + Vector3.down * movement;
+            case ObDirection.Left:
+                return initialPosition + Vector3.left * movement;
+            case ObDirection.Right:
+                return initialPosition + Vector3.right * movement;
+            default:
+                return initialPosition;
+        }
+    }   
 
     /// <summary>
     /// 좌우로 왔다갔다 움직임
@@ -312,14 +326,34 @@ public class ObstacleController : MonoBehaviour
     }
 
     /// <summary>
-    /// 위아래로 움직이는
+    /// 위아래로 움직이는데 움직이는데 속도 차이 때문에 둥둥 떠있는것처럼 보임. 기획자분들한테 맡길게요.
     /// </summary>
-    private IEnumerator FloatingCoroutine()
+    private IEnumerator ShakeCoroutine()
+    {
+
+        while(true)
+        {   
+            //만약 좌우로 움직이게 하고 싶으면
+            float newX = (obDirection == ObDirection.LeftRight) ? initialPosition.x + Mathf.Sin(Time.time * speed) * distance : transform.position.x;
+            //만약 상하로 움직이게 하고 싶으면
+            float newY = (obDirection == ObDirection.UpDown) ? initialPosition.y + Mathf.Sin(Time.time * speed) * distance : transform.position.y;
+            transform.position = new Vector3(newX, newY, transform.position.z);
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// 일정한속력으로 왔다갔다거림. 단, 한쪽 끝에서 시작하는 것만 가능함 ex. 중간에서 시작해 왼쪽 갔다가 오른쪽 가는게 안됨. 맨 왼쪽에서 시작할 수 밖에 없음.
+    /// </summary>
+    private IEnumerator MoveSideCoroutine() 
     {
         while(true)
-        {
-            float newY = initialPosition.y + Mathf.Sin(Time.time * floatingSpeed) * floatingHeight;
-            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        {   
+            //만약 좌우로 움직이게 하고 싶으면
+            float newX = (obDirection == ObDirection.LeftRight) ? initialPosition.x + Mathf.PingPong(Time.time * speed, 1f) * distance : transform.position.x;
+            //만약 상하로 움직이게 하고 싶으면
+            float newY = (obDirection == ObDirection.UpDown) ? initialPosition.y + Mathf.PingPong(Time.time * speed, 1f) * distance : transform.position.y;
+            transform.position = new Vector3(newX, newY, transform.position.z);
             yield return null;
         }
     }
@@ -334,19 +368,6 @@ public class ObstacleController : MonoBehaviour
     IEnumerator SetIsmoving(bool n){
         yield return new WaitForSeconds(waitingTime);
         this.isMoving = n;
-    }
-
-    /// <summary>
-    /// 화면 나가면 죽음
-    /// 화면 나오면 살아남
-    /// </summary>
-    private void OnBecameInvisible()
-    {
-        gameObject.SetActive(false);
-    }
-
-    private void OnBecameVisible() {
-        gameObject.SetActive(true);
     }
 
 }
