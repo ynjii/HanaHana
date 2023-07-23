@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; //싱글턴을 할당할 전역변수
     private static int death_count=0;//죽은 횟수
     public static Vector3 respawnPoint=new Vector3(-6.17f, -0.54f, 0f); // 플레이어가 리스폰할 체크포인트 위치
+    
 
     public bool isGameover=false; //게임오버 상태
     public TextMeshProUGUI death_text;//죽은 횟수를 출력할 UI 텍스트
