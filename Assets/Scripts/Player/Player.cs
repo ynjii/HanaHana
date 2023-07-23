@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private bool isLeftButton = false;
     private bool isRightButton = false;
     private bool isButtonPressed = false;
-
+    private bool isBorder = false;
 
     private void Awake()
     {
@@ -152,6 +152,7 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();            
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -169,7 +170,12 @@ public class Player : MonoBehaviour
             anim.SetBool("isItemGet", true);
             collision.gameObject.SetActive(false);
         }
-        
+        else if (collision.gameObject.CompareTag("Border"))
+        {
+            player_state = PlayerState.Damaged;
+            this.gameObject.layer = 7;
+            isBorder = true;
+        }
     }
 
     public void onDamaged(Vector2 targetPos)
@@ -182,8 +188,10 @@ public class Player : MonoBehaviour
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
-
+        if (!isBorder)
+        {
+            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+        }
     }
 
     //화면밖으로 나감: 죽음
