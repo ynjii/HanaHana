@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //리스폰 위치로 플레이어 위치를 reset함.
-        player.transform.position=GameManager.respawnPoint;
+        //player.transform.position=GameManager.respawnPoint;
         Debug.Log("Mrespawnpoint"+GameManager.respawnPoint);
     }
 
