@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
             if (isJumpButton)
             {
                 //점프
-                if (!anim.GetBool("isJump") && !(rigid.velocity.y < -0.5f))
+                if ((rigid.velocity.y >= -0.001f && rigid.velocity.y <= 0.001f) || isFallingBlock)
                 {
                     if (player_state != PlayerState.Damaged)
                     {
