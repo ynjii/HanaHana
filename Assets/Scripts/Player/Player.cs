@@ -5,9 +5,7 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
     private float max_speed;
-    [SerializeField]
     private float jump_power;
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
@@ -17,6 +15,7 @@ public class Player : MonoBehaviour
     private bool isLeftButton = false;
     private bool isRightButton = false;
     private bool isButtonPressed = false;
+
 
     private void Awake()
     {
@@ -30,9 +29,22 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
-    {        
+    {
+        
+        //낙하속도 빠르게
+        if (rigid.velocity.y < -0.2f)
+        {
+            rigid.gravityScale = 3;
+
+        }
+        //Idle이면 중력스케일 복구
+        if (player_state == PlayerState.Idle)
+        {
+            rigid.gravityScale = 2;
+        }
+  
         //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")) && (rigid.velocity.y>=-0.001f && rigid.velocity.y <= 0.001f))
         {
             if (player_state != PlayerState.Damaged) 
             {
@@ -63,6 +75,7 @@ public class Player : MonoBehaviour
             {
                  player_state = PlayerState.Idle;
             }
+            
             anim.SetBool("isWalk", false);
         }
         else
@@ -130,6 +143,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
+            rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
             anim.SetBool("isJump", false);
         }
         if(collision.gameObject.CompareTag("Enemy"))
@@ -174,16 +188,13 @@ public class Player : MonoBehaviour
 
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
-    {
-        
+    {   
         player_state = PlayerState.Damaged;
-        GameManager.instance.OnPlayerDead();
-        this.gameObject.SetActive(false);
-        
-        player_state = PlayerState.Damaged;        
+        this.gameObject.layer= 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }
+
 
 
     //버튼을 눌렀는지 뗐는지
