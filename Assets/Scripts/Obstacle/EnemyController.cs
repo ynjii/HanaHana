@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
-    float speed = 1;
+    float speed = 5f;
 
     private bool moveRight = false;
     private float moveDirection; //일단 왼쪽으로 출발한다는 전제.
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         MoveSide();
     }
@@ -30,17 +30,18 @@ public class EnemyController : MonoBehaviour
     private void MoveSide()
     {
         // 이동 방향 설정
-        //anim.SetBool("isWalk", true);
+        anim.SetBool("isWalk", true);
         float moveDirection = moveRight ? 1f : -1f;
-        Debug.Log(moveDirection);
-        rigid.velocity = new Vector2(moveDirection*speed, rigid.velocity.y);
+        rigid.velocity = new Vector2(moveDirection*speed*0.5f, rigid.velocity.y);
 
 
     }
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
         if (collision.gameObject.CompareTag("Platform"))
         {
             moveRight = !moveRight;
+            this.GetComponent<SpriteRenderer>().flipX = (moveRight);
         }
     }
 }
