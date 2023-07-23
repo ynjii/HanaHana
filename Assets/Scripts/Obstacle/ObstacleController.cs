@@ -78,7 +78,6 @@ public class ObstacleController : MonoBehaviour
     private Vector3 movement = Vector3.zero;
 
     private float movedDistance = 0f;
-    private bool moveRight = false; //moveside할때 사용됨
 
     private float rotateSpeed = 10000f;
 
@@ -146,7 +145,13 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.MoveSide: //shake로 대체 가능 나중에 rigidbody로 바뀌어서 enemy로 옮겨갈 예정...
                 //MoveSide();
-                //StartCoroutine(MoveSideCoroutine());
+                initialPosition = transform.position;
+                if(this.gameObject.GetComponent<BoxCollider2D>())
+                {
+                    Destroy(this.gameObject.GetComponent<BoxCollider2D>());
+                }
+                StartCoroutine(MoveSideCoroutine());     
+                isMoving = false;
                 break;
             case ObType.Rotate:
                 Rotate();
@@ -283,39 +288,7 @@ public class ObstacleController : MonoBehaviour
         }
     }   
 
-    /// <summary>
-    /// 좌우로 왔다갔다 움직임
-    /// </summary>
-    private void MoveSide()
-    {
-        // 이동 방향 설정
-        float moveDirection = moveRight ? 1f : -1f;
 
-        movement = Vector3.right * moveDirection * speed * Time.deltaTime;
-        transform.position += movement;
-
-        // 지형체크
-        Vector2 bottomEdge;
-        
-        if(moveRight) //오른쪽을 향하고 있다면
-        {
-            bottomEdge = new Vector2(polygonCollider.bounds.max.x, polygonCollider.bounds.min.y - 0.1f);
-        }
-        else 
-        {
-            bottomEdge = new Vector2(polygonCollider.bounds.min.x, polygonCollider.bounds.min.y - 0.1f);
-        }
-
-
-        Debug.DrawRay(bottomEdge, Vector2.down, Color.green);
-        
-        RaycastHit2D rayHit = Physics2D.Raycast(bottomEdge, Vector2.down, 0.5f, LayerMask.GetMask("Platform"));
-        if (rayHit.collider == null)
-        {
-            moveRight = !moveRight;
-        }
-
-    }
 
     /// <summary>
     /// 회전
@@ -349,11 +322,22 @@ public class ObstacleController : MonoBehaviour
     {
         while(true)
         {   
-            //만약 좌우로 움직이게 하고 싶으면
-            float newX = (obDirection == ObDirection.LeftRight) ? initialPosition.x + Mathf.PingPong(Time.time * speed, 1f) * distance : transform.position.x;
-            //만약 상하로 움직이게 하고 싶으면
-            float newY = (obDirection == ObDirection.UpDown) ? initialPosition.y + Mathf.PingPong(Time.time * speed, 1f) * distance : transform.position.y;
-            transform.position = new Vector3(newX, newY, transform.position.z);
+            // 시간에 따라 이동할 거리 계산
+            float moveDistance = Mathf.PingPong(Time.time * speed, distance);
+            
+            // 좌우로 움직이는 경우
+            if (obDirection == ObDirection.LeftRight)
+            {
+                float newX = initialPosition.x + moveDistance;
+                transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+            }
+            // 상하로 움직이는 경우
+            else if (obDirection == ObDirection.UpDown)
+            {
+                float newY = initialPosition.y + moveDistance;
+                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            }
+            
             yield return null;
         }
     }
