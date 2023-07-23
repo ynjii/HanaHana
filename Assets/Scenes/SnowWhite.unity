@@ -35393,7 +35393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373727981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 421.36, y: -27.36, z: 0}
+  m_LocalPosition: {x: 28.31, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107503,9 +107503,10 @@ GameObject:
   - component: {fileID: 1761790160}
   - component: {fileID: 1761790158}
   - component: {fileID: 1761790157}
+  - component: {fileID: 1761790163}
   m_Layer: 6
   m_Name: a_FallingBlock1
-  m_TagString: Platform
+  m_TagString: FallingBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107859,6 +107860,30 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1761790163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761790155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 0
+  obDirection: 2
+  gravity_scale: 4
+  color: 0
+  size: 0
+  isCol: 1
+  isMoving: 0
+  waitingTime: 0
+  distance: 20
+  speed: 12
+  tagName: Untagged
+  layerIndex: 0
 --- !u!1 &1762539800
 GameObject:
   m_ObjectHideFlags: 0
@@ -120583,7 +120608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2064677464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120702,7 +120727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!223 &1344240029157401887
 Canvas:
   m_ObjectHideFlags: 0
@@ -122189,7 +122214,7 @@ MonoBehaviour:
   isCol: 0
   isMoving: 0
   waitingTime: 0.1
-  distance: 11
+  distance: 20
   speed: 12
   tagName: Untagged
   layerIndex: 0
@@ -122209,7 +122234,7 @@ GameObject:
   - component: {fileID: 6687395469993967172}
   m_Layer: 6
   m_Name: t_FallingBlockABC
-  m_TagString: Platform
+  m_TagString: FallingBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
