@@ -5,6 +5,7 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
+    private bool isFallingBlock=false;
     private float max_speed;
     private float jump_power;
     Rigidbody2D rigid;
@@ -44,14 +45,17 @@ public class Player : MonoBehaviour
         }
   
         //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")) && (rigid.velocity.y>=-0.001f && rigid.velocity.y <= 0.001f))
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
         {
-            if (player_state != PlayerState.Damaged) 
+            if ((rigid.velocity.y >= -0.001f && rigid.velocity.y <= 0.001f) || isFallingBlock)
             {
-                player_state = PlayerState.Jump;
-            } 
-            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-            anim.SetBool("isJump", true);
+                if (player_state != PlayerState.Damaged)
+                {
+                    player_state = PlayerState.Jump;
+                }
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                anim.SetBool("isJump", true);
+            }
         }
       
 
@@ -141,16 +145,22 @@ public class Player : MonoBehaviour
  
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("FallingBlock"))
+        {
+            isFallingBlock = true;
+        }
         if (collision.gameObject.CompareTag("Platform"))
         {
             rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
             anim.SetBool("isJump", false);
+            isFallingBlock = false;
         }
         if(collision.gameObject.CompareTag("Enemy"))
         { 
             onDamaged(collision.transform.position);           
             //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();            
+            GameManager.instance.OnPlayerDead();
+            isFallingBlock = false;
         }
         
     }
@@ -163,18 +173,21 @@ public class Player : MonoBehaviour
             GameManager.respawnPoint = flagPosition;
             Debug.Log("flagPosition"+flagPosition);
             Debug.Log("respawnpoint"+GameManager.respawnPoint);
+            isFallingBlock = false;
         }
         else if (collision.gameObject.CompareTag("Item"))
         {
             //진짜 아이템 먹었을 때 animation 바꿈
             anim.SetBool("isItemGet", true);
             collision.gameObject.SetActive(false);
+            isFallingBlock = false;
         }
         else if (collision.gameObject.CompareTag("Border"))
         {
             player_state = PlayerState.Damaged;
             this.gameObject.layer = 7;
             isBorder = true;
+            isFallingBlock = false;
         }
     }
 
