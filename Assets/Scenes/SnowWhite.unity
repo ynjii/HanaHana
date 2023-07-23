@@ -35291,8 +35291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d755e9fc29b3f024b9caa3b8092eae85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_speed: 0
-  jump_power: 0
   player_state: 0
 --- !u!50 &373727983
 Rigidbody2D:
@@ -121015,6 +121013,7 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 1
   isMoving: 0
   waitingTime: 0
@@ -121439,6 +121438,7 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 1
   isMoving: 0
   waitingTime: 0
@@ -121462,6 +121462,7 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 0
   isMoving: 0
   waitingTime: 0
@@ -121564,6 +121565,7 @@ MonoBehaviour:
   obDirection: 3
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 0
   isMoving: 0
   waitingTime: 0
@@ -121770,6 +121772,7 @@ GameObject:
   - component: {fileID: 6526413647256478126}
   - component: {fileID: 6526413647256478124}
   - component: {fileID: 6526413647256478131}
+  - component: {fileID: 6526413647256478132}
   m_Layer: 6
   m_Name: t_FakeItem
   m_TagString: Enemy
@@ -121793,6 +121796,7 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 1
   isMoving: 0
   waitingTime: 0
@@ -121900,10 +121904,35 @@ MonoBehaviour:
   obDirection: 2
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 1
   isMoving: 0
   waitingTime: 0
   distance: 10
+  speed: 11
+  tagName: Untagged
+  layerIndex: 0
+--- !u!114 &6526413647256478132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526413647256478119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 7
+  obDirection: 0
+  gravity_scale: 4
+  color: 0
+  size: 0
+  isCol: 1
+  isMoving: 0
+  waitingTime: 0
+  distance: 0
   speed: 11
   tagName: Untagged
   layerIndex: 0
@@ -122156,6 +122185,7 @@ MonoBehaviour:
   obDirection: 2
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 0
   isMoving: 0
   waitingTime: 0.1
@@ -122272,6 +122302,7 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 0
   isMoving: 0
   waitingTime: 0
@@ -122579,6 +122610,7 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   color: 0
+  size: 0
   isCol: 0
   isMoving: 0
   waitingTime: 0

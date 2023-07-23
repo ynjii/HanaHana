@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,8 @@ public class ObstacleController : MonoBehaviour
         Shake, //떨리는 거
         ChangeStatus, //레이어랑 tag 바꿈
         ChangeColor, //색깔 바꿈
-        Rolling //굴러감
+        Rolling, //굴러감
+        ChangeSize//사이즈 변화
     }
 
     public enum ObDirection
@@ -43,6 +45,12 @@ public class ObstacleController : MonoBehaviour
         Opaque
     }
 
+    public enum changeSize
+    {
+        Bigger,
+        Smaller
+    }
+
     [SerializeField]
     private ObType obType; //obstacle의 type을 inspector에서 받아옴.
     [SerializeField]
@@ -52,6 +60,9 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private IntoColor color; // into Change할 color결정
+
+    [SerializeField]
+    private changeSize size; // into Change할 size결정
 
     [SerializeField]
     private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
@@ -91,6 +102,8 @@ public class ObstacleController : MonoBehaviour
     private bool is_expired = false;
     private bool is_start = true;
 
+    //사이즈 위한 변수
+    private Vector3 transform_scale;
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
@@ -170,8 +183,48 @@ public class ObstacleController : MonoBehaviour
             case ObType.Rolling:
                 Rolling(obDirection, speed, gravity_scale);
                 break;
+            case ObType.ChangeSize:
+                ChangeSize(size);
+                break;
         }
     }
+
+    private void ChangeSize(changeSize size)
+    {
+        if (!is_expired)
+        {
+            switch (size)
+            {
+                case changeSize.Bigger:
+                    if (this.gameObject.transform.localScale.x >= 100 || this.gameObject.transform.localScale.y >= 100 || this.gameObject.transform.localScale.z >= 100)
+                    {
+                        this.gameObject.transform.localScale = new Vector3(100, 100, 100);
+                        is_expired = true;
+                    }
+                    transform_scale.x += 0.5f;
+                    transform_scale.y += 0.5f;
+                    transform_scale.z += 0.5f;
+                    this.gameObject.transform.localScale = transform_scale;
+                    break;
+
+                case changeSize.Smaller:
+                    if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.z <= 0)
+                    {
+                        this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                        is_expired = true;
+                    }
+                    else
+                    {
+                        transform_scale.x -= 0.5f;
+                        transform_scale.y -= 0.5f;
+                        transform_scale.z -= 0.5f;
+                        this.gameObject.transform.localScale = transform_scale;
+                    }
+                    break;
+            }
+        }
+    }
+
     /// <summary>
     /// ~로 굴러감
     /// </summary>
