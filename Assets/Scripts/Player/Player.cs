@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
-    private PlayerHead player_head;
     public Define.PlayerState player_state;
     private bool isJumpButton=false;
     private bool isLeftButton = false;
@@ -27,12 +26,11 @@ public class Player : MonoBehaviour
         max_speed = 5;
         jump_power = 15;
         player_state=new PlayerState();
-        player_head=GetComponentInChildren<PlayerHead>();
     }
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
-    {
+    {        
         //점프
         if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
         {
@@ -55,12 +53,13 @@ public class Player : MonoBehaviour
 
         //방향전환
         if (Input.GetButton("Horizontal"))
+        {
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
-
+        }
         //애니메이션
         if (rigid.velocity.normalized.x == 0)
         {
-            if (player_state != PlayerState.Damaged)
+            if (player_state != PlayerState.Damaged&&rigid.velocity.y==0)
             {
                  player_state = PlayerState.Idle;
             }
@@ -92,6 +91,7 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()//물리 update
     {
+
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
        
@@ -128,7 +128,10 @@ public class Player : MonoBehaviour
  
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            anim.SetBool("isJump", false);
+        }
         if(collision.gameObject.CompareTag("Enemy"))
         { 
             onDamaged(collision.transform.position);           
@@ -197,6 +200,7 @@ public class Player : MonoBehaviour
         
         isLeftButton = true;
         sprite_renderer.flipX = true;
+        
     }
     public void leftButtonFalse()
     {
