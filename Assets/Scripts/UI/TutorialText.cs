@@ -6,12 +6,17 @@ public class TutorialText : MonoBehaviour
 {
     [SerializeField] PopupText popup_text_prefab;
 
-    private List<string> text_list1_1 = new List<string>() { "µ¿È­³ª¶ó°¡ ¾î±ß³µ¾î¿ä!" };
-    private List<string> text_list1_2 = new List<string>() { "¾ÆÀÌÅÛÀ» Àü´ŞÇØ °øÁÖ¸¦ ÁøÁ¤½ÃÅ°¼¼¿ä!" };
+    private List<string> text_list1_1 = new List<string>() { "ë™í™”ë‚˜ë¼ê°€ ì–´ê¸‹ë‚¬ì–´ìš”!" };
+    private List<string> text_list1_2 = new List<string>() { "ì•„ì´í…œì„ ì „ë‹¬í•´ ê³µì£¼ë¥¼ ì§„ì •ì‹œí‚¤ì„¸ìš”!" };
     void Start()
     {
-        popup_text_prefab.PopupTextList(text_list1_1, true);
-        popup_text_prefab.PopupTextList(text_list1_2, true);
+       //if(respawnPoint==(-6.17f, -0.54f, 0f)){
+            popup_text_prefab.PopupTextList(text_list1_1, true);
+            popup_text_prefab.PopupTextList(text_list1_2, true);
+        //}
+
+        
+        
     }
 
 }
