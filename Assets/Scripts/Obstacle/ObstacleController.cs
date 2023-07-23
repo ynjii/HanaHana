@@ -14,6 +14,7 @@ public class ObstacleController : MonoBehaviour
     {
         Move, //단방향으로 움직임
         MoveSide, //왔다갔다
+        Follow, //player 따라가게
         Rotate, //돌면서 떨어짐
         Shake, //떨리는 거
         ChangeStatus, //레이어랑 tag 바꿈
@@ -87,6 +88,8 @@ public class ObstacleController : MonoBehaviour
 
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private Vector3 movement = Vector3.zero;
+    
+    private Vector3 playerPosition; //player 따라갈때 사용.
 
     private float movedDistance = 0f;
 
@@ -94,7 +97,6 @@ public class ObstacleController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private Tilemap tilemap;
-    private PolygonCollider2D polygonCollider;
 
     //색변환 위한 변수
     private Renderer renderer;
@@ -114,6 +116,10 @@ public class ObstacleController : MonoBehaviour
         if (!isCol && collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(SetIsmoving(true));
+            if(obType == ObType.Follow){
+                playerPosition = collision.transform.position;
+                Debug.Log(playerPosition);
+            }
         }
     }
 
@@ -131,13 +137,7 @@ public class ObstacleController : MonoBehaviour
     private void Awake() {
         initialPosition = transform.position;
         tilemap = GetComponent<Tilemap>();
-        renderer=GetComponent<Renderer>();
-        //트리거 없어도 계쏙 움직여야하는 애들은 시작할때 true 처리
-        if(obType == ObType.MoveSide)
-        {
-            // rayhit 그릴때 사용
-            polygonCollider = GetComponent<PolygonCollider2D>();
-        }
+        renderer = GetComponent<Renderer>();
 
         //불투명으로 바뀌게 하는거면 시작부터 투명하게
         if (obType == ObType.ChangeColor && color == IntoColor.Opaque)
@@ -145,6 +145,11 @@ public class ObstacleController : MonoBehaviour
             my_color = new Color(0f, 0f, 0f, 0f);
             renderer.material.color = my_color;
         }
+        else if(obType == ObType.Follow){
+            rigid = GetComponent<Rigidbody2D>();
+        }
+
+        
     }
 
     private void FixedUpdate()
@@ -171,6 +176,10 @@ public class ObstacleController : MonoBehaviour
                     Destroy(this.gameObject.GetComponent<BoxCollider2D>());
                 }
                 StartCoroutine(MoveSideCoroutine());     
+                isMoving = false;
+                break;
+            case ObType.Follow:
+                MoveToPlayer();
                 isMoving = false;
                 break;
             case ObType.Rotate:
@@ -344,7 +353,13 @@ public class ObstacleController : MonoBehaviour
         }
     }   
 
-
+    private void MoveToPlayer()
+    {
+        Vector3 directionToPlayer = playerPosition - transform.position;
+        directionToPlayer.Normalize();
+        Vector3 force = directionToPlayer * speed * 10;
+        rigid.AddForce(force, ForceMode2D.Impulse);
+    }
 
     /// <summary>
     /// 회전
