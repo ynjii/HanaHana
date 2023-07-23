@@ -14,7 +14,7 @@ public class ObstacleController : MonoBehaviour
         Move, //단방향으로 움직임
         MoveSide, //왔다갔다
         Rotate, //돌면서 떨어짐
-        Shake, //둥둥 떠있는 모션
+        Shake, //떨리는 거
         ChangeStatus, //레이어랑 tag 바꿈
         ChangeColor, //색깔 바꿈
         Rolling //굴러감
@@ -266,9 +266,6 @@ public class ObstacleController : MonoBehaviour
             transform.position = newPosition;
             yield return null;
         }
-
-        // 보정을 위해 최종 위치를 목표 위치로 설정
-        transform.position = targetPosition;
     }
 
     private Vector3 CalculateTargetPosition(ObDirection obDirection, float movement)
