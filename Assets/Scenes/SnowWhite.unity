@@ -35393,7 +35393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373727981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.63, y: 1.28, z: 0}
+  m_LocalPosition: {x: 65.95, y: -2.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39346,6 +39346,7 @@ GameObject:
   - component: {fileID: 557552011}
   - component: {fileID: 557552009}
   - component: {fileID: 557552008}
+  - component: {fileID: 557552014}
   m_Layer: 8
   m_Name: a_3spikes
   m_TagString: Enemy
@@ -39728,6 +39729,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &557552014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557552006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2359c8ef5d203e6478c1ffb23973aea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &568530947
 GameObject:
   m_ObjectHideFlags: 0
@@ -121572,7 +121585,7 @@ MonoBehaviour:
   distance: 0
   speed: 11
   tagName: Transparent
-  layerIndex: 9
+  layerIndex: 10
 --- !u!114 &6367387041185055122
 MonoBehaviour:
   m_ObjectHideFlags: 0

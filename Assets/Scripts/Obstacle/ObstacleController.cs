@@ -97,7 +97,7 @@ public class ObstacleController : MonoBehaviour
     private PolygonCollider2D polygonCollider;
 
     //색변환 위한 변수
-    private TilemapRenderer tile_map_renderer;
+    private Renderer renderer;
     private Color my_color;
     private bool is_expired = false;
     private bool is_start = true;
@@ -260,15 +260,15 @@ public class ObstacleController : MonoBehaviour
     {
         if (is_start)
         {
-            tile_map_renderer = GetComponent<TilemapRenderer>();
+            renderer = GetComponent<Renderer>();
             switch (color)
             {
                 case IntoColor.TransParent:
-                    tile_map_renderer.material.color = new Color(1f, 1f, 1f, 1f);
+                    renderer.material.color = new Color(1f, 1f, 1f, 1f);
                     my_color = new Color(1f, 1f, 1f, 1f);
                     break;
                 case IntoColor.Opaque:
-                    tile_map_renderer.material.color = new Color(1f, 1f, 1f, 0f);
+                    renderer.material.color = new Color(1f, 1f, 1f, 0f);
                     my_color = new Color(1f, 1f, 1f, 0f);
                     break;
             }
