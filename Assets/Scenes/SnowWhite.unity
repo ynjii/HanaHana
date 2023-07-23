@@ -35393,7 +35393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373727981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.22, y: 0.03, z: 0}
+  m_LocalPosition: {x: 39.63, y: 1.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38815,7 +38815,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.02, y: 0, z: 0}
+  m_LocalPosition: {x: 29.95, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86693,7 +86693,7 @@ GameObject:
   - component: {fileID: 1507706528}
   m_Layer: 6
   m_Name: a_spikeground
-  m_TagString: Platform
+  m_TagString: FallingBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110201,6 +110201,9 @@ GameObject:
   - component: {fileID: 1855555551}
   - component: {fileID: 1855555549}
   - component: {fileID: 1855555548}
+  - component: {fileID: 1855555554}
+  - component: {fileID: 1855555556}
+  - component: {fileID: 1855555555}
   m_Layer: 8
   m_Name: a_falling3spikes1
   m_TagString: Enemy
@@ -110599,6 +110602,80 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1855555554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855555546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 0
+  obDirection: 2
+  gravity_scale: 4
+  color: 0
+  size: 0
+  isCol: 0
+  isMoving: 0
+  waitingTime: 0
+  distance: 20
+  speed: 10
+  tagName: Untagged
+  layerIndex: 0
+--- !u!61 &1855555555
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855555546}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 44.51214, y: -0.3077428}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1067963, y: 0.9223781}
+  m_EdgeRadius: 0
+--- !u!114 &1855555556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855555546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 4
+  obDirection: 0
+  gravity_scale: 4
+  color: 0
+  size: 0
+  isCol: 0
+  isMoving: 0
+  waitingTime: 0
+  distance: 0
+  speed: 8
+  tagName: Enemy
+  layerIndex: 9
 --- !u!1 &1867566637
 GameObject:
   m_ObjectHideFlags: 0
