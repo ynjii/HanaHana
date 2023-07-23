@@ -35393,7 +35393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373727981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 65.95, y: -2.03, z: 0}
+  m_LocalPosition: {x: 81.35, y: -2.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111210,6 +111210,7 @@ GameObject:
   - component: {fileID: 1906498815}
   - component: {fileID: 1906498813}
   - component: {fileID: 1906498812}
+  - component: {fileID: 1906498818}
   m_Layer: 8
   m_Name: a_jumptile
   m_TagString: Enemy
@@ -111556,6 +111557,30 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1906498818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906498810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 5
+  obDirection: 0
+  gravity_scale: 4
+  color: 1
+  size: 0
+  isCol: 1
+  isMoving: 0
+  waitingTime: 0
+  distance: 0
+  speed: 11
+  tagName: Untagged
+  layerIndex: 0
 --- !u!1 &1910269316
 GameObject:
   m_ObjectHideFlags: 0

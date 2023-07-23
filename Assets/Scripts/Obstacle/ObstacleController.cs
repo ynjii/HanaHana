@@ -131,12 +131,19 @@ public class ObstacleController : MonoBehaviour
     private void Awake() {
         initialPosition = transform.position;
         tilemap = GetComponent<Tilemap>();
-
+        renderer=GetComponent<Renderer>();
         //트리거 없어도 계쏙 움직여야하는 애들은 시작할때 true 처리
         if(obType == ObType.MoveSide)
         {
             // rayhit 그릴때 사용
             polygonCollider = GetComponent<PolygonCollider2D>();
+        }
+
+        //불투명으로 바뀌게 하는거면 시작부터 투명하게
+        if (obType == ObType.ChangeColor && color == IntoColor.Opaque)
+        {
+            my_color = new Color(0f, 0f, 0f, 0f);
+            renderer.material.color = my_color;
         }
     }
 
@@ -288,19 +295,18 @@ public class ObstacleController : MonoBehaviour
                         is_expired = true;
                     }
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
-                    GetComponent<Renderer>().material.color = my_color;
+                    renderer.material.color = my_color;
                     break;
                 case IntoColor.Opaque:
                     my_color.a += 0.05f; // 알파 값 조정
-
                     // 알파 값이 1을 넘어가면 1로 고정
-                    if (my_color.a >= 0f)
+                    if (my_color.a >= 1f)
                     {
                         my_color.a = 1f;
                         is_expired = true;
                     }
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
-                    GetComponent<Renderer>().material.color = my_color;
+                    renderer.material.color = my_color;
                     break;
             }            
         }       
