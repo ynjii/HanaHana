@@ -31277,11 +31277,6 @@ MonoBehaviour:
   max_speed: 0
   jump_power: 0
   player_state: 0
-  WallChk: {fileID: 0}
-  WallChkDistance: 0
-  w_Layer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!50 &373727983
 Rigidbody2D:
   serializedVersion: 4
@@ -31386,8 +31381,7 @@ Transform:
   m_LocalPosition: {x: 417.27, y: -12.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2062382990}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77185,37 +77179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup_text_prefab: {fileID: 8702370796384853545}
---- !u!1 &2062382989
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2062382990}
-  m_Layer: 3
-  m_Name: WallCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2062382990
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062382989}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 373727986}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2064677463
 GameObject:
   m_ObjectHideFlags: 0
