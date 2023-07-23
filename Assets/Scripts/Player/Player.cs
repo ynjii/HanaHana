@@ -5,9 +5,7 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
     private float max_speed;
-    [SerializeField]
     private float jump_power;
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
@@ -44,11 +42,10 @@ public class Player : MonoBehaviour
         {
             rigid.gravityScale = 2;
         }
-
-        //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")) && rigid.velocity.y==0)
-        {
   
+        //점프
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")) && (rigid.velocity.y>=-0.001f && rigid.velocity.y <= 0.001f))
+        {
             if (player_state != PlayerState.Damaged) 
             {
                 player_state = PlayerState.Jump;
