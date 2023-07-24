@@ -447,10 +447,11 @@ public class ObstacleController : MonoBehaviour
     /// </summary>
     private IEnumerator MoveSideCoroutine() 
     {
+        float nowTime = Time.time;
         while(true)
         {   
             // 시간에 따라 이동할 거리 계산
-            float moveDistance = Mathf.PingPong(Time.time * speed, distance);
+            float moveDistance = Mathf.PingPong((Time.time-nowTime) * speed, distance);
             float direction = (isLeftDown) ? -1 : 1;
             
             // 좌우로 움직이는 경우
