@@ -5,9 +5,8 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
+    private bool isFallingBlock=false;
     private float max_speed;
-    [SerializeField]
     private float jump_power;
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
@@ -17,6 +16,7 @@ public class Player : MonoBehaviour
     private bool isLeftButton = false;
     private bool isRightButton = false;
     private bool isButtonPressed = false;
+    private bool isBorder = false;
 
     private void Awake()
     {
@@ -30,16 +30,32 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
-    {        
-        //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump"))&&!(rigid.velocity.y < -0.5f))
+    {
+        
+        //낙하속도 빠르게
+        if (rigid.velocity.y < -0.2f)
         {
-            if (player_state != PlayerState.Damaged) 
+            rigid.gravityScale = 3;
+
+        }
+        //Idle이면 중력스케일 복구
+        if (player_state == PlayerState.Idle)
+        {
+            rigid.gravityScale = 2;
+        }
+  
+        //점프
+        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
+        {
+            if ((rigid.velocity.y >= -0.001f && rigid.velocity.y <= 0.001f) || isFallingBlock)
             {
-                player_state = PlayerState.Jump;
-            } 
-            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-            anim.SetBool("isJump", true);
+                if (player_state != PlayerState.Damaged)
+                {
+                    player_state = PlayerState.Jump;
+                }
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                anim.SetBool("isJump", true);
+            }
         }
       
 
@@ -63,6 +79,7 @@ public class Player : MonoBehaviour
             {
                  player_state = PlayerState.Idle;
             }
+            
             anim.SetBool("isWalk", false);
         }
         else
@@ -104,7 +121,7 @@ public class Player : MonoBehaviour
             if (isJumpButton)
             {
                 //점프
-                if (!anim.GetBool("isJump") && !(rigid.velocity.y < -0.5f))
+                if ((rigid.velocity.y >= -0.001f && rigid.velocity.y <= 0.001f) || isFallingBlock)
                 {
                     if (player_state != PlayerState.Damaged)
                     {
@@ -128,16 +145,20 @@ public class Player : MonoBehaviour
  
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Platform")|| collision.gameObject.CompareTag("FallingBlock"))
         {
+            rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
             anim.SetBool("isJump", false);
+            isFallingBlock = false;
         }
         if(collision.gameObject.CompareTag("Enemy"))
         { 
             onDamaged(collision.transform.position);           
             //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();            
+            GameManager.instance.OnPlayerDead();
+            isFallingBlock = false;
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -148,14 +169,22 @@ public class Player : MonoBehaviour
             GameManager.respawnPoint = flagPosition;
             Debug.Log("flagPosition"+flagPosition);
             Debug.Log("respawnpoint"+GameManager.respawnPoint);
+            isFallingBlock = false;
         }
         else if (collision.gameObject.CompareTag("Item"))
         {
             //진짜 아이템 먹었을 때 animation 바꿈
             anim.SetBool("isItemGet", true);
             collision.gameObject.SetActive(false);
+            isFallingBlock = false;
         }
-        
+        else if (collision.gameObject.CompareTag("Border"))
+        {
+            player_state = PlayerState.Damaged;
+            this.gameObject.layer = 7;
+            isBorder = true;
+            isFallingBlock = false;
+        }
     }
 
     public void onDamaged(Vector2 targetPos)
@@ -168,22 +197,21 @@ public class Player : MonoBehaviour
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
-
+        if (!isBorder)
+        {
+            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+        }
     }
 
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
-    {
-        
+    {   
         player_state = PlayerState.Damaged;
-        GameManager.instance.OnPlayerDead();
-        this.gameObject.SetActive(false);
-        
-        player_state = PlayerState.Damaged;        
+        this.gameObject.layer= 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }
+
 
 
     //버튼을 눌렀는지 뗐는지

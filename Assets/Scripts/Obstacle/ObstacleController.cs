@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,13 @@ public class ObstacleController : MonoBehaviour
     {
         Move, //단방향으로 움직임
         MoveSide, //왔다갔다
+        Follow, //player 따라가게
         Rotate, //돌면서 떨어짐
-        Shake, //둥둥 떠있는 모션
+        Shake, //떨리는 거
         ChangeStatus, //레이어랑 tag 바꿈
         ChangeColor, //색깔 바꿈
-        Rolling //굴러감
+        Rolling, //굴러감
+        ChangeSize//사이즈 변화
     }
 
     public enum ObDirection
@@ -43,6 +46,12 @@ public class ObstacleController : MonoBehaviour
         Opaque
     }
 
+    public enum changeSize
+    {
+        Bigger,
+        Smaller
+    }
+
     [SerializeField]
     private ObType obType; //obstacle의 type을 inspector에서 받아옴.
     [SerializeField]
@@ -52,6 +61,9 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private IntoColor color; // into Change할 color결정
+
+    [SerializeField]
+    private changeSize size; // into Change할 size결정
 
     [SerializeField]
     private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
@@ -76,22 +88,24 @@ public class ObstacleController : MonoBehaviour
 
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private Vector3 movement = Vector3.zero;
+    
+    private Vector3 playerPosition; //player 따라갈때 사용.
 
     private float movedDistance = 0f;
-    private bool moveRight = false; //moveside할때 사용됨
 
     private float rotateSpeed = 10000f;
 
     private Rigidbody2D rigid;
     private Tilemap tilemap;
-    private PolygonCollider2D polygonCollider;
 
     //색변환 위한 변수
-    private TilemapRenderer tile_map_renderer;
+    private Renderer renderer;
     private Color my_color;
     private bool is_expired = false;
     private bool is_start = true;
 
+    //사이즈 위한 변수
+    private Vector3 transform_scale;
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
@@ -102,6 +116,10 @@ public class ObstacleController : MonoBehaviour
         if (!isCol && collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(SetIsmoving(true));
+            if(obType == ObType.Follow){
+                playerPosition = collision.transform.position;
+                Debug.Log(playerPosition);
+            }
         }
     }
 
@@ -119,13 +137,19 @@ public class ObstacleController : MonoBehaviour
     private void Awake() {
         initialPosition = transform.position;
         tilemap = GetComponent<Tilemap>();
+        renderer = GetComponent<Renderer>();
 
-        //트리거 없어도 계쏙 움직여야하는 애들은 시작할때 true 처리
-        if(obType == ObType.MoveSide)
+        //불투명으로 바뀌게 하는거면 시작부터 투명하게
+        if (obType == ObType.ChangeColor && color == IntoColor.Opaque)
         {
-            // rayhit 그릴때 사용
-            polygonCollider = GetComponent<PolygonCollider2D>();
+            my_color = new Color(0f, 0f, 0f, 0f);
+            renderer.material.color = my_color;
         }
+        else if(obType == ObType.Follow){
+            rigid = GetComponent<Rigidbody2D>();
+        }
+
+        
     }
 
     private void FixedUpdate()
@@ -146,7 +170,17 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.MoveSide: //shake로 대체 가능 나중에 rigidbody로 바뀌어서 enemy로 옮겨갈 예정...
                 //MoveSide();
-                //StartCoroutine(MoveSideCoroutine());
+                initialPosition = transform.position;
+                if(this.gameObject.GetComponent<BoxCollider2D>())
+                {
+                    Destroy(this.gameObject.GetComponent<BoxCollider2D>());
+                }
+                StartCoroutine(MoveSideCoroutine());     
+                isMoving = false;
+                break;
+            case ObType.Follow:
+                MoveToPlayer();
+                isMoving = false;
                 break;
             case ObType.Rotate:
                 Rotate();
@@ -165,8 +199,48 @@ public class ObstacleController : MonoBehaviour
             case ObType.Rolling:
                 Rolling(obDirection, speed, gravity_scale);
                 break;
+            case ObType.ChangeSize:
+                ChangeSize(size);
+                break;
         }
     }
+
+    private void ChangeSize(changeSize size)
+    {
+        if (!is_expired)
+        {
+            switch (size)
+            {
+                case changeSize.Bigger:
+                    if (this.gameObject.transform.localScale.x >= 100 || this.gameObject.transform.localScale.y >= 100 || this.gameObject.transform.localScale.z >= 100)
+                    {
+                        this.gameObject.transform.localScale = new Vector3(100, 100, 100);
+                        is_expired = true;
+                    }
+                    transform_scale.x += 0.5f;
+                    transform_scale.y += 0.5f;
+                    transform_scale.z += 0.5f;
+                    this.gameObject.transform.localScale = transform_scale;
+                    break;
+
+                case changeSize.Smaller:
+                    if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.z <= 0)
+                    {
+                        this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                        is_expired = true;
+                    }
+                    else
+                    {
+                        transform_scale.x -= 0.5f;
+                        transform_scale.y -= 0.5f;
+                        transform_scale.z -= 0.5f;
+                        this.gameObject.transform.localScale = transform_scale;
+                    }
+                    break;
+            }
+        }
+    }
+
     /// <summary>
     /// ~로 굴러감
     /// </summary>
@@ -202,15 +276,15 @@ public class ObstacleController : MonoBehaviour
     {
         if (is_start)
         {
-            tile_map_renderer = GetComponent<TilemapRenderer>();
+            renderer = GetComponent<Renderer>();
             switch (color)
             {
                 case IntoColor.TransParent:
-                    tile_map_renderer.material.color = new Color(1f, 1f, 1f, 1f);
+                    renderer.material.color = new Color(1f, 1f, 1f, 1f);
                     my_color = new Color(1f, 1f, 1f, 1f);
                     break;
                 case IntoColor.Opaque:
-                    tile_map_renderer.material.color = new Color(1f, 1f, 1f, 0f);
+                    renderer.material.color = new Color(1f, 1f, 1f, 0f);
                     my_color = new Color(1f, 1f, 1f, 0f);
                     break;
             }
@@ -230,19 +304,18 @@ public class ObstacleController : MonoBehaviour
                         is_expired = true;
                     }
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
-                    GetComponent<Renderer>().material.color = my_color;
+                    renderer.material.color = my_color;
                     break;
                 case IntoColor.Opaque:
                     my_color.a += 0.05f; // 알파 값 조정
-
                     // 알파 값이 1을 넘어가면 1로 고정
-                    if (my_color.a >= 0f)
+                    if (my_color.a >= 1f)
                     {
                         my_color.a = 1f;
                         is_expired = true;
                     }
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
-                    GetComponent<Renderer>().material.color = my_color;
+                    renderer.material.color = my_color;
                     break;
             }            
         }       
@@ -261,9 +334,6 @@ public class ObstacleController : MonoBehaviour
             transform.position = newPosition;
             yield return null;
         }
-
-        // 보정을 위해 최종 위치를 목표 위치로 설정
-        transform.position = targetPosition;
     }
 
     private Vector3 CalculateTargetPosition(ObDirection obDirection, float movement)
@@ -283,38 +353,12 @@ public class ObstacleController : MonoBehaviour
         }
     }   
 
-    /// <summary>
-    /// 좌우로 왔다갔다 움직임
-    /// </summary>
-    private void MoveSide()
+    private void MoveToPlayer()
     {
-        // 이동 방향 설정
-        float moveDirection = moveRight ? 1f : -1f;
-
-        movement = Vector3.right * moveDirection * speed * Time.deltaTime;
-        transform.position += movement;
-
-        // 지형체크
-        Vector2 bottomEdge;
-        
-        if(moveRight) //오른쪽을 향하고 있다면
-        {
-            bottomEdge = new Vector2(polygonCollider.bounds.max.x, polygonCollider.bounds.min.y - 0.1f);
-        }
-        else 
-        {
-            bottomEdge = new Vector2(polygonCollider.bounds.min.x, polygonCollider.bounds.min.y - 0.1f);
-        }
-
-
-        Debug.DrawRay(bottomEdge, Vector2.down, Color.green);
-        
-        RaycastHit2D rayHit = Physics2D.Raycast(bottomEdge, Vector2.down, 0.5f, LayerMask.GetMask("Platform"));
-        if (rayHit.collider == null)
-        {
-            moveRight = !moveRight;
-        }
-
+        Vector3 directionToPlayer = playerPosition - transform.position;
+        directionToPlayer.Normalize();
+        Vector3 force = directionToPlayer * speed * 10;
+        rigid.AddForce(force, ForceMode2D.Impulse);
     }
 
     /// <summary>
@@ -349,11 +393,22 @@ public class ObstacleController : MonoBehaviour
     {
         while(true)
         {   
-            //만약 좌우로 움직이게 하고 싶으면
-            float newX = (obDirection == ObDirection.LeftRight) ? initialPosition.x + Mathf.PingPong(Time.time * speed, 1f) * distance : transform.position.x;
-            //만약 상하로 움직이게 하고 싶으면
-            float newY = (obDirection == ObDirection.UpDown) ? initialPosition.y + Mathf.PingPong(Time.time * speed, 1f) * distance : transform.position.y;
-            transform.position = new Vector3(newX, newY, transform.position.z);
+            // 시간에 따라 이동할 거리 계산
+            float moveDistance = Mathf.PingPong(Time.time * speed, distance);
+            
+            // 좌우로 움직이는 경우
+            if (obDirection == ObDirection.LeftRight)
+            {
+                float newX = initialPosition.x + moveDistance;
+                transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+            }
+            // 상하로 움직이는 경우
+            else if (obDirection == ObDirection.UpDown)
+            {
+                float newY = initialPosition.y + moveDistance;
+                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            }
+            
             yield return null;
         }
     }

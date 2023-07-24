@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
         transform.position = player.transform.position + delta;
         
         // 플레이어가 피격당했다면 플레이어를 버림
-        if (player_script.player_state == Define.PlayerState.Damaged || player.position.y < -3)
+        if (player_script.player_state == Define.PlayerState.Damaged)
         {
             player = null;
         }
