@@ -121,7 +121,6 @@ public class ObstacleController : MonoBehaviour
             StartCoroutine(SetIsmoving(true));
             if(obType == ObType.Follow){
                 playerPosition = collision.transform.position;
-                Debug.Log(playerPosition);
             }
         }
     }
@@ -131,9 +130,10 @@ public class ObstacleController : MonoBehaviour
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (isCol && collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(SetIsmoving(true));
+            if(isCol)
+                StartCoroutine(SetIsmoving(true));
             if(obType == ObType.MoveSide && isPlatform){
                 collision.transform.SetParent(transform);
             }
