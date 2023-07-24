@@ -60,6 +60,9 @@ public class ObstacleController : MonoBehaviour
     private float gravity_scale=4f;//중력스케일 조절
 
     [SerializeField]
+    private bool isPlatform = false; //만약 움직이는 발판이라면
+
+    [SerializeField]
     private IntoColor color; // into Change할 color결정
 
     [SerializeField]
@@ -131,8 +134,19 @@ public class ObstacleController : MonoBehaviour
         if (isCol && collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(SetIsmoving(true));
+            if(obType == ObType.MoveSide && isPlatform){
+                collision.transform.SetParent(transform);
+            }
+            isCol = false;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        if(isPlatform && collision.transform.CompareTag("Player")){
+            collision.transform.SetParent(null);
+        }
+    }
+
 
     private void Awake() {
         initialPosition = transform.position;
@@ -156,6 +170,7 @@ public class ObstacleController : MonoBehaviour
     {
         if (isMoving)
         {
+            initialPosition = transform.position;
             ObstacleMove(obType);
         }
     }
@@ -170,7 +185,6 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.MoveSide: //shake로 대체 가능 나중에 rigidbody로 바뀌어서 enemy로 옮겨갈 예정...
                 //MoveSide();
-                initialPosition = transform.position;
                 if(this.gameObject.GetComponent<BoxCollider2D>())
                 {
                     Destroy(this.gameObject.GetComponent<BoxCollider2D>());

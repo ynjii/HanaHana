@@ -417,7 +417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373727981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 163.06, y: -1.2, z: 0}
+  m_LocalPosition: {x: 81.1, y: -1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17724,94 +17724,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!66 &194004454983384384
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194004454983384390}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 194004454983384387}
-    m_ColliderPaths:
-    - - X: 800000000
-        Y: -36111112
-      - X: 800555584
-        Y: -36666664
-      - X: 809444416
-        Y: -36666664
-      - X: 810000000
-        Y: -36111112
-      - X: 810555584
-        Y: -36666664
-      - X: 819444416
-        Y: -36666664
-      - X: 820000000
-        Y: -36111112
-      - X: 820000000
-        Y: -30000000
-      - X: 800000000
-        Y: -30000000
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 80.94443, y: -3.6666665}
-      - {x: 81.00002, y: -3.6111321}
-      - {x: 81.05557, y: -3.6666665}
-      - {x: 81.94445, y: -3.6666589}
-      - {x: 82, y: -3.6111004}
-      - {x: 81.99997, y: -3}
-      - {x: 80, y: -3.0000293}
-      - {x: 80.00001, y: -3.6111188}
-      - {x: 80.05557, y: -3.6666665}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
---- !u!50 &194004454983384385
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194004454983384390}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!19719996 &194004454983384387
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194004454983384390}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
 --- !u!1 &194004454983384390
 GameObject:
   m_ObjectHideFlags: 0
@@ -17823,10 +17735,8 @@ GameObject:
   - component: {fileID: 194004454983384391}
   - component: {fileID: 194004454983384397}
   - component: {fileID: 194004454983384396}
-  - component: {fileID: 194004454983384387}
-  - component: {fileID: 194004454983384385}
-  - component: {fileID: 194004454983384384}
   - component: {fileID: 194004454983384398}
+  - component: {fileID: 194004454983384399}
   m_Layer: 6
   m_Name: a_MovingGround
   m_TagString: Platform
@@ -18045,15 +17955,32 @@ MonoBehaviour:
   obType: 1
   obDirection: 6
   gravity_scale: 4
+  isPlatform: 1
   color: 0
   size: 0
   isCol: 1
   isMoving: 0
   waitingTime: 0.5
   distance: 13
-  speed: 4
+  speed: 1
   tagName: Untagged
   layerIndex: 0
+--- !u!19719996 &194004454983384399
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194004454983384390}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1839735485 &194004454999484548
 Tilemap:
   m_ObjectHideFlags: 0
@@ -27561,6 +27488,7 @@ MonoBehaviour:
   obType: 1
   obDirection: 6
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -29154,6 +29082,7 @@ MonoBehaviour:
   obType: 2
   obDirection: 0
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -38426,9 +38355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obType: 3
+  obType: 4
   obDirection: 6
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -77625,6 +77555,7 @@ MonoBehaviour:
   obType: 4
   obDirection: 0
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 1
@@ -77649,6 +77580,7 @@ MonoBehaviour:
   obType: 5
   obDirection: 0
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 1
@@ -78109,6 +78041,7 @@ MonoBehaviour:
   obType: 2
   obDirection: 0
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 1
@@ -78217,6 +78150,7 @@ MonoBehaviour:
   obType: 0
   obDirection: 2
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 1
@@ -78241,6 +78175,7 @@ MonoBehaviour:
   obType: 4
   obDirection: 0
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -78291,6 +78226,7 @@ MonoBehaviour:
   obType: 0
   obDirection: 3
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -78588,6 +78524,7 @@ MonoBehaviour:
   obType: 0
   obDirection: 2
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -78855,6 +78792,7 @@ MonoBehaviour:
   obType: 3
   obDirection: 0
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -79110,6 +79048,7 @@ MonoBehaviour:
   obType: 0
   obDirection: 3
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
@@ -79264,6 +79203,7 @@ MonoBehaviour:
   obType: 1
   obDirection: 6
   gravity_scale: 4
+  isPlatform: 0
   color: 0
   size: 0
   isCol: 0
