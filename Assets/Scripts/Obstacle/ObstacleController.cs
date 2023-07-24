@@ -19,7 +19,8 @@ public class ObstacleController : MonoBehaviour
         ChangeStatus, //레이어랑 tag 바꿈
         ChangeColor, //색깔 바꿈
         Rolling, //굴러감
-        ChangeSize//사이즈 변화
+        ChangeSize,//사이즈 변화
+        ChangeRendererOrder//렌더러순서 변경
     }
 
     public enum ObDirection
@@ -37,7 +38,13 @@ public class ObstacleController : MonoBehaviour
         /// UpDown, LeftRight은 moveSide랑 Shake용
         /// </summary>
         UpDown,
-        LeftRight
+        LeftRight,
+
+        /// <summary>
+        /// Rolling용 diagonal
+        /// </summary>
+        Diagonal_Left,
+        Diagonal_Right
     }
     public enum IntoColor
     {
@@ -49,6 +56,12 @@ public class ObstacleController : MonoBehaviour
     {
         Bigger,
         Smaller
+    }
+
+    public enum RendererOrder
+    {
+        Def,
+        Mostback
     }
 
     [SerializeField]
@@ -63,6 +76,10 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private changeSize size; // into Change할 size결정
+
+    [SerializeField]
+    private RendererOrder rend_order; // into Change할 render order결정
+
 
     [SerializeField]
     private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
@@ -193,9 +210,24 @@ public class ObstacleController : MonoBehaviour
             case ObType.ChangeSize:
                 ChangeSize(size);
                 break;
+            case ObType.ChangeRendererOrder:
+                ChangeRendOrder(rend_order);
+                break;
         }
     }
 
+    private void ChangeRendOrder(RendererOrder rend_order)
+    {
+        switch(rend_order)
+        {
+            case RendererOrder.Def:
+                renderer.sortingOrder = 0;
+                break;
+            case RendererOrder.Mostback:
+                renderer.sortingOrder = 1;
+                break;
+        }
+    }
     private void ChangeSize(changeSize size)
     {
         if (!is_expired)
@@ -254,7 +286,12 @@ public class ObstacleController : MonoBehaviour
                 case ObDirection.Right:
                     rigid.velocity = new Vector3(speed, 0, 0);
                     break;
-
+                case ObDirection.Diagonal_Left:
+                    rigid.AddForce(new Vector2(-1, 1) * speed, ForceMode2D.Impulse);
+                    break;
+                case ObDirection.Diagonal_Right:
+                    rigid.AddForce(new Vector2(1, 1) * speed, ForceMode2D.Impulse);
+                    break;
             }
         }
     }
