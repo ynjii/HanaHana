@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private bool isRightButton = false;
     private bool isButtonPressed = false;
     private bool isBorder = false;
+    public GameObject SaveLoad;
 
     private void Awake()
     {
@@ -166,9 +167,9 @@ public class Player : MonoBehaviour
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
             Vector3 flagPosition = collision.gameObject.transform.position;
-            GameManager.respawnPoint = flagPosition;
+            SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn",flagPosition);
             Debug.Log("flagPosition"+flagPosition);
-            Debug.Log("respawnpoint"+GameManager.respawnPoint);
+            Debug.Log("SaveRespawn"+SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn"));
             isFallingBlock = false;
         }
         else if (collision.gameObject.CompareTag("Item"))
