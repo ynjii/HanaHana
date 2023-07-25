@@ -104,9 +104,6 @@ public class ObstacleController : MonoBehaviour
     private float speed = 11f; //속도
 
     [SerializeField]
-    private float rotateSpeed = 10000f;
-
-    [SerializeField]
     private string tagName = "Untagged";
 
     [SerializeField]
@@ -116,6 +113,7 @@ public class ObstacleController : MonoBehaviour
     private Vector3 movement = Vector3.zero;
 
     private float movedDistance = 0f;
+    private float rotateSpeed = 10000f;
 
     private Rigidbody2D rigid;
     private Tilemap tilemap;
