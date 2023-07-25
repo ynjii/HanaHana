@@ -117648,7 +117648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2051663164
 Transform:
   m_ObjectHideFlags: 0
@@ -117677,6 +117677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup_text_prefab: {fileID: 8702370796384853545}
+  SaveLoad: {fileID: 1699537233}
 --- !u!1 &2064677463
 GameObject:
   m_ObjectHideFlags: 0
@@ -124764,6 +124765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1978527512727634316}
+  - component: {fileID: 1978527512727634354}
   - component: {fileID: 1978527512727634352}
   - component: {fileID: 1978527512727634353}
   - component: {fileID: 1978527512727634318}
@@ -124961,6 +124963,20 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &1978527512727634354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978527512727634317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3355042b4b4964aa4bb4b17a9cd2d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveLoad: {fileID: 1699537233}
+  TutorialText: {fileID: 2051663163}
 --- !u!50 &2057368987556155757
 Rigidbody2D:
   serializedVersion: 4
@@ -128110,8 +128126,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6526413647256478118}
+  - component: {fileID: 6526413647256478134}
   - component: {fileID: 6526413647256478128}
   - component: {fileID: 6526413647256478126}
+  - component: {fileID: 6526413647256478133}
   - component: {fileID: 6526413647256478124}
   - component: {fileID: 6526413647256478131}
   - component: {fileID: 6526413647256478132}
@@ -128287,6 +128305,32 @@ MonoBehaviour:
   speed: 11
   tagName: Untagged
   layerIndex: 0
+--- !u!114 &6526413647256478133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526413647256478119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708bf65cb91116e42b260643ff83e12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveLoad: {fileID: 1699537233}
+--- !u!114 &6526413647256478134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526413647256478119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708bf65cb91116e42b260643ff83e12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveLoad: {fileID: 1699537233}
 --- !u!483693784 &6687395469993967168
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -130703,7 +130747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &8702370796471195954
 CanvasRenderer:
   m_ObjectHideFlags: 0
