@@ -71,10 +71,9 @@ public class GameManager : MonoBehaviour
             //현재 상태를 게임오버 상태로 변경
             isGameover = true;
             //죽은 횟수를 증가
-            if (SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("death") != null)
-            {
-                death_count = SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("death") + 1;
-            }
+
+            death_count = SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("death") + 1;
+
             SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("death", death_count);
             death_text.text = "Death : " + death_count++;
             Debug.Log("Death : " + death_count);
