@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
         cameraState = Define.CameraState.Player;
         player = GameObject.FindWithTag("Player").transform;
         player_script = player.GetComponent<Player>();
-        delta = new Vector3(0f, 1f, -1f);
+        delta = new Vector3(3f, 1f, -1f);
     }
 
     void LateUpdate()
