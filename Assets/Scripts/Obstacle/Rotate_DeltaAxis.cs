@@ -7,17 +7,16 @@ using static Define;
 public class Rotate_DeltaAxis : MonoBehaviour
 {
     [SerializeField] private Tags compareTag;
-    [SerializeField] private RotateDelta rotateDelta;
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float rotateDelta;
+    [SerializeField] private Vector3 point;
+    [SerializeField] private Collider2D collisionCollider;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(compareTag.ToString()))
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, (int)rotateDelta));
-        }
+        if (!other.CompareTag(compareTag.ToString())) 
+            return;
+
+        collisionCollider.enabled = true;
+        transform.RotateAround(transform.position + point, Vector3.forward, rotateDelta);
     }
 }
