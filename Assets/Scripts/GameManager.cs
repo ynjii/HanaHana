@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject finishUI; //게임이 끝났을 시 활성화할 UI 게임오브젝트
     public GameObject player;//플레이어
     public GameObject SaveLoad;
+    public GameObject exitPanel;
 
     /// <summary>
     /// 게임 시작과 동시에 싱글턴을 구성
@@ -42,12 +43,13 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+    {   
+        /*
         //리스폰 위치로 플레이어 위치를 reset함.
         if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
         {
             player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
-        }
+        }*/
         Debug.Log("Mrespawnpoint" + player.transform.position);
     }
 
@@ -58,6 +60,13 @@ public class GameManager : MonoBehaviour
             //게임오버 상태에서 마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+        }
+
+         //만약 뒤로가기키 눌렀을때
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0f; //시간 정지
+            exitPanel.SetActive(true); //exit팝업착 띄우기
         }
     }
 
@@ -97,5 +106,16 @@ public class GameManager : MonoBehaviour
     private void HideFinishUI()
     {
         finishUI.SetActive(false);
+    }
+
+    public void ExitYes()
+    {
+        Application.Quit();
+    }
+
+    public void ExitNo()
+    {
+        Time.timeScale = 1f;
+        exitPanel.SetActive(false);
     }
 }
