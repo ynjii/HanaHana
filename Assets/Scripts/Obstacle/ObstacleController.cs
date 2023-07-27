@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static Define;
 
 /// <summary>
 /// 움직이는 obstacle들의 부모 스크립트입니다.
@@ -109,6 +110,9 @@ public class ObstacleController : MonoBehaviour
     [SerializeField]
     private int layerIndex = 0;
 
+    [SerializeField]
+    private Define.Tags colTag = Define.Tags.Player; //player가 default
+
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private Vector3 movement = Vector3.zero;
 
@@ -133,7 +137,7 @@ public class ObstacleController : MonoBehaviour
     /// 만약 isTriggred 처리된 collider를 사용하고 싶다면 주의해서 사용해주셔야해요.
     /// </summary>
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (!isCol && collision.gameObject.CompareTag("Player"))
+        if (!isCol && collision.gameObject.CompareTag(colTag.ToString()))
         {
             StartCoroutine(SetIsmoving(true));
         }
@@ -144,7 +148,7 @@ public class ObstacleController : MonoBehaviour
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.transform.CompareTag(colTag.ToString()))
         {
             if(isCol)
                 StartCoroutine(SetIsmoving(true));
@@ -156,7 +160,7 @@ public class ObstacleController : MonoBehaviour
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
-        if(isPlatform && collision.transform.CompareTag("Player")){
+        if(isPlatform && collision.transform.CompareTag(colTag.ToString())){
             collision.transform.SetParent(null);
         }
     }
