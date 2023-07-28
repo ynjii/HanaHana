@@ -19,4 +19,9 @@ public class SceneChange : MonoBehaviour
         
         SceneManager.LoadScene("SnowWhite");
     }
+
+    public void back_Home()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
 }
