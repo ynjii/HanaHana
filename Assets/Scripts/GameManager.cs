@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; //싱글턴을 할당할 전역변수
 
 
-    [SerializeField] private Vector3 respawnPoint = new Vector3(-8.73f, -0.5048814f, 0f); // 플레이어가 리스폰할 체크포인트 위치
+    [SerializeField] private Vector3 respawnPoint = new Vector3(-9.16f, -0.48f, 0f); // 플레이어가 리스폰할 체크포인트 위치
     private int death_count = 0;//죽은 횟수
     public bool isGameover = false; //게임오버 상태
     public TextMeshProUGUI death_text;//죽은 횟수를 출력할 UI 텍스트
@@ -44,12 +44,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {   
-        /*
+        
         //리스폰 위치로 플레이어 위치를 reset함.
         if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
         {
             player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
-        }*/
+        }
         Debug.Log("Mrespawnpoint" + player.transform.position);
     }
 
