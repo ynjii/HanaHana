@@ -185,6 +185,7 @@ public class Player : MonoBehaviour
             this.gameObject.layer = 7;
             isBorder = true;
             isFallingBlock = false;
+            GameManager.instance.OnPlayerDead();
         }
     }
 
