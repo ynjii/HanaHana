@@ -208,9 +208,12 @@ public class Player : MonoBehaviour
     private void OnBecameInvisible()
     {   
         player_state = PlayerState.Damaged;
+        if(!gameObject){
         this.gameObject.layer= 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
+        }
+        
     }
 
 
