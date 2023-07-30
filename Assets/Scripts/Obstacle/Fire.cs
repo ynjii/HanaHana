@@ -19,6 +19,7 @@ public class Fire : MonoBehaviour
     [SerializeField]
     private float speed; // ¼Óµµ
 
+    private int num=0;
     void Start()
     {
         
@@ -39,9 +40,17 @@ public class Fire : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+   
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision Detected");
-        Destroy(gameObject);
+        num++;
+    }
+
+    private void destroyFire(int num)
+    {
+        if (num >= 2)
+        {
+            Destroy(gameObject);
+        }
     }
 }
