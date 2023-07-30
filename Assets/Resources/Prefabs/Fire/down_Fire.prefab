@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1041423995498265172}
   - component: {fileID: -5477845876214400773}
   - component: {fileID: 4369606721220069833}
-  - component: {fileID: 6008894189331165220}
+  - component: {fileID: 4619445024120061696}
   m_Layer: 8
-  m_Name: Fire
+  m_Name: down_Fire
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1d3347b57d614429a69c06a189e628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 3
+  direction: 2
   speed: 11
 --- !u!60 &4369606721220069833
 PolygonCollider2D:
@@ -138,7 +138,7 @@ PolygonCollider2D:
       - {x: -0.0625, y: 0.1875}
       - {x: 0.125, y: 0.1875}
       - {x: 0.125, y: 0.125}
---- !u!50 &6008894189331165220
+--- !u!50 &4619445024120061696
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

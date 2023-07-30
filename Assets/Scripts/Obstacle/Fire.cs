@@ -11,7 +11,11 @@ public class Fire : MonoBehaviour
         down,
         up,
         left,
-        right
+        right,
+        upRight, // 대각선 방향 추가
+        upLeft,  // 대각선 방향 추가
+        downRight, // 대각선 방향 추가
+        downLeft,  // 대각선 방향 추가
     }
 
     [SerializeField]
@@ -20,15 +24,16 @@ public class Fire : MonoBehaviour
     private float speed; // 속도
 
     private int num=0;
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
     {
-        switch(direction)
+        if (num >= 2)
+        {
+            Destroy(gameObject);
+        }
+        switch (direction)
         {
 
             case ObType.right:
@@ -37,20 +42,34 @@ public class Fire : MonoBehaviour
             case ObType.left:
                 transform.Translate(-1f*transform.right * speed * Time.deltaTime);
                 break;
+            case ObType.up:
+                transform.Translate(transform.up * speed * Time.deltaTime);
+                break;
+            case ObType.down:
+                transform.Translate(-1f * transform.up * speed * Time.deltaTime);
+                break;
+            case ObType.upRight:
+                transform.Translate((transform.right + transform.up).normalized * speed * Time.deltaTime);
+                break;
+            case ObType.upLeft:
+                transform.Translate((-transform.right + transform.up).normalized * speed * Time.deltaTime);
+                break;
+            case ObType.downRight:
+                transform.Translate((transform.right - transform.up).normalized * speed * Time.deltaTime);
+                break;
+            case ObType.downLeft:
+                transform.Translate((-transform.right - transform.up).normalized * speed * Time.deltaTime);
+                break;
         }
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("닿았음");
+        num++;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         num++;
-    }
-
-    private void destroyFire(int num)
-    {
-        if (num >= 2)
-        {
-            Destroy(gameObject);
-        }
     }
 }
