@@ -187,6 +187,12 @@ public class Player : MonoBehaviour
             isFallingBlock = false;
             GameManager.instance.OnPlayerDead();
         }
+        else if (collision.gameObject.CompareTag("Enemy")){
+            onDamaged(collision.transform.position);
+            //게임 매니저의 게임오버 처리 실행
+            GameManager.instance.OnPlayerDead();
+            isFallingBlock = false;
+        }
     }
 
     public void onDamaged(Vector2 targetPos)
