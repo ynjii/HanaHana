@@ -162,6 +162,17 @@ public class Player : MonoBehaviour
         
     }
 
+    private void OnCollisionStay2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("Enemy"))
+        { 
+            onDamaged(collision.transform.position);           
+            //게임 매니저의 게임오버 처리 실행
+            GameManager.instance.OnPlayerDead();
+            isFallingBlock = false;
+        }
+        
+    }
+
     private void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.CompareTag("Flag"))
         {
