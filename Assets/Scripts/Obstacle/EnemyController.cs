@@ -5,30 +5,37 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
+    bool isWalk = true;
+
+    [SerializeField]
+    bool isJump = false;
+
+    [SerializeField]
     float walkingSpeed = 5f;
 
     [SerializeField]
     float jumpingSpeed = 5f;
 
 
-    private bool moveRight = false;
-    private float moveDirection; //일단 왼쪽으로 출발한다는 전제.
+    private bool moveRight = true;
+    private float moveDirection; //일단 오른쪽으로 출발한다는 전제.
     private Rigidbody2D rigid;
     private Animator anim;
-    private Vector3 playerPosition; //player 따라갈때 사용.
 
-   
     // Start is called before the first frame update
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        moveDirection = moveRight ? 1f : -1f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        MoveSide();
+        if(isWalk){
+            MoveSide();
+        }
     }
  /// <summary>
     /// 좌우로 왔다갔다 움직임
@@ -36,8 +43,8 @@ public class EnemyController : MonoBehaviour
     private void MoveSide()
     {
         // 이동 방향 설정
+        moveDirection = moveRight ? 1f : -1f;
         anim.SetBool("isWalk", true);
-        float moveDirection = moveRight ? 1f : -1f;
         rigid.velocity = new Vector2(moveDirection*walkingSpeed*0.5f, rigid.velocity.y);
 
 
@@ -47,19 +54,16 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             moveRight = !moveRight;
-            this.GetComponent<SpriteRenderer>().flipX = (moveRight);
+            this.GetComponent<SpriteRenderer>().flipX = !(moveRight);
         }
-        if (collision.gameObject.CompareTag("Player")){
-            playerPosition = collision.transform.position;
-            MoveToPlayer();
+        if (collision.gameObject.CompareTag("Player") && isJump){
+            Jump();
         }
     }
 
-    private void MoveToPlayer()
+    private void Jump()
     {
-        Vector3 directionToPlayer = playerPosition - transform.position;
-        directionToPlayer.Normalize();
-        Vector3 force = directionToPlayer * jumpingSpeed;
+        Vector3 force = Vector3.up * jumpingSpeed;
         rigid.AddForce(force, ForceMode2D.Impulse);
     }
 }

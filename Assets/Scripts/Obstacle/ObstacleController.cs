@@ -22,7 +22,8 @@ public class ObstacleController : MonoBehaviour
         ChangeColor, //색깔 바꿈
         Rolling, //굴러감
         ChangeSize,//사이즈 변화
-        ChangeRendererOrder//렌더러순서 변경
+        ChangeRendererOrder,//렌더러순서 변경
+        ChangeAnimation //애니메이션 변경
     }
 
     public enum ObDirection
@@ -113,6 +114,9 @@ public class ObstacleController : MonoBehaviour
     [SerializeField]
     private Define.Tags colTag = Define.Tags.Player; //player가 default
 
+    [SerializeField]
+    private string animName;
+
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private Vector3 movement = Vector3.zero;
 
@@ -121,6 +125,7 @@ public class ObstacleController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private Tilemap tilemap;
+    private Animator anim;
 
     //색변환 위한 변수
     private Renderer renderer;
@@ -233,11 +238,20 @@ public class ObstacleController : MonoBehaviour
             case ObType.ChangeRendererOrder:
                 ChangeRendOrder(rend_order);
                 break;
+            case ObType.ChangeAnimation:
+                anim = GetComponent<Animator>();
+                ChangeAnimation();
+                isMoving = false;
+                break;
         }
         if(this.gameObject.GetComponent<BoxCollider2D>())
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
         }
+    }
+
+    private void ChangeAnimation(){
+        anim.SetBool(animName, true);
     }
 
     private void ChangeRendOrder(RendererOrder rend_order)

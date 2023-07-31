@@ -5,8 +5,10 @@ using UnityEngine;
 public class Follower : MonoBehaviour
 {
     public Vector3 followPos;
+
     [SerializeField]
     private int followDelay;
+    
     public Transform player;
     private Queue<Vector3> playerPos;
     private bool isTriggered = false;
@@ -21,7 +23,6 @@ public class Follower : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("bomb!");
             playerScript.onDamaged(collision.transform.position);
         }
     }
