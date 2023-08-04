@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     private bool isButtonPressed = false;
     private bool isBorder = false;
     public GameObject SaveLoad;
-
+    public bool ignore_jump = false;
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -44,16 +44,15 @@ public class Player : MonoBehaviour
         {
             rigid.gravityScale = 2;
         }
-  
+
         //점프
-        if ((Input.GetButtonDown("Jump")&&!anim.GetBool("isJump")))
+        if ((Input.GetButtonDown("Jump") && !anim.GetBool("isJump") && !ignore_jump) || isFallingBlock)
         {
-            if ((rigid.velocity.y >= -0.001f && rigid.velocity.y <= 0.001f) || isFallingBlock)
+            Debug.Log("플레이어 y속도: " + rigid.velocity.y);
+            //더플점프 막기: -1.5f이하이면 못 점프하게.
+            if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
             {
-                if (player_state != PlayerState.Damaged)
-                {
-                    player_state = PlayerState.Jump;
-                }
+                player_state = PlayerState.Jump;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 anim.SetBool("isJump", true);
             }
