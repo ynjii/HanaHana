@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class Deactivate : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    public enum activition{
+        Activate,//활성화
+        Deactivate//비활성화
+    }
+    [SerializeField]
+    private activition actType; //obstacle의 type을 inspector에서 받아옴.
+    public GameObject other;
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObject.SetActive(false);
+        if((collision.gameObject.CompareTag("Player"))){
+            if(actType==activition.Activate){
+                Debug.Log("dkseho");
+            other.SetActive(true);
+            }
+        else{
+            other.SetActive(false);
+        }
+        }
     }
 }
