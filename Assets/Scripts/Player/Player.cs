@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
             rigid.velocity=new Vector2(rigid.velocity.x, inputVertical*ladder_speed);
             rigid.gravityScale=0; 
         }else{
-            rigid.gravityScale=4;
+            rigid.gravityScale=2;
         }
 
     }
@@ -232,6 +232,10 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {  
+        //맞은 상태
+        player_state = PlayerState.Damaged;
+        //레이어변경
+        this.gameObject.layer = 7;  
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
