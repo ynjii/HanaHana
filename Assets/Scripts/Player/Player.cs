@@ -55,7 +55,11 @@ public class Player : MonoBehaviour
                 anim.SetBool("isJump", true);
             }
         }
-      
+        //점프 상태 설정
+        if((rigid.velocity.y <= -1.5f))
+        {
+            player_state = PlayerState.Jump;
+        }
 
         //브레이크
         if (Input.GetButtonUp("Horizontal"))
