@@ -15,8 +15,8 @@ public class Deactivate : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if((collision.gameObject.CompareTag("Player"))){
+            Debug.Log("dkseho");
             if(actType==activition.Activate){
-                Debug.Log("dkseho");
             other.SetActive(true);
             }
         else{

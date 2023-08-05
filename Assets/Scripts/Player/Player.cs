@@ -187,6 +187,11 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
+        else if(collision.gameObject.CompareTag("Jumping"))
+        {
+            onJumped(collision.transform.position);
+            GameManager.instance.OnPlayerDead();
+        }
         
     }
 
@@ -197,6 +202,7 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
+
         
     }
 
@@ -225,11 +231,7 @@ public class Player : MonoBehaviour
     }
 
     public void onDamaged(Vector2 targetPos)
-    {
-        //맞은 상태
-        player_state = PlayerState.Damaged;
-        //레이어변경
-        this.gameObject.layer = 7;       
+    {  
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
@@ -239,6 +241,37 @@ public class Player : MonoBehaviour
             rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
         }
     }
+
+    public void onJumped(Vector2 targetPos)
+    {
+        //맞은 상태
+        player_state = PlayerState.Damaged;
+        //레이어변경
+        this.gameObject.layer = 7;       
+        //투명하게 바꾸기
+        sprite_renderer.color = new Color(1, 1, 1, 0.4f);
+        //리액션
+        /*int dirc = targetPos.x-transform.position.x  > 0 ? 1 : -1;
+        if (!isBorder)
+        {
+            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+        }*/
+        //StartCoroutine(StartRotation());
+
+        rigid.velocity=new Vector2(rigid.velocity.x, 50f);
+        rigid.gravityScale=0; 
+        Destroy(this.gameObject,0.5f);
+    }
+
+    /*private IEnumerator StartRotation()
+    {
+        for(int i=0;i<10;i++)
+        {
+            transform.Rotate(Vector3.up, 30f * Time.deltaTime);
+            //transform.Rotate(0, 0, -Time.deltaTime * 100f, Space.Self);
+            yield return null;
+        }
+    }*/
 
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
