@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class Laser : MonoBehaviour
 {
@@ -25,11 +26,31 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShootLaser();
-    }
-    private void FixedUpdate()
+        //빨간 레이저면 : 애가 땅에 붙어있을 때만 켜짐 
+        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
+        {
+            ShowLaser();
+            ShootLaser();
+        }
+        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
+        {
+            HideLaser();
+        }
+        
+}
+
+    // 레이저를 숨기는 함수
+    void HideLaser()
     {
+        m_lineRenderer.enabled = false;
     }
+
+    // 레이저를 다시 보이게 하는 함수
+    void ShowLaser()
+    {
+        m_lineRenderer.enabled = true;
+    }
+
     void ShootLaser()
     {
         if (Physics2D.Raycast(m_transform.position, transform.right))
