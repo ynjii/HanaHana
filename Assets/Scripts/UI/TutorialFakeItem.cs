@@ -7,6 +7,9 @@ public class TutorialFakeItem : MonoBehaviour
     public GameObject SaveLoad;
     
     private void OnCollisionEnter2D(Collision2D collision){
-        SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 2);
+         if(SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("tutorial")==1){
+            SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 2);
+         }
+        
     }
 }

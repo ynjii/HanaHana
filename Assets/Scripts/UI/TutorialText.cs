@@ -16,7 +16,7 @@ public class TutorialText : MonoBehaviour
         int tutorial_flag=SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("tutorial");
         Debug.Log("flag"+ tutorial_flag);
         
-        if(tutorial_flag==1||tutorial_flag==3){
+        if(tutorial_flag==1||tutorial_flag==3||tutorial_flag==4){
             gameObject.SetActive(false);
         }
 
@@ -27,13 +27,13 @@ public class TutorialText : MonoBehaviour
         
         else if(tutorial_flag==2){//튜토리얼 가짜 아이템에 닿으면 나오는 텍스트
             popup_text_prefab.PopupTextList(text_list1_2, true);
-            SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 1);
+            SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 3);
         }
     }
 
     public void TutoEnd(){
             popup_text_prefab.PopupTextList(text_list1_3, true);
-            SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 1);
+            SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 4);
             gameObject.SetActive(false);
     }
 
