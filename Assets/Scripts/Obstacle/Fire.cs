@@ -63,13 +63,11 @@ public class Fire : MonoBehaviour
         }
     }
 
+   
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("´ê¾ÒÀ½");
-        num++;
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
         num++;
     }
 }
