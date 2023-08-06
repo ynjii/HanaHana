@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //»¡°£ ·¹ÀÌÀú¸é : ¾Ö°¡ ¶¥¿¡ ºÙ¾îÀÖÀ» ¶§¸¸ ÄÑÁü 
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
         if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
         {
             ShowLaser();
@@ -36,16 +36,22 @@ public class Laser : MonoBehaviour
         {
             HideLaser();
         }
+        else if(m_lineRenderer.materials[0].name == "BlueLaserMat (Instance)"){
+
+        }
+        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"){
+            
+        }
         
 }
 
-    // ·¹ÀÌÀú¸¦ ¼û±â´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     void HideLaser()
     {
         m_lineRenderer.enabled = false;
     }
 
-    // ·¹ÀÌÀú¸¦ ´Ù½Ã º¸ÀÌ°Ô ÇÏ´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     void ShowLaser()
     {
         m_lineRenderer.enabled = true;
