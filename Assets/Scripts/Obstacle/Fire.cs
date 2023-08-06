@@ -24,12 +24,13 @@ public class Fire : MonoBehaviour
     private float speed; // ¼Óµµ
 
     private int num=0;
-
+    private float time = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (num >= 2)
+        time += Time.deltaTime;
+        if (num >= 2||time>=10f)
         {
             Destroy(gameObject);
         }
@@ -63,12 +64,9 @@ public class Fire : MonoBehaviour
         }
     }
 
+   
+
     private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("´ê¾ÒÀ½");
-        num++;
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
     {
         num++;
     }
