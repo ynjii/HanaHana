@@ -11,7 +11,6 @@ public class Deactivate : MonoBehaviour
     [SerializeField]
     private activition actType; //obstacle의 type을 inspector에서 받아옴.
     public GameObject other;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if((collision.gameObject.CompareTag("Player"))){
