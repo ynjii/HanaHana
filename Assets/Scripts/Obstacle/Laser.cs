@@ -56,12 +56,14 @@ public class Laser : MonoBehaviour
     {
         m_lineRenderer.enabled = true;
     }
-
     void ShootLaser()
     {
-        if (Physics2D.Raycast(m_transform.position, transform.right))
+        // Enemy 레이어를 제외한 모든 레이어를 검출하도록 LayerMask를 설정합니다.
+        int layerMask = ~(1 << 8); // 레이어 8 (Enemy)를 제외한 모든 레이어를 포함합니다.
+
+        if (Physics2D.Raycast(m_transform.position, transform.right, Mathf.Infinity, layerMask))
         {
-            RaycastHit2D _hit = Physics2D.Raycast(laserFirePoint.position, transform.right);            
+            RaycastHit2D _hit = Physics2D.Raycast(laserFirePoint.position, transform.right, Mathf.Infinity, layerMask);
             Draw2DRay(laserFirePoint.position, _hit.point);
             if (_hit.collider.CompareTag("Player"))
             {
