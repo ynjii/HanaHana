@@ -11,6 +11,7 @@ public class Define
     {
         MainScene,
         SnowWhiteMap,
+        SnowBoss123,
         None
     }
 
