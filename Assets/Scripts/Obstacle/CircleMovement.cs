@@ -48,7 +48,6 @@ public class CircleMovement : MonoBehaviour
     {  
         posX=rotationCenter.position.x+Mathf.Cos(angle)*rotationRadius;
         posY=rotationCenter.position.y+Mathf.Sin(angle)*rotationRadius;
-        Debug.Log(angle);
 
         transform.position=new Vector2(posX, posY);
         angle=angle+Time.deltaTime*angularSpeed;
