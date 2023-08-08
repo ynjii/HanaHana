@@ -23,7 +23,8 @@ public class ObstacleController : MonoBehaviour
         Rolling, //굴러감
         ChangeSize,//사이즈 변화
         ChangeRendererOrder,//렌더러순서 변경
-        ChangeAnimation //애니메이션 변경
+        ChangeAnimation, //애니메이션 변경
+        BlowAway//플레이어 날려버리기
     }
 
     public enum ObDirection
@@ -136,6 +137,9 @@ public class ObstacleController : MonoBehaviour
     //사이즈 위한 변수
     private Vector3 transform_scale;
 
+    //플레이어
+    private GameObject player;
+
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
     /// 부딪혔다는 사실을 isTriggred로 알리고, tag도 부딪히면 죽게 Enemy로 바꿔줍니다.
@@ -161,6 +165,11 @@ public class ObstacleController : MonoBehaviour
                 collision.transform.SetParent(transform);
             }
             isCol = false;
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player=collision.gameObject;
         }
     }
 
@@ -243,6 +252,9 @@ public class ObstacleController : MonoBehaviour
                 ChangeAnimation();
                 isMoving = false;
                 break;
+            case ObType.BlowAway:
+                BlowAway(obDirection);//isCol로 판단.
+                break;
         }
         if(this.gameObject.GetComponent<BoxCollider2D>())
         {
@@ -250,6 +262,17 @@ public class ObstacleController : MonoBehaviour
         }
     }
 
+    private void BlowAway(ObDirection obDirection)
+    {
+        Rigidbody2D player_rigid=player.GetComponent<Rigidbody2D>();
+        switch (obDirection)
+        {
+            case ObDirection.Up:
+                player_rigid.AddForce(new Vector2(0, speed));
+                break;
+        }
+        
+    }
     private void ChangeAnimation(){
         anim.SetBool(animName, true);
     }
