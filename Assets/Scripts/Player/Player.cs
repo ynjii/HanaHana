@@ -187,11 +187,12 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
+        /*
         else if(collision.gameObject.CompareTag("Jumping"))
         {
             onJumped(collision.transform.position);
             GameManager.instance.OnPlayerDead();
-        }
+        }*/
         
     }
 
@@ -246,6 +247,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    /*
     public void onJumped(Vector2 targetPos)
     {
         //맞은 상태
@@ -259,13 +261,14 @@ public class Player : MonoBehaviour
         if (!isBorder)
         {
             rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
-        }*/
+        }
         //StartCoroutine(StartRotation());
 
         rigid.velocity=new Vector2(rigid.velocity.x, 50f);
         rigid.gravityScale=0; 
         Destroy(this.gameObject,0.5f);
-    }
+    }*/
+    
 
     /*private IEnumerator StartRotation()
     {
