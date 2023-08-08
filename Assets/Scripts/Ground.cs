@@ -6,15 +6,23 @@ public class Ground : MonoBehaviour
 {
     private Player player_script;
     private Rigidbody2D player_rigid;
+    private PlatformEffector2D platform_effector;
     private void Awake()
     {
         player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
-        player_rigid=GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();  
+        player_rigid=GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        if (GetComponent<PlatformEffector2D>() != null)
+        {
+            platform_effector=GetComponent<PlatformEffector2D>();
+        }
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if(GetComponent<PlatformEffector2D>() != null && player_script.player_state==Define.PlayerState.Damaged) 
+        {
+            platform_effector.surfaceArc = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
