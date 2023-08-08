@@ -135,6 +135,7 @@ public class Player : MonoBehaviour
                     //더플점프 막기: -1.5f이하이면 못 점프하게.
                     if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
                     {
+                        
                         player_state = PlayerState.Jump;
                         rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                         anim.SetBool("isJump", true);

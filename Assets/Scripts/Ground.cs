@@ -31,7 +31,7 @@ public class Ground : MonoBehaviour
         Collider2D otherCollider = collision.collider;
 
         // 머리에 닿았는가?
-        if (!(otherCollider is CapsuleCollider2D) && otherCollider is CircleCollider2D && collision.gameObject.CompareTag("Player"))
+        if (!(otherCollider is CapsuleCollider2D) && otherCollider is CircleCollider2D && collision.gameObject.CompareTag("Player")&&!(player_rigid.velocity.y>=-0.000007&&player_rigid.velocity.y<=0.000002))
         {
             //점프 막기
             player_script.ignore_jump= true;
