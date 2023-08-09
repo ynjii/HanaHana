@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
     public GameObject player;//플레이어
     public GameObject SaveLoad;
     public GameObject exitPanel;
+    public GameObject Sky;
+    public Sprite[] backgrounds;
+    //배경 변경 위한 변수
+    private bool is_Castle;
+    private bool is_Mirror;
 
     /// <summary>
     /// 게임 시작과 동시에 싱글턴을 구성
@@ -43,16 +48,15 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {   
-        
-        //리스폰 위치로 플레이어 위치를 reset함.
+    {
+                                                     //리스폰 위치로 플레이어 위치를 reset함.
         /*
         if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
         {
             player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
         }
         Debug.Log("Mrespawnpoint" + player.transform.position);*/
-        
+
     }
 
     void Update()
@@ -69,6 +73,24 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f; //시간 정지
             exitPanel.SetActive(true); //exit팝업착 띄우기
+        }
+        //배경바꾸기
+        if (player.transform.position.x < 382)
+        {
+            Image sky_image= Sky.GetComponent<Image>();
+            sky_image.sprite=backgrounds[0]; 
+        }
+
+        if (player.transform.position.x >= 382&& player.transform.position.x < 650)
+        {
+            Image sky_image = Sky.GetComponent<Image>();
+            sky_image.sprite = backgrounds[1];
+        }
+
+        if (player.transform.position.x >=650)
+        {
+            Image sky_image = Sky.GetComponent<Image>();
+            sky_image.sprite = backgrounds[2];
         }
     }
 

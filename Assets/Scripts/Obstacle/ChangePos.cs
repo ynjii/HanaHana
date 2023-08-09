@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ChangePos : MonoBehaviour
 {
-    
+    private bool is_Castle;
+    private bool is_Mirror;
     [SerializeField]
     Vector3 newPos = new Vector3(0, 0, 0);
     // 충돌 감지 시 호출되는 함수
