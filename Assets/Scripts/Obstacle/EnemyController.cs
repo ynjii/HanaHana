@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             moveRight = !moveRight;
-            this.GetComponent<SpriteRenderer>().flipX = !(moveRight);
+            this.GetComponent<SpriteRenderer>().flipX = moveRight;
         }
         if (collision.gameObject.CompareTag("Player") && isJump){
             Jump();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class Laser : MonoBehaviour
 {
@@ -25,16 +26,44 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShootLaser();
-    }
-    private void FixedUpdate()
+        //���� �������� : �ְ� ���� �پ����� ���� ���� 
+        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
+        {
+            ShowLaser();
+            ShootLaser();
+        }
+        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
+        {
+            HideLaser();
+        }
+        else if(m_lineRenderer.materials[0].name == "BlueLaserMat (Instance)"){
+
+        }
+        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"){
+            
+        }
+        
+}
+
+    // �������� ����� �Լ�
+    void HideLaser()
     {
+        m_lineRenderer.enabled = false;
+    }
+
+    // �������� �ٽ� ���̰� �ϴ� �Լ�
+    void ShowLaser()
+    {
+        m_lineRenderer.enabled = true;
     }
     void ShootLaser()
     {
-        if (Physics2D.Raycast(m_transform.position, transform.right))
+        // Enemy 레이어를 제외한 모든 레이어를 검출하도록 LayerMask를 설정합니다.
+        int layerMask = ~(1 << 8); // 레이어 8 (Enemy)를 제외한 모든 레이어를 포함합니다.
+
+        if (Physics2D.Raycast(m_transform.position, transform.right, Mathf.Infinity, layerMask))
         {
-            RaycastHit2D _hit = Physics2D.Raycast(laserFirePoint.position, transform.right);            
+            RaycastHit2D _hit = Physics2D.Raycast(laserFirePoint.position, transform.right, Mathf.Infinity, layerMask);
             Draw2DRay(laserFirePoint.position, _hit.point);
             if (_hit.collider.CompareTag("Player"))
             {
