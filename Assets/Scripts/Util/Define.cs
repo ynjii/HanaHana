@@ -12,7 +12,8 @@ public class Define
         MainScene,
         SnowWhiteMap,
         SnowBoss123,
-        None
+        SnowBoss4
+        ,None
     }
 
     public enum PlayerState
@@ -20,7 +21,8 @@ public class Define
         Jump,
         Damaged,
         Walk,
-        Idle
+        Idle,
+        Fly
     }
     
     public enum Tags

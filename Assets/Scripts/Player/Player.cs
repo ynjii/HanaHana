@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Define;
 
 public class Player : MonoBehaviour
 {
-    private float max_speed;
+    [SerializeField]
     private float jump_power;
+    private float max_speed;
     Rigidbody2D rigid;
     SpriteRenderer sprite_renderer;
     Animator anim;
@@ -31,8 +33,19 @@ public class Player : MonoBehaviour
         sprite_renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         max_speed = 5;
-        jump_power = 15;
-        player_state=new PlayerState();
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            jump_power = 10;
+        }
+        else
+            jump_power = 15;
+
+        player_state = new PlayerState();
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            //애니메이션: 계속 날아가는거로.
+            anim.SetBool("isFly", true);
+        }
     }
 
     // Update is called once per frame
@@ -42,7 +55,11 @@ public class Player : MonoBehaviour
         //낙하속도 빠르게
         if (rigid.velocity.y < -0.2f)
         {
-            rigid.gravityScale = 3;
+            if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+            {
+                rigid.gravityScale = 5;
+            }
+            else rigid.gravityScale = 3;
 
         }
         //Idle이면 중력스케일 복구
@@ -62,8 +79,19 @@ public class Player : MonoBehaviour
                 anim.SetBool("isJump", true);
             }
         }
+
+        //무한점프
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                player_state=PlayerState.Fly;
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+            }
+        }
+
         //점프 상태 설정
-        if((rigid.velocity.y <= -1.5f))
+        if((rigid.velocity.y <= -1.5f)&&!(SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString()))
         {
             player_state = PlayerState.Jump;
         }

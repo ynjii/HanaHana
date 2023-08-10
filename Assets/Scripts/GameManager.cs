@@ -74,24 +74,33 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f; //시간 정지
             exitPanel.SetActive(true); //exit팝업착 띄우기
         }
+
         //배경바꾸기
-        if (player.transform.position.x < 382)
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString()) // 4패턴이면
         {
-            Image sky_image= Sky.GetComponent<Image>();
-            sky_image.sprite=backgrounds[0]; 
-        }
 
-        if (player.transform.position.x >= 382&& player.transform.position.x < 650)
-        {
-            Image sky_image = Sky.GetComponent<Image>();
-            sky_image.sprite = backgrounds[1];
         }
+        else//SnowWhite씬 
+        {
+            if (player.transform.position.x < 382)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[0];
+            }
 
-        if (player.transform.position.x >=650)
-        {
-            Image sky_image = Sky.GetComponent<Image>();
-            sky_image.sprite = backgrounds[2];
+            if (player.transform.position.x >= 382 && player.transform.position.x < 650)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[1];
+            }
+
+            if (player.transform.position.x >= 650)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[2];
+            }
         }
+        
     }
 
     /// <summary>

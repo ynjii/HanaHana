@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     void Init()
     {
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString())
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
             return;
         }
