@@ -70,6 +70,5 @@ public class Fire : MonoBehaviour
     {
         num++;
         Destroy(gameObject);
-
     }
 }

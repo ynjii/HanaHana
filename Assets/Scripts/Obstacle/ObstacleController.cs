@@ -24,6 +24,7 @@ public class ObstacleController : MonoBehaviour
         ChangeSize,//사이즈 변화
         ChangeRendererOrder,//렌더러순서 변경
         ChangeAnimation, //애니메이션 변경
+        ChangeSprite, //스프라이트 변경
         BlowAway//플레이어 날려버리기
     }
 
@@ -73,7 +74,7 @@ public class ObstacleController : MonoBehaviour
     [SerializeField]
     private ObDirection obDirection; // direction을 inspector에서 받아옴. (필요할시)
     [SerializeField]
-    private float gravity_scale=4f;//중력스케일 조절
+    private float gravity_scale = 4f;//중력스케일 조절
 
     [SerializeField]
     private bool isPlatform = false; //만약 움직이는 발판이라면
@@ -102,7 +103,7 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private float distance = 0f; //움직일 거리, SimpleMove(얼마나 움직일지) 랑 Shake(얼마만큼 왔다갔다할지)에서 사용  
-    
+
     [SerializeField]
     private float speed = 11f; //속도
 
@@ -117,6 +118,11 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private string animName;
+
+    [SerializeField]
+    private Sprite img;
+
+    private SpriteRenderer spriteRenderer;
 
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
     private Vector3 movement = Vector3.zero;
@@ -145,10 +151,16 @@ public class ObstacleController : MonoBehaviour
     /// 부딪혔다는 사실을 isTriggred로 알리고, tag도 부딪히면 죽게 Enemy로 바꿔줍니다.
     /// 만약 isTriggred 처리된 collider를 사용하고 싶다면 주의해서 사용해주셔야해요.
     /// </summary>
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (!isCol && collision.gameObject.CompareTag(colTag.ToString()))
         {
             StartCoroutine(SetIsmoving(true));
+        }
+        if (obType == ObType.BlowAway)
+        {
+            Debug.Log("부딪힘");
+            isMoving = false;
         }
     }
 
@@ -156,12 +168,14 @@ public class ObstacleController : MonoBehaviour
     /// 트리거 없이 collisoin에 부딪혓을때 작동하는 경우.
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.transform.CompareTag(colTag.ToString()))
         {
-            if(isCol)
+            if (isCol)
                 StartCoroutine(SetIsmoving(true));
-            if(obType == ObType.MoveSide && isPlatform){
+            if (obType == ObType.MoveSide && isPlatform)
+            {
                 collision.transform.SetParent(transform);
             }
             isCol = false;
@@ -169,18 +183,21 @@ public class ObstacleController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            player=collision.gameObject;
+            player = collision.gameObject;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision) {
-        if(isPlatform && collision.transform.CompareTag(colTag.ToString())){
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (isPlatform && collision.transform.CompareTag(colTag.ToString()))
+        {
             collision.transform.SetParent(null);
         }
     }
 
 
-    private void Awake() {
+    private void Awake()
+    {
         initialPosition = transform.position;
         tilemap = GetComponent<Tilemap>();
         renderer = GetComponent<Renderer>();
@@ -191,11 +208,12 @@ public class ObstacleController : MonoBehaviour
             my_color = new Color(0f, 0f, 0f, 0f);
             renderer.material.color = my_color;
         }
-        else if(obType == ObType.Follow){
+        else if (obType == ObType.Follow)
+        {
             rigid = GetComponent<Rigidbody2D>();
         }
 
-        
+
     }
 
     private void FixedUpdate()
@@ -208,7 +226,8 @@ public class ObstacleController : MonoBehaviour
     }
 
 
-    private void ObstacleMove(ObType obType) {
+    private void ObstacleMove(ObType obType)
+    {
         switch (obType)
         {
             case ObType.Move:
@@ -217,7 +236,7 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.MoveSide: //shake로 대체 가능 나중에 rigidbody로 바뀌어서 enemy로 옮겨갈 예정...
                 //MoveSide();
-                StartCoroutine(MoveSideCoroutine());     
+                StartCoroutine(MoveSideCoroutine());
                 isMoving = false;
                 break;
             case ObType.Follow:
@@ -247,6 +266,12 @@ public class ObstacleController : MonoBehaviour
             case ObType.ChangeRendererOrder:
                 ChangeRendOrder(rend_order);
                 break;
+            case ObType.ChangeSprite:
+                spriteRenderer = GetComponent<SpriteRenderer>();
+                ChangeSprite();
+                isMoving = false;
+                isCol = true;
+                break;
             case ObType.ChangeAnimation:
                 anim = GetComponent<Animator>();
                 ChangeAnimation();
@@ -254,32 +279,40 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.BlowAway:
                 BlowAway(obDirection);//isCol로 판단.
+                isCol = true;
                 break;
         }
-        if(this.gameObject.GetComponent<BoxCollider2D>())
+        if (this.gameObject.GetComponent<BoxCollider2D>())
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
         }
     }
 
+    private void ChangeSprite()
+    {
+        spriteRenderer.sprite = img;
+    }
+
     private void BlowAway(ObDirection obDirection)
     {
-        Rigidbody2D player_rigid=player.GetComponent<Rigidbody2D>();
+
+        Rigidbody2D player_rigid = player.GetComponent<Rigidbody2D>();
         switch (obDirection)
         {
             case ObDirection.Up:
                 player_rigid.AddForce(new Vector2(0, speed));
                 break;
         }
-        
+
     }
-    private void ChangeAnimation(){
+    private void ChangeAnimation()
+    {
         anim.SetBool(animName, true);
     }
 
     private void ChangeRendOrder(RendererOrder rend_order)
     {
-        switch(rend_order)
+        switch (rend_order)
         {
             case RendererOrder.Def:
                 renderer.sortingOrder = 0;
@@ -337,7 +370,7 @@ public class ObstacleController : MonoBehaviour
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
             rigid.bodyType = RigidbodyType2D.Dynamic;
             rigid.gravityScale = gravity_scale;
-          
+
             is_start = false;
             switch (obDirection)
             {
@@ -406,8 +439,8 @@ public class ObstacleController : MonoBehaviour
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
                     renderer.material.color = my_color;
                     break;
-            }            
-        }       
+            }
+        }
     }
     /// <summary>
     /// 이제 주어진 방향, 속도, 거리만큼 obstacle이 움직입니다. 
@@ -442,14 +475,14 @@ public class ObstacleController : MonoBehaviour
             default:
                 return initialPosition;
         }
-    }   
+    }
 
     /// <summary>
     /// 회전
     /// </summary>
     private void Rotate()
     {
-        transform.Rotate(0, 0, -Time.deltaTime * rotateSpeed, Space.Self);     
+        transform.Rotate(0, 0, -Time.deltaTime * rotateSpeed, Space.Self);
     }
 
     /// <summary>
@@ -458,8 +491,8 @@ public class ObstacleController : MonoBehaviour
     private IEnumerator ShakeCoroutine()
     {
 
-        while(true)
-        {   
+        while (true)
+        {
             //만약 좌우로 움직이게 하고 싶으면
             float newX = (obDirection == ObDirection.LeftRight) ? initialPosition.x + Mathf.Sin(Time.time * speed) * distance : transform.position.x;
             //만약 상하로 움직이게 하고 싶으면
@@ -472,15 +505,15 @@ public class ObstacleController : MonoBehaviour
     /// <summary>
     /// 일정한속력으로 왔다갔다거림. 단, 한쪽 끝에서 시작하는 것만 가능함 ex. 중간에서 시작해 왼쪽 갔다가 오른쪽 가는게 안됨. 맨 왼쪽에서 시작할 수 밖에 없음.
     /// </summary>
-    private IEnumerator MoveSideCoroutine() 
+    private IEnumerator MoveSideCoroutine()
     {
         float nowTime = Time.time;
-        while(true)
-        {   
+        while (true)
+        {
             // 시간에 따라 이동할 거리 계산
-            float moveDistance = Mathf.PingPong((Time.time-nowTime) * speed, distance);
+            float moveDistance = Mathf.PingPong((Time.time - nowTime) * speed, distance);
             float direction = (isLeftDown) ? -1 : 1;
-            
+
             // 좌우로 움직이는 경우
             if (obDirection == ObDirection.LeftRight)
             {
@@ -493,7 +526,7 @@ public class ObstacleController : MonoBehaviour
                 float newY = initialPosition.y + moveDistance * direction;
                 transform.position = new Vector3(transform.position.x, newY, transform.position.z);
             }
-            
+
             yield return null;
         }
     }
@@ -505,7 +538,8 @@ public class ObstacleController : MonoBehaviour
         this.gameObject.layer = layerIndex;
     }
 
-    IEnumerator SetIsmoving(bool n){
+    IEnumerator SetIsmoving(bool n)
+    {
         yield return new WaitForSeconds(waitingTime);
         this.isMoving = n;
     }
