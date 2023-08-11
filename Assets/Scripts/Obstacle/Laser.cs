@@ -27,12 +27,12 @@ public class Laser : MonoBehaviour
     void Update()
     {
         //���� �������� : �ְ� ���� �پ����� ���� ���� 
-        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
+        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state != PlayerState.Jump&&player_script.player_state != PlayerState.FakeWalk))
         {
             ShowLaser();
             ShootLaser();
         }
-        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
+        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state == PlayerState.Jump||player_script.player_state == PlayerState.FakeWalk))
         {
             HideLaser();
         }
