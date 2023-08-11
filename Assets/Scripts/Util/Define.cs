@@ -20,6 +20,7 @@ public class Define
         Jump,
         Damaged,
         Walk,
+        FakeWalk,
         Idle
     }
     
