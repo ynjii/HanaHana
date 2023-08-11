@@ -8,11 +8,16 @@ public class EventController : MonoBehaviour
     private GameObject fix_panel;
 
     [SerializeField]
+    private GameObject camera;
+
+    [SerializeField]
     private GameObject Soul; //움직이는 커다란 정령
 
     [SerializeField]
     private float fadeDuration = 5.0f; // 페이드 인/아웃에 걸리는 시간 (초)
 
+
+    private CameraController camScript;
     private CanvasRenderer panelRenderer;
     private bool hasTriggered = false;
 
@@ -20,6 +25,7 @@ public class EventController : MonoBehaviour
     {
         // 패널의 CanvasRenderer 컴포넌트 가져오기
         panelRenderer = fix_panel.GetComponent<CanvasRenderer>();
+        camScript = camera.GetComponent<CameraController>();
     }
 
 
@@ -61,6 +67,7 @@ public class EventController : MonoBehaviour
         panelRenderer.SetAlpha(1f);
 
         // 페이드 인 효과가 끝나면 패널 비활성화
+        camScript.isReverse = true;
         fix_panel.SetActive(false);
         Soul.SetActive(false);
         Time.timeScale = 1f;
