@@ -10,8 +10,6 @@ public class Tranpoline : MonoBehaviour
 
     [SerializeField]
     private float jumpPower = 500f;
-
-    private bool isCooldown = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
