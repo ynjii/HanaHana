@@ -24,21 +24,21 @@ public class MirrorReflect : MonoBehaviour
 
     private void LateUpdate()
     {
-        DrawPredictionLine(_direction);
+        //DrawPredictionLine(_direction);
     }
 
     private void Update()
     {
         // 색깔 별 기능
-        /*if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
+        if (predictionLine.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
         {
             ShowLaser();
-            ShootLaser();
+            DrawPredictionLine(_direction);
         }
-        else if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
+        else if (predictionLine.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
         {
             HideLaser();
-        }*/
+        }
     }
 
     private void DrawPredictionLine(Vector3 direction)
