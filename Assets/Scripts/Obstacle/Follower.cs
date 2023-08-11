@@ -23,14 +23,12 @@ public class Follower : MonoBehaviour
             this.gameObject.layer = 3;
             playerScript = collision.gameObject.GetComponent<Player>();
         }
-        if (isTriggered && collision.gameObject.CompareTag("Enemy"))
+        else if (isTriggered && collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("부딪힘");
             playerScript.onDamaged(collision.transform.position);
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
-        Debug.Log(collision);
     }
 
     void Awake()
