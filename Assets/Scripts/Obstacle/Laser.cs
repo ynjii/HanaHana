@@ -12,7 +12,7 @@ public class Laser : MonoBehaviour
     private  GameObject player;
     private Player player_script;
     private SpriteRenderer player_spriterenderer;
-    public bool is_first_entered;
+    private bool is_first_entered;
     // Start is called before the first frame update
     void Awake()
     {
