@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public LayerMask whatIsLadder;
     public float distance;
     private bool jump=true;
+    public bool movable = true;
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -33,11 +34,13 @@ public class Player : MonoBehaviour
         max_speed = 5;
         jump_power = 15;
         player_state=new PlayerState();
+        movable = true;
     }
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
+        if (!movable) return;
         
         //낙하속도 빠르게
         if (rigid.velocity.y < -0.2f)
@@ -117,7 +120,8 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()//물리 update
     {
-
+        if (!movable) return;
+        
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
        
@@ -177,7 +181,7 @@ public class Player : MonoBehaviour
  
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform")|| collision.gameObject.CompareTag("FallingBlock"))
+        if (collision.gameObject.CompareTag("Platform"))
         {
             rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
             anim.SetBool("isJump", false);
