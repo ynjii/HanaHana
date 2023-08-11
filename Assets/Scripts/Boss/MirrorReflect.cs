@@ -42,9 +42,8 @@ public class MirrorReflect : MonoBehaviour
             HideLaser();
         }
     }
-
-    private void DrawPredictionLine(Vector3 _direction)
-        {
+      private void DrawPredictionLine(Vector3 _direction)
+      {
             // Draw Prediction Line
             predictionLine.SetPosition(0, this.transform.position);
             Debug.DrawRay(transform.position, _direction * 10, Color.red);
