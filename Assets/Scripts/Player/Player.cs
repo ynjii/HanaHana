@@ -172,7 +172,6 @@ public class Player : MonoBehaviour
         }else{
             rigid.gravityScale=2;
         }
-
     }
  
     private void OnCollisionEnter2D(Collision2D collision)
@@ -194,7 +193,6 @@ public class Player : MonoBehaviour
             onJumped(collision.transform.position);
             GameManager.instance.OnPlayerDead();
         }*/
-        
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
@@ -204,8 +202,12 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
-
-        
+        else if (collision.gameObject.CompareTag("BurnEnemy"))
+        {
+            StartCoroutine(BurnAndDie());
+            onDamaged(collision.transform.position);
+            GameManager.instance.OnPlayerDead();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -290,7 +292,15 @@ public class Player : MonoBehaviour
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
         }
-        
+    }
+
+    IEnumerator  BurnAndDie()
+    {
+        player_state = PlayerState.Damaged;
+        this.gameObject.layer = 7; 
+        anim.SetBool("isExplosion", true);
+        anim.SetBool("isJump", false);
+        yield return new WaitForSeconds(1.0f);
     }
 
 
@@ -324,6 +334,5 @@ public class Player : MonoBehaviour
     {
         isRightButton = false;
     }
-
 }
 
