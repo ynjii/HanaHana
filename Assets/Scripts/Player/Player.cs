@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
         //방향전환
         if (Input.GetButton("Horizontal"))
         {
+            player_state=PlayerState.FakeWalk;
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
         //애니메이션
