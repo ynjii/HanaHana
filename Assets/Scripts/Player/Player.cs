@@ -132,19 +132,14 @@ public class Player : MonoBehaviour
         if (isButtonPressed)
         {
             // 버튼을 계속 누르고 있을 때 호출할 메소드를 여기에 작성.
-            if (isJumpButton&&jump)
+            if ((isJumpButton && !anim.GetBool("isJump") && !ignore_jump)&&jump)
             {
-                //점프 
-                if (!anim.GetBool("isJump") && !ignore_jump)
+                //더플점프 막기: -1.5f이하이면 못 점프하게.
+                if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
                 {
-                    //더플점프 막기: -1.5f이하이면 못 점프하게.
-                    if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
-                    {
-                        
-                        player_state = PlayerState.Jump;
-                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                        anim.SetBool("isJump", true);
-                    }
+                    player_state = PlayerState.Jump;
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    anim.SetBool("isJump", true);
                 }
             }
             if (isLeftButton)
