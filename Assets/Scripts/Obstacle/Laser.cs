@@ -12,7 +12,7 @@ public class Laser : MonoBehaviour
     private  GameObject player;
     private Player player_script;
     private SpriteRenderer player_spriterenderer;
-    public bool is_first_entered;
+    private bool is_first_entered;
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,22 +27,31 @@ public class Laser : MonoBehaviour
     void Update()
     {
         //���� �������� : �ְ� ���� �پ����� ���� ���� 
-        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
+        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state != PlayerState.Jump&&player_script.player_state != PlayerState.FakeWalk))
         {
             ShowLaser();
             ShootLaser();
         }
-        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
+        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state == PlayerState.Jump||player_script.player_state == PlayerState.FakeWalk))
         {
             HideLaser();
         }
-        else if(m_lineRenderer.materials[0].name == "BlueLaserMat (Instance)"){
-
+        else if(m_lineRenderer.materials[0].name == "BlueLaserMat (Instance)"&&player_script.player_state == PlayerState.Jump)
+        {
+            ShowLaser();
+            ShootLaser();
         }
-        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"){
-            
+        else if(m_lineRenderer.materials[0].name == "BlueLaserMat (Instance)"&&player_script.player_state != PlayerState.Jump)
+        {
+            HideLaser();
         }
-        
+        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"&&(player_script.player_state == PlayerState.Walk||player_script.player_state == PlayerState.FakeWalk)){
+            ShowLaser();
+            ShootLaser();
+        }
+        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"&&(player_script.player_state != PlayerState.Walk&&player_script.player_state != PlayerState.FakeWalk)){
+            HideLaser();
+        }
 }
 
     // �������� ����� �Լ�
