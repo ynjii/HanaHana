@@ -132,19 +132,14 @@ public class Player : MonoBehaviour
         if (isButtonPressed)
         {
             // 버튼을 계속 누르고 있을 때 호출할 메소드를 여기에 작성.
-            if (isJumpButton&&jump)
+            if ((isJumpButton && !anim.GetBool("isJump") && !ignore_jump)&&jump)
             {
-                //점프 
-                if (!anim.GetBool("isJump") && !ignore_jump)
+                //더플점프 막기: -1.5f이하이면 못 점프하게.
+                if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
                 {
-                    //더플점프 막기: -1.5f이하이면 못 점프하게.
-                    if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
-                    {
-                        
-                        player_state = PlayerState.Jump;
-                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                        anim.SetBool("isJump", true);
-                    }
+                    player_state = PlayerState.Jump;
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    anim.SetBool("isJump", true);
                 }
             }
             if (isLeftButton)
@@ -177,7 +172,6 @@ public class Player : MonoBehaviour
         }else{
             rigid.gravityScale=2;
         }
-
     }
  
     private void OnCollisionEnter2D(Collision2D collision)
@@ -199,7 +193,6 @@ public class Player : MonoBehaviour
             onJumped(collision.transform.position);
             GameManager.instance.OnPlayerDead();
         }*/
-        
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
@@ -209,8 +202,12 @@ public class Player : MonoBehaviour
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
-
-        
+        else if (collision.gameObject.CompareTag("BurnEnemy"))
+        {
+            StartCoroutine(BurnAndDie());
+            onDamaged(collision.transform.position);
+            GameManager.instance.OnPlayerDead();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
@@ -295,7 +292,15 @@ public class Player : MonoBehaviour
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
         }
-        
+    }
+
+    IEnumerator  BurnAndDie()
+    {
+        player_state = PlayerState.Damaged;
+        this.gameObject.layer = 7; 
+        anim.SetBool("isExplosion", true);
+        anim.SetBool("isJump", false);
+        yield return new WaitForSeconds(1.0f);
     }
 
 
@@ -329,6 +334,5 @@ public class Player : MonoBehaviour
     {
         isRightButton = false;
     }
-
 }
 

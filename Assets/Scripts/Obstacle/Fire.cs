@@ -12,16 +12,16 @@ public class Fire : MonoBehaviour
         up,
         left,
         right,
-        upRight, // �밢�� ���� �߰�
-        upLeft,  // �밢�� ���� �߰�
-        downRight, // �밢�� ���� �߰�
-        downLeft,  // �밢�� ���� �߰�
+        upRight, // 대각선 방향 추가
+        upLeft,  // 대각선 방향 추가
+        downRight, // 대각선 방향 추가
+        downLeft,  // 대각선 방향 추가
     }
 
     [SerializeField]
-    private ObType direction; // ����
+    private ObType direction; // 방향
     [SerializeField]
-    private float speed; // �ӵ�
+    private float speed; // 속도
 
     private int num = 0;
     private float time = 0;
@@ -64,11 +64,8 @@ public class Fire : MonoBehaviour
         }
     }
 
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         num++;
-        Destroy(gameObject);
     }
 }

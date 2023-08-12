@@ -41,10 +41,15 @@ public class MirrorReflect : MonoBehaviour
         {
             HideLaser();
         }
-    }
 
-    private void DrawPredictionLine(Vector3 _direction)
+        if (predictionLine.materials[0].name == "VioletLaserMat (Instance)")
         {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+    }
+      private void DrawPredictionLine(Vector3 _direction)
+      {
             // Draw Prediction Line
             predictionLine.SetPosition(0, this.transform.position);
             Debug.DrawRay(transform.position, _direction * 10, Color.red);
@@ -59,27 +64,12 @@ public class MirrorReflect : MonoBehaviour
             // 플레이어면 죽음
             if (predictionHit.collider.CompareTag("Player"))
             {
-                Vector2 target_pos = new Vector2(0, 0);
-                if (player_spriterenderer.flipX)
-                {
-                    target_pos = new Vector2(player.transform.position.x - 1, 0);
-                }
-                else
-                {
-                    target_pos = new Vector2(player.transform.position.x + 1, 0);
-                }
-                if (is_first_entered)
-                {
-                    is_first_entered = false;
-                    player_script.onDamaged(target_pos);
-                    GameManager.instance.OnPlayerDead();
-                }
+                PlayerDied();
             }
-            
-            if(!isReflectable) return;
-            
+
             // draw first collision point
             predictionLine.SetPosition(1, new Vector3(predictionHit.point.x + transform.position.x, predictionHit.point.y + transform.position.y, 0));
+            if(!isReflectable) return;
             
             // calculate second ray by Vector2.Reflect
             var inDirection = (predictionHit.point - (Vector2)transform.position).normalized;
@@ -87,24 +77,11 @@ public class MirrorReflect : MonoBehaviour
     
             // By multiply 0.001, can have detail calculation
             predictionHit = Physics2D.Raycast(predictionHit.point + (reflectionDir * 0.001f), reflectionDir, Mathf.Infinity, predictionLayerMask);
+           
             // 플레이어면 죽음
             if (predictionHit.collider.CompareTag("Player"))
             {
-                Vector2 target_pos = new Vector2(0, 0);
-                if (player_spriterenderer.flipX)
-                {
-                    target_pos = new Vector2(player.transform.position.x - 1, 0);
-                }
-                else
-                {
-                    target_pos = new Vector2(player.transform.position.x + 1, 0);
-                }
-                if (is_first_entered)
-                {
-                    is_first_entered = false;
-                    player_script.onDamaged(target_pos);
-                    GameManager.instance.OnPlayerDead();
-                }
+                PlayerDied();
             }
             predictionLine.SetPosition(2, predictionHit.point);
     
@@ -121,5 +98,24 @@ public class MirrorReflect : MonoBehaviour
     void ShowLaser()
     {
         predictionLine.enabled = true;
+    }
+
+    void PlayerDied()
+    {
+        Vector2 target_pos = new Vector2(0, 0);
+        if (player_spriterenderer.flipX)
+        {
+            target_pos = new Vector2(player.transform.position.x - 1, 0);
+        }
+        else
+        {
+            target_pos = new Vector2(player.transform.position.x + 1, 0);
+        }
+        if (is_first_entered)
+        {
+            is_first_entered = false;
+            player_script.onDamaged(target_pos);
+            GameManager.instance.OnPlayerDead();
+        }
     }
 }
