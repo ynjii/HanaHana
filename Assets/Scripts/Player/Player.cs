@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
         if (!movable) return;
-        
+
         //낙하속도 빠르게
         if (rigid.velocity.y < -0.2f)
         {
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
             }
         }
         //점프 상태 설정
-        if((rigid.velocity.y <= -1.5f))
+        if((rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
         {
             player_state = PlayerState.Jump;
         }
@@ -238,6 +238,7 @@ public class Player : MonoBehaviour
     {  
         //맞은 상태
         player_state = PlayerState.Damaged;
+        Debug.Log(player_state);
         //레이어변경
         this.gameObject.layer = 7;  
         //투명하게 바꾸기
