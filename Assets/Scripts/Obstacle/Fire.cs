@@ -12,25 +12,25 @@ public class Fire : MonoBehaviour
         up,
         left,
         right,
-        upRight, // ´ë°¢¼± ¹æÇâ Ãß°¡
-        upLeft,  // ´ë°¢¼± ¹æÇâ Ãß°¡
-        downRight, // ´ë°¢¼± ¹æÇâ Ãß°¡
-        downLeft,  // ´ë°¢¼± ¹æÇâ Ãß°¡
+        upRight, // ëŒ€ê°ì„  ë°©í–¥ ì¶”ê°€
+        upLeft,  // ëŒ€ê°ì„  ë°©í–¥ ì¶”ê°€
+        downRight, // ëŒ€ê°ì„  ë°©í–¥ ì¶”ê°€
+        downLeft,  // ëŒ€ê°ì„  ë°©í–¥ ì¶”ê°€
     }
 
     [SerializeField]
-    private ObType direction; // ¹æÇâ
+    private ObType direction; // ë°©í–¥
     [SerializeField]
-    private float speed; // ¼Óµµ
+    private float speed; // ì†ë„
 
-    private int num=0;
+    private int num = 0;
     private float time = 0;
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if (num >= 2||time>=10f)
+        if (num >= 2 || time >= 10f)
         {
             Destroy(gameObject);
         }
@@ -41,7 +41,7 @@ public class Fire : MonoBehaviour
                 transform.Translate(transform.right * speed * Time.deltaTime);
                 break;
             case ObType.left:
-                transform.Translate(-1f*transform.right * speed * Time.deltaTime);
+                transform.Translate(-1f * transform.right * speed * Time.deltaTime);
                 break;
             case ObType.up:
                 transform.Translate(transform.up * speed * Time.deltaTime);
@@ -63,8 +63,6 @@ public class Fire : MonoBehaviour
                 break;
         }
     }
-
-   
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
