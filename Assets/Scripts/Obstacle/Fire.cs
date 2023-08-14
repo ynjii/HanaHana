@@ -27,13 +27,19 @@ public class Fire : MonoBehaviour
     private float time = 0;
 
     // Update is called once per frame
+
     void Update()
     {
         time += Time.deltaTime;
+        if (this.gameObject.CompareTag("bullet")&&num>=1)
+        {
+            Destroy(gameObject);
+        }
         if (num >= 2 || time >= 10f)
         {
             Destroy(gameObject);
         }
+
         switch (direction)
         {
 
@@ -61,7 +67,10 @@ public class Fire : MonoBehaviour
             case ObType.downLeft:
                 transform.Translate((-transform.right - transform.up).normalized * speed * Time.deltaTime);
                 break;
+            default:
+                break;
         }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -11,12 +11,12 @@ public class Launch_Fire : MonoBehaviour
 
     public GameObject fire;
     public Transform pos;
+ 
     private void Update()
     {
         time += Time.deltaTime;
         if (time >= cool_time)
         {
-            Instantiate(fire,pos.position,transform.rotation);
             time = 0f;
         }
     }
