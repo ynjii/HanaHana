@@ -22,7 +22,8 @@ public class Define
         Damaged,
         Walk,
         FakeWalk,
-        Idle
+        Idle,
+        Fly
     }
     
     public enum Tags

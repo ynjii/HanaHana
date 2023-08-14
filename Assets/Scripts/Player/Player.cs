@@ -34,10 +34,19 @@ public class Player : MonoBehaviour
         sprite_renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         max_speed = 5;
-        jump_power = 15;
-        player_state=new PlayerState();
+        player_state = new PlayerState();
         movable = true;
+
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            jump_power = 10;
+            //애니메이션: 계속 날아가는거로.
+            anim.SetBool("isFly", true);
+        }
+        else
+            jump_power = 15;
     }
+     
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
