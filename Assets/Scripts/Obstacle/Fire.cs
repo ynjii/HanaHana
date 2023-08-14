@@ -24,18 +24,16 @@ public class Fire : MonoBehaviour
     private float speed; // 속도
 
     private int num = 0;
-    private float time = 0;
 
     // Update is called once per frame
 
     void Update()
     {
-        time += Time.deltaTime;
         if (this.gameObject.CompareTag("bullet")&&num>=1)
         {
             Destroy(gameObject);
         }
-        if (num >= 2 || time >= 10f)
+        if (num >= 2)
         {
             Destroy(gameObject);
         }
@@ -76,5 +74,10 @@ public class Fire : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         num++;
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

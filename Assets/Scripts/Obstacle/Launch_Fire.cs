@@ -17,6 +17,7 @@ public class Launch_Fire : MonoBehaviour
         time += Time.deltaTime;
         if (time >= cool_time)
         {
+            Instantiate(fire, pos.position, transform.rotation);
             time = 0f;
         }
     }
