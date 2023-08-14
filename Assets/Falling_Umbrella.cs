@@ -23,7 +23,7 @@ public class Falling_Umbrella : MonoBehaviour
         } 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isCol) return;
         if (collision.gameObject.CompareTag("Player"))
