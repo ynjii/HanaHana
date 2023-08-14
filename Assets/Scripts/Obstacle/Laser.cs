@@ -5,7 +5,7 @@ using static Define;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] private float defDistanceRay = 100;
+    [SerializeField] private float defDistanceRay = 1;
     public Transform laserFirePoint;
     public LineRenderer m_lineRenderer;
     Transform m_transform;
@@ -70,9 +70,9 @@ public class Laser : MonoBehaviour
         // Enemy 레이어를 제외한 모든 레이어를 검출하도록 LayerMask를 설정합니다.
         int layerMask = ~(1 << 8); // 레이어 8 (Enemy)를 제외한 모든 레이어를 포함합니다.
 
-        if (Physics2D.Raycast(m_transform.position, transform.right, Mathf.Infinity, layerMask))
+        if (Physics2D.Raycast(laserFirePoint.position, transform.right, defDistanceRay, layerMask))
         {
-            RaycastHit2D _hit = Physics2D.Raycast(laserFirePoint.position, transform.right, Mathf.Infinity, layerMask);
+            RaycastHit2D _hit = Physics2D.Raycast(laserFirePoint.position, transform.right, defDistanceRay, layerMask);
             Draw2DRay(laserFirePoint.position, _hit.point);
             if (_hit.collider.CompareTag("Player"))
             {
@@ -95,7 +95,7 @@ public class Laser : MonoBehaviour
         }
         else
         {
-            Draw2DRay(laserFirePoint.position, laserFirePoint.transform.right * defDistanceRay);
+            Draw2DRay(laserFirePoint.position, laserFirePoint.position+laserFirePoint.transform.right * defDistanceRay);
         }
     }
 
