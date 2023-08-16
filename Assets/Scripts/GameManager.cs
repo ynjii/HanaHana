@@ -76,22 +76,25 @@ public class GameManager : MonoBehaviour
         }
 
         //배경바꾸기
-        if (player.transform.position.x < 382)
+        if (SceneManager.GetActiveScene().name == "SnowWhite")
         {
-            Image sky_image = Sky.GetComponent<Image>();
-            sky_image.sprite = backgrounds[0];
-        }
+            if (player.transform.position.x < 382)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[0];
+            }
 
-        if (player.transform.position.x >= 382 && player.transform.position.x < 650)
-        {
-            Image sky_image = Sky.GetComponent<Image>();
-            sky_image.sprite = backgrounds[1];
-        }
+            if (player.transform.position.x >= 382 && player.transform.position.x < 650)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[1];
+            }
 
-        if (player.transform.position.x >= 650)
-        {
-            Image sky_image = Sky.GetComponent<Image>();
-            sky_image.sprite = backgrounds[2];
+            if (player.transform.position.x >= 650)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[2];
+            }
         }
     }
 

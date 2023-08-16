@@ -22,6 +22,8 @@ public class Fire : MonoBehaviour
     private ObType direction; // 방향
     [SerializeField]
     private float speed; // 속도
+    [SerializeField]
+    public float bullet_damage; // 총알데미지
 
     private int num = 0;
 
