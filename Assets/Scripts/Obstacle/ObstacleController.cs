@@ -26,7 +26,6 @@ public class ObstacleController : MonoBehaviour
         ChangeAnimation, //애니메이션 변경
         ChangeSprite, //스프라이트 변경
         BlowAway,//플레이어 날려버리기
-        PowerZero
     }
 
     public enum ObDirection
@@ -97,9 +96,6 @@ public class ObstacleController : MonoBehaviour
     private bool isCol = false; //트리거로 작동하는지 collision으로 작동하는지
 
     [SerializeField]
-    private bool isTriggerStay= false; //TriggerStay로 작동하는지
-
-    [SerializeField]
     private bool isMoving = false; //시작부터 움직이이려면 true 체크
 
     [SerializeField]
@@ -157,7 +153,7 @@ public class ObstacleController : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isCol && collision.gameObject.CompareTag(colTag.ToString())&&!isTriggerStay)
+        if (!isCol && collision.gameObject.CompareTag(colTag.ToString()))
         {
             StartCoroutine(SetIsmoving(true));
         }
@@ -167,14 +163,6 @@ public class ObstacleController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (!isCol && other.gameObject.CompareTag(colTag.ToString())&&isTriggerStay)
-        {
-            StartCoroutine(SetIsmoving(true));
-        }
-        Debug.Log("TriggerStay");
-    }
     /// <summary>
     /// 트리거 없이 collisoin에 부딪혓을때 작동하는 경우.
     /// </summary>
@@ -292,23 +280,13 @@ public class ObstacleController : MonoBehaviour
                 BlowAway(obDirection);//isCol로 판단.
                 isCol = true;
                 break;
-            case ObType.PowerZero:
-                PowerZero();
-                break;
 
         }
 
-        if (this.gameObject.GetComponent<BoxCollider2D>()&&!isTriggerStay)
+        if (this.gameObject.GetComponent<BoxCollider2D>())
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
         }
-    }
-
-
-    private void PowerZero()
-    {
-        rigid.velocity = new Vector2(0, 0);
-        Debug.Log(rigid.velocity);
     }
 
     private void ChangeSprite()
