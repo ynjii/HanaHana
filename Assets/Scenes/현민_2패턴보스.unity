@@ -367,6 +367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245645831}
   - component: {fileID: 245645830}
+  - component: {fileID: 245645833}
   - component: {fileID: 245645832}
   - component: {fileID: 245645829}
   - component: {fileID: 245645828}
@@ -388,7 +389,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 245645824}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c98253ac4278bbb43a2bc8e7e3a2c4df, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -427,7 +428,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 6200000, guid: c98253ac4278bbb43a2bc8e7e3a2c4df, type: 2}
+  m_Material: {fileID: 6200000, guid: 2a4acb3a6f8e0154fa09119f687644ea, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -526,12 +527,43 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245645824}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f4bd9d6ab11a3649acf47f2e071d84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  jump_power: 0
+  player_state: 0
+  SaveLoad: {fileID: 0}
+  ignore_jump: 0
+  ladder_speed: 0
+  whatIsLadder:
+    serializedVersion: 2
+    m_Bits: 0
+  distance: 0
+  movable: 1
+--- !u!114 &245645833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245645824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d755e9fc29b3f024b9caa3b8092eae85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jump_power: 0
+  player_state: 0
+  SaveLoad: {fileID: 0}
+  ignore_jump: 0
+  ladder_speed: 0
+  whatIsLadder:
+    serializedVersion: 2
+    m_Bits: 0
+  distance: 0
+  movable: 1
 --- !u!1 &346435975
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +667,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 60
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 60
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1319,7 +1351,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: c98253ac4278bbb43a2bc8e7e3a2c4df, type: 2}
+  m_Material: {fileID: 6200000, guid: 9a8ac5cdec894a64e80131d0363d462d, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
