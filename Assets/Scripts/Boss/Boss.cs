@@ -1,10 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    private Launch_Fire launcher_script;
+    public GameObject launcher;
     private float hit_time=0;
     public SpriteRenderer mirror_renderer;
     [SerializeField]
@@ -14,20 +16,22 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private float move_speed;
 
+    //ë²„ë“œ íŒ¨í„´ì—ì„œ ì“°ëŠ” ë³€ìˆ˜ë¼ëŠ” ëœ»ì—ì„œ ë§ë¨¸ë¦¬ ë¶™ì„
     private List<Vector3> B_target_positions = new List<Vector3>();
     private int B_current_target_index = 0;
 
-    //·£´ı°ªµû¶ó ÆĞÅÏÈ£Ãâ
-    //ÆĞÅÏ ½ÃÀÛÇÏ¸é time=0, time+=Time.deltaTime
-    //timeÀÌ 0ÀÏ¶§¸¸ ·£´ı°ª ´Ù½Ã ³Ö±â. & switch ÇÔ¼ö È£Ãâ
+    //ëœë¤ê°’ë”°ë¼ íŒ¨í„´í˜¸ì¶œ
+    //íŒ¨í„´ ì‹œì‘í•˜ë©´ time=0, time+=Time.deltaTime
+    //timeì´ 0ì¼ë•Œë§Œ ëœë¤ê°’ ë‹¤ì‹œ ë„£ê¸°. & switch í•¨ìˆ˜ í˜¸ì¶œ
 
-    //23.05, 0.27: ÃÊ±âÀ§Ä¡
+    //23.05, 0.27: ì´ˆê¸°ìœ„ì¹˜
     private void Awake()
     {
+        launcher_script = launcher.GetComponent<Launch_Fire>();
         bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_Fire>().fire;
         bullet_script=bullet.GetComponent<Fire>();
 
-        // ¿øÇÏ´Â ¸ñÇ¥ À§Ä¡µéÀ» ¸®½ºÆ®¿¡ Ãß°¡
+        // ì›í•˜ëŠ” ëª©í‘œ ìœ„ì¹˜ë“¤ì„ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
         B_target_positions.Add(new Vector3(23.05f, 0.27f, 0));
         B_target_positions.Add(new Vector3(19.93f, 3.08f, 0));
         B_target_positions.Add(new Vector3(17.52f, 2.07f, 0));
@@ -42,7 +46,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //¸ÂÀ¸¸é »¡°£»ö Ã³¸®
+        //ë§ìœ¼ë©´ ë¹¨ê°„ìƒ‰ ì²˜ë¦¬
         hit_time += Time.deltaTime;
         if (hit_time>=0.15f)
             mirror_renderer.color= new Color(1,1,1,0.7f);
@@ -64,18 +68,25 @@ public class Boss : MonoBehaviour
 
     private void birdPattern()
     {
-
+        launcher_script.fires_index = 0;
         Vector3 targetPosition = B_target_positions[B_current_target_index];
-        // ÇöÀç À§Ä¡¿Í ¸ñÇ¥ À§Ä¡ »çÀÌÀÇ °Å¸® °è»ê
+        // í˜„ì¬ ìœ„ì¹˜ì™€ ëª©í‘œ ìœ„ì¹˜ ì‚¬ì´ì˜ ê±°ë¦¬ ê³„ì‚°
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        // ÀÏÁ¤ °Å¸® ³»¿¡ ÀÖÀ¸¸é ´ÙÀ½ ¸ñÇ¥ À§Ä¡·Î º¯°æ
-        if (distanceToTarget <= 0.1f) // ¿¹½Ã·Î 0.1f¸¦ »ç¿ë, ¿øÇÏ´Â °ªÀ¸·Î Á¶Á¤ °¡´É
+        // ì¼ì • ê±°ë¦¬ ë‚´ì— ìˆìœ¼ë©´ ë‹¤ìŒ ëª©í‘œ ìœ„ì¹˜ë¡œ ë³€ê²½
+        if (distanceToTarget <= 0.1f) // ì˜ˆì‹œë¡œ 0.1fë¥¼ ì‚¬ìš©, ì›í•˜ëŠ” ê°’ìœ¼ë¡œ ì¡°ì • ê°€ëŠ¥
         {
             B_current_target_index = (B_current_target_index+ 1) % B_target_positions.Count;
             targetPosition = B_target_positions[B_current_target_index];
         }
 
-        // ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿
+        // ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+    }
+    /// <summary>
+    /// 1->2->4 ë¶„ì—´ë˜ëŠ” ì´ì•Œ 
+    /// </summary>
+    private void bullet124()
+    {
+
     }
 }
