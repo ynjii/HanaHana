@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1271405445499783870}
   - component: {fileID: 1271405445499783856}
   - component: {fileID: 1271405445499783863}
+  - component: {fileID: -7138737405498589851}
   m_Layer: 8
   m_Name: Bird
   m_TagString: Enemy
@@ -274,6 +275,36 @@ MonoBehaviour:
   isMoving: 0
   waitingTime: 1
   distance: 20
+  speed: 11
+  tagName: Untagged
+  layerIndex: 0
+  colTag: 2
+  animName: 
+  img: {fileID: 0}
+--- !u!114 &-7138737405498589851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271405445499783842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obType: 13
+  obDirection: 0
+  gravity_scale: 4
+  isPlatform: 0
+  isLeftDown: 0
+  color: 0
+  size: 0
+  rend_order: 0
+  isCol: 0
+  isMoving: 0
+  waitingTime: 0
+  distance: 0
   speed: 11
   tagName: Untagged
   layerIndex: 0

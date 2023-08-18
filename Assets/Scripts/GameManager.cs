@@ -113,7 +113,6 @@ public class GameManager : MonoBehaviour
 
             SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("death", death_count);
             death_text.text = "Death : " + death_count++;
-            Debug.Log("Death : " + death_count);
             //게임오버 UI를 활성화
             gameoverUI.SetActive(true);
         }

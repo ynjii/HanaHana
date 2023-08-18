@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    private Launch_Fire launcher_script;
-    public GameObject launcher;
+    private Launch_Fire launcher0_script;
+    private Launch_Fire launcher1_script;
+    public GameObject[] launchers;
     private float hit_time=0;
     public SpriteRenderer mirror_renderer;
     [SerializeField]
     public float boss_hp;
-    private GameObject bullet;
-    private Fire bullet_script;
+    private GameObject P_bullet;
+    private Fire P_bullet_script;
     [SerializeField]
     private float move_speed;
 
@@ -27,9 +26,10 @@ public class Boss : MonoBehaviour
     //23.05, 0.27: 초기위치
     private void Awake()
     {
-        launcher_script = launcher.GetComponent<Launch_Fire>();
-        bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_Fire>().fire;
-        bullet_script=bullet.GetComponent<Fire>();
+        launcher0_script = launchers[0].GetComponent<Launch_Fire>();
+        launcher1_script = launchers[1].GetComponent<Launch_Fire>();
+        P_bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_Fire>().fire;
+        P_bullet_script=P_bullet.GetComponent<Fire>();
 
         // 원하는 목표 위치들을 리스트에 추가
         B_target_positions.Add(new Vector3(23.05f, 0.27f, 0));
@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
         if (hit_time>=0.15f)
             mirror_renderer.color= new Color(1,1,1,0.7f);
 
-        birdPattern();
+        Pattern1();
 
     }
 
@@ -60,15 +60,17 @@ public class Boss : MonoBehaviour
         if (collision.gameObject.CompareTag("bullet"))
         {
             mirror_renderer.color = new Color(1, 0.54f, 0.54f, 0.77f);
-            boss_hp -= bullet_script.bullet_damage;
+            boss_hp -= P_bullet_script.bullet_damage;
             hit_time = 0f;
         }
 
     }
 
-    private void birdPattern()
+    private void Pattern1()
     {
-        launcher_script.fires_index = 0;
+        launcher0_script.fires_index = 0;
+        launcher1_script.fires_index = 0;
+
         Vector3 targetPosition = B_target_positions[B_current_target_index];
         // 현재 위치와 목표 위치 사이의 거리 계산
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
@@ -82,11 +84,5 @@ public class Boss : MonoBehaviour
         // 목표 위치로 이동
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
     }
-    /// <summary>
-    /// 1->2->4 분열되는 총알 
-    /// </summary>
-    private void bullet124()
-    {
 
-    }
 }

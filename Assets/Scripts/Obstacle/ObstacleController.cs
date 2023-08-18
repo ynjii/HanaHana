@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static Define;
@@ -26,6 +28,7 @@ public class ObstacleController : MonoBehaviour
         ChangeAnimation, //애니메이션 변경
         ChangeSprite, //스프라이트 변경
         BlowAway,//플레이어 날려버리기
+        Destroy//안보이면삭제
     }
 
     public enum ObDirection
@@ -145,6 +148,9 @@ public class ObstacleController : MonoBehaviour
 
     //플레이어
     private GameObject player;
+
+    //파괴함수에만 쓰이는 변수
+    private bool destroy = false;
 
     /// <summary>
     /// isTriggered 처리가 된 collider와 부딪혔을때 
@@ -280,12 +286,24 @@ public class ObstacleController : MonoBehaviour
                 BlowAway(obDirection);//isCol로 판단.
                 isCol = true;
                 break;
+            case ObType.Destroy:
+                destroy=true;
+                break;
+
 
         }
 
         if (this.gameObject.GetComponent<BoxCollider2D>())
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
+        }
+    }
+
+    private void OnBecameInvisible()
+    {
+        if (destroy)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -447,7 +465,6 @@ public class ObstacleController : MonoBehaviour
     /// </summary>
     private IEnumerator MoveToTarget()
     {
-        Debug.Log(Time.time);
         Vector3 targetPosition = CalculateTargetPosition(obDirection, distance);
 
         while (movedDistance < distance)
@@ -457,20 +474,19 @@ public class ObstacleController : MonoBehaviour
             transform.position = newPosition;
             yield return null;
         }
-        Debug.Log(Time.time);
     }
 
     private Vector3 CalculateTargetPosition(ObDirection obDirection, float movement)
     {
-        if(rigid == null)
+        if(TryGetComponent(out rigid))
         {
-            rigid=GetComponent<Rigidbody2D>();    
+            if (rigid.bodyType == RigidbodyType2D.Dynamic)
+            {
+                rigid = GetComponent<Rigidbody2D>();
+                rigid.bodyType = RigidbodyType2D.Static;
+            }
         }
-        if (rigid.bodyType == RigidbodyType2D.Dynamic)
-        {
-            rigid = GetComponent<Rigidbody2D>();
-            rigid.bodyType=RigidbodyType2D.Static;
-        }
+        
         switch (obDirection)
         {    
             case ObDirection.Up:
@@ -554,5 +570,7 @@ public class ObstacleController : MonoBehaviour
         yield return new WaitForSeconds(waitingTime);
         this.isMoving = n;
     }
+
+
 
 }
