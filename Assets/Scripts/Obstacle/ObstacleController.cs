@@ -25,7 +25,7 @@ public class ObstacleController : MonoBehaviour
         ChangeRendererOrder,//렌더러순서 변경
         ChangeAnimation, //애니메이션 변경
         ChangeSprite, //스프라이트 변경
-        BlowAway//플레이어 날려버리기
+        BlowAway,//플레이어 날려버리기
     }
 
     public enum ObDirection
@@ -159,7 +159,6 @@ public class ObstacleController : MonoBehaviour
         }
         if (obType == ObType.BlowAway)
         {
-            Debug.Log("부딪힘");
             isMoving = false;
         }
     }
@@ -281,7 +280,9 @@ public class ObstacleController : MonoBehaviour
                 BlowAway(obDirection);//isCol로 판단.
                 isCol = true;
                 break;
+
         }
+
         if (this.gameObject.GetComponent<BoxCollider2D>())
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
@@ -367,7 +368,6 @@ public class ObstacleController : MonoBehaviour
         if (is_start)
         {
             rigid = GetComponent<Rigidbody2D>();
-            Destroy(this.gameObject.GetComponent<BoxCollider2D>());
             rigid.bodyType = RigidbodyType2D.Dynamic;
             rigid.gravityScale = gravity_scale;
 
@@ -462,8 +462,17 @@ public class ObstacleController : MonoBehaviour
 
     private Vector3 CalculateTargetPosition(ObDirection obDirection, float movement)
     {
-        switch (obDirection)
+        if(rigid == null)
         {
+            rigid=GetComponent<Rigidbody2D>();    
+        }
+        if (rigid.bodyType == RigidbodyType2D.Dynamic)
+        {
+            rigid = GetComponent<Rigidbody2D>();
+            rigid.bodyType=RigidbodyType2D.Static;
+        }
+        switch (obDirection)
+        {    
             case ObDirection.Up:
                 return initialPosition + Vector3.up * movement;
             case ObDirection.Down:
@@ -472,6 +481,8 @@ public class ObstacleController : MonoBehaviour
                 return initialPosition + Vector3.left * movement;
             case ObDirection.Right:
                 return initialPosition + Vector3.right * movement;
+            case ObDirection.Diagonal_Left:  
+                return initialPosition + new Vector3(-1,1,0) * movement;
             default:
                 return initialPosition;
         }

@@ -234,9 +234,16 @@ public class Player : MonoBehaviour
             onDamaged(collision.transform.position);
             GameManager.instance.OnPlayerDead();
         }
+        else if (collision.gameObject.CompareTag("Boss"))
+        {
+            onDamaged(collision.transform.position);
+            //게임 매니저의 게임오버 처리 실행
+            GameManager.instance.OnPlayerDead();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
+        
         if(collision.gameObject.CompareTag("Flag"))
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
@@ -264,7 +271,6 @@ public class Player : MonoBehaviour
     {  
         //맞은 상태
         player_state = PlayerState.Damaged;
-        Debug.Log(player_state);
         //레이어변경
         this.gameObject.layer = 7;  
         //투명하게 바꾸기
@@ -314,11 +320,9 @@ public class Player : MonoBehaviour
     private void OnBecameInvisible()
     {   
         player_state = PlayerState.Damaged;
-        if(!gameObject){
         this.gameObject.layer= 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
-        }
     }
 
     IEnumerator  BurnAndDie()
