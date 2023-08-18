@@ -7,7 +7,8 @@ public class BossHP : MonoBehaviour
     public GameObject fillArea;
     public float decreaseRate = 1.0f; // 감소율 조정을 위한 변수
     private float currentHP; // 현재 HP 값
-
+    [SerializeField] private HPType hpType;
+    private Boss boss_script;
     public enum HPType
     {
         Time, //시간따라
@@ -15,10 +16,18 @@ public class BossHP : MonoBehaviour
     }
     void Start()
     {
-        currentHP = slHP.maxValue; // 초기 HP 값을 최대값으로 설정
+        boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+        if (hpType == HPType.HP)
+        {
+            slHP.maxValue = boss_script.boss_hp;
+            currentHP = boss_script.boss_hp;// 보스 피: 초기 피
+        }
+        else
+        {
+            currentHP = slHP.maxValue; // 초기 HP 값을 최대값으로 설정
+        }
     }
 
-    [SerializeField] private HPType hpType;
 
     void Update()
     {
@@ -43,6 +52,11 @@ public class BossHP : MonoBehaviour
                 break;
 
             case HPType.HP:
+                currentHP = boss_script.boss_hp;
+                currentHP = Mathf.Max(currentHP, 0); // 최소값은 0으로 제한
+
+                slHP.value = currentHP; // 슬라이더의 값에 현재 HP 값을 할당
+
                 break;
 
         }

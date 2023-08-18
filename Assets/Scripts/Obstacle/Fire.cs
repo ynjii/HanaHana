@@ -22,6 +22,8 @@ public class Fire : MonoBehaviour
     private ObType direction; // 방향
     [SerializeField]
     private float speed; // 속도
+    [SerializeField]
+    public float bullet_damage; // 총알데미지
 
     private int num = 0;
 
@@ -64,8 +66,6 @@ public class Fire : MonoBehaviour
                 break;
             case ObType.downLeft:
                 transform.Translate((-transform.right - transform.up).normalized * speed * Time.deltaTime);
-                break;
-            default:
                 break;
         }
         
