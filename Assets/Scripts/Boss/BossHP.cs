@@ -16,9 +16,9 @@ public class BossHP : MonoBehaviour
     }
     void Start()
     {
-        boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
         if (hpType == HPType.HP)
         {
+            boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
             slHP.maxValue = boss_script.boss_hp;
             currentHP = boss_script.boss_hp;// 보스 피: 초기 피
         }
