@@ -67,8 +67,6 @@ public class Fire : MonoBehaviour
             case ObType.downLeft:
                 transform.Translate((-transform.right - transform.up).normalized * speed * Time.deltaTime);
                 break;
-            default:
-                break;
         }
         
     }
