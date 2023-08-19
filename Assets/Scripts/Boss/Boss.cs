@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
         if (hit_time>=0.15f)
             mirror_renderer.color= new Color(1,1,1,0.7f);
 
-        Pattern1();
+        Pattern2();
 
     }
 
@@ -83,6 +83,15 @@ public class Boss : MonoBehaviour
 
         // 목표 위치로 이동
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+    }
+
+    private void Pattern2()
+    {   
+        //
+        launcher0_script.fires_index = 0;
+
+        //사과
+        launcher1_script.fires_index = 1;
     }
 
 }
