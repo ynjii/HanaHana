@@ -2660,9 +2660,10 @@ GameObject:
   - component: {fileID: 3999375686159101134}
   - component: {fileID: 2548712829499066262}
   - component: {fileID: 5772013950499985413}
-  m_Layer: 0
+  - component: {fileID: 8431603130707565490}
+  m_Layer: 6
   m_Name: Tilemap (1)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3628,6 +3629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75c6b57ca46ded458fab05c39720fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  other: {fileID: 373727981}
 --- !u!114 &6762361888205518304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3662,13 +3664,30 @@ GameObject:
   - component: {fileID: 4813545441270728880}
   - component: {fileID: 4784314901242646441}
   - component: {fileID: 4251706397619685094}
-  m_Layer: 0
+  - component: {fileID: 7318658330244639462}
+  m_Layer: 6
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!19719996 &7318658330244639462
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318658330244639461}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!224 &7812369447183402685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4011,6 +4030,22 @@ Transform:
   m_Father: {fileID: 2356827716918396121}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!19719996 &8431603130707565490
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785041627238908901}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!156049354 &8971007364510645333
 Grid:
   m_ObjectHideFlags: 0
