@@ -286,12 +286,7 @@ public class Player : MonoBehaviour
             isBorder = true;
             GameManager.instance.OnPlayerDead();
         }
-    }
-
-    //이거는 나중에... 씬 합칠때 onTriggerEneter쪽으로 수정해야함.
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (!isIce && collision.gameObject.CompareTag("Ice"))
+        else if (!isIce && collision.gameObject.CompareTag("Ice"))
         {
             isIce = true;
         }
