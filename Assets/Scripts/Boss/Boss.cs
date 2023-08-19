@@ -87,10 +87,10 @@ public class Boss : MonoBehaviour
 
     private void Pattern2()
     {   
-        //
-        launcher0_script.fires_index = 0;
+        //원형 사과
+        launcher0_script.fires_index = 1;
 
-        //사과
+        //다이아 사과
         launcher1_script.fires_index = 1;
     }
 

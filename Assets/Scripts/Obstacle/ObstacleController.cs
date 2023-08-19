@@ -288,6 +288,7 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.Destroy:
                 destroy=true;
+                isMoving=true;
                 break;
 
 
@@ -478,11 +479,13 @@ public class ObstacleController : MonoBehaviour
 
     private Vector3 CalculateTargetPosition(ObDirection obDirection, float movement)
     {
-        if(TryGetComponent(out rigid))
+        //대각선방향: 중력영향 받아서는 안 됨.
+        //out: 포인터
+        if(obDirection==ObDirection.Diagonal_Left)
         {
-            if (rigid.bodyType == RigidbodyType2D.Dynamic)
+            rigid = GetComponent<Rigidbody2D>();
+            if (rigid!=null&&rigid.bodyType == RigidbodyType2D.Dynamic)
             {
-                rigid = GetComponent<Rigidbody2D>();
                 rigid.bodyType = RigidbodyType2D.Static;
             }
         }

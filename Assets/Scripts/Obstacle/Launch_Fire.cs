@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,18 +37,21 @@ public class Launch_Fire : MonoBehaviour
     {
         player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
         //애플패턴(4_2)
-        for(int i=0;i<MAX_APPLE_NUM;i++)
+        if (null!=fires.FirstOrDefault(fires=>fires.name=="Apple"))
         {
-            Transform trans = new GameObject("start_point").transform;
-            if (i < MAX_APPLE_NUM/2)//위 
+            for (int i = 0; i < MAX_APPLE_NUM; i++)
             {
-                trans.position = new Vector3(22f, 2f + 0.5f * i, 0);
+                Transform trans = new GameObject("start_point").transform;
+                if (i < MAX_APPLE_NUM / 2)//위 
+                {
+                    trans.position = new Vector3(22f, 2f + 0.5f * i, 0);
+                }
+                else//아래
+                {
+                    trans.position = new Vector3(22f, -2f - (0.5f * (i % (MAX_APPLE_NUM / 2))), 0);
+                }
+                start_points.Add(trans);
             }
-            else//아래
-            {
-                trans.position = new Vector3(22f, -2f - (0.5f * (i%(MAX_APPLE_NUM/2))), 0);
-            }
-            start_points.Add(trans);
         }
     }
 
@@ -105,11 +109,26 @@ public class Launch_Fire : MonoBehaviour
                             }
                         }
                     }
-                    else
+                    else//런치박스1
                     {
-                        //패턴탄알발사
-                        cool_time = 1f;
-                        Instantiate(fires[fires_index], pos.position, transform.rotation);
+                        //4_2 의 circle apple 패턴
+                        if (fires[fires_index].name == "GreenApple")
+                        {
+                            cool_time = 1f;
+                            CirclePattern circle_pattern = new CirclePattern();
+                            Transform transf = this.gameObject.transform;
+                            //x: 18~24
+                            //y: 4~-4
+                            float x=Random.Range(18f, 24f);
+                            float y = Random.Range(4f, -4f);
+                            transf.position = new Vector3(x, y, 0);
+                            circle_pattern.CircleLaunch(fires[fires_index], transf);
+                        }
+                        else
+                        {
+                            cool_time = 1f;
+                            Instantiate(fires[fires_index], pos.position, transform.rotation);
+                        }
                     }
                 }
             }
