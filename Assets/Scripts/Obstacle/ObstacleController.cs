@@ -131,6 +131,7 @@ public class ObstacleController : MonoBehaviour
     private Vector3 movement = Vector3.zero;
 
     private float movedDistance = 0f;
+    [SerializeField]
     private float rotateSpeed = 10000f;
 
     private Rigidbody2D rigid;

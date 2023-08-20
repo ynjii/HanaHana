@@ -35,6 +35,7 @@ public class Launch_Fire : MonoBehaviour
 
     private void Awake()
     {
+        
         player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
         //애플패턴(4_2)
         if (null!=fires.FirstOrDefault(fires=>fires.name=="Apple"))
@@ -57,7 +58,6 @@ public class Launch_Fire : MonoBehaviour
 
     private void Update()
     {
-
         time += Time.deltaTime;
         if (time >= cool_time)
         {
@@ -108,6 +108,16 @@ public class Launch_Fire : MonoBehaviour
                                 a_pattern_direction *= -1; // 방향을 반대로 변경
                             }
                         }
+                        //불꽃놀이 패턴일 때 (4_3)
+                        if(fires[fires_index].name == "fireworks")
+                        {
+                            cool_time = 1f;
+                            float x = Random.Range(18f, 24f);
+                            float y = Random.Range(4f, -4f);
+                            Transform transf = this.transform;
+                            transf.position = new Vector3(x, y, 0);
+                            Instantiate(fires[fires_index], transf.position, transform.rotation);
+                        }
                     }
                     else//런치박스1
                     {
@@ -116,13 +126,18 @@ public class Launch_Fire : MonoBehaviour
                         {
                             cool_time = 1f;
                             CirclePattern circle_pattern = new CirclePattern();
-                            Transform transf = this.gameObject.transform;
+                            Transform transf = this.transform;
                             //x: 18~24
                             //y: 4~-4
                             float x=Random.Range(18f, 24f);
                             float y = Random.Range(4f, -4f);
                             transf.position = new Vector3(x, y, 0);
                             circle_pattern.CircleLaunch(fires[fires_index], transf);
+                        }
+                        else if (fires[fires_index].name == "Pinwheel") 
+                        {
+                            cool_time = 20;
+                            Instantiate(fires[fires_index], pos.position + new Vector3(1, 1f, 0), transform.rotation);
                         }
                         else
                         {

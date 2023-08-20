@@ -1,22 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CirclePattern : MonoBehaviour
 {
-    private Rigidbody2D rigid;
-    public GameObject prefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigid=prefab.GetComponent<Rigidbody2D>();
-    }
+
 
     /// <summary>
-    /// rigidbody2DÀÖ¾î¾ß »ç¿ë°¡´É
+    /// rigidbody2Dìˆì–´ì•¼ ì‚¬ìš©ê°€ëŠ¥
     /// </summary>
     /// <param name="prefab"></param>
-    public void CircleLaunch(GameObject prefab,Transform transform)  //½ºÅ³ ¹öÆ° ´©¸£¸é ¿ø¸ğ¾çÀ¸·Î ºÒÀÌ ÆÛÁ®³ª°¨ 
+    public void CircleLaunch(GameObject prefab,Transform transform)   
     {
 
         int roundNumA = 25;
@@ -27,9 +21,32 @@ public class CirclePattern : MonoBehaviour
             GameObject fireObj = Instantiate(prefab, transform.position, Quaternion.identity);
             Rigidbody2D rigid = fireObj.GetComponent<Rigidbody2D>();
             Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNumA),
-                             Mathf.Sin(Mathf.PI * 2 * i / roundNumA));  //¿ø ÇüÅÂ·Î ¹ß»ç
+                             Mathf.Sin(Mathf.PI * 2 * i / roundNumA));  //ì› í˜•íƒœë¡œ ë°œì‚¬
             rigid.AddForce(dirVec.normalized * 5, ForceMode2D.Impulse);
 
+        }
+    }
+
+
+    /// <summary>
+    /// ìµœìƒìœ„ ì˜¤ë¸Œì íŠ¸ë¥¼ ì¸ìë¡œ ë„£ê¸°
+    /// ìµœìƒìœ„ ì˜¤ë¸Œì íŠ¸ì˜ í•˜ìœ„ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ë°”ê¹¥ ë°©í–¥ìœ¼ë¡œ ì˜ëŠ” í•¨ìˆ˜ì„.
+    /// </summary>
+    /// <param name="parent_transform"></param>
+    public void LaunchToOutside(Transform parent_transform, float launchForce, float spreadFactor)
+    {
+        int roundNumA = parent_transform.childCount;
+
+        for (int i = 0; i < roundNumA; i++)
+        {
+            Transform child_transform = parent_transform.GetChild(i);
+            Rigidbody2D rigid = child_transform.gameObject.GetComponent<Rigidbody2D>();
+
+            Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNumA),
+                                         Mathf.Sin(Mathf.PI * 2 * i / roundNumA));  // ì› í˜•íƒœë¡œ ë°œì‚¬
+
+            Vector2 spreadForce = dirVec.normalized * launchForce * Random.Range(1.0f, spreadFactor);
+            rigid.AddForce(spreadForce, ForceMode2D.Impulse);
         }
     }
 }

@@ -20,7 +20,7 @@ public class Boss : MonoBehaviour
     private int B_current_target_index = 0;
 
     //랜덤값따라 패턴호출
-    //패턴 시작하면 time=0, time+=Time.deltaTime
+    //패턴 시작하면 launch_time=0, launch_time+=Time.deltaTime
     //time이 0일때만 랜덤값 다시 넣기. & switch 함수 호출
 
     //23.05, 0.27: 초기위치
@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
         if (hit_time>=0.15f)
             mirror_renderer.color= new Color(1,1,1,0.7f);
 
-        Pattern2();
+        Pattern3();
 
     }
 
@@ -94,4 +94,11 @@ public class Boss : MonoBehaviour
         launcher1_script.fires_index = 1;
     }
 
+    private void Pattern3()
+    {
+        //바람개비
+        launcher0_script.fires_index = 2;
+        //불꽃놀이
+        launcher1_script.fires_index = 2;
+    }
 }
