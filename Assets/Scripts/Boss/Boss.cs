@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class Boss : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Boss : MonoBehaviour
     //버드 패턴에서 쓰는 변수라는 뜻에서 말머리 붙임
     private List<Vector3> B_target_positions = new List<Vector3>();
     private int B_current_target_index = 0;
+
+    public BossState boss_state=new BossState();
 
     //랜덤값따라 패턴호출
     //패턴 시작하면 launch_time=0, launch_time+=Time.deltaTime
@@ -51,7 +54,7 @@ public class Boss : MonoBehaviour
         if (hit_time>=0.15f)
             mirror_renderer.color= new Color(1,1,1,0.7f);
 
-        Pattern3();
+        Pattern4();
 
     }
 
@@ -68,6 +71,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern1()
     {
+        boss_state = BossState.pattern4_1;
         launcher0_script.fires_index = 0;
         launcher1_script.fires_index = 0;
 
@@ -86,7 +90,8 @@ public class Boss : MonoBehaviour
     }
 
     private void Pattern2()
-    {   
+    {
+        boss_state = BossState.pattern4_2;
         //원형 사과
         launcher0_script.fires_index = 1;
 
@@ -96,9 +101,18 @@ public class Boss : MonoBehaviour
 
     private void Pattern3()
     {
+        boss_state = BossState.pattern4_4;
         //바람개비
         launcher0_script.fires_index = 2;
         //불꽃놀이
         launcher1_script.fires_index = 2;
+    }
+
+    private void Pattern4()
+    {
+        boss_state = BossState.pattern4_4;
+        //원형애플
+        launcher0_script.fires_index = 1;
+        launcher1_script.fires_index = 0;
     }
 }

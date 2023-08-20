@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using static Define;
 
 public class Launch_Fire : MonoBehaviour
 {
@@ -32,11 +32,16 @@ public class Launch_Fire : MonoBehaviour
     [SerializeField]
     private GameObject[] fires = new GameObject[0];
     private List<Transform> start_points=new List<Transform>();
+    private Boss boss_script;
 
     private void Awake()
     {
         
         player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
+        if (SceneManager.GetActiveScene().name == "SnowBoss4")
+        {
+            boss_script= GameObject.FindWithTag("Boss").GetComponent<Boss>();
+        }
         //애플패턴(4_2)
         if (null!=fires.FirstOrDefault(fires=>fires.name=="Apple"))
         {
@@ -121,18 +126,28 @@ public class Launch_Fire : MonoBehaviour
                     }
                     else//런치박스1
                     {
-                        //4_2 의 circle apple 패턴
+                        //원형애플패턴
                         if (fires[fires_index].name == "GreenApple")
                         {
-                            cool_time = 1f;
-                            CirclePattern circle_pattern = new CirclePattern();
-                            Transform transf = this.transform;
-                            //x: 18~24
-                            //y: 4~-4
-                            float x=Random.Range(18f, 24f);
-                            float y = Random.Range(4f, -4f);
-                            transf.position = new Vector3(x, y, 0);
-                            circle_pattern.CircleLaunch(fires[fires_index], transf);
+                            //4_2 의 circle apple 패턴
+                            if (boss_script.boss_state == BossState.pattern4_2)
+                            {
+                                cool_time = 1f;
+                                CirclePattern circle_pattern = new CirclePattern();
+                                Transform transf = this.transform;
+                                //x: 18~24
+                                //y: 4~-4
+                                float x = Random.Range(18f, 24f);
+                                float y = Random.Range(4f, -4f);
+                                transf.position = new Vector3(x, y, 0);
+                                circle_pattern.CircleLaunch(fires[fires_index], transf);
+                            }
+                            else if (boss_script.boss_state== BossState.pattern4_4)
+                            {
+                                cool_time = 2f;
+                                CirclePattern circle_pattern = new CirclePattern();
+                                circle_pattern.CircleLaunch(fires[fires_index], boss_script.gameObject.GetComponent<Transform>());
+                            }
                         }
                         else if (fires[fires_index].name == "Pinwheel") 
                         {

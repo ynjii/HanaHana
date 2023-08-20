@@ -1,5 +1,14 @@
 public class Define
 {
+    public enum BossState 
+    { 
+        pattern4_1,
+        pattern4_2,
+        pattern4_3,
+        pattern4_4,
+        pattern4_5
+    }
+
     public enum CameraState
     {
         Player,
