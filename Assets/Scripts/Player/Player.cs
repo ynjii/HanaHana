@@ -361,9 +361,11 @@ public class Player : MonoBehaviour
     private void OnBecameInvisible()
     {
         player_state = PlayerState.Damaged;
-        this.gameObject.layer = 7;
+        if(!gameObject){
+        this.gameObject.layer= 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator BurnAndDie()
