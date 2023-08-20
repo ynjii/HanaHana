@@ -127,7 +127,7 @@ public class Boss : MonoBehaviour
         //원형애플
         launcher0_script.fires_index = 1;
         //조준탄
-        launcher1_script.fires_index = 0;
+        launcher1_script.fires_index = 4;
 
         Vector3 targetPosition = B_target_positions[B_current_target_index];
         // 현재 위치와 목표 위치 사이의 거리 계산

@@ -68,6 +68,18 @@ public class Launch_Fire : MonoBehaviour
         {
             if (fires.Length >= 1)//배열에 뭔가 넣었을 때
             {
+                if (GetComponent<SpriteRenderer>() != null)
+                {
+                    if (fires[fires_index].name == "GuidedMissle")
+                    {
+                        GetComponent<SpriteRenderer>().enabled = true;
+                    }
+                    else
+                    {
+                        GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                }
+
                 //안죽었을때
                 if (player_script.player_state != Define.PlayerState.Damaged)
                 {
@@ -149,6 +161,13 @@ public class Launch_Fire : MonoBehaviour
                             CirclePattern circle_pattern = new CirclePattern();
                             circle_pattern.CLaunch(fires[fires_index], boss_script.gameObject.GetComponent<Transform>(), 4);
                         }
+                    }
+                    else if (fires[fires_index].name == "GuidedMissle")
+                    {
+                        cool_time = 1f;
+                        GetComponent<SpriteRenderer>().enabled = true;
+                        GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("Images/Boss/RedBird.png");
+                        Instantiate(fires[fires_index], pos.position + new Vector3(-1f, 0, 0), transform.rotation);
                     }
 
                     else if (fires[fires_index].name == "Pinwheel")
