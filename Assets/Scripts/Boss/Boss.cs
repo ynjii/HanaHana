@@ -113,6 +113,21 @@ public class Boss : MonoBehaviour
         boss_state = BossState.pattern4_4;
         //원형애플
         launcher0_script.fires_index = 1;
+        //조준탄
         launcher1_script.fires_index = 0;
+
+        Vector3 targetPosition = B_target_positions[B_current_target_index];
+        // 현재 위치와 목표 위치 사이의 거리 계산
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        // 일정 거리 내에 있으면 다음 목표 위치로 변경
+        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
+        {
+            B_current_target_index = (B_current_target_index + 1) % B_target_positions.Count;
+            targetPosition = B_target_positions[B_current_target_index];
+        }
+
+        // 목표 위치로 이동
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+
     }
 }
