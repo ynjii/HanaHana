@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class Boss : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class Boss : MonoBehaviour
     //버드 패턴에서 쓰는 변수라는 뜻에서 말머리 붙임
     private List<Vector3> B_target_positions = new List<Vector3>();
     private int B_current_target_index = 0;
+
+    //고블린 패턴에서 쓰는 변수라는 뜻에서 말머리 붙임
+    private List<Vector3> G_target_positions = new List<Vector3>();
+    private int G_current_target_index = 0;
+
+    public BossState boss_state=new BossState();
 
     //랜덤값따라 패턴호출
     //패턴 시작하면 launch_time=0, launch_time+=Time.deltaTime
@@ -41,6 +48,15 @@ public class Boss : MonoBehaviour
         B_target_positions.Add(new Vector3(18.57f, -1.87f, 0));
         B_target_positions.Add(new Vector3(20.06f, -3.58f, 0));
         B_target_positions.Add(new Vector3(23.48f, -1.96f, 0));
+
+        // 원하는 목표 위치들을 리스트에 추가
+        G_target_positions.Add(new Vector3(23.05f, 0.27f, 0));
+        G_target_positions.Add(new Vector3(22.07f, 3.52f, 0));
+        G_target_positions.Add(new Vector3(23.72f, 2.33f, 0));
+        G_target_positions.Add(new Vector3(17.22f, -0.66f, 0));
+        G_target_positions.Add(new Vector3(18.92f, -2f, 0));
+        G_target_positions.Add(new Vector3(21.55f, -1.85f, 0));
+
     }
 
     // Update is called once per frame
@@ -51,7 +67,7 @@ public class Boss : MonoBehaviour
         if (hit_time>=0.15f)
             mirror_renderer.color= new Color(1,1,1,0.7f);
 
-        Pattern3();
+        Pattern5();
 
     }
 
@@ -68,6 +84,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern1()
     {
+        boss_state = BossState.pattern4_1;
         launcher0_script.fires_index = 0;
         launcher1_script.fires_index = 0;
 
@@ -86,7 +103,8 @@ public class Boss : MonoBehaviour
     }
 
     private void Pattern2()
-    {   
+    {
+        boss_state = BossState.pattern4_2;
         //원형 사과
         launcher0_script.fires_index = 1;
 
@@ -96,9 +114,57 @@ public class Boss : MonoBehaviour
 
     private void Pattern3()
     {
+        boss_state = BossState.pattern4_4;
         //바람개비
         launcher0_script.fires_index = 2;
         //불꽃놀이
         launcher1_script.fires_index = 2;
+    }
+
+    private void Pattern4()
+    {
+        boss_state = BossState.pattern4_4;
+        //원형애플
+        launcher0_script.fires_index = 1;
+        //조준탄
+        launcher1_script.fires_index = 4;
+
+        Vector3 targetPosition = B_target_positions[B_current_target_index];
+        // 현재 위치와 목표 위치 사이의 거리 계산
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        // 일정 거리 내에 있으면 다음 목표 위치로 변경
+        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
+        {
+            B_current_target_index = (B_current_target_index + 1) % B_target_positions.Count;
+            targetPosition = B_target_positions[B_current_target_index];
+        }
+
+        // 목표 위치로 이동
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+
+    }
+
+    private void Pattern5()
+    {
+        boss_state = BossState.pattern4_5;
+
+        //원형애플(C모양)
+        launcher0_script.fires_index = 1;
+        //고블린 던지기
+        launcher1_script.fires_index = 3;
+
+        Vector3 targetPosition = G_target_positions[G_current_target_index];
+        // 현재 위치와 목표 위치 사이의 거리 계산
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        // 일정 거리 내에 있으면 다음 목표 위치로 변경
+        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
+        {
+            G_current_target_index = (G_current_target_index + 1) % G_target_positions.Count;
+            targetPosition = G_target_positions[G_current_target_index];
+        }
+
+        // 목표 위치로 이동
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+
     }
 }

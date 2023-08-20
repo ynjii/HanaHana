@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         }
 
         //점프
-        if ((Input.GetButtonDown("Jump") && !anim.GetBool("isJump") && !ignore_jump) && jump)
+        if ((Input.GetButtonDown("Jump") && !anim.GetBool("isJump") && !ignore_jump)&&jump&& SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
         {
             //더플점프 막기: -1.5f이하이면 못 점프하게.
             if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
@@ -85,15 +85,16 @@ public class Player : MonoBehaviour
         //무한점프
         if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump")&&player_state!=PlayerState.Damaged)
             {
                 player_state = PlayerState.Fly;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                
             }
         }
 
         //점프 상태 설정
-        if ((rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
+        if((rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
         {
             player_state = PlayerState.Jump;
         }
@@ -107,7 +108,7 @@ public class Player : MonoBehaviour
         }
 
         //방향전환
-        if (Input.GetButton("Horizontal"))
+        if (Input.GetButton("Horizontal") && player_state!=PlayerState.Damaged)
         {
             player_state = PlayerState.FakeWalk;
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
@@ -254,7 +255,7 @@ public class Player : MonoBehaviour
             onDamaged(collision.transform.position);
             GameManager.instance.OnPlayerDead();
         }
-        else if (collision.gameObject.CompareTag("Boss"))
+        else if (collision.gameObject.CompareTag("BossState"))
         {
             onDamaged(collision.transform.position);
             //게임 매니저의 게임오버 처리 실행

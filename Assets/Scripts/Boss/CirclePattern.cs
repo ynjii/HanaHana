@@ -29,6 +29,35 @@ public class CirclePattern : MonoBehaviour
 
 
     /// <summary>
+    /// C모양으로 쏘기
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="transform"></param>
+    public void CLaunch(GameObject prefab, Transform transform, int whole_num)
+    {
+
+        int roundNumA = 25;
+        int whole_start=Random.Range(0, roundNumA-whole_num);//0~roundNumA-whole_num-1
+        int whole_count = 0;
+        for (int i = 0; i < roundNumA; i++)
+        {
+            if (whole_start == i&&whole_count<whole_num)
+            {
+                whole_start++;
+                whole_count++;
+                continue;
+            }
+            GameObject fireObj = Instantiate(prefab, transform.position, Quaternion.identity);
+            Rigidbody2D rigid = fireObj.GetComponent<Rigidbody2D>();
+            Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNumA),
+                             Mathf.Sin(Mathf.PI * 2 * i / roundNumA));  //원 형태로 발사
+            rigid.AddForce(dirVec.normalized * 5, ForceMode2D.Impulse);
+
+        }
+    }
+
+
+    /// <summary>
     /// 최상위 오브젝트를 인자로 넣기
     /// 최상위 오브젝트의 하위 오브젝트들을 바깥 방향으로 쏘는 함수임.
     /// </summary>
