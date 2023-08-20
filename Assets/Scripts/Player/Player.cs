@@ -14,19 +14,20 @@ public class Player : MonoBehaviour
     SpriteRenderer sprite_renderer;
     Animator anim;
     public Define.PlayerState player_state;
-    private bool isJumpButton=false;
+    private bool isJumpButton = false;
     private bool isLeftButton = false;
     private bool isRightButton = false;
     private bool isButtonPressed = false;
     private bool isBorder = false;
+    private bool isIce = false;
     public GameObject SaveLoad;
     public bool ignore_jump = false;
-    private bool isClimbing=false;
+    private bool isClimbing = false;
     private float inputVertical;
     public float ladder_speed;
     public LayerMask whatIsLadder;
     public float distance;
-    private bool jump=true;
+    private bool jump = true;
     public bool movable = true;
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour
         else
             jump_power = 15;
     }
-     
+
 
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump")&&player_state!=PlayerState.Damaged)
             {
-                player_state=PlayerState.Fly;
+                player_state = PlayerState.Fly;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 
             }
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour
         }
 
         //브레이크
-        if (Input.GetButtonUp("Horizontal"))
+        if (!isIce && Input.GetButtonUp("Horizontal"))
         {
             //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
             //방향에 속력을 0으로 
@@ -109,22 +110,22 @@ public class Player : MonoBehaviour
         //방향전환
         if (Input.GetButton("Horizontal") && player_state!=PlayerState.Damaged)
         {
-            player_state=PlayerState.FakeWalk;
+            player_state = PlayerState.FakeWalk;
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
         //애니메이션
         if (rigid.velocity.normalized.x == 0)
         {
-            if (player_state != PlayerState.Damaged&&rigid.velocity.y==0)
+            if (player_state != PlayerState.Damaged && rigid.velocity.y == 0)
             {
-                 player_state = PlayerState.Idle;
+                player_state = PlayerState.Idle;
             }
-            
+
             anim.SetBool("isWalk", false);
         }
         else
         {
-            if (player_state != PlayerState.Damaged&&!anim.GetBool("isJump"))
+            if (player_state != PlayerState.Damaged && !anim.GetBool("isJump"))
             {
                 player_state = PlayerState.Walk;
             }
@@ -135,10 +136,10 @@ public class Player : MonoBehaviour
         if (Input.touchCount == 0)
         {
             isButtonPressed = false;
-            isJumpButton=false;
-            isLeftButton=false;
-            isRightButton=false;
-   
+            isJumpButton = false;
+            isLeftButton = false;
+            isRightButton = false;
+
         }
         // 화면 위에 손가락이 있는지 확인
         if (Input.touchCount > 0)
@@ -149,17 +150,27 @@ public class Player : MonoBehaviour
     private void FixedUpdate()//물리 update
     {
         if (!movable) return;
-        
+
+
         //키 컨트롤로 움직이기
         float h = Input.GetAxisRaw("Horizontal");
-       
-        rigid.velocity = new Vector2(max_speed * h, rigid.velocity.y);
-        RaycastHit2D hitInfo=Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
+        if (isIce)
+        {
+            if (Mathf.Abs(rigid.velocity.x) <= max_speed)
+            {
+                rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+            }
+        }
+        else
+        {
+            rigid.velocity = new Vector2(max_speed * h, rigid.velocity.y);
+        }
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
         //버튼 이동
         if (isButtonPressed)
         {
             // 버튼을 계속 누르고 있을 때 호출할 메소드를 여기에 작성.
-            if ((isJumpButton && !anim.GetBool("isJump") && !ignore_jump)&&jump)
+            if ((isJumpButton && !anim.GetBool("isJump") && !ignore_jump) && jump)
             {
                 //더플점프 막기: -1.5f이하이면 못 점프하게.
                 if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
@@ -178,29 +189,37 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
             }
         }
-        if(hitInfo.collider!=null){
-            jump=false;
-            if((Input.GetButtonDown("Jump")||Input.GetKeyDown(KeyCode.Space)))
+        if (hitInfo.collider != null)
+        {
+            jump = false;
+            if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
             {
-                isClimbing=true;
+                isClimbing = true;
                 rigid.velocity = new Vector2(rigid.velocity.x, ladder_speed);
-            }else{
-                if(isLeftButton||isRightButton){
-                    isClimbing=false;
-                    jump=true;
+            }
+            else
+            {
+                if (isLeftButton || isRightButton)
+                {
+                    isClimbing = false;
+                    jump = true;
                 }
             }
-        }else{jump=true;}
-        if(isClimbing==true && hitInfo.collider!=null){
+        }
+        else { jump = true; }
+        if (isClimbing == true && hitInfo.collider != null)
+        {
             //inputVertical=(Input.GetButtonDown("Jump")||Input.GetKeyDown(KeyCode.Space))?1.0f:0.01f;
-            inputVertical=Convert.ToSingle(Input.GetButtonDown("Jump")||Input.GetKeyDown(KeyCode.Space));
-            rigid.velocity=new Vector2(rigid.velocity.x, inputVertical*ladder_speed);
-            rigid.gravityScale=0; 
-        }else{
-            rigid.gravityScale=2;
+            inputVertical = Convert.ToSingle(Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space));
+            rigid.velocity = new Vector2(rigid.velocity.x, inputVertical * ladder_speed);
+            rigid.gravityScale = 0;
+        }
+        else
+        {
+            rigid.gravityScale = 2;
         }
     }
- 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
@@ -208,9 +227,9 @@ public class Player : MonoBehaviour
             rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
             anim.SetBool("isJump", false);
         }
-        if(collision.gameObject.CompareTag("Enemy"))
-        { 
-            onDamaged(collision.transform.position);           
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            onDamaged(collision.transform.position);
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
@@ -222,10 +241,11 @@ public class Player : MonoBehaviour
         }*/
     }
 
-    private void OnCollisionStay2D(Collision2D collision) {
-        if(collision.gameObject.CompareTag("Enemy"))
-        { 
-            onDamaged(collision.transform.position);           
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            onDamaged(collision.transform.position);
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
@@ -243,15 +263,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision){
-        
-        if(collision.gameObject.CompareTag("Flag"))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("Flag"))
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
             Vector3 flagPosition = collision.gameObject.transform.position;
-            SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn",flagPosition);
-            Debug.Log("flagPosition"+flagPosition);
-            Debug.Log("SaveRespawn"+SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn"));
+            SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn", flagPosition);
+            Debug.Log("flagPosition" + flagPosition);
+            Debug.Log("SaveRespawn" + SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn"));
         }
         else if (collision.gameObject.CompareTag("Item"))
         {
@@ -266,6 +287,18 @@ public class Player : MonoBehaviour
             isBorder = true;
             GameManager.instance.OnPlayerDead();
         }
+        else if (!isIce && collision.gameObject.CompareTag("Ice"))
+        {
+            isIce = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ice"))
+        {
+            isIce = false;
+        }
     }
 
     public void onDamaged(Vector2 targetPos)
@@ -273,7 +306,7 @@ public class Player : MonoBehaviour
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경
-        this.gameObject.layer = 7;  
+        this.gameObject.layer = 7;
         //투명하게 바꾸기
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
@@ -305,7 +338,7 @@ public class Player : MonoBehaviour
         rigid.gravityScale=0; 
         Destroy(this.gameObject,0.5f);
     }*/
-    
+
 
     /*private IEnumerator StartRotation()
     {
@@ -319,17 +352,17 @@ public class Player : MonoBehaviour
 
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
-    {   
+    {
         player_state = PlayerState.Damaged;
-        this.gameObject.layer= 7;
+        this.gameObject.layer = 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }
 
-    IEnumerator  BurnAndDie()
+    IEnumerator BurnAndDie()
     {
         player_state = PlayerState.Damaged;
-        this.gameObject.layer = 7; 
+        this.gameObject.layer = 7;
         anim.SetBool("isExplosion", true);
         anim.SetBool("isJump", false);
         yield return new WaitForSeconds(1.0f);
@@ -348,14 +381,14 @@ public class Player : MonoBehaviour
     }
     public void leftButtonTrue()
     {
-        
+
         isLeftButton = true;
         sprite_renderer.flipX = true;
-        
+
     }
     public void leftButtonFalse()
     {
-        isLeftButton = false;       
+        isLeftButton = false;
     }
     public void rightButtonTrue()
     {
