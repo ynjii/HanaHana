@@ -8,6 +8,9 @@ using static Define;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private bool 무적모드=false;
+
+    [SerializeField]
     private float jump_power;
     private float max_speed;
     Rigidbody2D rigid;
@@ -229,9 +232,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            onDamaged(collision.transform.position);
-            //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();
+            Die(collision.transform.position);
         }
         /*
         else if(collision.gameObject.CompareTag("Jumping"))
@@ -245,21 +246,16 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            onDamaged(collision.transform.position);
-            //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();
+            Die(collision.transform.position);
         }
         else if (collision.gameObject.CompareTag("BurnEnemy"))
         {
             StartCoroutine(BurnAndDie());
-            onDamaged(collision.transform.position);
-            GameManager.instance.OnPlayerDead();
+            Die(collision.transform.position);
         }
-        else if (collision.gameObject.CompareTag("BossState"))
+        else if (collision.gameObject.CompareTag("Boss"))
         {
-            onDamaged(collision.transform.position);
-            //게임 매니저의 게임오버 처리 실행
-            GameManager.instance.OnPlayerDead();
+            Die(collision.transform.position);
         }
     }
 
@@ -301,8 +297,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Die(Vector2 targetPos) 
+    {
+        if (!무적모드)
+        {
+            onDamaged(targetPos);
+            //게임 매니저의 게임오버 처리 실행
+            GameManager.instance.OnPlayerDead();
+        }
+    }
+
     public void onDamaged(Vector2 targetPos)
     {
+        
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경
