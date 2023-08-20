@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1271405445499783863}
   - component: {fileID: -7138737405498589851}
   - component: {fileID: -8440819830742934849}
+  - component: {fileID: 2314572039036808921}
   m_Layer: 8
   m_Name: Bird
   m_TagString: Enemy
@@ -195,6 +196,7 @@ MonoBehaviour:
   colTag: 2
   animName: 
   img: {fileID: 0}
+  rotateSpeed: 10000
 --- !u!114 &1271405445499783856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +227,7 @@ MonoBehaviour:
   colTag: 2
   animName: 
   img: {fileID: 0}
+  rotateSpeed: 10000
 --- !u!114 &1271405445499783863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +258,7 @@ MonoBehaviour:
   colTag: 2
   animName: 
   img: {fileID: 0}
+  rotateSpeed: 10000
 --- !u!114 &-7138737405498589851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +289,7 @@ MonoBehaviour:
   colTag: 2
   animName: 
   img: {fileID: 0}
+  rotateSpeed: 10000
 --- !u!61 &-8440819830742934849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -311,3 +316,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 72.362755, y: 72.36275}
   m_EdgeRadius: 0
+--- !u!114 &2314572039036808921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271405445499783842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: Player

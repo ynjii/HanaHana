@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 372484504286069238}
   - component: {fileID: 4094489941199926898}
   - component: {fileID: 8843671173174697867}
+  - component: {fileID: -2993369459295527014}
   m_Layer: 8
   m_Name: GuidedMissle
   m_TagString: Enemy
@@ -216,3 +217,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-2993369459295527014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441000781421965093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: Player

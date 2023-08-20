@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 185008715422951234}
   - component: {fileID: 185008715422951246}
   - component: {fileID: -6306622924285335896}
+  - component: {fileID: 1538766980615037109}
   m_Layer: 8
   m_Name: Bullet13
   m_TagString: Enemy
@@ -159,3 +160,16 @@ MonoBehaviour:
   direction: 2
   speed: 11
   bullet_damage: 0
+--- !u!114 &1538766980615037109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9218763327692455235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: Player

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2162609637600910585}
   - component: {fileID: 2162609637600910587}
   - component: {fileID: -191515932092944888}
+  - component: {fileID: -2447562383510291546}
   m_Layer: 8
   m_Name: Apple
   m_TagString: Enemy
@@ -117,3 +118,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.02698268}
   serializedVersion: 2
   m_Radius: 0.18160377
+--- !u!114 &-2447562383510291546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162609637600910590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: Player

@@ -101,7 +101,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern1()
     {
-        DeactiveOthers();
+        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_1;
         launcher0_script.fires_index = 0;
         launcher1_script.fires_index = 0;
@@ -122,7 +122,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern2()
     {
-        DeactiveOthers();
+        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_2;
         //원형 사과
         launcher0_script.fires_index = 1;
@@ -133,7 +133,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern3()
     {
-        DeactiveOthers();
+        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_4;
         //바람개비
         launcher0_script.fires_index = 2;
@@ -171,7 +171,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern5()
     {
-        DeactiveOthers();
+        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_5;
 
         //원형애플(C모양)
@@ -217,9 +217,10 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private void DeactiveOthers()
+    private void WhenPatternChangeSetting()
     {
         launchers[2].SetActive(false);
         launchers[3].SetActive(false);
+        launchers[0].transform.position = new Vector3(-2.153016f, -1.04f, 0);
     }
 }
