@@ -1,35 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Define;
 
-public class Red_Blue_Laser : MonoBehaviour
+public class Green_Yellow_Mirror : MonoBehaviour
 {
-    [SerializeField] List<SpriteRenderer> _redMirrorSprites;
-    [SerializeField] List<SpriteRenderer> _blueMirrorSprites;
+    [SerializeField] List<SpriteRenderer> _greenMirrorSprites;
+    [SerializeField] List<SpriteRenderer> _yellowMirrorSprites;
 
-    [SerializeField] List<Collider2D> _redMirrorCols;
-    [SerializeField] List<Collider2D> _blueMirrorCols;
-    Player _playerScript;
+    [SerializeField] List<Collider2D> _greenMirrorCols;
+    [SerializeField] List<Collider2D> _yellowMirrorCols;
+    GameObject _player;
 
     private void Start()
     {
-        _playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
-        // 빨강 레이저가 활성화 될 때
-        if (_playerScript.player_state != PlayerState.Jump)
+       
+        // 초록 레이저가 활성화 될때
+        if (_player.GetComponent<SpriteRenderer>().flipX)
         {
-            ActivateMirror(_redMirrorSprites, _redMirrorCols);
-            DeActivateMirror(_blueMirrorSprites, _blueMirrorCols);
+            ActivateMirror(_greenMirrorSprites, _greenMirrorCols);
+            DeActivateMirror(_yellowMirrorSprites, _yellowMirrorCols);
         }
-        // 파란 레이저가 활성화 될 때
+        // 노란 레이저가 활성화 될때
         else
         {
-            ActivateMirror(_blueMirrorSprites, _blueMirrorCols);
-            DeActivateMirror(_redMirrorSprites, _redMirrorCols);
+            ActivateMirror(_yellowMirrorSprites, _yellowMirrorCols);
+            DeActivateMirror(_greenMirrorSprites, _greenMirrorCols);
         }
     }
 

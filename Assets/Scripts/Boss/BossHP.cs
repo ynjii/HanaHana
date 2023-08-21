@@ -6,7 +6,7 @@ public class BossHP : MonoBehaviour
     public Slider slHP; // Inspector에서 Slider 컴포넌트를 할당해야 합니다.
     public GameObject fillArea;
     public float decreaseRate = 1.0f; // 감소율 조정을 위한 변수
-    private float currentHP; // 현재 HP 값
+    public float currentHP; // 현재 HP 값
     [SerializeField] private HPType hpType;
     private Boss boss_script;
     public enum HPType

@@ -37,8 +37,8 @@ public class MirrorReflect : MonoBehaviour
             case "BlueLaserMat (Instance)":
                 BlueLaser();
                 break;
-            case "PinkLaserMat (Instance)":
-                PinkLaser();
+            case "GreenLaserMat (Instance)":
+                GreenLaser();
                 break;
             case "YellowLaserMat (Instance)":
                 YellowLaser();
@@ -67,8 +67,11 @@ public class MirrorReflect : MonoBehaviour
 
         // draw first collision point
         predictionLine.SetPosition(1, new Vector3(predictionHit.point.x + transform.position.x, predictionHit.point.y + transform.position.y, 0));
-        
-        if (!isReflectable) return;
+
+        if (!isReflectable)
+        {
+            return;
+        }
 
         // calculate second ray by Vector2.Reflect
         var inDirection = (predictionHit.point - (Vector2)transform.position).normalized;
@@ -156,15 +159,29 @@ public class MirrorReflect : MonoBehaviour
         }
     }
 
-    private void PinkLaser()
+    private void GreenLaser()
     {
-        ShowLaser();
-        DrawPredictionLine(_direction);
+        if (player.GetComponent<SpriteRenderer>().flipX)
+        {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+        else
+        {
+            HideLaser();
+        }
     }
 
     private void YellowLaser()
     {
-        ShowLaser();
-        DrawPredictionLine(_direction);
+        if (!player.GetComponent<SpriteRenderer>().flipX)
+        {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+        else
+        {
+            HideLaser();
+        }
     }
 }

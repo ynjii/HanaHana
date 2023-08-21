@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Pattern3_3 : MonoBehaviour
 {
-    [SerializeField] float _moveInterval = 2f;
+    [SerializeField] float _moveInterval = 4f;
     [SerializeField] float _rotateInterval = 3f;
     [SerializeField] float _rotateOnceValue = 180;
+    [SerializeField] float _rotateDirection = 1;
     [SerializeField] string _color;
     [SerializeField] float _moveDelta;
 
@@ -48,7 +49,7 @@ public class Pattern3_3 : MonoBehaviour
 
     void moveBlue()
     {
-        transform.DORotate(new Vector3(0, 0, 360), 10, RotateMode.FastBeyond360)
+        transform.DORotate(new Vector3(0, 0, 360 * _rotateDirection), 10, RotateMode.FastBeyond360)
                      .SetEase(Ease.Linear)
                      .SetLoops(-1);
     }
