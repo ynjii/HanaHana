@@ -16,8 +16,6 @@ public class PlayerBurn : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(!isCol) return;
-        
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
