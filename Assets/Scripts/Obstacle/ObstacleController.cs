@@ -227,7 +227,9 @@ public class ObstacleController : MonoBehaviour
         if (isMoving)
         {
             StartCoroutine(IsmovingTimer(true));
+            isMoving=false;
         }
+        
     }
 
 
