@@ -74,7 +74,7 @@ namespace Gamekit2D
 
             //we make point in the path being defined in local space so game designer can move the platform & path together
             //but as the platform will move during gameplay, that would also move the node. So we convert the local nodes
-            // (only used at edit time) to world position (only use at runtime)
+            // (only used at edit launch_time) to world position (only use at runtime)
             m_WorldNode = new Vector3[localNodes.Length];
             for (int i = 0; i < m_WorldNode.Length; ++i)
                 m_WorldNode[i] = transform.TransformPoint(localNodes[i]);
@@ -186,7 +186,7 @@ namespace Gamekit2D
                 //the remaining distance we have to cover this frame toward the new goal
                 distanceToGo -= dist;
 
-                // we have some wait time set, that mean we reach a point where we have to wait. So no need to continue to move the platform, early exit.
+                // we have some wait launch_time set, that mean we reach a point where we have to wait. So no need to continue to move the platform, early exit.
                 if (m_WaitTime > 0.001f) 
                     break;
             }

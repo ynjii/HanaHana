@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
 
     void Init()
     {
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == "SnowBoss3" )
         {
             return;
         }
@@ -55,6 +55,11 @@ public class CameraController : MonoBehaviour
             preIsReverse = isReverse;
             UpdateDelta(); // delta 값 업데이트
 
+        }
+
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == "SnowBoss3")
+        {
+            return;
         }
 
         // 카메라의 position은 플레이어의 position에 델타값을 더한 값
