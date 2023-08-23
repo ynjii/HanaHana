@@ -7,10 +7,13 @@ public class Pattern2Controller : MonoBehaviour
 {
     private System.Random random = new System.Random();
     private List<System.Action> availablePatterns = new List<System.Action>();
+    public List<GameObject> warningPatterns = new List<GameObject>(); // RedFlag 오브젝트 리스트
     private System.Action previousPattern;
 
     public Slider slHP; //보스 피받아오기
     private float currentHP;
+
+    private float warningHP;
     private void Start()
     {
         currentHP = slHP.maxValue; //슬라이더 시작값 받아오기
@@ -24,6 +27,8 @@ public class Pattern2Controller : MonoBehaviour
             Pattern4
         };
 
+
+
         // 첫 번째 패턴 시작
         StartNextPattern();
     }
@@ -36,6 +41,7 @@ public class Pattern2Controller : MonoBehaviour
         {
             currentHP -= 15f;
             StartNextPattern();
+            ToggleRandomWarningPattern
         }
     }
 
@@ -56,6 +62,15 @@ public class Pattern2Controller : MonoBehaviour
 
         // 이전 패턴 업데이트
         previousPattern = selectedPattern;
+    }
+
+    private void ToggleRandomWarningPattern()
+    {
+        int randomIndex = Random.Range(0, warningPatterns.Count); // 랜덤한 인덱스 생성
+        for (int i = 0; i < warningPatterns.Count; i++)
+        {
+            warningPatterns[i].SetActive(i == randomIndex);
+        }
     }
 
     // 패턴 함수들 (구현 필요)

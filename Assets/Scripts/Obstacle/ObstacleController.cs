@@ -102,6 +102,9 @@ public class ObstacleController : MonoBehaviour
     private bool isMoving = false; //시작부터 움직이이려면 true 체크
 
     [SerializeField]
+    private bool isEnable = false;
+
+    [SerializeField]
     private float waitingTime = 0f;
 
     [SerializeField]
@@ -201,6 +204,14 @@ public class ObstacleController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (isEnable)
+        {
+            isMoving = true;
+        }
+    }
+
 
     private void Awake()
     {
@@ -288,14 +299,14 @@ public class ObstacleController : MonoBehaviour
                 isCol = true;
                 break;
             case ObType.Destroy:
-                destroy=true;
-                isMoving=true;
+                destroy = true;
+                isMoving = true;
                 break;
 
 
         }
 
-        if (this.gameObject.GetComponent<BoxCollider2D>())
+        if (this.gameObject.GetComponent<BoxCollider2D>() && this.gameObject.GetComponent<BoxCollider2D>().isTrigger)
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
         }
@@ -482,17 +493,17 @@ public class ObstacleController : MonoBehaviour
     {
         //대각선방향: 중력영향 받아서는 안 됨.
         //out: 포인터
-        if(obDirection==ObDirection.Diagonal_Left)
+        if (obDirection == ObDirection.Diagonal_Left)
         {
             rigid = GetComponent<Rigidbody2D>();
-            if (rigid!=null&&rigid.bodyType == RigidbodyType2D.Dynamic)
+            if (rigid != null && rigid.bodyType == RigidbodyType2D.Dynamic)
             {
                 rigid.bodyType = RigidbodyType2D.Static;
             }
         }
-        
+
         switch (obDirection)
-        {    
+        {
             case ObDirection.Up:
                 return initialPosition + Vector3.up * movement;
             case ObDirection.Down:
@@ -501,8 +512,8 @@ public class ObstacleController : MonoBehaviour
                 return initialPosition + Vector3.left * movement;
             case ObDirection.Right:
                 return initialPosition + Vector3.right * movement;
-            case ObDirection.Diagonal_Left:  
-                return initialPosition + new Vector3(-1,1,0) * movement;
+            case ObDirection.Diagonal_Left:
+                return initialPosition + new Vector3(-1, 1, 0) * movement;
             default:
                 return initialPosition;
         }
