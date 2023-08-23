@@ -24,77 +24,85 @@ public class MirrorReflect : MonoBehaviour
         predictionLayerMask = ~(1 << 8);
     }
 
-    private void LateUpdate()
-    {
-        //DrawPredictionLine(_direction);
-    }
-
     private void Update()
     {
-        // 색깔 별 기능
-        if (predictionLine.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state != PlayerState.Jump)
+        switch (predictionLine.materials[0].name)
         {
-            ShowLaser();
-            DrawPredictionLine(_direction);
-        }
-        else if (predictionLine.materials[0].name == "RedLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
-        {
-            HideLaser();
-        }
-
-        if (predictionLine.materials[0].name == "VioletLaserMat (Instance)")
-        {
-            ShowLaser();
-            DrawPredictionLine(_direction);
+            case "RedLaserMat (Instance)":
+                RedLaser();
+                break;
+            case "VioletLaserMat (Instance)":
+                VioletLaser();
+                break;
+            case "BlueLaserMat (Instance)":
+                BlueLaser();
+                break;
+            case "GreenLaserMat (Instance)":
+                GreenLaser();
+                break;
+            case "YellowLaserMat (Instance)":
+                YellowLaser();
+                break;
         }
     }
-      private void DrawPredictionLine(Vector3 _direction)
-      {
-            // Draw Prediction Line
-            predictionLine.SetPosition(0, this.transform.position);
-            Debug.DrawRay(transform.position, _direction * 10, Color.red);
-            predictionHit = Physics2D.Raycast(transform.position, _direction, Mathf.Infinity, predictionLayerMask);
 
-            if (predictionHit.collider.IsUnityNull())
-            {
-                predictionLine.SetPosition(1, new Vector3(_direction.x + transform.position.x, _direction.y + transform.position.y, 0));
-                return;
-            }
-            
-            // 플레이어면 죽음
-            if (predictionHit.collider.CompareTag("Player"))
-            {
-                PlayerDied();
-            }
+    private void DrawPredictionLine(Vector3 _direction)
+    {
+        // Draw Prediction Line
+        predictionLine.SetPosition(0, this.transform.position);
+        Debug.DrawRay(transform.position, _direction * 10, Color.red);
+        predictionHit = Physics2D.Raycast(transform.position, _direction, Mathf.Infinity, predictionLayerMask);
 
-            // draw first collision point
-            predictionLine.SetPosition(1, new Vector3(predictionHit.point.x + transform.position.x, predictionHit.point.y + transform.position.y, 0));
-            if(!isReflectable) return;
-            
-            // calculate second ray by Vector2.Reflect
-            var inDirection = (predictionHit.point - (Vector2)transform.position).normalized;
-            var reflectionDir = Vector2.Reflect(inDirection, predictionHit.normal);
-    
-            // By multiply 0.001, can have detail calculation
-            predictionHit = Physics2D.Raycast(predictionHit.point + (reflectionDir * 0.001f), reflectionDir, Mathf.Infinity, predictionLayerMask);
-           
-            // 플레이어면 죽음
-            if (predictionHit.collider.CompareTag("Player"))
-            {
-                PlayerDied();
-            }
-            predictionLine.SetPosition(2, predictionHit.point);
-    
-            // finally render linerenderer
-            predictionLine.enabled = true;
+        if (predictionHit.collider.IsUnityNull())
+        {
+            predictionLine.SetPosition(1, new Vector3(_direction.x + transform.position.x, _direction.y + transform.position.y, 0));
+            return;
         }
+
+        // 플레이어면 죽음
+        if (predictionHit.collider.CompareTag("Player"))
+        {
+            PlayerDied();
+        }
+
+        // draw first collision point
+        predictionLine.SetPosition(1, new Vector3(predictionHit.point.x + transform.position.x, predictionHit.point.y + transform.position.y, 0));
+
+        if (!isReflectable)
+        {
+            return;
+        }
+
+        // calculate second ray by Vector2.Reflect
+        var inDirection = (predictionHit.point - (Vector2)transform.position).normalized;
+        var reflectionDir = Vector2.Reflect(inDirection, predictionHit.normal);
+
+        // By multiply 0.001, can have detail calculation
+        predictionHit = Physics2D.Raycast(predictionHit.point + (reflectionDir * 0.001f), reflectionDir, Mathf.Infinity, predictionLayerMask);
+
+        if (predictionHit.collider.IsUnityNull())
+        {
+            predictionLine.SetPosition(1, new Vector3(_direction.x + transform.position.x, _direction.y + transform.position.y, 0));
+            return;
+        }
+
+        // 플레이어면 죽음
+        if (predictionHit.collider.CompareTag("Player"))
+        {
+            PlayerDied();
+        }
+        predictionLine.SetPosition(2, predictionHit.point);
+
+        // finally render linerenderer
+        predictionLine.enabled = true;
+    }
 
     void HideLaser()
     {
         predictionLine.enabled = false;
     }
 
-    
+
     void ShowLaser()
     {
         predictionLine.enabled = true;
@@ -116,6 +124,64 @@ public class MirrorReflect : MonoBehaviour
             is_first_entered = false;
             player_script.onDamaged(target_pos);
             GameManager.instance.OnPlayerDead();
+        }
+    }
+
+    private void RedLaser()
+    {
+        if (player_script.player_state != PlayerState.Jump)
+        {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+        else
+        {
+            HideLaser();
+        }
+    }
+
+    private void VioletLaser()
+    {
+        ShowLaser();
+        DrawPredictionLine(_direction);
+    }
+
+    private void BlueLaser()
+    {
+        if (player_script.player_state == PlayerState.Jump)
+        {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+        else
+        {
+            HideLaser();
+        }
+    }
+
+    private void GreenLaser()
+    {
+        if (player.GetComponent<SpriteRenderer>().flipX)
+        {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+        else
+        {
+            HideLaser();
+        }
+    }
+
+    private void YellowLaser()
+    {
+        if (!player.GetComponent<SpriteRenderer>().flipX)
+        {
+            ShowLaser();
+            DrawPredictionLine(_direction);
+        }
+        else
+        {
+            HideLaser();
         }
     }
 }
