@@ -12,13 +12,14 @@ public class Deactivate : MonoBehaviour
     
     [SerializeField] private activition actType; //obstacle의 type을 inspector에서 받아옴.
     [SerializeField] private bool isCol;
+    [SerializeField] private string Tag = "Player";
     
     public GameObject other;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isCol) return;
         
-        if((collision.gameObject.CompareTag("Player")))
+        if((collision.gameObject.CompareTag(Tag)))
         {
             if(actType==activition.Activate){
                  other.SetActive(true); 
@@ -33,7 +34,7 @@ public class Deactivate : MonoBehaviour
     {
         if (!isCol) return;
 
-        if ((other.gameObject.CompareTag("Player")))
+        if ((other.gameObject.CompareTag(Tag)))
         {
             if (actType == activition.Activate)
             {
