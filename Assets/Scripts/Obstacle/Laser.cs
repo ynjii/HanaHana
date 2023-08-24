@@ -52,6 +52,11 @@ public class Laser : MonoBehaviour
         else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"&&(player_script.player_state != PlayerState.Walk&&player_script.player_state != PlayerState.FakeWalk)){
             HideLaser();
         }
+        else if(m_lineRenderer.materials[0].name == "VioletLaserMat (Instance)")
+        {
+            ShowLaser();
+            ShootLaser();
+        }
 }
 
     // �������� ����� �Լ�
