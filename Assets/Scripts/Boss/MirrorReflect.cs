@@ -55,7 +55,7 @@ public class MirrorReflect : MonoBehaviour
 
         if (predictionHit.collider.IsUnityNull())
         {
-            predictionLine.SetPosition(1, new Vector3(_direction.x + transform.position.x, _direction.y + transform.position.y, 0));
+            predictionLine.SetPosition(1, new Vector3(_direction.x * 100 + transform.position.x, _direction.y * 100 + transform.position.y, 0));
             return;
         }
 
