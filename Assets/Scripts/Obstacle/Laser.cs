@@ -27,12 +27,12 @@ public class Laser : MonoBehaviour
     void Update()
     {
         //���� �������� : �ְ� ���� �پ����� ���� ���� 
-        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state != PlayerState.Jump&&player_script.player_state != PlayerState.FakeWalk))
+        if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state != PlayerState.Jump))
         {
             ShowLaser();
             ShootLaser();
         }
-        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state == PlayerState.Jump||player_script.player_state == PlayerState.FakeWalk))
+        else if(m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state == PlayerState.Jump))
         {
             HideLaser();
         }
@@ -45,18 +45,25 @@ public class Laser : MonoBehaviour
         {
             HideLaser();
         }
-        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"&&(player_script.player_state == PlayerState.Walk||player_script.player_state == PlayerState.FakeWalk)){
-            ShowLaser();
-            ShootLaser();
-        }
-        else if(m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)"&&(player_script.player_state != PlayerState.Walk&&player_script.player_state != PlayerState.FakeWalk)){
-            HideLaser();
-        }
-        else if(m_lineRenderer.materials[0].name == "VioletLaserMat (Instance)")
+        else if (m_lineRenderer.materials[0].name == "VioletLaserMat (Instance)")
         {
             ShowLaser();
             ShootLaser();
         }
+
+        if (m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)") {
+            if (player_script.Horizontal != 0 || player_script.IsLeftButton || player_script.IsRightButton)
+            {
+                ShowLaser();
+                ShootLaser();
+            }
+            else
+            {
+                HideLaser();
+            }
+        }
+      
+       
 }
 
     // �������� ����� �Լ�
