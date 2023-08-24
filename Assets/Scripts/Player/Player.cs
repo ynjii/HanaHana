@@ -268,6 +268,11 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            if(collision.gameObject.name== "t_FakeItem")
+            {
+                Debug.Log("투명벽 삭제");
+                PlayerPrefs.SetString("TransparentWall","False");
+            }
             Die(collision.transform.position);
         }
     }
