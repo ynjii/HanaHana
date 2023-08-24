@@ -7,14 +7,19 @@ public class Pattern2Controller : MonoBehaviour
 {
     private System.Random random = new System.Random();
     private List<System.Action> availablePatterns = new List<System.Action>();
+    public List<GameObject> enemyPatterns = new List<GameObject>();
     public List<GameObject> warningPatterns = new List<GameObject>(); //닿으면 죽는 패턴
     public List<GameObject> redFlag = new List<GameObject>(); // 경고
+    public List<GameObject> availableFire2Prefabs = new List<GameObject>(); //패턴 1에 쓰이는 sliding fire
     private System.Action previousPattern;
 
     public Slider slHP; //보스 피받아오기
     private float currentHP;
 
     private float warningHP;
+
+    public Animator animator;
+
     private void Start()
     {
         currentHP = slHP.maxValue; //슬라이더 시작값 받아오기
@@ -47,6 +52,7 @@ public class Pattern2Controller : MonoBehaviour
 
         if (slHP.value <= warningHP - 11f) //3초 경고 1초동안 피하기 
         {
+            animator.SetBool("isCollectEnergy", true);
             warningHP -= 15f;
             ToggleRandomRedFlag(); //경고 3초동안 하기
         }
@@ -54,6 +60,11 @@ public class Pattern2Controller : MonoBehaviour
 
     private void StartNextPattern()
     {
+        //시작할때 모두 비활성화
+        foreach (GameObject enemyPattern in enemyPatterns)
+        {
+            enemyPattern.SetActive(false);
+        }
         // 이전 패턴을 제외한 패턴들로 리스트 갱신
         if (previousPattern != null)
         {
@@ -99,9 +110,11 @@ public class Pattern2Controller : MonoBehaviour
     {
 
         warningPatterns[randomIndex].SetActive(true);
-        yield return new WaitForSeconds(2f); // 2초 대기
+        yield return new WaitForSeconds(1f); // 2초 대기
 
         warningPatterns[randomIndex].SetActive(false); // 경고 패턴 비활성화
+        animator.SetBool("isCollectEnergy", false);
+
     }
 
     // 패턴 함수들 (구현 필요)
@@ -109,23 +122,51 @@ public class Pattern2Controller : MonoBehaviour
     {
         // 패턴 1 실행 코드
         Debug.Log("1");
+        enemyPatterns[0].SetActive(true);
+        StartCoroutine(SlidingFireCoroutine());
     }
+
+    private IEnumerator SlidingFireCoroutine()
+    {
+        while (true) // 무한 반복 (코루틴을 직접 중지하기 전까지)
+        {
+            animator.SetBool("isHitTable", true);
+            yield return new WaitForSeconds(Random.Range(2f, 4f)); // 랜덤한 시간 대기
+            animator.SetBool("isHitTable", false);
+
+            int randomPrefabIndex = Random.Range(0, availableFire2Prefabs.Count);
+            GameObject selectedFire2Prefab = availableFire2Prefabs[randomPrefabIndex];
+
+            Vector3 fixedPosition = new Vector3(0f, -2.3f, 0f); // 고정된 위치
+
+            GameObject spawnedFire2 = Instantiate(selectedFire2Prefab, fixedPosition, selectedFire2Prefab.transform.rotation);
+
+            yield return new WaitForSeconds(1f); // 일정 시간 대기
+
+            Destroy(spawnedFire2); // 프리팹 제거
+        }
+    }
+
 
     private void Pattern2()
     {
         // 패턴 2 실행 코드
         Debug.Log("2");
+        enemyPatterns[1].SetActive(true);
+
     }
 
     private void Pattern3()
     {
         // 패턴 3 실행 코드
         Debug.Log("3");
+        enemyPatterns[2].SetActive(true);
     }
 
     private void Pattern4()
     {
         // 패턴 4 실행 코드
         Debug.Log("4");
+        enemyPatterns[3].SetActive(true);
     }
 }
