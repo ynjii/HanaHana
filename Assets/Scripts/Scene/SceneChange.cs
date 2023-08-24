@@ -24,4 +24,9 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void Closet_Change()
+    {
+        SceneManager.LoadScene("ClosetScene");
+    }
 }
