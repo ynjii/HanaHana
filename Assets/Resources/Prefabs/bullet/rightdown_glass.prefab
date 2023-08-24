@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5477845876214400773}
   - component: {fileID: 4369606721220069833}
   - component: {fileID: 4619445024120061696}
+  - component: {fileID: 333053042882838050}
   m_Layer: 8
   m_Name: rightdown_glass
   m_TagString: Enemy
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 6
   speed: 1
+  bullet_damage: 0
 --- !u!60 &4369606721220069833
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -155,3 +157,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &333053042882838050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041423995498265175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 798e886c45ce24341ba7084ae0699554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
