@@ -237,9 +237,10 @@ public class ObstacleController : MonoBehaviour
     {
         if (isMoving)
         {
-            initialPosition = transform.position;
-            ObstacleMove(obType);
+            StartCoroutine(IsmovingTimer(true));
+            isMoving=false;
         }
+        
     }
 
 
@@ -586,6 +587,13 @@ public class ObstacleController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitingTime);
         this.isMoving = n;
+    }
+
+    IEnumerator IsmovingTimer(bool n)
+    {
+           yield return new WaitForSeconds(waitingTime);
+           initialPosition = transform.position;
+           ObstacleMove(obType);
     }
 
 
