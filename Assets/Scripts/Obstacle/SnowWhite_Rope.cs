@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class SnowWhite_Rope : MonoBehaviour
 {
     [SerializeField] private List<SpriteRenderer> _ropeSprites;
@@ -31,4 +31,4 @@ public class SnowWhite_Rope : MonoBehaviour
             _ropeSprites[i+1].sprite = _burningSprite;
         }
     }
-}
+}*/
