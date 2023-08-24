@@ -10,13 +10,18 @@ public class Lightning : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        
         if(!isCol) return;
-        lightning.SetActive(true);
+        if ((other.gameObject.CompareTag("Player"))){
+            lightning.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isCol) return;
-        lightning.SetActive(true);
+        if ((other.gameObject.CompareTag("Player"))){
+            lightning.SetActive(true);
+        }
     }
 }

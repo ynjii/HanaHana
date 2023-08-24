@@ -8,7 +8,7 @@ using static Define;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private bool 무적모드=false;
+    private bool 무적모드 = false;
 
     [SerializeField]
     private float jump_power;
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         }
 
         //점프
-        if ((Input.GetButtonDown("Jump") && !anim.GetBool("isJump") && !ignore_jump)&&jump&& SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+        if ((Input.GetButtonDown("Jump") && !anim.GetBool("isJump") && !ignore_jump) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
         {
             //더플점프 막기: -1.5f이하이면 못 점프하게.
             if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
@@ -88,16 +88,16 @@ public class Player : MonoBehaviour
         //무한점프
         if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
-            if (Input.GetButtonDown("Jump")&&player_state!=PlayerState.Damaged)
+            if (Input.GetButtonDown("Jump") && player_state != PlayerState.Damaged)
             {
                 player_state = PlayerState.Fly;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                
+
             }
         }
 
         //점프 상태 설정
-        if((rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+        if ((rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
         {
             player_state = PlayerState.Jump;
         }
@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         }
 
         //방향전환
-        if (Input.GetButton("Horizontal") && player_state!=PlayerState.Damaged)
+        if (Input.GetButton("Horizontal") && player_state != PlayerState.Damaged)
         {
             player_state = PlayerState.FakeWalk;
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
@@ -297,7 +297,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Die(Vector2 targetPos) 
+    private void Die(Vector2 targetPos)
     {
         if (!무적모드)
         {
@@ -309,7 +309,7 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
-        
+
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경
@@ -361,11 +361,9 @@ public class Player : MonoBehaviour
     private void OnBecameInvisible()
     {
         player_state = PlayerState.Damaged;
-        if(!gameObject){
         this.gameObject.layer= 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
-        }
     }
 
     IEnumerator BurnAndDie()
@@ -407,6 +405,24 @@ public class Player : MonoBehaviour
     public void rightButtonFalse()
     {
         isRightButton = false;
+    }
+
+    public void ChangeSprites()
+    {
+        string realItem = PlayerPrefs.GetString("RealItem");
+        switch (realItem)
+        {
+            case "SnowWhite":
+                anim.runtimeAnimatorController =
+                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_RealItem_SnowWhite",
+                        typeof(RuntimeAnimatorController)));
+                break;
+            default:
+                anim.runtimeAnimatorController =
+                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_Default",
+                        typeof(RuntimeAnimatorController)));
+                break;
+        }
     }
 }
 

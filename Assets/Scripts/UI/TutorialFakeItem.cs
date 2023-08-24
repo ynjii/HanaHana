@@ -10,6 +10,6 @@ public class TutorialFakeItem : MonoBehaviour
          if(SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("tutorial")==1){
             SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 2);
          }
-        
+        PlayerPrefs.SetString("RealItem", "TutorialFakeItem");
     }
 }

@@ -14,6 +14,8 @@ public class Pattern2Controller : MonoBehaviour
     private System.Action previousPattern;
 
     public Slider slHP; //보스 피받아오기
+
+    private float currentTime;
     private float currentHP;
 
     private float warningHP;
@@ -24,6 +26,7 @@ public class Pattern2Controller : MonoBehaviour
     {
         currentHP = slHP.maxValue; //슬라이더 시작값 받아오기
         warningHP = slHP.maxValue;
+        currentTime = slHP.maxValue;
 
         // 패턴 리스트 생성 (패턴 이름에 따라 수정 필요)
         availablePatterns = new List<System.Action>
@@ -56,15 +59,23 @@ public class Pattern2Controller : MonoBehaviour
             warningHP -= 15f;
             ToggleRandomRedFlag(); //경고 3초동안 하기
         }
+
+        //wraning 뜰때마다 사라짐. (사유 : 억까)
+        if (slHP.value <= currentTime - 13f)
+        {
+            currentTime -= 15f;
+
+            //시작할때 모두 비활성화
+            foreach (GameObject enemyPattern in enemyPatterns)
+            {
+                enemyPattern.SetActive(false);
+            }
+        }
+
     }
 
     private void StartNextPattern()
     {
-        //시작할때 모두 비활성화
-        foreach (GameObject enemyPattern in enemyPatterns)
-        {
-            enemyPattern.SetActive(false);
-        }
         // 이전 패턴을 제외한 패턴들로 리스트 갱신
         if (previousPattern != null)
         {
@@ -121,14 +132,15 @@ public class Pattern2Controller : MonoBehaviour
     private void Pattern1()
     {
         // 패턴 1 실행 코드
+        float current = slHP.value;
         Debug.Log("1");
         enemyPatterns[0].SetActive(true);
-        StartCoroutine(SlidingFireCoroutine());
+        StartCoroutine(SlidingFireCoroutine(current));
     }
 
-    private IEnumerator SlidingFireCoroutine()
+    private IEnumerator SlidingFireCoroutine(float current)
     {
-        while (true) // 무한 반복 (코루틴을 직접 중지하기 전까지)
+        while (slHP.value > current - 9f) // 무한 반복 (코루틴을 직접 중지하기 전까지)
         {
             animator.SetBool("isHitTable", true);
             yield return new WaitForSeconds(Random.Range(2f, 4f)); // 랜덤한 시간 대기
@@ -159,6 +171,7 @@ public class Pattern2Controller : MonoBehaviour
     private void Pattern3()
     {
         // 패턴 3 실행 코드
+        float currentTime = slHP.value;
         Debug.Log("3");
         enemyPatterns[2].SetActive(true);
     }
