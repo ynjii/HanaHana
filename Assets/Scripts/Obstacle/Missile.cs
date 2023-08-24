@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 public class Missile : MonoBehaviour
 {
     public float speed = 5f;
-    public float inertiaStrength = 1.5f; // °ü¼º °­µµ Á¶Àý
+    public float inertiaStrength = 1.5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Transform player;
     private Rigidbody2D rigid;
+
     [SerializeField]
-    private bool has_rigid=false;
+    private Vector3 targetPos = new Vector3(0, 0, 0);
+
+    [SerializeField]
+    private bool has_rigid = false;
     [SerializeField]
     private bool is_prefab = false;
     [SerializeField]
@@ -23,7 +27,7 @@ public class Missile : MonoBehaviour
         }
         if (has_rigid)
         {
-            rigid=GetComponent<Rigidbody2D>();
+            rigid = GetComponent<Rigidbody2D>();
         }
         if (has_rigid)
         {
@@ -34,7 +38,7 @@ public class Missile : MonoBehaviour
     {
         if (!follow_once)
         {
-            Vector3 direction = player.position - transform.position;
+            Vector3 direction = (player.position + targetPos) - transform.position;
             direction.Normalize();
 
             transform.position += direction * speed * Time.deltaTime;
@@ -49,7 +53,7 @@ public class Missile : MonoBehaviour
         Vector2 toPlayer = player.position - transform.position;
         Vector2 desiredDirection = toPlayer.normalized;
 
-        // ÇöÀç ¼Óµµ¿Í °ü¼ºÀ» °í·ÁÇÏ¿© ÀÌµ¿ ¹æÇâ °áÁ¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector2 newVelocity = rigid.velocity + desiredDirection * (speed * Time.fixedDeltaTime);
         newVelocity *= inertiaStrength;
 
