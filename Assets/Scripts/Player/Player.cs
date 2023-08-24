@@ -8,7 +8,7 @@ using static Define;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private bool 무적모드=false;
+    private bool 무적모드 = false;
 
     [SerializeField]
     private float jump_power;
@@ -105,11 +105,11 @@ public class Player : MonoBehaviour
         //무한점프
         if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
-            if (Input.GetButtonDown("Jump")&&player_state!=PlayerState.Damaged)
+            if (Input.GetButtonDown("Jump") && player_state != PlayerState.Damaged)
             {
                 player_state = PlayerState.Fly;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                
+
             }
         }
 
@@ -327,7 +327,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Die(Vector2 targetPos) 
+    private void Die(Vector2 targetPos)
     {
         if (!무적모드)
         {
@@ -339,7 +339,7 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
-        
+
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경

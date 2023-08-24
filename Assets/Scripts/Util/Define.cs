@@ -21,7 +21,9 @@ public class Define
         MainScene,
         SnowWhiteMap,
         SnowBoss123,
-        SnowBoss4
+        SnowBoss4,
+        ClosetScene,
+        StageScene
         ,None
     }
 

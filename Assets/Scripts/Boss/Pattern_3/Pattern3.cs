@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pattern3 : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class Pattern3 : MonoBehaviour
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
         yield return new WaitForNextFrameUnit();
+        SceneManager.LoadScene("SnowBoss4");
 
     }
 
