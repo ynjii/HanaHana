@@ -128,7 +128,7 @@ public class Pattern2Controller : MonoBehaviour
 
     private IEnumerator SlidingFireCoroutine()
     {
-        while (true) // 무한 반복 (코루틴을 직접 중지하기 전까지)
+        while (enemyPatterns[0].activeSelf) // 무한 반복 (코루틴을 직접 중지하기 전까지)
         {
             animator.SetBool("isHitTable", true);
             yield return new WaitForSeconds(Random.Range(2f, 4f)); // 랜덤한 시간 대기

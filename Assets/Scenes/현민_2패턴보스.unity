@@ -2615,7 +2615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &529538205
 Transform:
   m_ObjectHideFlags: 0
@@ -2666,6 +2666,11 @@ Transform:
   m_Father: {fileID: 1054739868}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &577416481 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6083247014800663057, guid: 4996028988109e045bc0fe3ac4cd2f7d, type: 3}
+  m_PrefabInstance: {fileID: 1206668639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &578091843
 GameObject:
   m_ObjectHideFlags: 0
@@ -7223,6 +7228,7 @@ GameObject:
   - component: {fileID: 1458644518}
   - component: {fileID: 1458644517}
   - component: {fileID: 1458644516}
+  - component: {fileID: 1458644520}
   m_Layer: 9
   m_Name: Big_Spirit (2)
   m_TagString: Enemy
@@ -7381,6 +7387,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1458644520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458644514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8598768c89864f34d8ad7df721ed047e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPrefab: {fileID: 0}
+  spewInterval: 1
+  spewDuration: 3
+  force: 10
 --- !u!1 &1473080378
 GameObject:
   m_ObjectHideFlags: 0
@@ -7392,6 +7414,7 @@ GameObject:
   - component: {fileID: 1473080379}
   - component: {fileID: 1473080383}
   - component: {fileID: 1473080382}
+  - component: {fileID: 1473080384}
   - component: {fileID: 1473080381}
   - component: {fileID: 1473080380}
   m_Layer: 9
@@ -7538,6 +7561,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1473080384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473080378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8598768c89864f34d8ad7df721ed047e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPrefab: {fileID: 6602731346569786644, guid: 802b34f486721d044ba37003c4432eb4, type: 3}
+  spewInterval: 2
+  spewDuration: 3
+  force: 10
 --- !u!1 &1486326506
 GameObject:
   m_ObjectHideFlags: 0
@@ -9075,6 +9114,7 @@ GameObject:
   - component: {fileID: 1804372388}
   - component: {fileID: 1804372387}
   - component: {fileID: 1804372386}
+  - component: {fileID: 1804372390}
   m_Layer: 9
   m_Name: Big_Spirit (1)
   m_TagString: Enemy
@@ -9233,6 +9273,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1804372390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804372384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8598768c89864f34d8ad7df721ed047e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPrefab: {fileID: 0}
+  spewInterval: 1
+  spewDuration: 3
+  force: 10
 --- !u!1 &1815577011 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6083247012946456494, guid: 4996028988109e045bc0fe3ac4cd2f7d, type: 3}
@@ -9267,7 +9323,11 @@ MonoBehaviour:
   - {fileID: 1642351392}
   - {fileID: 2090303694}
   - {fileID: 462252008}
+  availableFire2Prefabs:
+  - {fileID: 6577760912112866682, guid: f338e5b1e7329844890bdc3316860e66, type: 3}
+  - {fileID: 4248831591926201361, guid: 8fec51d8dc4a91b458fed72f2a7e5ef3, type: 3}
   slHP: {fileID: 346435978}
+  animator: {fileID: 577416481}
 --- !u!1 &1836342211
 GameObject:
   m_ObjectHideFlags: 0
