@@ -406,5 +406,23 @@ public class Player : MonoBehaviour
     {
         isRightButton = false;
     }
+
+    public void ChangeSprites()
+    {
+        string realItem = PlayerPrefs.GetString("RealItem");
+        switch (realItem)
+        {
+            case "SnowWhite":
+                anim.runtimeAnimatorController =
+                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_RealItem_SnowWhite",
+                        typeof(RuntimeAnimatorController)));
+                break;
+            default:
+                anim.runtimeAnimatorController =
+                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_Default",
+                        typeof(RuntimeAnimatorController)));
+                break;
+        }
+    }
 }
 
