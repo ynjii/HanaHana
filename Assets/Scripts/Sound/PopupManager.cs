@@ -40,6 +40,6 @@ public class PopupManager : MonoBehaviour
     public void NoAction()
     {
         // 아니오 버튼을 눌렀을 때의 동작 추가
-        Debug.Log("아니오 버튼을 클릭했습니다.");
+        ClosePopup(); // 아니오 버튼을 누르면 팝업창을 닫도록 ClosePopup 함수를 호출합니다.
     }
 }
