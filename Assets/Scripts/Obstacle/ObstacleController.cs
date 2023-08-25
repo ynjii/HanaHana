@@ -28,7 +28,8 @@ public class ObstacleController : MonoBehaviour
         ChangeAnimation, //애니메이션 변경
         ChangeSprite, //스프라이트 변경
         BlowAway,//플레이어 날려버리기
-        Destroy//안보이면삭제
+        Destroy,//안보이면삭제
+        flipSprite
     }
 
     public enum ObDirection
@@ -83,7 +84,7 @@ public class ObstacleController : MonoBehaviour
     private bool isPlatform = false; //만약 움직이는 발판이라면
 
     [SerializeField]
-    private bool isLeftDown = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
+    private bool isOpposite = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
 
     [SerializeField]
     private IntoColor color; // into Change할 color결정
@@ -302,8 +303,10 @@ public class ObstacleController : MonoBehaviour
                 destroy = true;
                 isMoving = true;
                 break;
-
-
+            case ObType.flipSprite:
+                spriteRenderer = GetComponent<SpriteRenderer>();
+                FlipSprite();
+                break;
         }
 
         if (this.gameObject.GetComponent<BoxCollider2D>() && this.gameObject.GetComponent<BoxCollider2D>().isTrigger)
@@ -319,7 +322,17 @@ public class ObstacleController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
+    private void FlipSprite()
+    {
+        if (obDirection == ObDirection.LeftRight)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (obDirection == ObDirection.UpDown)
+        {
+            spriteRenderer.flipY = true;
+        }
+    }
     private void ChangeSprite()
     {
         spriteRenderer.sprite = img;
@@ -556,7 +569,7 @@ public class ObstacleController : MonoBehaviour
         {
             // 시간에 따라 이동할 거리 계산
             float moveDistance = Mathf.PingPong((Time.time - nowTime) * speed, distance);
-            float direction = (isLeftDown) ? -1 : 1;
+            float direction = (isOpposite) ? -1 : 1;
 
             // 좌우로 움직이는 경우
             if (obDirection == ObDirection.LeftRight)
