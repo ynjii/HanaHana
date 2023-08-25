@@ -24,6 +24,7 @@ public class Launch_Fire : MonoBehaviour
         new List<int> { 1,2,3,4,5,7,8,9,10,11},
         new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
     };
+    private List<GameObject> leftBullets=new List<GameObject>();
 
     private Player player_script;
     public GameObject fire;
@@ -33,6 +34,19 @@ public class Launch_Fire : MonoBehaviour
     private GameObject[] fires = new GameObject[0];
     private List<Transform> start_points = new List<Transform>();
     private Boss boss_script;
+
+    public float Cool_Time
+    {
+        get
+        {
+            return cool_time;
+        }
+        set
+        {
+            cool_time = value;
+        }
+    }
+
 
     private void Awake()
     {
@@ -125,6 +139,7 @@ public class Launch_Fire : MonoBehaviour
                         Transform transf = this.transform;
                         transf.position = new Vector3(x, y, 0);
                         Instantiate(fires[fires_index], transf.position, transform.rotation);
+
                     }
 
                     //원형애플패턴
@@ -165,10 +180,11 @@ public class Launch_Fire : MonoBehaviour
 
                     else if (fires[fires_index].name == "Pinwheel")
                     {
-                        cool_time = 20;
-                        Instantiate(fires[fires_index], pos.position + new Vector3(1, 1f, 0), transform.rotation);
+                        cool_time = 10;
+                        Instantiate(fires[fires_index], pos.position + new Vector3(1f, 0, 0), transform.rotation);
+
                     }
-                    
+
                     else
                     {
                         cool_time = 1f;
@@ -185,6 +201,7 @@ public class Launch_Fire : MonoBehaviour
         }
 
     }
+    
 
     IEnumerator SplitCoroutine(GameObject clone_obj)
     {
