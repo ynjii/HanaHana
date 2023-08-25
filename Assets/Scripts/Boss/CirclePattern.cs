@@ -27,6 +27,25 @@ public class CirclePattern : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 인자: 리스트
+    /// 오버로드
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="transform"></param>
+    public void CircleLaunch(List<GameObject> prefab, Transform transform,float speed)
+    {
+
+        int roundNumA = prefab.Count;
+        for (int i = 0; i < roundNumA; i++)
+        {
+            GameObject fireObj = Instantiate(prefab[i], transform.position, Quaternion.identity);
+            Rigidbody2D rigid = fireObj.GetComponent<Rigidbody2D>();
+            Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNumA),
+                             Mathf.Sin(Mathf.PI * 2 * i / roundNumA));  //원 형태로 발사
+            rigid.AddForce(dirVec.normalized * speed, ForceMode2D.Impulse);
+        }
+    }
 
     /// <summary>
     /// C모양으로 쏘기

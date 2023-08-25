@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Define;
-
+using DG.Tweening;
 public class Boss : MonoBehaviour
 {
 
@@ -11,6 +13,9 @@ public class Boss : MonoBehaviour
     private Launch_Fire guidedMissleLuncher1_script;
     private Launch_Fire guidedMissleLuncher2_script;
     public GameObject[] launchers;
+    [SerializeField]
+    private List<GameObject> mirrors;
+    
     private float hit_timer = 0;
     private float pattern_timer = 0;
     private const float PATTERN_TIME = 10;
@@ -31,6 +36,7 @@ public class Boss : MonoBehaviour
     private List<Vector3> G_target_positions = new List<Vector3>();
     private int G_current_target_index = 0;
     private Animator anim;
+    private Animator mirror_anim;
     public BossState boss_state = new BossState();
     private Vector3 Boss_initial_position = new Vector3(23.05f, 0.27f, 0);
     private List<Vector3> Launcher_initial_position = new List<Vector3>()
@@ -39,8 +45,13 @@ public class Boss : MonoBehaviour
         new Vector3(21.9f, -0.25f)
     };
 
+    //주금
+    private bool is_dead = false;
+    private bool once=false;
     private void Awake()
     {
+        Transform child_transform = this.transform.GetChild(1);
+        mirror_anim =child_transform.GetComponent<Animator>();
         anim = GetComponent<Animator>();
         launcher0_script = launchers[0].GetComponent<Launch_Fire>();
         launcher1_script = launchers[1].GetComponent<Launch_Fire>();
@@ -75,50 +86,59 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //맞으면 빨간색 처리
-        hit_timer += Time.deltaTime;
-        if (hit_timer >= 0.15f)
-            mirror_renderer.color = new Color(1, 1, 1, 0.7f);
-        if (turn_on_anim_timer)
-            anim_timer += Time.deltaTime;
+        if (!is_dead) {
+            //맞으면 빨간색 처리
+            hit_timer += Time.deltaTime;
+            if (hit_timer >= 0.15f)
+                mirror_renderer.color = new Color(1, 1, 1, 0.7f);
+            if (turn_on_anim_timer)
+                anim_timer += Time.deltaTime;
 
-        pattern_timer += Time.deltaTime;
-        if (pattern_timer >= PATTERN_TIME)
-        {
-            DeleteCloneObjects();
-            WhenPatternChangeSetting();
-            RandomPattern();
-            anim.SetBool("pattern_change", true);
-            Debug.Log(anim.GetBool("pattern_change"));
-            pattern_timer = 0;
-            turn_on_anim_timer = true;
-        }
-        if (anim_timer >= 1f && anim.GetBool("pattern_change"))
-        {
-            anim.SetBool("pattern_change", false);
-            Debug.Log(anim.GetBool("pattern_change"));
-            anim_timer = 0;
-            turn_on_anim_timer = false;
-        }
+            pattern_timer += Time.deltaTime;
+            if (pattern_timer >= PATTERN_TIME)
+            {
+                DeleteCloneObjects();
+                WhenPatternChangeSetting();
+                RandomPattern();
+                anim.SetBool("pattern_change", true);
+                Debug.Log(anim.GetBool("pattern_change"));
+                pattern_timer = 0;
+                turn_on_anim_timer = true;
+            }
+            if (anim_timer >= 1f && anim.GetBool("pattern_change"))
+            {
+                anim.SetBool("pattern_change", false);
+                Debug.Log(anim.GetBool("pattern_change"));
+                anim_timer = 0;
+                turn_on_anim_timer = false;
+            }
 
-        if (boss_state == BossState.pattern4_1 || boss_state == BossState.pattern4_4)
-        {
-            PolygonMove();
-        }
-        else if (boss_state == BossState.pattern4_5)
-        {
-            ZigZagMove();
+            if (boss_state == BossState.pattern4_1 || boss_state == BossState.pattern4_4)
+            {
+                PolygonMove();
+            }
+            else if (boss_state == BossState.pattern4_5)
+            {
+                ZigZagMove();
+            }
         }
 
         //깼을 때
         if (boss_hp <= 0)
         {
-            //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
+            Vector3 targetPosition = Boss_initial_position;
+            // 현재 위치와 목표 위치 사이의 거리 계산
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
 
-            //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)
+            // 목표 위치로 이동
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
 
-            //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
-        }
+            if (!once)
+            {
+                Dead();
+                once = true;
+            }
+        }      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -271,6 +291,55 @@ public class Boss : MonoBehaviour
     private bool IsClone(GameObject obj)
     {
         return obj.name.Contains("(Clone)"); // 이름에 "(Clone)" 문자열이 포함되어 있는지 검사
+    }
+
+    private void Dead()
+    {
+        DeleteCloneObjects();
+        is_dead = true;
+        launchers[0].SetActive(false);
+        launchers[1].SetActive(false);
+        if (launchers[2].active || launchers[3].active)
+        {
+            launchers[2].SetActive(false);
+            launchers[3].SetActive(false);
+        }
+        //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
+
+        //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)
+        mirror_anim.SetBool("isDead", true);
+        Invoke("mirrorDeactive", 2f);
+
+        //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
+
+    }
+
+    private void mirrorDeactive()
+    {
+        mirror_anim.gameObject.SetActive(false);
+        CirclePattern circle_pattern = new CirclePattern();
+        foreach (GameObject obj in mirrors)
+        {
+            obj.SetActive(true);
+        }
+        circle_pattern.CircleLaunch(mirrors, this.transform,10);
+    }
+
+    IEnumerator PatternChange()
+    {
+        StopAllCoroutines();
+        _patternChangeGO.SetActive(true);
+
+        // 카메라 shaking
+        Camera.main.transform.DOShakePosition(3, 1);
+
+        // 보스 애니메이션 변경
+        anim.SetBool("isHideEye", true);
+
+        // 불 스프라이트는 자동 재생
+        // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
+        yield return new WaitForSeconds(3);
+        anim.SetBool("isHideEye", false);
     }
 
 }
