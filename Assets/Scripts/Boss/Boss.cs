@@ -7,7 +7,7 @@ using static Define;
 using DG.Tweening;
 public class Boss : MonoBehaviour
 {
-
+    [SerializeField] GameObject[] _patternChangeGO;
     private Launch_Fire launcher0_script;
     private Launch_Fire launcher1_script;
     private Launch_Fire guidedMissleLuncher1_script;
@@ -305,10 +305,9 @@ public class Boss : MonoBehaviour
             launchers[3].SetActive(false);
         }
         //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
-
-        //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)
-        mirror_anim.SetBool("isDead", true);
-        Invoke("mirrorDeactive", 2f);
+        StartCoroutine(PatternChange());
+        //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
+        Invoke("mirrorDeactive", 11f);
 
         //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
 
@@ -316,6 +315,12 @@ public class Boss : MonoBehaviour
 
     private void mirrorDeactive()
     {
+        foreach(GameObject obj in _patternChangeGO)
+        {
+            obj.SetActive(false);
+        }
+        mirror_anim.SetBool("isDead", true);
+        anim.SetBool("isHideEye", false);
         mirror_anim.gameObject.SetActive(false);
         CirclePattern circle_pattern = new CirclePattern();
         foreach (GameObject obj in mirrors)
@@ -328,18 +333,20 @@ public class Boss : MonoBehaviour
     IEnumerator PatternChange()
     {
         StopAllCoroutines();
-        _patternChangeGO.SetActive(true);
+        foreach(GameObject obj in _patternChangeGO)
+        {
+            obj.SetActive(true);
+        }
 
         // 카메라 shaking
-        Camera.main.transform.DOShakePosition(3, 1);
+        Camera.main.transform.DOShakePosition(10, 3);
 
         // 보스 애니메이션 변경
         anim.SetBool("isHideEye", true);
 
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForSeconds(3);
-        anim.SetBool("isHideEye", false);
+        yield return new WaitForSeconds(10);
     }
 
 }
