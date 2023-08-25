@@ -146,9 +146,10 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()//물리 update
     {
+
         if (!movable) return;
 
-        //레이캐스트
+        //레이캐스트(for 버튼점프 꾹 누를 시 천장붙음 방지)
         Debug.DrawRay(rigid.position, Vector3.up, new Color(0, 1, 0));
         RaycastHit2D headRayHit = Physics2D.Raycast(rigid.position, Vector2.up, 1f, LayerMask.GetMask("Platform"));
         //맞았다는 뜻
@@ -160,6 +161,30 @@ public class Player : MonoBehaviour
         {
             ignoreJump = false;
         }
+
+        //ㄴ자 모서리 끼임 방지
+        Debug.DrawRay(rigid.position, Vector3.right, new Color(0, 1, 0));
+        Debug.DrawRay(rigid.position, Vector3.left, new Color(0, 1, 0));
+        RaycastHit2D edgeRightRayHit = Physics2D.Raycast(rigid.position, Vector2.right, 0.5f, LayerMask.GetMask("Platform"));
+        RaycastHit2D edgeLeftRayHit = Physics2D.Raycast(rigid.position, Vector2.left, 0.5f, LayerMask.GetMask("Platform"));
+        //맞았다는 뜻
+        if (edgeRightRayHit.collider != null|| edgeLeftRayHit.collider != null)
+        {
+            //점프가능 상태 y속력이면
+            if (rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f)
+            {
+                this.GetComponent<CapsuleCollider2D>().enabled = true;
+                this.GetComponent<BoxCollider2D>().enabled = false;
+            }
+        }
+        else
+        {
+            this.GetComponent<CapsuleCollider2D>().enabled = false;
+            this.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+
+
         //키 컨트롤로 움직이기
         horizontal = Input.GetAxisRaw("Horizontal");
         if (isIce)
@@ -206,6 +231,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        
         //점프키누르면
         if (rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y< 0.00005f)//y방향성이 없을 때 눌러야 함.
         {
@@ -220,7 +246,6 @@ public class Player : MonoBehaviour
         //버튼 이동
         if (isButtonPressed)
         {
-            Debug.Log(ignoreJump);
             if (!ignoreJump&&isJumpButton && rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f)//y방향성이 없을 때 눌러야 함.
             {
                 
@@ -239,6 +264,7 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
             }
         }
+
         if (hitInfo.collider != null)
         {
             jump = false;
@@ -280,7 +306,6 @@ public class Player : MonoBehaviour
         {
             if(collision.gameObject.name== "t_FakeItem")
             {
-                Debug.Log("투명벽 삭제");
                 PlayerPrefs.SetString("TransparentWall","False");
             }
             Die(collision.transform.position);
@@ -312,8 +337,6 @@ public class Player : MonoBehaviour
             //리스폰 위치를 해당 Flag 위치로 재설정
             Vector3 flagPosition = collision.gameObject.transform.position;
             SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn", flagPosition);
-            Debug.Log("flagPosition" + flagPosition);
-            Debug.Log("SaveRespawn" + SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn"));
         }
         else if (collision.gameObject.CompareTag("Item"))
         {
