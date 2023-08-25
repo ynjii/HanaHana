@@ -93,5 +93,13 @@ public class Pattern3 : MonoBehaviour
             }
             _patterns[i].SetActive(false);
         }
+        StartCoroutine(PlayerInvincibility());
+    }
+
+    IEnumerator PlayerInvincibility()
+    {
+        _player.Invincibility = true;
+        yield return new WaitForSeconds(1f);
+        _player.Invincibility = false;
     }
 }

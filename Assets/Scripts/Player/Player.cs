@@ -7,8 +7,12 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private bool 무적모드 = false;
+    [SerializeField] private bool invincibility = false;
+    public bool Invincibility
+    {
+        get { return invincibility; }
+        set { invincibility = value; }
+    }
 
     [SerializeField]
     private float jump_power;
@@ -375,9 +379,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Die(Vector2 targetPos)
+    public void Die(Vector2 targetPos)
     {
-        if (!무적모드)
+        if (!invincibility)
         {
             onDamaged(targetPos);
             //게임 매니저의 게임오버 처리 실행

@@ -1,4 +1,6 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
 
@@ -15,6 +17,8 @@ public class MirrorReflect : MonoBehaviour
     [SerializeField] private bool is_first_entered;
     [SerializeField] private Vector3 _direction;
     [SerializeField] private bool _rotating = false;
+    [SerializeField] private float _rotateSpeed = 20.0f;
+    private float angle = 0f;
 
     private void Start()
     {
@@ -49,6 +53,11 @@ public class MirrorReflect : MonoBehaviour
 
     private void DrawPredictionLine()
     {
+        if (_rotating)
+        {
+            angle = (angle + _rotateSpeed * Time.deltaTime) % 360;
+            _direction = new Vector3((float)Math.Cos(angle) * 1f, (float)Math.Sin(angle) * 1f, 0f);
+        }
         predictionLine.SetPosition(0, this.transform.position);
         predictionHit = Physics2D.Raycast(transform.position, _direction, Mathf.Infinity, predictionLayerMask);
         Debug.DrawRay(transform.position, _direction * 10, Color.red);
@@ -63,12 +72,11 @@ public class MirrorReflect : MonoBehaviour
         // 플레이어면 죽음
         if (predictionHit.collider.CompareTag("Player"))
         {
-            PlayerDied();
-            return;
+            player_script.Die(new Vector2(transform.position.x, transform.position.y));
+            //PlayerDied();
         }
 
         // draw first collision point
-        //predictionLine.SetPosition(1, new Vector3(predictionHit.point.x + transform.position.x, predictionHit.point.y + transform.position.y, 0));
         predictionLine.SetPosition(1, predictionHit.point);
         
         if (!isReflectable)
@@ -93,7 +101,8 @@ public class MirrorReflect : MonoBehaviour
         // 플레이어면 죽음
         if (predictionHit.collider.CompareTag("Player"))
         {
-            PlayerDied();
+            player_script.Die(new Vector2(transform.position.x, transform.position.y));
+           // PlayerDied();
         }
         predictionLine.SetPosition(2, predictionHit.point);
 
