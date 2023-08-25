@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
 public class Boss : MonoBehaviour
 {
-    
+
     private Launch_Fire launcher0_script;
     private Launch_Fire launcher1_script;
     private Launch_Fire guidedMissleLuncher1_script;
     private Launch_Fire guidedMissleLuncher2_script;
     public GameObject[] launchers;
-    private float hit_timer=0;
-    private float pattern_timer=0;
+    private float hit_timer = 0;
+    private float pattern_timer = 0;
     private const float PATTERN_TIME = 10;
     public SpriteRenderer mirror_renderer;
     [SerializeField]
@@ -20,7 +21,8 @@ public class Boss : MonoBehaviour
     private Fire P_bullet_script;
     [SerializeField]
     private float move_speed;
-
+    private float anim_timer;
+    private bool turn_on_anim_timer = false;
     //버드 패턴에서 쓰는 변수라는 뜻에서 말머리 붙임
     private List<Vector3> B_target_positions = new List<Vector3>();
     private int B_current_target_index = 0;
@@ -29,23 +31,24 @@ public class Boss : MonoBehaviour
     private List<Vector3> G_target_positions = new List<Vector3>();
     private int G_current_target_index = 0;
     private Animator anim;
-    public BossState boss_state=new BossState();
-    private Vector3 initial_position = new Vector3(23.05f, 0.27f, 0);
-    //랜덤값따라 패턴호출
-    //패턴 시작하면 launch_time=0, launch_time+=Time.deltaTime
-    //time이 0일때만 랜덤값 다시 넣기. & switch 함수 호출
+    public BossState boss_state = new BossState();
+    private Vector3 Boss_initial_position = new Vector3(23.05f, 0.27f, 0);
+    private List<Vector3> Launcher_initial_position = new List<Vector3>()
+    {
+        new Vector3(21.9f, -0.25f),
+        new Vector3(21.9f, -0.25f)
+    };
 
-    //23.05, 0.27: 초기위치
     private void Awake()
     {
-        anim=GetComponent<Animator>();  
+        anim = GetComponent<Animator>();
         launcher0_script = launchers[0].GetComponent<Launch_Fire>();
         launcher1_script = launchers[1].GetComponent<Launch_Fire>();
         guidedMissleLuncher1_script = launchers[2].GetComponent<Launch_Fire>();
         guidedMissleLuncher2_script = launchers[3].GetComponent<Launch_Fire>();
 
         P_bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_Fire>().fire;
-        P_bullet_script=P_bullet.GetComponent<Fire>();
+        P_bullet_script = P_bullet.GetComponent<Fire>();
 
         // 원하는 목표 위치들을 리스트에 추가
         B_target_positions.Add(new Vector3(23.05f, 0.27f, 0));
@@ -74,17 +77,48 @@ public class Boss : MonoBehaviour
     {
         //맞으면 빨간색 처리
         hit_timer += Time.deltaTime;
-        if (hit_timer>=0.15f)
-            mirror_renderer.color= new Color(1,1,1,0.7f);
+        if (hit_timer >= 0.15f)
+            mirror_renderer.color = new Color(1, 1, 1, 0.7f);
+        if (turn_on_anim_timer)
+            anim_timer += Time.deltaTime;
 
         pattern_timer += Time.deltaTime;
         if (pattern_timer >= PATTERN_TIME)
         {
-            this.transform.position = initial_position;
+            DeleteCloneObjects();
+            WhenPatternChangeSetting();
             RandomPattern();
             anim.SetBool("pattern_change", true);
-            anim.SetBool("pattern_change", false);
+            Debug.Log(anim.GetBool("pattern_change"));
             pattern_timer = 0;
+            turn_on_anim_timer = true;
+        }
+        if (anim_timer >= 1f && anim.GetBool("pattern_change"))
+        {
+            anim.SetBool("pattern_change", false);
+            Debug.Log(anim.GetBool("pattern_change"));
+            anim_timer = 0;
+            turn_on_anim_timer = false;
+        }
+
+        if (boss_state == BossState.pattern4_1 || boss_state == BossState.pattern4_4)
+        {
+            PolygonMove();
+        }
+        else if (boss_state == BossState.pattern4_5)
+        {
+            ZigZagMove();
+        }
+
+        //깼을 때
+        if (boss_hp <= 0)
+        {
+            //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
+
+            //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)
+
+            //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
+
         }
     }
 
@@ -101,28 +135,13 @@ public class Boss : MonoBehaviour
 
     private void Pattern1()
     {
-        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_1;
         launcher0_script.fires_index = 0;
         launcher1_script.fires_index = 0;
-
-        Vector3 targetPosition = B_target_positions[B_current_target_index];
-        // 현재 위치와 목표 위치 사이의 거리 계산
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        // 일정 거리 내에 있으면 다음 목표 위치로 변경
-        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
-        {
-            B_current_target_index = (B_current_target_index+ 1) % B_target_positions.Count;
-            targetPosition = B_target_positions[B_current_target_index];
-        }
-
-        // 목표 위치로 이동
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
     }
 
     private void Pattern2()
     {
-        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_2;
         //원형 사과
         launcher0_script.fires_index = 1;
@@ -133,8 +152,7 @@ public class Boss : MonoBehaviour
 
     private void Pattern3()
     {
-        WhenPatternChangeSetting();
-        boss_state = BossState.pattern4_4;
+        boss_state = BossState.pattern4_3;
         //바람개비
         launcher0_script.fires_index = 2;
         //불꽃놀이
@@ -154,24 +172,11 @@ public class Boss : MonoBehaviour
         guidedMissleLuncher1_script.fires_index = 0;
         guidedMissleLuncher2_script.fires_index = 0;
 
-        Vector3 targetPosition = B_target_positions[B_current_target_index];
-        // 현재 위치와 목표 위치 사이의 거리 계산
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        // 일정 거리 내에 있으면 다음 목표 위치로 변경
-        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
-        {
-            B_current_target_index = (B_current_target_index + 1) % B_target_positions.Count;
-            targetPosition = B_target_positions[B_current_target_index];
-        }
-
-        // 목표 위치로 이동
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
 
     }
 
     private void Pattern5()
     {
-        WhenPatternChangeSetting();
         boss_state = BossState.pattern4_5;
 
         //원형애플(C모양)
@@ -179,18 +184,6 @@ public class Boss : MonoBehaviour
         //고블린 던지기
         launcher1_script.fires_index = 3;
 
-        Vector3 targetPosition = G_target_positions[G_current_target_index];
-        // 현재 위치와 목표 위치 사이의 거리 계산
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        // 일정 거리 내에 있으면 다음 목표 위치로 변경
-        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
-        {
-            G_current_target_index = (G_current_target_index + 1) % G_target_positions.Count;
-            targetPosition = G_target_positions[G_current_target_index];
-        }
-
-        // 목표 위치로 이동
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
 
     }
 
@@ -219,8 +212,66 @@ public class Boss : MonoBehaviour
 
     private void WhenPatternChangeSetting()
     {
+        this.launcher0_script.Cool_Time = 0;
+        this.launcher1_script.Cool_Time = 0;
+        this.transform.position = Boss_initial_position;
         launchers[2].SetActive(false);
         launchers[3].SetActive(false);
-        launchers[0].transform.position = new Vector3(-2.153016f, -1.04f, 0);
+        launchers[0].transform.position = Launcher_initial_position[0];
+        launchers[1].transform.position = Launcher_initial_position[1];
     }
+    private void ZigZagMove()
+    {
+        Vector3 targetPosition = G_target_positions[G_current_target_index];
+        // 현재 위치와 목표 위치 사이의 거리 계산
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        // 일정 거리 내에 있으면 다음 목표 위치로 변경
+        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
+        {
+            G_current_target_index = (G_current_target_index + 1) % G_target_positions.Count;
+            targetPosition = G_target_positions[G_current_target_index];
+        }
+
+        // 목표 위치로 이동
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+
+    }
+
+    private void PolygonMove()
+    {
+
+        Vector3 targetPosition = B_target_positions[B_current_target_index];
+        // 현재 위치와 목표 위치 사이의 거리 계산
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        // 일정 거리 내에 있으면 다음 목표 위치로 변경
+        if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
+        {
+            B_current_target_index = (B_current_target_index + 1) % B_target_positions.Count;
+            targetPosition = B_target_positions[B_current_target_index];
+        }
+
+        // 목표 위치로 이동
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
+
+    }
+
+    //짠탄제거
+    public void DeleteCloneObjects()
+    {
+        GameObject[] allObjects = FindObjectsOfType<GameObject>(); // 씬 내의 모든 게임 오브젝트 가져오기
+
+        foreach (GameObject obj in allObjects)
+        {
+            if (IsClone(obj))
+            {
+                Destroy(obj); // 클론 오브젝트 삭제
+            }
+        }
+    }
+
+    private bool IsClone(GameObject obj)
+    {
+        return obj.name.Contains("(Clone)"); // 이름에 "(Clone)" 문자열이 포함되어 있는지 검사
+    }
+
 }

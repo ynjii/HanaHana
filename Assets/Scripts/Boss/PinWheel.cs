@@ -30,7 +30,7 @@ public class PinWheel : MonoBehaviour
             pattern.LaunchToOutside(this.gameObject.transform, launchForce, spreadFactor);
             launch_timer = 0;
         }
-        if (destroy_time >= 15)
+        if (destroy_time >= 10)
         {
             Destroy(gameObject);
         }
