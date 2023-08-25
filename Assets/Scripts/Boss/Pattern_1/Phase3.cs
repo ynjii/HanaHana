@@ -10,7 +10,6 @@ public class Phase3 : MonoBehaviour
     3. Block, GoFire 활성화
     */
     public GameObject downSpike;
-    public GameObject MirrorBlock;
     public GameObject LeftSpike;
     public GameObject RightSpike;
     public GameObject Block;
@@ -23,11 +22,9 @@ public class Phase3 : MonoBehaviour
 
     IEnumerator Pattern1Phase3()
     {
-        MirrorBlock.SetActive(true);
         yield return new WaitForSeconds(2f);
         downSpike.SetActive(true);
         yield return new WaitForSeconds(3f);
-        MirrorBlock.SetActive(false);
         downSpike.SetActive(false);
         LeftSpike.SetActive(true);
         RightSpike.SetActive(true);

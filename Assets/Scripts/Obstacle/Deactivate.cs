@@ -13,6 +13,8 @@ public class Deactivate : MonoBehaviour
     [SerializeField] private activition actType; //obstacle의 type을 inspector에서 받아옴.
     [SerializeField] private bool isCol;
     [SerializeField] private string Tag = "Player";
+    [SerializeField] private bool waiting;
+    [SerializeField] private float waitingTime=0f;
     
     public GameObject other;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,5 +47,25 @@ public class Deactivate : MonoBehaviour
                 this.other.gameObject.SetActive(false);
             }
         }
+    }
+
+    void Start()
+    {
+	if(waiting){
+        StartCoroutine(Timer(waitingTime));
+    }
+    }
+
+    IEnumerator Timer(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+            if (actType == activition.Activate)
+            {
+                this.other.gameObject.SetActive(true);
+            }
+            else
+            { 
+                this.other.gameObject.SetActive(false);
+            }
     }
 }
