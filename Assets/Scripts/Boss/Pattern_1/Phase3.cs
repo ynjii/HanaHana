@@ -34,6 +34,10 @@ public class Phase3 : MonoBehaviour
         yield return new WaitForSeconds(1.38f);
         Block.SetActive(false);
         GoFire.SetActive(false);
+        GoFire.SetActive(true);
+        yield return new WaitForSeconds(1.38f);
+        Block.SetActive(false);
+        GoFire.SetActive(false);
         
     }
 }
