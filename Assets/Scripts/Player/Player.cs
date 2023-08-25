@@ -75,8 +75,6 @@ public class Player : MonoBehaviour
         if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
             jump_power = 10;
-            //애니메이션: 계속 날아가는거로.
-            anim.SetBool("isFly", true);
         }
         else
             jump_power = 15;
@@ -86,6 +84,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
+
+        if (!anim.GetBool("isFly")&& SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            //애니메이션: 계속 날아가는거로.
+            anim.SetBool("isFly", true);
+        }
+
         if (!movable) return;
 
         //낙하속도 빠르게
@@ -110,7 +115,6 @@ public class Player : MonoBehaviour
             {
                 player_state = PlayerState.Fly;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-
             }
         }
 
@@ -198,40 +202,46 @@ public class Player : MonoBehaviour
         {
             rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
         }
+
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
         //점프설정
         if (rigid.velocity.normalized.y <= -0.00005f || rigid.velocity.normalized.y >= 0.00005f)
         {
-            anim.SetBool("isJump", true);
-            anim.SetBool("isWalk", false);
-            if (player_state != PlayerState.Damaged)
+            if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
-                player_state = PlayerState.Jump;
-            }   
-        }
-        else//y에 아무런 방향성이 없을 때
-        {
-            if (rigid.velocity.normalized.x!=0)//x에 방향성이 없으면 걷기
-            {
-                anim.SetBool("isJump", false);
-                anim.SetBool("isWalk", true);
-                if (player_state != PlayerState.Damaged)
-                {
-                    player_state = PlayerState.Walk;
-                }
-            }
-            else//x에 방향성이 없으면 idle
-            {
-                anim.SetBool("isJump", false);
+                anim.SetBool("isJump", true);
                 anim.SetBool("isWalk", false);
                 if (player_state != PlayerState.Damaged)
                 {
-                    player_state = PlayerState.Idle;
+                    player_state = PlayerState.Jump;
                 }
             }
         }
-        
+        else//y에 아무런 방향성이 없을 때
+        {
+            if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+            {
+                if (rigid.velocity.normalized.x != 0)//x에 방향성이 없으면 걷기
+                {
+                    anim.SetBool("isJump", false);
+                    anim.SetBool("isWalk", true);
+                    if (player_state != PlayerState.Damaged)
+                    {
+                        player_state = PlayerState.Walk;
+                    }
+                }
+                else//x에 방향성이 없으면 idle
+                {
+                    anim.SetBool("isJump", false);
+                    anim.SetBool("isWalk", false);
+                    if (player_state != PlayerState.Damaged)
+                    {
+                        player_state = PlayerState.Idle;
+                    }
+                }
+            }
+        }        
         //점프키누르면
         if (rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y< 0.00005f)//y방향성이 없을 때 눌러야 함.
         {
