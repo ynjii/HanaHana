@@ -12,7 +12,6 @@ public class MossWall : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("뭐야?");
             other.constraints = RigidbodyConstraints2D.FreezeAll;
 
         }
