@@ -6,6 +6,8 @@ public class SpawnEnemy : MonoBehaviour
 {
     public bool enableSpawn = false;
     public GameObject Enemy; //Prefab을 받을 public 변수 입니다.
+    [SerializeField] private float second=5f; 
+    [SerializeField] private float delay=1.5f; 
     void EnemySpawn()
     {
         float randomX = Random.Range(9.5f, 23f); //적이 나타날 X좌표를 랜덤으로 생성해 줍니다.
@@ -16,6 +18,6 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
     void Start () {
-        InvokeRepeating("EnemySpawn", 4, 1.5f); //3초후 부터, SpawnEnemy함수를 1초마다 반복해서 실행 시킵니다.
+        InvokeRepeating("EnemySpawn", second, delay); //3초후 부터, SpawnEnemy함수를 1초마다 반복해서 실행 시킵니다.
     }
 }
