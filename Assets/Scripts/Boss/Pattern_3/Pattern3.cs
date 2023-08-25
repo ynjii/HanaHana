@@ -13,13 +13,14 @@ public class Pattern3 : MonoBehaviour
     [SerializeField] BossHP _bossHP;
 
     [SerializeField] GameObject _patternChangeGO;
+    [SerializeField] private Animator _bossAnim;
     Player _player;
     bool isEnd = false;
 
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        StartCoroutine(InvertScene());
+        // StartCoroutine(InvertScene());
         StartCoroutine(PatternExecute());
     }
 
@@ -42,14 +43,13 @@ public class Pattern3 : MonoBehaviour
         _camera.transform.DOShakePosition(3, 1);
 
         // 보스 애니메이션 변경
-        // TODO : 소연이가 애니메이션 추가해주면 작성하기
-
+        _bossAnim.SetBool("isHideEye",true);
 
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForNextFrameUnit();
+        yield return new WaitForSeconds(3);
+        _bossAnim.SetBool("isHideEye", false);
         SceneManager.LoadScene("SnowBoss4");
-
     }
 
     IEnumerator InvertScene()
@@ -57,8 +57,10 @@ public class Pattern3 : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(15);
+            _bossAnim.SetBool("isRaiseHand", true);
             CameraController cameraController = _camera.GetComponent<CameraController>();
             cameraController.isReverse = !cameraController.isReverse;
+            _bossAnim.SetBool("isRaiseHand", true);
         }
     }
 

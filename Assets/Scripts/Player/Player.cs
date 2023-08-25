@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private bool jump = true;
     public bool movable = true;
 
+    private bool ignoreJump = false;
 
     //getter setter
     public float Horizontal
@@ -147,7 +148,18 @@ public class Player : MonoBehaviour
     {
         if (!movable) return;
 
-
+        //레이캐스트
+        Debug.DrawRay(rigid.position, Vector3.up, new Color(0, 1, 0));
+        RaycastHit2D headRayHit = Physics2D.Raycast(rigid.position, Vector2.up, 1f, LayerMask.GetMask("Platform"));
+        //맞았다는 뜻
+        if (headRayHit.collider != null)
+        {
+            ignoreJump = true;
+        }
+        else
+        {
+            ignoreJump = false;
+        }
         //키 컨트롤로 움직이기
         horizontal = Input.GetAxisRaw("Horizontal");
         if (isIce)
@@ -205,21 +217,19 @@ public class Player : MonoBehaviour
        
 
 
-
         //버튼 이동
         if (isButtonPressed)
         {
-            // 버튼을 계속 누르고 있을 때 호출할 메소드를 여기에 작성.
-            if ((isJumpButton && !anim.GetBool("isJump") ) && jump)
+            Debug.Log(ignoreJump);
+            if (!ignoreJump&&isJumpButton && rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f)//y방향성이 없을 때 눌러야 함.
             {
-                //더플점프 막기: -1.5f이하이면 못 점프하게.
-                if (!(rigid.velocity.y <= -1.5f) && player_state != PlayerState.Damaged)
+                
+                if ((player_state != PlayerState.Jump) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
                 {
-                    player_state = PlayerState.Jump;
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                    anim.SetBool("isJump", true);
                 }
             }
+
             if (isLeftButton)
             {
                 rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
@@ -268,6 +278,11 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            if(collision.gameObject.name== "t_FakeItem")
+            {
+                Debug.Log("투명벽 삭제");
+                PlayerPrefs.SetString("TransparentWall","False");
+            }
             Die(collision.transform.position);
         }
     }
