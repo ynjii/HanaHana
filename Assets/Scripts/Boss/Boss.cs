@@ -37,6 +37,7 @@ public class Boss : MonoBehaviour
     private int G_current_target_index = 0;
     private Animator anim;
     private Animator mirror_anim;
+    private Animator naruto_anim;
     public BossState boss_state = new BossState();
     private Vector3 Boss_initial_position = new Vector3(23.05f, 0.27f, 0);
     private List<Vector3> Launcher_initial_position = new List<Vector3>()
@@ -52,6 +53,9 @@ public class Boss : MonoBehaviour
     {
         Transform child_transform = this.transform.GetChild(1);
         mirror_anim =child_transform.GetComponent<Animator>();
+        child_transform=this.transform.GetChild(2);
+        naruto_anim=child_transform.GetComponent<Animator>();
+
         anim = GetComponent<Animator>();
         launcher0_script = launchers[0].GetComponent<Launch_Fire>();
         launcher1_script = launchers[1].GetComponent<Launch_Fire>();
@@ -100,15 +104,13 @@ public class Boss : MonoBehaviour
                 DeleteCloneObjects();
                 WhenPatternChangeSetting();
                 RandomPattern();
-                anim.SetBool("pattern_change", true);
-                Debug.Log(anim.GetBool("pattern_change"));
+                naruto_anim.SetBool("pattern_change", true);
                 pattern_timer = 0;
                 turn_on_anim_timer = true;
             }
-            if (anim_timer >= 1f && anim.GetBool("pattern_change"))
+            if (anim_timer >= 1f && naruto_anim.GetBool("pattern_change"))
             {
-                anim.SetBool("pattern_change", false);
-                Debug.Log(anim.GetBool("pattern_change"));
+                naruto_anim.SetBool("pattern_change", false);
                 anim_timer = 0;
                 turn_on_anim_timer = false;
             }
