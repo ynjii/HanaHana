@@ -24,5 +24,6 @@ public class MapEnter : MonoBehaviour
     {
         if (other.tag == "player")
             CamObject.GetComponent<PlayMusicOperator>().PlayBGM(bgmName);
+        Debug.Log("Box Collider touched the target object!");
     }
 }
