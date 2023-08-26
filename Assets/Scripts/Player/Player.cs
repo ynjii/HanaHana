@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
 
     public bool IsJumpButton
     {
-        get { return isJumpButton;}
+        get { return isJumpButton; }
     }
     private void Awake()
     {
@@ -147,12 +147,11 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
         }
 
-        if (Input.GetButton("Horizontal") && player_state!=PlayerState.Damaged)
+        if (Input.GetButton("Horizontal") && player_state != PlayerState.Damaged)
         {
             //방향전환
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
-        
 
         
         // 화면 위에 손가락이 있는지 확인
@@ -202,7 +201,7 @@ public class Player : MonoBehaviour
                 isRightButton = false;
             }
         }
-        
+
 
     }
     private void FixedUpdate()//물리 update
@@ -225,7 +224,7 @@ public class Player : MonoBehaviour
 
 
         //타고올라가기 방지
-        Debug.DrawRay(rigid.position + new Vector2(0,-0.45f), Vector3.right, new Color(1, 0, 0));
+        Debug.DrawRay(rigid.position + new Vector2(0, -0.45f), Vector3.right, new Color(1, 0, 0));
         Debug.DrawRay(rigid.position + new Vector2(0, -0.45f), Vector3.left, new Color(1, 0, 0));
         RaycastHit2D platformRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.right, 0.5f, LayerMask.GetMask("Platform"));
         RaycastHit2D platformLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.left, 0.5f, LayerMask.GetMask("Platform"));
@@ -299,16 +298,15 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-        }        
+        }
         //점프키누르면
-        if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y< JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
+        if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
         {
             if ((player_state!=PlayerState.Jump)&&(Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             }
         }
-       
 
 
 
@@ -351,9 +349,9 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if(collision.gameObject.name== "t_FakeItem")
+            if (collision.gameObject.name == "t_FakeItem")
             {
-                PlayerPrefs.SetString("TransparentWall","False");
+                PlayerPrefs.SetString("TransparentWall", "False");
             }
             Die(collision.transform.position);
         }
@@ -398,7 +396,11 @@ public class Player : MonoBehaviour
             isBorder = true;
             GameManager.instance.OnPlayerDead();
         }
-        else if (!isIce && collision.gameObject.CompareTag("Ice"))
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!isIce && collision.gameObject.CompareTag("Ice"))
         {
             isIce = true;
         }
@@ -443,7 +445,7 @@ public class Player : MonoBehaviour
     private void OnBecameInvisible()
     {
         player_state = PlayerState.Damaged;
-        this.gameObject.layer= 7;
+        this.gameObject.layer = 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }
