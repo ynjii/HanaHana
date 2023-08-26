@@ -13,8 +13,20 @@ public class SaveLoad : MonoBehaviour
     {
         int count=PlayerPrefs.GetInt(key, 0);
         return count;
-
     }
+
+public void SaveBool(string key, bool value)
+{
+    PlayerPrefs.SetInt(key, value ? 1 : 0);
+}
+
+public bool LoadBool(string key)
+{
+    int intValue = PlayerPrefs.GetInt(key, 0);
+    bool loadedValue = intValue != 0;
+    return loadedValue;
+}
+
     
     public void SaveRespawn(string key, Vector3 value)
     {
