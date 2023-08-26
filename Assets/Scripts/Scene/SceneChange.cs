@@ -29,4 +29,9 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene("ClosetScene");
     }
+
+    public void Stage_Change()
+    {
+        SceneManager.LoadScene("StageScene");
+    }
 }
