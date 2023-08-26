@@ -233,6 +233,7 @@ public class Boss : MonoBehaviour
 
     private void WhenPatternChangeSetting()
     {
+        GetComponent<AudioSource>().Play();
         this.launcher0_script.Cool_Time = 0;
         this.launcher1_script.Cool_Time = 0;
         this.transform.position = Boss_initial_position;
