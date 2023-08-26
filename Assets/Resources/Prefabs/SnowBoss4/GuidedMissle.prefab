@@ -105,6 +105,7 @@ MonoBehaviour:
   speed: 10
   inertiaStrength: 100
   player: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
   has_rigid: 1
   is_prefab: 1
   follow_once: 1
@@ -161,12 +162,13 @@ MonoBehaviour:
   obDirection: 0
   gravity_scale: 4
   isPlatform: 0
-  isLeftDown: 0
+  isOpposite: 0
   color: 0
   size: 0
   rend_order: 0
   isCol: 0
   isMoving: 1
+  isEnable: 0
   waitingTime: 0
   distance: 0
   speed: 11
@@ -229,4 +231,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagName: Player
+  tagName1: Untagged
+  tagName2: Untagged
