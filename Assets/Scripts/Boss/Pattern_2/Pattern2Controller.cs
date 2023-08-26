@@ -18,6 +18,8 @@ public class Pattern2Controller : MonoBehaviour
     [SerializeField] Camera camera;
 
     [SerializeField] GameObject patternChangeGO;
+    [SerializeField] GameObject FadeIn;
+    [SerializeField] GameObject FadeOut;
     private System.Action previousPattern;
 
     public Slider slHP; //보스 피받아오기
@@ -26,8 +28,6 @@ public class Pattern2Controller : MonoBehaviour
     private float currentHP;
 
     private float warningHP;
-
-    private bool isDone = false;
 
     public Animator animator;
 
@@ -47,7 +47,7 @@ public class Pattern2Controller : MonoBehaviour
         };
 
 
-
+        //StartCoroutine(startEvent());
         // 첫 번째 패턴 시작
         StartNextPattern();
     }
@@ -87,8 +87,20 @@ public class Pattern2Controller : MonoBehaviour
         }
 
     }
+    /*
+        private IEnumerator startEvent()
+        {
+            Time.timeScale = 0f; //  시간 멈춤
 
-    IEnumerator PatternChange()
+            FadeOut.SetActive(true);
+
+            yield return new WaitForSecondsRealtime(2f); // 2초 동안 대기 (실제 경과 시간에 영향을 받음)
+
+            Time.timeScale = 1f; // 원래의 timeScale 값으로 복원
+
+        }*/
+
+    private IEnumerator PatternChange()
     {
         patternChangeGO.SetActive(true);
 
