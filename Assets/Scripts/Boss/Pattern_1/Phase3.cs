@@ -29,6 +29,8 @@ public class Phase3 : MonoBehaviour
         LeftSpike.SetActive(true);
         RightSpike.SetActive(true);
         yield return new WaitForSeconds(3f);
+        LeftSpike.SetActive(false);
+        RightSpike.SetActive(false);
         Block.SetActive(true);
         GoFire.SetActive(true);
         yield return new WaitForSeconds(1.38f);
