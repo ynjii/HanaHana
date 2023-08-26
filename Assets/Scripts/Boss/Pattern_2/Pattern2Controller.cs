@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Pattern2Controller : MonoBehaviour
 {
@@ -10,7 +12,12 @@ public class Pattern2Controller : MonoBehaviour
     public List<GameObject> enemyPatterns = new List<GameObject>();
     public List<GameObject> warningPatterns = new List<GameObject>(); //닿으면 죽는 패턴
     public List<GameObject> redFlag = new List<GameObject>(); // 경고
+    public List<GameObject> pattern4Mirrors = new List<GameObject>(); // 4패턴의 거울들
     public List<GameObject> availableFire2Prefabs = new List<GameObject>(); //패턴 1에 쓰이는 sliding fire
+
+    [SerializeField] Camera camera;
+
+    [SerializeField] GameObject patternChangeGO;
     private System.Action previousPattern;
 
     public Slider slHP; //보스 피받아오기
@@ -19,6 +26,8 @@ public class Pattern2Controller : MonoBehaviour
     private float currentHP;
 
     private float warningHP;
+
+    private bool isDone = false;
 
     public Animator animator;
 
@@ -45,6 +54,11 @@ public class Pattern2Controller : MonoBehaviour
 
     private void Update()
     {
+
+        if (slHP.value <= 0)
+        {
+            StartCoroutine(PatternChange());
+        }
         // 보스 패턴이 끝나면 다음 패턴 시작
         // 이 부분은 패턴이 끝나는 조건에 따라 수정되어야 합니다.
         if (slHP.value <= currentHP - 15f && availablePatterns.Count > 0) //15초 지나면
@@ -72,6 +86,23 @@ public class Pattern2Controller : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator PatternChange()
+    {
+        patternChangeGO.SetActive(true);
+
+        // 카메라 shaking
+        camera.transform.DOShakePosition(3, 1);
+
+        // 보스 애니메이션 변경
+        animator.SetBool("isHideEye", true);
+
+        // 불 스프라이트는 자동 재생
+        // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
+        yield return new WaitForSeconds(3);
+        animator.SetBool("isHideEye", false);
+        SceneManager.LoadScene("SnowBoss3");
     }
 
     private void StartNextPattern()
@@ -165,7 +196,6 @@ public class Pattern2Controller : MonoBehaviour
         // 패턴 2 실행 코드
         Debug.Log("2");
         enemyPatterns[1].SetActive(true);
-
     }
 
     private void Pattern3()
@@ -181,5 +211,11 @@ public class Pattern2Controller : MonoBehaviour
         // 패턴 4 실행 코드
         Debug.Log("4");
         enemyPatterns[3].SetActive(true);
+        /*while (!isDone && slHP.value < current - 11f) //한 4초 남았을때 1초 동안 탄막 멈추고 주인공향해 날아감  이때 주인공 안 움직이면 죽음
+       {
+           isDone = true;
+
+       }*/
+
     }
 }
