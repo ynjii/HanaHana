@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static Define;
 
 public class Player : MonoBehaviour
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
         set { invincibility = value; }
     }
 
+    private const float JUMP_CRITERIA=0.1f;
+    
     [SerializeField]
     private float jump_power;
     private float max_speed;
@@ -67,6 +70,11 @@ public class Player : MonoBehaviour
             return isRightButton;
         }
     }
+
+    public bool IsJumpButton
+    {
+        get { return isJumpButton;}
+    }
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -86,9 +94,11 @@ public class Player : MonoBehaviour
 
 
     // Update is called once per frame
+    // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
-
+       
+        //////////////////////////////////////////
         if (!anim.GetBool("isFly")&& SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
             //애니메이션: 계속 날아가는거로.
@@ -151,6 +161,29 @@ public class Player : MonoBehaviour
         {
             isButtonPressed = true;
         }
+        ////////////////////
+        // 화면의 가로 크기의 절반 값을 구함
+        float halfScreenWidth = Screen.width * 0.5f;
+
+        // 터치가 하나 발생했는지 확인
+        if (Input.touchCount == 1)
+        {
+            // 첫 번째 터치 정보 가져오기
+            Touch touch = Input.GetTouch(0);
+
+            //좌우키만 클릭중이면
+            if (touch.position.x < halfScreenWidth)
+            {
+                isJumpButton = false;
+            }
+            else//점프만 클릭중이면
+            {
+                isLeftButton = false;
+                isRightButton = false;
+            }
+        }
+        
+
     }
     private void FixedUpdate()//물리 update
     {
@@ -180,7 +213,7 @@ public class Player : MonoBehaviour
         if (platformRightRayHit.collider != null || platformLeftRayHit.collider != null)
         {
             //평지가 아니면
-            if (!(rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f))
+            if (!(rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA))
             {
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
                 this.GetComponent<BoxCollider2D>().enabled = true;
@@ -210,7 +243,7 @@ public class Player : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
         //점프설정
-        if (rigid.velocity.normalized.y <= -0.00005f || rigid.velocity.normalized.y >= 0.00005f)
+        if (rigid.velocity.normalized.y <= -JUMP_CRITERIA || rigid.velocity.normalized.y >= JUMP_CRITERIA)
         {
             if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
@@ -226,7 +259,7 @@ public class Player : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
-                if (rigid.velocity.normalized.x != 0)//x에 방향성이 없으면 걷기
+                if (rigid.velocity.normalized.x != 0||isLeftButton||isRightButton)//x에 방향성이 없으면 걷기
                 {
                     anim.SetBool("isJump", false);
                     anim.SetBool("isWalk", true);
@@ -237,17 +270,20 @@ public class Player : MonoBehaviour
                 }
                 else//x에 방향성이 없으면 idle
                 {
-                    anim.SetBool("isJump", false);
-                    anim.SetBool("isWalk", false);
-                    if (player_state != PlayerState.Damaged)
+                    if (!(isLeftButton && isRightButton))
                     {
-                        player_state = PlayerState.Idle;
+                        anim.SetBool("isJump", false);
+                        anim.SetBool("isWalk", false);
+                        if (player_state != PlayerState.Damaged)
+                        {
+                            player_state = PlayerState.Idle;
+                        }
                     }
                 }
             }
         }        
         //점프키누르면
-        if (rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y< 0.00005f)//y방향성이 없을 때 눌러야 함.
+        if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y< JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
         {
             if ((player_state!=PlayerState.Jump)&&(Input.GetButtonDown("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
@@ -260,9 +296,8 @@ public class Player : MonoBehaviour
         //버튼 이동
         if (isButtonPressed)
         {
-            if (!ignoreJump&&isJumpButton && rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f)//y방향성이 없을 때 눌러야 함.
-            {
-                
+            if ((!ignoreJump)&&isJumpButton && rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
+            {            
                 if ((player_state != PlayerState.Jump) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
                 {
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
@@ -271,11 +306,11 @@ public class Player : MonoBehaviour
 
             if (isLeftButton)
             {
-                rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
+                transform.position += Vector3.left * max_speed * Time.deltaTime;
             }
             if (isRightButton)
             {
-                rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
+                transform.position += Vector3.right * max_speed * Time.deltaTime;
             }
         }
 
