@@ -271,11 +271,13 @@ public class Player : MonoBehaviour
 
             if (isLeftButton)
             {
-                rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
+                //rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
+                transform.position += Vector3.left * max_speed * Time.deltaTime;
             }
             if (isRightButton)
             {
-                rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
+                //rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
+                transform.position += Vector3.right * max_speed * Time.deltaTime;
             }
         }
 
