@@ -8,10 +8,18 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject Enemy; //Prefab을 받을 public 변수 입니다.
     [SerializeField] private float second=5f; 
     [SerializeField] private float delay=1.5f; 
+    [SerializeField] private bool isPanel=false;
+    [SerializeField] private float randomX=0f;
+    [SerializeField] private float randomY=0f;
+
     void EnemySpawn()
     {
-        float randomX = Random.Range(9.5f, 23f); //적이 나타날 X좌표를 랜덤으로 생성해 줍니다.
-        float randomY= Random.Range(5f, 3f);
+        
+        if(!isPanel){
+        randomX = Random.Range(9.5f, 23f); //적이 나타날 X좌표를 랜덤으로 생성해 줍니다.
+        randomY= Random.Range(5f, 3f);    
+        }
+        
         if (enableSpawn)
         {
             GameObject enemy =(GameObject)Instantiate(Enemy, new Vector3(randomX, randomY, 0f), Quaternion.identity); //랜덤한 위치와, 화면 제일 위에서 Enemy를 하나 생성해줍니다.
