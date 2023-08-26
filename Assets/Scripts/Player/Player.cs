@@ -170,27 +170,27 @@ public class Player : MonoBehaviour
             ignoreJump = false;
         }
 
-        //ㄴ자 모서리 끼임 방지
-        Debug.DrawRay(rigid.position, Vector3.right, new Color(0, 1, 0));
-        Debug.DrawRay(rigid.position, Vector3.left, new Color(0, 1, 0));
-        RaycastHit2D edgeRightRayHit = Physics2D.Raycast(rigid.position, Vector2.right, 0.5f, LayerMask.GetMask("Platform"));
-        RaycastHit2D edgeLeftRayHit = Physics2D.Raycast(rigid.position, Vector2.left, 0.5f, LayerMask.GetMask("Platform"));
+
+        //타고올라가기 방지
+        Debug.DrawRay(rigid.position + new Vector2(0,-0.45f), Vector3.right, new Color(1, 0, 0));
+        Debug.DrawRay(rigid.position + new Vector2(0, -0.45f), Vector3.left, new Color(1, 0, 0));
+        RaycastHit2D platformRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.right, 0.5f, LayerMask.GetMask("Platform"));
+        RaycastHit2D platformLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.left, 0.5f, LayerMask.GetMask("Platform"));
         //맞았다는 뜻
-        if (edgeRightRayHit.collider != null|| edgeLeftRayHit.collider != null)
+        if (platformRightRayHit.collider != null || platformLeftRayHit.collider != null)
         {
-            //점프가능 상태 y속력이면
-            if (rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f)
+            //평지가 아니면
+            if (!(rigid.velocity.normalized.y > -0.00005f && rigid.velocity.normalized.y < 0.00005f))
             {
-                this.GetComponent<CapsuleCollider2D>().enabled = true;
-                this.GetComponent<BoxCollider2D>().enabled = false;
+                this.GetComponent<CapsuleCollider2D>().enabled = false;
+                this.GetComponent<BoxCollider2D>().enabled = true;
             }
         }
         else
         {
-            this.GetComponent<CapsuleCollider2D>().enabled = false;
-            this.GetComponent<BoxCollider2D>().enabled = true;
+            this.GetComponent<CapsuleCollider2D>().enabled = true;
+            this.GetComponent<BoxCollider2D>().enabled = false;
         }
-
 
 
         //키 컨트롤로 움직이기
