@@ -13,6 +13,7 @@ public class PinWheel : MonoBehaviour
     private float spreadFactor;
     float launch_timer=0;
     float destroy_time=0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class PinWheel : MonoBehaviour
         Rotate();
         if (launch_timer>=launch_time)
         {
+            GetComponent<AudioSource>().Play();
             pattern.LaunchToOutside(this.gameObject.transform, launchForce, spreadFactor);
             launch_timer = 0;
         }
