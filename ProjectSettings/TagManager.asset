@@ -7,6 +7,17 @@ TagManager:
   - Platform
   - Enemy
   - PlayerDied
+  - Flag
+  - Item
+  - Border
+  - Transparent
+  - Door
+  - Jumping
+  - BurnEnemy
+  - bullet
+  - Boss
+  - Ice
+  - LaserWall
   layers:
   - Default
   - TransparentFX
@@ -17,12 +28,12 @@ TagManager:
   - Platform
   - PlayerDamaged
   - Enemy
-  - PlayerDied
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Transparent_Exp_Player
+  - Transparent
+  - Ladder
+  - LaserBeam
+  - Bullet
+  - Boss
   - 
   - 
   - 
@@ -43,4 +54,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Layer1
+    uniqueID: 2111291453
     locked: 0
