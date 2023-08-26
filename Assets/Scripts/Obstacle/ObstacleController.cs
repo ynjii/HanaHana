@@ -247,7 +247,13 @@ public class ObstacleController : MonoBehaviour
         }
     }
 
-
+    private void Update()
+    {
+        if (isMoving && obType == ObType.Rotate)
+        {
+            isMoving = true;
+        }
+    }
     private void ObstacleMove(ObType obType)
     {
         switch (obType)
@@ -305,6 +311,7 @@ public class ObstacleController : MonoBehaviour
             case ObType.BlowAway:
                 BlowAway(obDirection);//isCol로 판단.
                 isCol = true;
+                isMoving = true;
                 break;
             case ObType.Destroy:
                 destroy = true;
