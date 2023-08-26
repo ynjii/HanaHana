@@ -236,10 +236,14 @@ public class ObstacleController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if (isMoving)
         {
             StartCoroutine(IsmovingTimer(true));
-            isMoving=false;
+            if (obType != ObType.ChangeColor || obType != ObType.ChangeSize || obType != ObType.Rotate)
+            {
+                isMoving = false;
+            }
         }
     }
 
@@ -263,6 +267,7 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.Rotate:
                 Rotate();
+                isMoving = true;
                 break;
             case ObType.Shake:
                 StartCoroutine(ShakeCoroutine());
@@ -274,12 +279,14 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.ChangeColor:
                 ChangeColor(color);
+                isMoving = true;
                 break;
             case ObType.Rolling:
                 Rolling(obDirection, speed, gravity_scale);
                 break;
             case ObType.ChangeSize:
                 ChangeSize(size);
+                isMoving = true;
                 break;
             case ObType.ChangeRendererOrder:
                 ChangeRendOrder(rend_order);
@@ -371,6 +378,7 @@ public class ObstacleController : MonoBehaviour
     {
         if (!is_expired)
         {
+
             switch (size)
             {
                 case changeSize.Bigger:
@@ -462,7 +470,7 @@ public class ObstacleController : MonoBehaviour
             switch (color)
             {
                 case IntoColor.TransParent:
-                    my_color.a -= 0.05f; // 알파 값 조정
+                    my_color.a -= 0.15f; // 알파 값 조정
                     // 알파 값이 0 이하면 0으로 고정
                     if (my_color.a <= 0f)
                     {
@@ -473,7 +481,7 @@ public class ObstacleController : MonoBehaviour
                     renderer.material.color = my_color;
                     break;
                 case IntoColor.Opaque:
-                    my_color.a += 0.05f; // 알파 값 조정
+                    my_color.a += 0.15f; // 알파 값 조정
                     // 알파 값이 1을 넘어가면 1로 고정
                     if (my_color.a >= 1f)
                     {
@@ -486,6 +494,7 @@ public class ObstacleController : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// 이제 주어진 방향, 속도, 거리만큼 obstacle이 움직입니다. 
     /// </summary>
@@ -603,9 +612,9 @@ public class ObstacleController : MonoBehaviour
 
     IEnumerator IsmovingTimer(bool n)
     {
-           yield return new WaitForSeconds(waitingTime);
-           initialPosition = transform.position;
-           ObstacleMove(obType);
+        yield return new WaitForSeconds(waitingTime);
+        initialPosition = transform.position;
+        ObstacleMove(obType);
     }
 
 
