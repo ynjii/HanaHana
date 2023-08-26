@@ -156,18 +156,33 @@ public class Launch_Fire : MonoBehaviour
                             float x = Random.Range(18f, 24f);
                             float y = Random.Range(4f, -4f);
                             transf.position = new Vector3(x, y, 0);
+                            AudioSource audio = GetComponent<AudioSource>();
+                            if (audio != null)
+                            {
+                                audio.Play();
+                            }
                             circle_pattern.CircleLaunch(fires[fires_index], transf);
                         }
                         else if (boss_script.boss_state == BossState.pattern4_4)
                         {
                             cool_time = 2f;
                             CirclePattern circle_pattern = new CirclePattern();
+                            AudioSource audio = GetComponent<AudioSource>();
+                            if (audio != null)
+                            {
+                                audio.Play();
+                            }
                             circle_pattern.CircleLaunch(fires[fires_index], boss_script.gameObject.GetComponent<Transform>());
                         }
                         else if (boss_script.boss_state == BossState.pattern4_5)
                         {
                             cool_time = 1f;
                             CirclePattern circle_pattern = new CirclePattern();
+                            AudioSource audio = GetComponent<AudioSource>();
+                            if (audio != null)
+                            {
+                                audio.Play();
+                            }
                             circle_pattern.CLaunch(fires[fires_index], boss_script.gameObject.GetComponent<Transform>(), 4);
                         }
                     }
