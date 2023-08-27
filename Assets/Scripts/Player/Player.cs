@@ -88,11 +88,6 @@ public class Player : MonoBehaviour
         player_state = new PlayerState();
         movable = true;
 
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-        {
-            jump_power = 10;
-        }
-
     }
 
         // Update is called once per frame
@@ -341,11 +336,7 @@ public class Player : MonoBehaviour
         {
             if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
             {
-                if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-                {
-                    rigid.gravityScale = 5;
-                }
-                else
+            
                     rigid.gravityScale = 3;
             }      
         }
