@@ -8,7 +8,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //싱글턴을 할당할 전역변수
-    public AudioSource[] audioSources;
+    public AudioSource[] audioSources=null;
 
     [SerializeField] private Vector3 respawnPoint = new Vector3(-9.16f, -0.48f, 0f); // 플레이어가 리스폰할 체크포인트 위치
     private int death_count = 0;//죽은 횟수
@@ -49,13 +49,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-                                                     //리스폰 위치로 플레이어 위치를 reset함.
-        /*
-        if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
+        //리스폰 위치로 플레이어 위치를 reset함.
+        //보스씬들은 리스폰위치에서 태어나면x
+        if(SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString()&&SceneManager.GetActiveScene().name!="SnowBoss1" && SceneManager.GetActiveScene().name != "SnowBoss2" && SceneManager.GetActiveScene().name != "SnowBoss3")
         {
-            player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
+            if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
+            {
+                player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
+            }
         }
-        Debug.Log("Mrespawnpoint" + player.transform.position);*/
+
         player.GetComponent<Player>().ChangeSprites();
     }
 
@@ -83,30 +86,40 @@ public class GameManager : MonoBehaviour
 
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[0];
-                audioSources[0].enabled=true;
-                audioSources[1].enabled=false;
-                audioSources[2].enabled=false;
-                audioSources[3].enabled = false;
+                if (audioSources != null)
+                {
+                    audioSources[0].enabled = true;
+                    audioSources[1].enabled = false;
+                    audioSources[2].enabled = false;
+                    audioSources[3].enabled = false;
+                }
             }
 
             if (player.transform.position.x >= 382 && player.transform.position.x < 650)
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[1];
-                audioSources[1].enabled=true;
-                audioSources[2].enabled = false;
-                audioSources[0].enabled = false ;
-                audioSources[3].enabled = false;
+                if (audioSources != null)
+                {
+                    audioSources[1].enabled = true;
+                    audioSources[2].enabled = false;
+                    audioSources[0].enabled = false;
+                    audioSources[3].enabled = false;
+                }
             }
 
             if (player.transform.position.x >= 650)
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[2];
-                audioSources[2].enabled=true;
-                audioSources[0].enabled=false;
-                audioSources[1].enabled=false;
-                audioSources[3].enabled = true;
+                if (audioSources != null) 
+                {
+                    audioSources[2].enabled = true;
+                    audioSources[0].enabled = false;
+                    audioSources[1].enabled = false;
+                    audioSources[3].enabled = true;
+                }
+                
             }
         }
     }
