@@ -22,6 +22,7 @@ public class SceneChange : MonoBehaviour
         isNew=true;
         SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
         SceneManager.LoadScene("SnowWhite");
+        Time.timeScale = 1f; //시간 다시 흐르게
     }
 
     public void back_Home()

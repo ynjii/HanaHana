@@ -9,7 +9,7 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
-    public AudioSource[] audioSources=null;
+    public AudioSource[] audioSources = null;
 
 
     [SerializeField] private bool invincibility = false;
@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
         set { invincibility = value; }
     }
 
-    private const float JUMP_CRITERIA=0.005f;
-    
+    private const float JUMP_CRITERIA = 0.005f;
+
     [SerializeField]
     private float jump_power;
     private float max_speed;
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
 
     }
 
-        // Update is called once per frame
+    // Update is called once per frame
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
@@ -141,20 +141,30 @@ public class Player : MonoBehaviour
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
 
-        
+
         // 화면 위에 손가락이 있는지 확인
         if (Input.touchCount > 0)
         {
             isButtonPressed = true;
         }
+
         //버튼 이동
         if (isButtonPressed)
         {
-            if ((!ignoreJump) && isJumpButton && rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
+
+            if ((!ignoreJump) && isJumpButton)//y방향성이 없을 때 눌러야 함.
             {
-                if ((player_state != PlayerState.Jump) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+                if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
                 {
-                    if(audioSources!= null)
+                    if (audioSources != null)
+                    {
+                        audioSources[0].Play();
+                    }
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                }
+                else if ((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump)
+                {
+                    if (audioSources != null)
                     {
                         audioSources[0].Play();
                     }
@@ -245,6 +255,16 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.right * horizontal, ForceMode2D.Impulse);
             }
+
+            if ((player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump)
+            {
+                if (audioSources != null)
+                {
+                    audioSources[0].Play();
+                }
+
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power * 1.08f);
+            }
         }
         else
         {
@@ -270,7 +290,7 @@ public class Player : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
-                if (rigid.velocity.normalized.x != 0||isLeftButton||isRightButton)//x에 방향성이 있으면 걷기
+                if (rigid.velocity.normalized.x != 0 || isLeftButton || isRightButton)//x에 방향성이 있으면 걷기
                 {
                     anim.SetBool("isJump", false);
                     anim.SetBool("isWalk", true);
@@ -294,12 +314,13 @@ public class Player : MonoBehaviour
         //점프키누르면
         if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
         {
-            if ((!ignoreJump)&&(player_state!=PlayerState.Jump)&&(Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+            if ((!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
                 if (audioSources != null)
                 {
                     audioSources[0].Play();
                 }
+
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             }
         }
@@ -310,7 +331,7 @@ public class Player : MonoBehaviour
         if (hitInfo.collider != null)
         {
             jump = false;
-            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space)))
+            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space))||isJumpButton)
             {
                 isClimbing = true;
                 rigid.velocity = new Vector2(rigid.velocity.x, ladder_speed);
@@ -325,7 +346,7 @@ public class Player : MonoBehaviour
             }
         }
         else { jump = true; }
-        
+
         if (isClimbing == true && hitInfo.collider != null)
         {
             inputVertical = Convert.ToSingle(Input.GetButton("Jump") || Input.GetKey(KeyCode.Space));
@@ -336,9 +357,9 @@ public class Player : MonoBehaviour
         {
             if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
             {
-            
-                    rigid.gravityScale = 3;
-            }      
+
+                rigid.gravityScale = 3;
+            }
         }
     }
 
@@ -396,7 +417,7 @@ public class Player : MonoBehaviour
             {
                 audioSources[1].Play();
             }
-            
+
             player_state = PlayerState.Damaged;
             this.gameObject.layer = 7;
             isBorder = true;
@@ -437,7 +458,7 @@ public class Player : MonoBehaviour
         {
             audioSources[1].Play();
         }
-        
+
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경
@@ -460,7 +481,7 @@ public class Player : MonoBehaviour
         {
             audioSources[1].Play();
         }
-      
+
         player_state = PlayerState.Damaged;
 
         this.gameObject.layer = 7;
@@ -468,7 +489,7 @@ public class Player : MonoBehaviour
         this.gameObject.SetActive(false);
 
     }
-  
+
 
     IEnumerator BurnAndDie()
     {

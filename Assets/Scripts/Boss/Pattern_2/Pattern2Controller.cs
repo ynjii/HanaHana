@@ -10,6 +10,10 @@ public class Pattern2Controller : MonoBehaviour
     private System.Random random = new System.Random();
     private List<System.Action> availablePatterns = new List<System.Action>();
     public List<GameObject> enemyPatterns = new List<GameObject>();
+
+    private ThrowObj throwObj;
+
+
     public List<GameObject> warningPatterns = new List<GameObject>(); //닿으면 죽는 패턴
     public List<GameObject> redFlag = new List<GameObject>(); // 경고
     public List<GameObject> pattern4Mirrors = new List<GameObject>(); // 4패턴의 거울들
@@ -18,6 +22,8 @@ public class Pattern2Controller : MonoBehaviour
     [SerializeField] Camera camera;
 
     [SerializeField] GameObject patternChangeGO;
+    [SerializeField] GameObject FadeIn;
+    [SerializeField] GameObject FadeOut;
     private System.Action previousPattern;
 
     public Slider slHP; //보스 피받아오기
@@ -25,9 +31,9 @@ public class Pattern2Controller : MonoBehaviour
     private float currentTime;
     private float currentHP;
 
-    private float warningHP;
-
     private bool isDone = false;
+
+    private float warningHP;
 
     public Animator animator;
 
@@ -47,7 +53,7 @@ public class Pattern2Controller : MonoBehaviour
         };
 
 
-
+        //StartCoroutine(startEvent());
         // 첫 번째 패턴 시작
         StartNextPattern();
     }
@@ -87,8 +93,20 @@ public class Pattern2Controller : MonoBehaviour
         }
 
     }
+    /*
+        private IEnumerator startEvent()
+        {
+            Time.timeScale = 0f; //  시간 멈춤
 
-    IEnumerator PatternChange()
+            FadeOut.SetActive(true);
+
+            yield return new WaitForSecondsRealtime(2f); // 2초 동안 대기 (실제 경과 시간에 영향을 받음)
+
+            Time.timeScale = 1f; // 원래의 timeScale 값으로 복원
+
+        }*/
+
+    private IEnumerator PatternChange()
     {
         patternChangeGO.SetActive(true);
 
@@ -179,7 +197,7 @@ public class Pattern2Controller : MonoBehaviour
             int randomPrefabIndex = Random.Range(0, availableFire2Prefabs.Count);
             GameObject selectedFire2Prefab = availableFire2Prefabs[randomPrefabIndex];
 
-            Vector3 fixedPosition = new Vector3(0f, -2.3f, 0f); // 고정된 위치
+            Vector3 fixedPosition = new Vector3(0f, -3f, 0f); // 고정된 위치
 
             GameObject spawnedFire2 = Instantiate(selectedFire2Prefab, fixedPosition, selectedFire2Prefab.transform.rotation);
 
@@ -199,19 +217,34 @@ public class Pattern2Controller : MonoBehaviour
     private void Pattern3()
     {
         // 패턴 3 실행 코드
-        float currentTime = slHP.value;
+        Debug.Log("3");
         enemyPatterns[2].SetActive(true);
     }
 
     private void Pattern4()
     {
         // 패턴 4 실행 코드
+        float current = slHP.value; //현재
+        Debug.Log("4");
+        StartCoroutine(ThrowingGlass(current));
+
+    }
+
+    private IEnumerator ThrowingGlass(float current)
+    {
         enemyPatterns[3].SetActive(true);
-        /*while (!isDone && slHP.value < current - 11f) //한 4초 남았을때 1초 동안 탄막 멈추고 주인공향해 날아감  이때 주인공 안 움직이면 죽음
-       {
-           isDone = true;
 
-       }*/
-
+        Debug.Log(current);
+        while (!isDone)
+        {
+            if (slHP.value <= current - 10f) //한 4초 남았을때 1초 동안 탄막 멈추고 주인공향해 날아감  이때 주인공 안 움직이면 죽음
+            {
+                Debug.Log("됐습니다.");
+                enemyPatterns[3].SetActive(false);
+                enemyPatterns[4].SetActive(true);
+                isDone = true;
+            }
+            yield return null;
+        }
     }
 }

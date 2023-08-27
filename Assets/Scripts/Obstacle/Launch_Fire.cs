@@ -236,8 +236,8 @@ public class Launch_Fire : MonoBehaviour
                 // 체크 후에 접근
                 if (cclon_obj1 != null && cclon_obj2 != null)
                 {
-                    cclon_obj1.transform.position += new Vector3(0, 0.2f, 0);
-                    cclon_obj2.transform.position += new Vector3(0, -0.2f, 0);
+                    cclon_obj1.transform.position += new Vector3(0, 0.4f, 0);
+                    cclon_obj2.transform.position += new Vector3(0, -0.4f, 0);
                 }
                 yield return new WaitForSeconds(0.1f);
             }
