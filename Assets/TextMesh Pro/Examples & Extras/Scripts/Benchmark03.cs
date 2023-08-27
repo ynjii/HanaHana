@@ -16,10 +16,6 @@ namespace TMPro.Examples
         public Font SourceFont;
 
 
-        void Awake()
-        {
-
-        }
 
 
         void Start()
