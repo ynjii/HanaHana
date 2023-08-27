@@ -49,13 +49,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-                                                     //리스폰 위치로 플레이어 위치를 reset함.
-        /*
+        //리스폰 위치로 플레이어 위치를 reset함.
         if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
         {
             player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
         }
-        Debug.Log("Mrespawnpoint" + player.transform.position);*/
         player.GetComponent<Player>().ChangeSprites();
     }
 
