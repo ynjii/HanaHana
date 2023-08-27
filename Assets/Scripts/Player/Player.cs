@@ -172,13 +172,45 @@ public class Player : MonoBehaviour
                 }
             }
 
+            if (isIce && isJumpButton)
+            {
+                if (audioSources != null)
+                {
+                    audioSources[0].Play();
+                }
+                if ((player_state != PlayerState.Jump) && jump)
+                {
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                }
+            }
+
             if (isLeftButton)
             {
-                transform.position += Vector3.left * max_speed * Time.deltaTime;
+                if (!isIce)
+                {
+                    transform.position += Vector3.left * max_speed * Time.deltaTime;
+                }
+                else
+                {
+                    if (Mathf.Abs(rigid.velocity.x) <= max_speed)
+                    {
+                        rigid.AddForce(Vector2.left, ForceMode2D.Impulse);
+                    }
+                }
             }
             if (isRightButton)
             {
-                transform.position += Vector3.right * max_speed * Time.deltaTime;
+                if (!isIce)
+                {
+                    transform.position += Vector3.right * max_speed * Time.deltaTime;
+                }
+                else
+                {
+                    if (Mathf.Abs(rigid.velocity.x) <= max_speed)
+                    {
+                        rigid.AddForce(Vector2.right, ForceMode2D.Impulse);
+                    }
+                }
             }
         }
 
