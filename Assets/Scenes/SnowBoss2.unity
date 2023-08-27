@@ -5793,7 +5793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6083247012946456494, guid: 4996028988109e045bc0fe3ac4cd2f7d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6083247012946456495, guid: 4996028988109e045bc0fe3ac4cd2f7d, type: 3}
       propertyPath: m_RootOrder
@@ -12495,6 +12495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e690f40d4ffe2de48818115b0b0995af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSources: []
   respawnPoint: {x: -6.17, y: -0.54, z: 0}
   isGameover: 0
   death_text: {fileID: 405015789958801516}
@@ -12520,6 +12521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43088e87fa558e143aecaa5d37a49834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SaveLoad: {fileID: 0}
 --- !u!1 &4156751580649667146
 GameObject:
   m_ObjectHideFlags: 0
@@ -12853,6 +12855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d755e9fc29b3f024b9caa3b8092eae85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSources: []
   invincibility: 1
   jump_power: 0
   player_state: 0
