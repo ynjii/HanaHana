@@ -33,7 +33,6 @@ public class PopupManager : MonoBehaviour
     public void YesAction()
     {
         // 네 버튼을 눌렀을 때의 동작 추가
-        Debug.Log("네 버튼을 클릭했습니다.");
     }
 
     // 아니오 버튼 동작
