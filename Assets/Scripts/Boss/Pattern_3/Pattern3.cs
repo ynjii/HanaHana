@@ -28,14 +28,14 @@ public class Pattern3 : MonoBehaviour
     private void Update()
     {
         // 보스 체력/시간 변수가 0이하가 되면 패턴 넘기는 처리를 시작
-        if (_bossHP.currentHP <= 0 && !isEnd)
+        if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover && !isEnd)
         {
             isEnd= true;
-            StartCoroutine(PatternChange());
+            PatternChange();
         }
     }
 
-    IEnumerator PatternChange()
+    private void PatternChange()
     {
         StopAllCoroutines();
         _patternChangeGO.SetActive(true); 
@@ -48,10 +48,9 @@ public class Pattern3 : MonoBehaviour
 
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForSeconds(3);
         _bossAnim.SetBool("isHideEye", false);
-        Time.timeScale = 0f;
         _clearUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     IEnumerator InvertScene()
