@@ -14,6 +14,7 @@ public class Pattern3 : MonoBehaviour
 
     [SerializeField] GameObject _patternChangeGO;
     [SerializeField] private Animator _bossAnim;
+    [SerializeField] private GameObject _clearUI;
     Player _player;
     bool isEnd = false;
 
@@ -50,6 +51,7 @@ public class Pattern3 : MonoBehaviour
         yield return new WaitForSeconds(3);
         _bossAnim.SetBool("isHideEye", false);
         Time.timeScale = 0f;
+        _clearUI.SetActive(true);
     }
 
     IEnumerator InvertScene()
