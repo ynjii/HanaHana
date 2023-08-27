@@ -42951,7 +42951,7 @@ MonoBehaviour:
   audioSources:
   - {fileID: 1788730019798943563}
   - {fileID: 1788730019798943560}
-  invincibility: 1
+  invincibility: 0
   jump_power: 16
   player_state: 0
   SaveLoad: {fileID: 1699537233}
@@ -49735,7 +49735,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5494721109636628238}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd57e2b10715acc4c9a6dd5b63d72068, type: 3}
   m_Name: 
@@ -50350,6 +50350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slHP: {fileID: 6162429893107936412}
   fillArea: {fileID: 6162429892714128862}
+  player: {fileID: 0}
   decreaseRate: 1
   currentHP: 0
   hpType: 0
