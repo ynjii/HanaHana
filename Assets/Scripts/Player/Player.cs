@@ -331,7 +331,7 @@ public class Player : MonoBehaviour
         if (hitInfo.collider != null)
         {
             jump = false;
-            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space)))
+            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space))||isJumpButton)
             {
                 isClimbing = true;
                 rigid.velocity = new Vector2(rigid.velocity.x, ladder_speed);
