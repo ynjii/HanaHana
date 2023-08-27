@@ -197,7 +197,7 @@ public class Pattern2Controller : MonoBehaviour
             int randomPrefabIndex = Random.Range(0, availableFire2Prefabs.Count);
             GameObject selectedFire2Prefab = availableFire2Prefabs[randomPrefabIndex];
 
-            Vector3 fixedPosition = new Vector3(0f, -2.3f, 0f); // 고정된 위치
+            Vector3 fixedPosition = new Vector3(0f, -3f, 0f); // 고정된 위치
 
             GameObject spawnedFire2 = Instantiate(selectedFire2Prefab, fixedPosition, selectedFire2Prefab.transform.rotation);
 
