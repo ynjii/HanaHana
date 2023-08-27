@@ -147,12 +147,22 @@ public class Player : MonoBehaviour
         {
             isButtonPressed = true;
         }
+
         //버튼 이동
         if (isButtonPressed)
         {
-            if ((!ignoreJump) && isJumpButton && rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
+
+            if ((!ignoreJump) && isJumpButton )//y방향성이 없을 때 눌러야 함.
             {
-                if ((player_state != PlayerState.Jump) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+                if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+                {
+                    if (audioSources != null)
+                    {
+                        audioSources[0].Play();
+                    }
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                }
+                else if((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA )&& (player_state != PlayerState.Jump) && jump )
                 {
                     if(audioSources!= null)
                     {

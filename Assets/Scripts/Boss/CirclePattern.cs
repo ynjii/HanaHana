@@ -13,7 +13,7 @@ public class CirclePattern : MonoBehaviour
     public void CircleLaunch(GameObject prefab,Transform transform)   
     {
 
-        int roundNumA = 20;
+        int roundNumA = 15;
 
 
         for (int i = 0; i < roundNumA; i++)
@@ -55,7 +55,7 @@ public class CirclePattern : MonoBehaviour
     public void CLaunch(GameObject prefab, Transform transform, int whole_num)
     {
 
-        int roundNumA = 20;
+        int roundNumA = 15;
         int whole_start=Random.Range(0, roundNumA-whole_num);//0~roundNumA-whole_num-1
         int whole_count = 0;
         for (int i = 0; i < roundNumA; i++)
