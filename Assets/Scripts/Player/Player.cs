@@ -88,12 +88,6 @@ public class Player : MonoBehaviour
         player_state = new PlayerState();
         movable = true;
 
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-        {
-            jump_power = 10;
-        }
-        else
-            jump_power = 16;
     }
 
         // Update is called once per frame
@@ -117,15 +111,6 @@ public class Player : MonoBehaviour
 
         if (!movable) return;
 
-        //낙하속도 빠르게
-        if (rigid.velocity.normalized.y == -1)
-        {
-            if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-            {
-                rigid.gravityScale = 5;
-            }
-            else rigid.gravityScale = 3;
-        }
         //Idle이면 중력스케일 복구
         if (player_state == PlayerState.Idle)
         {
@@ -309,7 +294,7 @@ public class Player : MonoBehaviour
         //점프키누르면
         if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
         {
-            if ((player_state!=PlayerState.Jump)&&(Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+            if ((!ignoreJump)&&(player_state!=PlayerState.Jump)&&(Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
                 if (audioSources != null)
                 {
@@ -340,6 +325,7 @@ public class Player : MonoBehaviour
             }
         }
         else { jump = true; }
+        
         if (isClimbing == true && hitInfo.collider != null)
         {
             inputVertical = Convert.ToSingle(Input.GetButton("Jump") || Input.GetKey(KeyCode.Space));
@@ -348,7 +334,11 @@ public class Player : MonoBehaviour
         }
         else
         {
-            rigid.gravityScale = 2;
+            if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
+            {
+            
+                    rigid.gravityScale = 3;
+            }      
         }
     }
 
