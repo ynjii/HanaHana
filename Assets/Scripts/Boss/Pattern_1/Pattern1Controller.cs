@@ -14,6 +14,7 @@ public class Pattern1Controller : MonoBehaviour
     public GameObject pattern4;
     public GameObject pattern5;
     public GameObject endPanel;
+    public Rigidbody2D other;
 
     void Start()
     {
@@ -33,15 +34,19 @@ public class Pattern1Controller : MonoBehaviour
         pattern2.SetActive(true);
         yield return new WaitForSeconds(12f);
         pattern2.SetActive(false);
+        other.constraints = RigidbodyConstraints2D.FreezeRotation ;
         yield return new WaitForSeconds(2f);
         pattern3.SetActive(true);
         yield return new WaitForSeconds(12f);
         pattern3.SetActive(false);
+        other.constraints = RigidbodyConstraints2D.FreezeRotation ;
         yield return new WaitForSeconds(2f);
         pattern5.SetActive(true);
         yield return new WaitForSeconds(12f);
         pattern5.SetActive(false);
+        other.constraints = RigidbodyConstraints2D.FreezeRotation ;
         endPanel.SetActive(true);
+        Time.timeScale = 0f; //시간 정지
 
         /*int[] randomPattern = GenerateRandomPattern(1, 4); 
 
