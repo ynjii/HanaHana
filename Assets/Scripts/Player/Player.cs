@@ -9,7 +9,7 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
-    public AudioSource[] audioSources;
+    public AudioSource[] audioSources=null;
 
 
     [SerializeField] private bool invincibility = false;
@@ -169,7 +169,10 @@ public class Player : MonoBehaviour
             {
                 if ((player_state != PlayerState.Jump) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
                 {
-                    audioSources[0].Play();
+                    if(audioSources!= null)
+                    {
+                        audioSources[0].Play();
+                    }
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 }
             }
@@ -308,7 +311,10 @@ public class Player : MonoBehaviour
         {
             if ((player_state!=PlayerState.Jump)&&(Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
-                audioSources[0].Play();
+                if (audioSources != null)
+                {
+                    audioSources[0].Play();
+                }
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             }
         }
@@ -396,7 +402,11 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Border"))
         {
-            audioSources[1].Play();
+            if (audioSources != null)
+            {
+                audioSources[1].Play();
+            }
+            
             player_state = PlayerState.Damaged;
             this.gameObject.layer = 7;
             isBorder = true;
@@ -432,7 +442,12 @@ public class Player : MonoBehaviour
 
     public void onDamaged(Vector2 targetPos)
     {
-        audioSources[1].Play();
+
+        if (audioSources != null)
+        {
+            audioSources[1].Play();
+        }
+        
         //맞은 상태
         player_state = PlayerState.Damaged;
         //레이어변경
@@ -450,7 +465,12 @@ public class Player : MonoBehaviour
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
-        audioSources[1].Play();
+
+        if (audioSources != null)
+        {
+            audioSources[1].Play();
+        }
+      
         player_state = PlayerState.Damaged;
 
         this.gameObject.layer = 7;
