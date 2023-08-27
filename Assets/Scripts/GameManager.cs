@@ -60,8 +60,6 @@ public class GameManager : MonoBehaviour
         }
 
         player.GetComponent<Player>().ChangeSprites();
-        
-        PlayerPrefs.DeleteAll();
     }
 
     void Update()
