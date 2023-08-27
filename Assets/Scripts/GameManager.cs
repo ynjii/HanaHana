@@ -80,29 +80,33 @@ public class GameManager : MonoBehaviour
         {
             if (player.transform.position.x < 382)
             {
+
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[0];
-                audioSources[0].Play();
-                audioSources[1].Stop();
-                audioSources[2].Stop();
+                audioSources[0].enabled=true;
+                audioSources[1].enabled=false;
+                audioSources[2].enabled=false;
+                audioSources[3].enabled = false;
             }
 
             if (player.transform.position.x >= 382 && player.transform.position.x < 650)
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[1];
-                audioSources[1].Play();
-                audioSources[2].Stop();
-                audioSources[0].Stop();
+                audioSources[1].enabled=true;
+                audioSources[2].enabled = false;
+                audioSources[0].enabled = false ;
+                audioSources[3].enabled = false;
             }
 
             if (player.transform.position.x >= 650)
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[2];
-                audioSources[2].Play();
-                audioSources[0].Stop();
-                audioSources[1].Stop(); 
+                audioSources[2].enabled=true;
+                audioSources[0].enabled=false;
+                audioSources[1].enabled=false;
+                audioSources[3].enabled = true;
             }
         }
     }

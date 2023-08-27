@@ -452,10 +452,13 @@ public class Player : MonoBehaviour
     {
         audioSources[1].Play();
         player_state = PlayerState.Damaged;
-        this.gameObject.layer= 7;
+
+        this.gameObject.layer = 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
+
     }
+  
 
     IEnumerator BurnAndDie()
     {
