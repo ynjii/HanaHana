@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
+using Random = UnityEngine.Random;
 
 public class MirrorReflect : MonoBehaviour
 {
@@ -12,13 +14,17 @@ public class MirrorReflect : MonoBehaviour
     private GameObject player;
     private Player player_script;
     private SpriteRenderer player_spriterenderer;
+    private AudioSource _audioSource;
 
     [SerializeField] private bool isReflectable;
     [SerializeField] private bool is_first_entered;
     [SerializeField] private Vector3 _direction;
     [SerializeField] private bool _rotating = false;
     [SerializeField] private float _rotateSpeed = 20.0f;
+    [SerializeField] private List<AudioClip> _audioClips;
     private float angle = 0f;
+    private bool _isActivatedBefore = false;
+    private bool _isPlaying = false;
 
     private void Start()
     {
@@ -27,6 +33,7 @@ public class MirrorReflect : MonoBehaviour
         player_script = player.GetComponent<Player>();
         player_spriterenderer = player.GetComponent<SpriteRenderer>();
         predictionLayerMask = ~(1 << 8);
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void LateUpdate()
@@ -146,10 +153,12 @@ public class MirrorReflect : MonoBehaviour
         {
             ShowLaser();
             DrawPredictionLine();
+            PlayLaserSound();
         }
         else
         {
             HideLaser();
+            _isActivatedBefore = false;
         }
     }
 
@@ -165,6 +174,7 @@ public class MirrorReflect : MonoBehaviour
         {
             ShowLaser();
             DrawPredictionLine();
+            PlayLaserSound();
         }
         else
         {
@@ -178,6 +188,7 @@ public class MirrorReflect : MonoBehaviour
         {
             ShowLaser();
             DrawPredictionLine();
+            PlayLaserSound();
         }
         else
         {
@@ -191,10 +202,23 @@ public class MirrorReflect : MonoBehaviour
         {
             ShowLaser();
             DrawPredictionLine();
+            PlayLaserSound();
         }
         else
         {
             HideLaser();
         }
+    }
+
+    
+    private void PlayLaserSound()
+    {
+        if (!_isActivatedBefore)
+        {
+            int count = Random.Range(0, _audioClips.Count);
+            _audioSource.volume = 1f;
+            _audioSource.PlayOneShot(_audioClips[count]);
+        }
+        _isActivatedBefore = true;
     }
 }

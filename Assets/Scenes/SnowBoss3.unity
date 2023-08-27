@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &39842256
 Transform:
   m_ObjectHideFlags: 0
@@ -155,8 +155,8 @@ Transform:
   - {fileID: 400230279}
   - {fileID: 348619494}
   - {fileID: 988921138}
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_Father: {fileID: 1105958022}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &63020719
 GameObject:
@@ -3555,7 +3555,7 @@ Transform:
   - {fileID: 1829358228}
   - {fileID: 847337718}
   m_Father: {fileID: 1105958022}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &874669029
 GameObject:
@@ -3700,8 +3700,8 @@ Transform:
   - {fileID: 262309114}
   - {fileID: 317682742}
   - {fileID: 1746959596}
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_Father: {fileID: 1105958022}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &927295112
 GameObject:
@@ -4307,7 +4307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1105958021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4342,9 +4342,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5519815791963920944}
+  - {fileID: 1938808494}
+  - {fileID: 891312266}
+  - {fileID: 39842256}
   - {fileID: 849014597}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1120131049
 GameObject:
@@ -6226,7 +6230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1938808494
 Transform:
   m_ObjectHideFlags: 0
@@ -6243,8 +6247,8 @@ Transform:
   - {fileID: 782056729}
   - {fileID: 202555034}
   - {fileID: 273098900}
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_Father: {fileID: 1105958022}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945127478 stripped
 GameObject:
@@ -12165,8 +12169,8 @@ Transform:
   - {fileID: 380674593}
   - {fileID: 5519815791261319007}
   - {fileID: 1148859409}
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 1105958022}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5519815791963920975
 GameObject:
@@ -13837,6 +13841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableSpawn: 1
   Enemy: {fileID: 5428168312776633260, guid: 62ee55596e0bde64388aefb3640d8514, type: 3}
+  player: {fileID: 0}
   second: 5
   delay: 1.5
   isPanel: 0
@@ -14717,6 +14722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slHP: {fileID: 7027729185496490726}
   fillArea: {fileID: 7027729185521200036}
+  player: {fileID: 0}
   decreaseRate: 1
   currentHP: 0
   hpType: 0

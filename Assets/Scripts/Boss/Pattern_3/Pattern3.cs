@@ -49,7 +49,7 @@ public class Pattern3 : MonoBehaviour
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
         yield return new WaitForSeconds(3);
         _bossAnim.SetBool("isHideEye", false);
-        SceneManager.LoadScene("SnowBoss4");
+        Time.timeScale = 0f;
     }
 
     IEnumerator InvertScene()
