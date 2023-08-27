@@ -15,8 +15,5 @@ public class PopupText_test : MonoBehaviour
         _popupText.PopupTextList(text_list1_1, true);
     }
 
-    void Update()
-    {
-        
-    }
+
 }

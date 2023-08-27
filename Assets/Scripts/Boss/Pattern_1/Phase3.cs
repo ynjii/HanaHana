@@ -14,6 +14,7 @@ public class Phase3 : MonoBehaviour
     public GameObject RightSpike;
     public GameObject Block;
     public GameObject GoFire;
+    
 
     void Start()
     {

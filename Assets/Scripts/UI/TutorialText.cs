@@ -14,7 +14,6 @@ public class TutorialText : MonoBehaviour
     void Start()
     {
         int tutorial_flag=SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("tutorial");
-        Debug.Log("flag"+ tutorial_flag);
         
         if(tutorial_flag==1||tutorial_flag==3||tutorial_flag==4){
             gameObject.SetActive(false);

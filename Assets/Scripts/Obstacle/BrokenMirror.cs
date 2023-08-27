@@ -28,6 +28,11 @@ public class BrokenMirror : MonoBehaviour
             count--;
         }
         else{
+            AudioSource audio=GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
+            if (audio != null&&audio.clip.name== "glasscrack")
+            {
+                audio.Play();
+            }
             this.gameObject.SetActive(false);
         }
     }

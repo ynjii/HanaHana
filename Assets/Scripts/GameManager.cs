@@ -8,7 +8,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //싱글턴을 할당할 전역변수
-
+    public AudioSource[] audioSources;
 
     [SerializeField] private Vector3 respawnPoint = new Vector3(-9.16f, -0.48f, 0f); // 플레이어가 리스폰할 체크포인트 위치
     private int death_count = 0;//죽은 횟수
@@ -80,20 +80,33 @@ public class GameManager : MonoBehaviour
         {
             if (player.transform.position.x < 382)
             {
+
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[0];
+                audioSources[0].enabled=true;
+                audioSources[1].enabled=false;
+                audioSources[2].enabled=false;
+                audioSources[3].enabled = false;
             }
 
             if (player.transform.position.x >= 382 && player.transform.position.x < 650)
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[1];
+                audioSources[1].enabled=true;
+                audioSources[2].enabled = false;
+                audioSources[0].enabled = false ;
+                audioSources[3].enabled = false;
             }
 
             if (player.transform.position.x >= 650)
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[2];
+                audioSources[2].enabled=true;
+                audioSources[0].enabled=false;
+                audioSources[1].enabled=false;
+                audioSources[3].enabled = true;
             }
         }
     }
