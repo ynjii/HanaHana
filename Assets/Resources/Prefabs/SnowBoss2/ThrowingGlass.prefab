@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8266160174692586025}
   - component: {fileID: 8035352252159990117}
   - component: {fileID: 1625398679550077510}
+  - component: {fileID: 6343332299416568283}
   m_Layer: 9
   m_Name: ThrowingGlass
   m_TagString: Enemy
@@ -140,3 +141,17 @@ PolygonCollider2D:
       - {x: 0.16666667, y: 0.11111111}
       - {x: 0.16666667, y: -0.2777778}
       - {x: 0.055555556, y: -0.3888889}
+--- !u!114 &6343332299416568283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399220329470157013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName1: Player
+  tagName2: Player

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6571007033619037746}
   - component: {fileID: 5013587885776378239}
   - component: {fileID: 839384448304841298}
+  - component: {fileID: 6178835234091321912}
   m_Layer: 9
   m_Name: ThrowingFire 2
   m_TagString: Enemy
@@ -123,3 +124,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.009568751}
   serializedVersion: 2
   m_Radius: 0.025665184
+--- !u!114 &6178835234091321912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6602731346569786644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb037a6f22b039469e0426064f5ff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName1: Player
+  tagName2: Player
