@@ -92,8 +92,7 @@ public class Player : MonoBehaviour
         {
             jump_power = 10;
         }
-        else
-            jump_power = 16;
+
     }
 
         // Update is called once per frame
@@ -340,6 +339,7 @@ public class Player : MonoBehaviour
             }
         }
         else { jump = true; }
+        
         if (isClimbing == true && hitInfo.collider != null)
         {
             inputVertical = Convert.ToSingle(Input.GetButton("Jump") || Input.GetKey(KeyCode.Space));
@@ -348,7 +348,14 @@ public class Player : MonoBehaviour
         }
         else
         {
-            rigid.gravityScale = 2;
+            if (rigid.velocity.normalized.y <= JUMP_CRITERIA)
+            {
+                rigid.gravityScale = 3;
+            }
+            else
+            {
+                rigid.gravityScale = 2;
+            }
         }
     }
 
