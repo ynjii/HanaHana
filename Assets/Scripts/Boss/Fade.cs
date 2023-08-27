@@ -20,12 +20,10 @@ public class Fade : MonoBehaviour
 
         if (fadeType == FadeType.FadeIn)
         {
-            Debug.Log("fadeIn");
             StartCoroutine(FadeIn(image));
         }
         else if (fadeType == FadeType.FadeOut)
         {
-            Debug.Log("fadeOut");
             StartCoroutine(FadeOut(image));
         }
     }
