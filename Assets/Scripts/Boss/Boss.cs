@@ -8,7 +8,7 @@ using DG.Tweening;
 public class Boss : MonoBehaviour
 {
     public AudioSource[] audioSources;
-    public GameObject 시연클리어오브젝트;
+    public GameObject clearUI;
 
     [SerializeField] GameObject[] _patternChangeGO;
     private Launch_Fire launcher0_script;
@@ -94,7 +94,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (시연클리어오브젝트.active == true)
+        if (clearUI.active == true)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -327,9 +327,10 @@ public class Boss : MonoBehaviour
         Invoke("mirrorDeactive", 11f);
 
         //시연용 UI띄우기
-        Invoke("show시연클리어문구", 20f);
+        Invoke("showClearUI", 20f);
         //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
     }
+
 
     private void mirrorDeactive()
     {
@@ -351,9 +352,9 @@ public class Boss : MonoBehaviour
         audioSources[1].Play();
     }
 
-    private void show시연클리어문구()
+    private void showClearUI()
     {
-        시연클리어오브젝트.SetActive(true);
+        clearUI.SetActive(true);
         audioSources[2].Play();        
     }
 
