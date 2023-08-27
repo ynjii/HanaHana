@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static Define;
+
 
 public class BossHP : MonoBehaviour
 {
     public Slider slHP; // Inspector에서 Slider 컴포넌트를 할당해야 합니다.
     public GameObject fillArea;
+
+    public GameObject player;
     public float decreaseRate = 1.0f; // 감소율 조정을 위한 변수
     public float currentHP; // 현재 HP 값
     [SerializeField] private HPType hpType;
@@ -16,6 +20,7 @@ public class BossHP : MonoBehaviour
     }
     void Start()
     {
+
         if (hpType == HPType.HP)
         {
             boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
@@ -31,7 +36,10 @@ public class BossHP : MonoBehaviour
 
     void Update()
     {
-        DecreaseHP(hpType);
+        if (player == null || player.layer != 7)
+        {
+            DecreaseHP(hpType);
+        }
 
         if (currentHP <= 0)
             fillArea.SetActive(false);
