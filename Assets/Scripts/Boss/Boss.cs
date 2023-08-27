@@ -7,6 +7,9 @@ using static Define;
 using DG.Tweening;
 public class Boss : MonoBehaviour
 {
+    public AudioSource[] audioSources;
+    public GameObject 시연클리어오브젝트;
+
     [SerializeField] GameObject[] _patternChangeGO;
     private Launch_Fire launcher0_script;
     private Launch_Fire launcher1_script;
@@ -85,11 +88,21 @@ public class Boss : MonoBehaviour
         G_target_positions.Add(new Vector3(21.55f, -1.85f, 0));
 
         RandomPattern();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (시연클리어오브젝트.active == true)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                //마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+                
         if (!is_dead) {
             //맞으면 빨간색 처리
             hit_timer += Time.deltaTime;
@@ -233,6 +246,7 @@ public class Boss : MonoBehaviour
 
     private void WhenPatternChangeSetting()
     {
+        GetComponent<AudioSource>().Play();
         this.launcher0_script.Cool_Time = 0;
         this.launcher1_script.Cool_Time = 0;
         this.transform.position = Boss_initial_position;
@@ -308,20 +322,24 @@ public class Boss : MonoBehaviour
         }
         //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
         StartCoroutine(PatternChange());
+        
         //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
         Invoke("mirrorDeactive", 11f);
 
+        //시연용 UI띄우기
+        Invoke("show시연클리어문구", 20f);
         //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
-
     }
 
     private void mirrorDeactive()
     {
-        foreach(GameObject obj in _patternChangeGO)
+        audioSources[0].Stop();
+        foreach (GameObject obj in _patternChangeGO)
         {
             obj.SetActive(false);
         }
         mirror_anim.SetBool("isDead", true);
+        audioSources[1].Play();
         anim.SetBool("isHideEye", false);
         mirror_anim.gameObject.SetActive(false);
         CirclePattern circle_pattern = new CirclePattern();
@@ -330,6 +348,13 @@ public class Boss : MonoBehaviour
             obj.SetActive(true);
         }
         circle_pattern.CircleLaunch(mirrors, this.transform,10);
+        audioSources[1].Play();
+    }
+
+    private void show시연클리어문구()
+    {
+        시연클리어오브젝트.SetActive(true);
+        audioSources[2].Play();        
     }
 
     IEnumerator PatternChange()
@@ -347,6 +372,12 @@ public class Boss : MonoBehaviour
         anim.SetBool("isHideEye", true);
 
         // 불 스프라이트는 자동 재생
+
+        //폭발사운드
+        audioSources[0].loop = true;
+        audioSources[0].Play();
+        
+
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
         yield return new WaitForSeconds(10);
     }
