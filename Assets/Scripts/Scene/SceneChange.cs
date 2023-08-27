@@ -18,6 +18,7 @@ public class SceneChange : MonoBehaviour
     public void new_Change()
     {
         /*if(EditorUtility.DisplayDialog("게임 세이브 정보 삭제", "정말 삭제 하시겠습니까?", "네", "아니오"))*/
+        Debug.Log("이게 되나?");
         PlayerPrefs.DeleteAll();
         isNew=true;
         SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
