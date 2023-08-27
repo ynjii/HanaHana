@@ -19,7 +19,6 @@ public class SceneChange : MonoBehaviour
     {
         /*if(EditorUtility.DisplayDialog("게임 세이브 정보 삭제", "정말 삭제 하시겠습니까?", "네", "아니오"))*/
         PlayerPrefs.DeleteAll();
-        Debug.Log("헤헤");
         isNew=true;
         SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
         SceneManager.LoadScene("SnowWhite");

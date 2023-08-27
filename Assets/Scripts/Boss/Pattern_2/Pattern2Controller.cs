@@ -164,7 +164,6 @@ public class Pattern2Controller : MonoBehaviour
     {
         // 패턴 1 실행 코드
         float current = slHP.value;
-        Debug.Log("1");
         enemyPatterns[0].SetActive(true);
         StartCoroutine(SlidingFireCoroutine(current));
     }
@@ -194,7 +193,6 @@ public class Pattern2Controller : MonoBehaviour
     private void Pattern2()
     {
         // 패턴 2 실행 코드
-        Debug.Log("2");
         enemyPatterns[1].SetActive(true);
     }
 
@@ -202,14 +200,12 @@ public class Pattern2Controller : MonoBehaviour
     {
         // 패턴 3 실행 코드
         float currentTime = slHP.value;
-        Debug.Log("3");
         enemyPatterns[2].SetActive(true);
     }
 
     private void Pattern4()
     {
         // 패턴 4 실행 코드
-        Debug.Log("4");
         enemyPatterns[3].SetActive(true);
         /*while (!isDone && slHP.value < current - 11f) //한 4초 남았을때 1초 동안 탄막 멈추고 주인공향해 날아감  이때 주인공 안 움직이면 죽음
        {
