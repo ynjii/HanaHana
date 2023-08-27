@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             jump_power = 10;
         }
         else
-            jump_power = 15;
+            jump_power = 16;
     }
 
         // Update is called once per frame
