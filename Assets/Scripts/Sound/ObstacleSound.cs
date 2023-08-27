@@ -26,7 +26,6 @@ public class ObstacleSound : MonoBehaviour
         {
             if (audio != null)
             {
-                Debug.Log(audio.clip);
                 audio.Play();
             }
         }
