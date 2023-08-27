@@ -5,7 +5,7 @@ using UnityEngine;
 public class RuntoPlayer : MonoBehaviour
 {
     private float accumTimeAfterUpdate;
-    private float moveSpeed = 20f;
+    private float moveSpeed = 4f;
     private Vector3 myPosition;
 
     private bool isMoving = false;

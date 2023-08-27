@@ -11,6 +11,7 @@ public class Pattern2Controller : MonoBehaviour
     private List<System.Action> availablePatterns = new List<System.Action>();
     public List<GameObject> enemyPatterns = new List<GameObject>();
 
+    public GameObject 시연클리어오브젝트;
     private ThrowObj throwObj;
 
 
@@ -57,13 +58,25 @@ public class Pattern2Controller : MonoBehaviour
         // 첫 번째 패턴 시작
         StartNextPattern();
     }
-
+    private void show시연클리어문구()
+    {
+        시연클리어오브젝트.SetActive(true);
+    }
     private void Update()
     {
+        if (시연클리어오브젝트.active == true)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                //마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
 
         if (slHP.value <= 0)
         {
-            StartCoroutine(PatternChange());
+            Invoke("show시연클리어문구", 0f);
+            //StartCoroutine(PatternChange());
         }
         // 보스 패턴이 끝나면 다음 패턴 시작
         // 이 부분은 패턴이 끝나는 조건에 따라 수정되어야 합니다.
