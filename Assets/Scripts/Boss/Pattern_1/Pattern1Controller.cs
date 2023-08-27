@@ -21,6 +21,7 @@ public class Pattern1Controller : MonoBehaviour
         StartCoroutine(Pattern());
     }
 
+
     IEnumerator Pattern()
     {
         pattern1.SetActive(true);
