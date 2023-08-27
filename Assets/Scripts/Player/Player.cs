@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
                 }
                 if ((player_state != PlayerState.Jump) && jump)
                 {
-                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power * 1.08f);
                 }
             }
 
