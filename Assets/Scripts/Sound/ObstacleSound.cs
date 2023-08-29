@@ -34,6 +34,7 @@ public class ObstacleSound : MonoBehaviour
         if (audio != null && isMoving)
         {
             audio.Play();
+            Debug.Log(audio.name + "Àç»ýÁß");
             isMoving = false;
         }
     }

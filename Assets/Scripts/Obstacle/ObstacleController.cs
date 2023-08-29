@@ -74,6 +74,8 @@ public class ObstacleController : MonoBehaviour
         Def,
         Mostback
     }
+    [SerializeField]
+    private bool isOpposite = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
 
     [SerializeField]
     private ObType obType; //obstacle의 type을 inspector에서 받아옴.
@@ -574,7 +576,7 @@ public class ObstacleController : MonoBehaviour
         {
             // 시간에 따라 이동할 거리 계산
             float moveDistance = Mathf.PingPong((Time.time - nowTime) * speed, distance);
-            float direction = (isLeftDown) ? -1 : 1;
+            float direction = (isOpposite) ? -1 : 1;
 
             // 좌우로 움직이는 경우
             if (obDirection == ObDirection.LeftRight)
