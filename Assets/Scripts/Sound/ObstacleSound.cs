@@ -7,6 +7,7 @@ public class ObstacleSound : MonoBehaviour
     [SerializeField]
     private bool isCol=false;
     private AudioSource audio;
+    [SerializeField]
     private bool isMoving = false; 
 
     [SerializeField]
@@ -33,9 +34,11 @@ public class ObstacleSound : MonoBehaviour
     {
         if (audio != null && isMoving)
         {
-            audio.Play();
-            Debug.Log(audio.name + "Àç»ýÁß");
-            isMoving = false;
+            if (!audio.loop)
+            {
+                audio.Play();
+                isMoving = false;
+            }
         }
     }
     // Start is called before the first frame update
