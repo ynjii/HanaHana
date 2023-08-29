@@ -10,7 +10,7 @@ using static Define;
 public class Player : MonoBehaviour
 {
     public AudioSource[] audioSources = null;
-
+    private bool is_Slope = false;
 
     [SerializeField] private bool invincibility = false;
     public bool Invincibility
@@ -254,21 +254,24 @@ public class Player : MonoBehaviour
         Debug.DrawRay(rigid.position + new Vector2(0, -0.45f), Vector3.left, new Color(1, 0, 0));
         RaycastHit2D platformRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.right, 0.5f, LayerMask.GetMask("Platform"));
         RaycastHit2D platformLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.left, 0.5f, LayerMask.GetMask("Platform"));
-        //맞았다는 뜻
+        //맞았다는 뜻(근데 slope은 체크기준이 아님.)
         if (platformRightRayHit.collider != null || platformLeftRayHit.collider != null)
-        {
-            //평지가 아니면
-            if (!(rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA))
+        {  
+            //평지가 아니면 && Slope이 아니면
+            if (!is_Slope&&!(rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA))
             {
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
                 this.GetComponent<BoxCollider2D>().enabled = true;
             }
+            
         }
         else
         {
             this.GetComponent<CapsuleCollider2D>().enabled = true;
             this.GetComponent<BoxCollider2D>().enabled = false;
         }
+
+        
 
 
         //키 컨트롤로 움직이기
@@ -366,6 +369,15 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Slope"))
+        {
+            is_Slope = true;
+            rigid.gravityScale = 4; 
+        }
+        else
+        {
+            is_Slope = false;
+        }
 
         if (collision.gameObject.CompareTag("Platform"))
         {
@@ -517,7 +529,6 @@ public class Player : MonoBehaviour
         this.gameObject.layer = 7;
         GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
-
     }
 
 

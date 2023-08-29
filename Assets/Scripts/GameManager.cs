@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameover && (Input.anyKeyDown))
+        if (isGameover && (Input.anyKeyDown|| Input.GetMouseButtonDown(0)))
         {
             //게임오버 상태에서 마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
