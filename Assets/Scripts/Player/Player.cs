@@ -18,8 +18,8 @@ public class Player : MonoBehaviour
         get { return invincibility; }
         set { invincibility = value; }
     }
-
-    private const float JUMP_CRITERIA = 0.005f;
+    public bool is_jump=false;
+    private const float JUMP_CRITERIA =0.4f;
 
     [SerializeField]
     private float jump_power;
@@ -94,6 +94,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
+
+        if (Input.GetButtonDown("Jump"))
+        {
+
+        }
+
         // 화면 위에 손가락이 없는지 확인
         if (Input.touchCount == 0)
         {
@@ -209,6 +215,24 @@ public class Player : MonoBehaviour
     private void FixedUpdate()//물리 update
     {
 
+        Debug.DrawRay(rigid.position+new Vector2(-0.4f,0), Vector3.down, new Color(0, 0, 1));
+        RaycastHit2D jumpLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(-0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
+        Debug.DrawRay(rigid.position + new Vector2(0.4f, 0), Vector3.down, new Color(0, 0, 1));
+        RaycastHit2D jumpRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
+
+        if (jumpLeftRayHit.collider != null|| jumpRightRayHit.collider != null)
+        {
+            is_jump = false;
+        }
+        else
+        {
+            //점프면 is_jump=true
+            if(player_state==PlayerState.Jump)
+            {
+                is_jump = true;
+            }
+        }
+
         if (!movable) return;
 
         //레이캐스트(for 버튼점프 꾹 누를 시 천장붙음 방지)
@@ -273,7 +297,7 @@ public class Player : MonoBehaviour
 
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
-        //점프설정
+        //점프상태설정 (player_state)
         if (rigid.velocity.normalized.y <= -JUMP_CRITERIA || rigid.velocity.normalized.y >= JUMP_CRITERIA)
         {
             if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
@@ -286,42 +310,19 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        else//y에 아무런 방향성이 없을 때
-        {
-            if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
-            {
-                if (rigid.velocity.normalized.x != 0 || isLeftButton || isRightButton)//x에 방향성이 있으면 걷기
-                {
-                    anim.SetBool("isJump", false);
-                    anim.SetBool("isWalk", true);
-                    if (player_state != PlayerState.Damaged)
-                    {
-                        player_state = PlayerState.Walk;
-                    }
-                }
-                else//x에 방향성이 없으면 idle (위 if문이 true가 아니면 else)
-                {
 
-                    anim.SetBool("isJump", false);
-                    anim.SetBool("isWalk", false);
-                    if (player_state != PlayerState.Damaged)
-                    {
-                        player_state = PlayerState.Idle;
-                    }
-                }
-            }
-        }
         //점프키누르면
         if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
         {
-            if ((!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+            if (!is_jump&&(!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
             {
                 if (audioSources != null)
                 {
                     audioSources[0].Play();
                 }
-
+                is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                
             }
         }
 
@@ -365,6 +366,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.gameObject.CompareTag("Platform"))
         {
             rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
@@ -381,6 +383,34 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            if (rigid.velocity.normalized.y < 0.005f && rigid.velocity.normalized.y > -0.005f)
+            {
+                if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+                {
+                    if (rigid.velocity.normalized.x != 0 || isLeftButton || isRightButton)//x에 방향성이 있으면 걷기
+                    {
+                        anim.SetBool("isJump", false);
+                        anim.SetBool("isWalk", true);
+                        if (player_state != PlayerState.Damaged)
+                        {
+                            player_state = PlayerState.Walk;
+                        }
+                    }
+                    else//x에 방향성이 없으면 idle (위 if문이 true가 아니면 else)
+                    {
+
+                        anim.SetBool("isJump", false);
+                        anim.SetBool("isWalk", false);
+                        if (player_state != PlayerState.Damaged)
+                        {
+                            player_state = PlayerState.Idle;
+                        }
+                    }
+                }
+            }
+        }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Die(collision.transform.position);
