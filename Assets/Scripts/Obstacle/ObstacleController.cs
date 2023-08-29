@@ -167,10 +167,7 @@ public class ObstacleController : MonoBehaviour
         {
             StartCoroutine(SetIsmoving(true));
         }
-        if (obType == ObType.BlowAway)
-        {
-            isMoving = false;
-        }
+
     }
 
     /// <summary>

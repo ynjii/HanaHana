@@ -7,14 +7,15 @@ public class ObstacleSound : MonoBehaviour
     [SerializeField]
     private bool isCol=false;
     private AudioSource audio;
+    private bool isMoving = false; 
+
+    [SerializeField]
+    private float waitingTime = 0f;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isCol&&collision.gameObject.CompareTag("Player"))
         {
-            if (audio != null)
-            {
-                audio.Play();
-            }
+            StartCoroutine(SetIsmoving(true));
         }
     }
 
@@ -24,15 +25,20 @@ public class ObstacleSound : MonoBehaviour
     {
         if ((!isCol)&&collision.gameObject.CompareTag("Player"))
         {
-            if (audio != null)
-            {
-                audio.Play();
-            }
+            StartCoroutine(SetIsmoving(true));
         }
     }
 
+    private void Update()
+    {
+        if (audio != null && isMoving)
+        {
+            audio.Play();
+            isMoving = false;
+        }
+    }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         audio= GetComponent<AudioSource>();
     }
@@ -53,5 +59,9 @@ public class ObstacleSound : MonoBehaviour
         }
     }
 
-   
+    IEnumerator SetIsmoving(bool n)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        this.isMoving = n;
+    }
 }
