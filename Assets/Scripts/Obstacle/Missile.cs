@@ -38,10 +38,13 @@ public class Missile : MonoBehaviour
     {
         if (!follow_once)
         {
-            Vector3 direction = (player.position + targetPos) - transform.position;
-            direction.Normalize();
+            if (player.position != null)
+            {
+                Vector3 direction = (player.position + targetPos) - transform.position;
+                direction.Normalize();
 
-            transform.position += direction * speed * Time.deltaTime;
+                transform.position += direction * speed * Time.deltaTime;
+            }
         }
     }
 

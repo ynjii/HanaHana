@@ -51,22 +51,20 @@ public class GameManager : MonoBehaviour
     {
         //리스폰 위치로 플레이어 위치를 reset함.
         //보스씬들은 리스폰위치에서 태어나면x
-        Debug.Log("플레이어 위치"+player.transform.position);
-        if(SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString()&&SceneManager.GetActiveScene().name!="SnowBoss1" && SceneManager.GetActiveScene().name != "SnowBoss2" && SceneManager.GetActiveScene().name != "SnowBoss3")
+/*        if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString() && SceneManager.GetActiveScene().name != "SnowBoss1" && SceneManager.GetActiveScene().name != "SnowBoss2" && SceneManager.GetActiveScene().name != "SnowBoss3")
         {
             if (SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn") != Vector3.zero)
             {
                 player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
             }
-            Debug.Log("플레이어 두번째"+player.transform.position);
-        }
+        }*/
 
         player.GetComponent<Player>().ChangeSprites();
     }
 
     void Update()
     {
-        if (isGameover && Input.GetMouseButtonDown(0))
+        if (isGameover && (Input.anyKeyDown|| Input.GetMouseButtonDown(0)))
         {
             //게임오버 상태에서 마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

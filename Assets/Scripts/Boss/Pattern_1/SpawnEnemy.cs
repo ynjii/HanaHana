@@ -6,6 +6,7 @@ public class SpawnEnemy : MonoBehaviour
 {
     public bool enableSpawn = false;
     public GameObject Enemy; // Prefab을 받을 public 변수 입니다.
+    public GameObject player;
     [SerializeField] private float second = 5f;
     [SerializeField] private float delay = 1.5f;
     [SerializeField] private bool isPanel = false;
@@ -17,8 +18,14 @@ public class SpawnEnemy : MonoBehaviour
     {
         InvokeRepeating("EnemySpawn", second, delay); // 3초후 부터, SpawnEnemy 함수를 1초마다 반복해서 실행 시킵니다.
         Invoke("CancelInvokeLog",theend);
-
         // 일정 시간 후에 enableSpawn 변수를 끄는 코드
+    }
+
+    void Update()
+    {
+        if(player.active==false){
+            CancelInvoke("EnemySpawn");    
+        }
     }
     void EnemySpawn()
     {

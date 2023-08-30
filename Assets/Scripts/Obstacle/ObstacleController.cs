@@ -52,8 +52,10 @@ public class ObstacleController : MonoBehaviour
         /// <summary>
         /// Rolling용 diagonal
         /// </summary>
-        Diagonal_Left,
-        Diagonal_Right
+        Diagonal_Left_Up,
+        Diagonal_Right_Up,
+        Diagonal_Left_Down,
+        Diagonal_Right_Down
     }
     public enum IntoColor
     {
@@ -72,6 +74,8 @@ public class ObstacleController : MonoBehaviour
         Def,
         Mostback
     }
+    [SerializeField]
+    private bool isOpposite = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
 
     [SerializeField]
     private ObType obType; //obstacle의 type을 inspector에서 받아옴.
@@ -84,7 +88,7 @@ public class ObstacleController : MonoBehaviour
     private bool isPlatform = false; //만약 움직이는 발판이라면
 
     [SerializeField]
-    private bool isOpposite = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
+    private bool isLeftDown = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
 
     [SerializeField]
     private IntoColor color; // into Change할 color결정
@@ -101,9 +105,6 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private bool isMoving = false; //시작부터 움직이이려면 true 체크
-
-    [SerializeField]
-    private bool isEnable = false;
 
     [SerializeField]
     private float waitingTime = 0f;
@@ -168,10 +169,7 @@ public class ObstacleController : MonoBehaviour
         {
             StartCoroutine(SetIsmoving(true));
         }
-        if (obType == ObType.BlowAway)
-        {
-            isMoving = false;
-        }
+
     }
 
     /// <summary>
@@ -205,14 +203,6 @@ public class ObstacleController : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        if (isEnable)
-        {
-            isMoving = true;
-        }
-    }
-
 
     private void Awake()
     {
@@ -236,24 +226,14 @@ public class ObstacleController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (isMoving)
         {
-            StartCoroutine(IsmovingTimer(true));
-            if (obType != ObType.ChangeColor || obType != ObType.ChangeSize || obType != ObType.Rotate)
-            {
-                isMoving = false;
-            }
+            initialPosition = transform.position;
+            ObstacleMove(obType);
         }
     }
 
-    private void Update()
-    {
-        if (isMoving && obType == ObType.Rotate)
-        {
-            isMoving = true;
-        }
-    }
+
     private void ObstacleMove(ObType obType)
     {
         switch (obType)
@@ -273,7 +253,6 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.Rotate:
                 Rotate();
-                isMoving = true;
                 break;
             case ObType.Shake:
                 StartCoroutine(ShakeCoroutine());
@@ -285,14 +264,12 @@ public class ObstacleController : MonoBehaviour
                 break;
             case ObType.ChangeColor:
                 ChangeColor(color);
-                isMoving = true;
                 break;
             case ObType.Rolling:
                 Rolling(obDirection, speed, gravity_scale);
                 break;
             case ObType.ChangeSize:
                 ChangeSize(size);
-                isMoving = true;
                 break;
             case ObType.ChangeRendererOrder:
                 ChangeRendOrder(rend_order);
@@ -311,7 +288,6 @@ public class ObstacleController : MonoBehaviour
             case ObType.BlowAway:
                 BlowAway(obDirection);//isCol로 판단.
                 isCol = true;
-                isMoving = true;
                 break;
             case ObType.Destroy:
                 destroy = true;
@@ -323,7 +299,7 @@ public class ObstacleController : MonoBehaviour
                 break;
         }
 
-        if (this.gameObject.GetComponent<BoxCollider2D>() && this.gameObject.GetComponent<BoxCollider2D>().isTrigger)
+        if (this.gameObject.GetComponent<BoxCollider2D>())
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());
         }
@@ -360,6 +336,7 @@ public class ObstacleController : MonoBehaviour
         {
             case ObDirection.Up:
                 player_rigid.AddForce(new Vector2(0, speed));
+                isMoving = false;
                 break;
         }
 
@@ -385,7 +362,6 @@ public class ObstacleController : MonoBehaviour
     {
         if (!is_expired)
         {
-
             switch (size)
             {
                 case changeSize.Bigger:
@@ -416,6 +392,10 @@ public class ObstacleController : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            isMoving = false;
+        }
     }
 
     /// <summary>
@@ -439,13 +419,18 @@ public class ObstacleController : MonoBehaviour
                 case ObDirection.Right:
                     rigid.velocity = new Vector3(speed, 0, 0);
                     break;
-                case ObDirection.Diagonal_Left:
+                case ObDirection.Diagonal_Left_Up:
                     rigid.AddForce(new Vector2(-1, 1) * speed, ForceMode2D.Impulse);
                     break;
-                case ObDirection.Diagonal_Right:
+                case ObDirection.Diagonal_Right_Up:
                     rigid.AddForce(new Vector2(1, 1) * speed, ForceMode2D.Impulse);
                     break;
+
             }
+        }
+        else
+        {
+            isMoving = false;
         }
     }
 
@@ -477,7 +462,7 @@ public class ObstacleController : MonoBehaviour
             switch (color)
             {
                 case IntoColor.TransParent:
-                    my_color.a -= 0.15f; // 알파 값 조정
+                    my_color.a -= 0.05f; // 알파 값 조정
                     // 알파 값이 0 이하면 0으로 고정
                     if (my_color.a <= 0f)
                     {
@@ -488,12 +473,13 @@ public class ObstacleController : MonoBehaviour
                     renderer.material.color = my_color;
                     break;
                 case IntoColor.Opaque:
-                    my_color.a += 0.15f; // 알파 값 조정
+                    my_color.a += 0.05f; // 알파 값 조정
                     // 알파 값이 1을 넘어가면 1로 고정
                     if (my_color.a >= 1f)
                     {
                         my_color.a = 1f;
                         is_expired = true;
+                        isMoving = false;
                     }
                     // 오브젝트의 머티리얼 또는 스프라이트 렌더러의 색상 설정
                     renderer.material.color = my_color;
@@ -501,7 +487,6 @@ public class ObstacleController : MonoBehaviour
             }
         }
     }
-
     /// <summary>
     /// 이제 주어진 방향, 속도, 거리만큼 obstacle이 움직입니다. 
     /// </summary>
@@ -522,7 +507,7 @@ public class ObstacleController : MonoBehaviour
     {
         //대각선방향: 중력영향 받아서는 안 됨.
         //out: 포인터
-        if (obDirection == ObDirection.Diagonal_Left)
+        if (obDirection == ObDirection.Diagonal_Left_Up || obDirection == ObDirection.Diagonal_Right_Up || obDirection == ObDirection.Diagonal_Right_Down || obDirection == ObDirection.Diagonal_Left_Down)
         {
             rigid = GetComponent<Rigidbody2D>();
             if (rigid != null && rigid.bodyType == RigidbodyType2D.Dynamic)
@@ -541,8 +526,14 @@ public class ObstacleController : MonoBehaviour
                 return initialPosition + Vector3.left * movement;
             case ObDirection.Right:
                 return initialPosition + Vector3.right * movement;
-            case ObDirection.Diagonal_Left:
+            case ObDirection.Diagonal_Left_Up:
                 return initialPosition + new Vector3(-1, 1, 0) * movement;
+            case ObDirection.Diagonal_Right_Up:
+                return initialPosition + new Vector3(1, 1, 0) * movement;
+            case ObDirection.Diagonal_Left_Down:
+                return initialPosition + new Vector3(-1, -1, 0) * movement;
+            case ObDirection.Diagonal_Right_Down:
+                return initialPosition + new Vector3(1, -1, 0) * movement;
             default:
                 return initialPosition;
         }
@@ -616,14 +607,6 @@ public class ObstacleController : MonoBehaviour
         yield return new WaitForSeconds(waitingTime);
         this.isMoving = n;
     }
-
-    IEnumerator IsmovingTimer(bool n)
-    {
-        yield return new WaitForSeconds(waitingTime);
-        initialPosition = transform.position;
-        ObstacleMove(obType);
-    }
-
 
 
 
