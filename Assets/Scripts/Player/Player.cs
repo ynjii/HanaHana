@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-
+            Debug.Log(player_state);
         }
 
         // 화면 위에 손가락이 없는지 확인
@@ -174,7 +174,19 @@ public class Player : MonoBehaviour
                     {
                         audioSources[0].Play();
                     }
+                    is_jump = true;
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                }
+                //경사면 점프ok
+                else if (is_Slope && !is_jump)
+                {
+                    if (audioSources != null)
+                    {
+                        audioSources[0].Play();
+                    }
+                    is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    is_Slope = false;//점프를 한 순간 경사가 아니니까
                 }
             }
 
@@ -307,7 +319,7 @@ public class Player : MonoBehaviour
             {
                 anim.SetBool("isJump", true);
                 anim.SetBool("isWalk", false);
-                if (player_state != PlayerState.Damaged)
+                if (player_state != PlayerState.Damaged&&!is_Slope)
                 {
                     player_state = PlayerState.Jump;
                 }
@@ -327,6 +339,17 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 
             }
+        }
+        //경사면 점프ok
+        if (Input.GetButton("Jump") && is_Slope&&!is_jump)
+        {
+            if (audioSources != null)
+            {
+                audioSources[0].Play();
+            }
+            is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+            is_Slope = false;//점프를 한 순간 경사가 아니니까
         }
 
 
@@ -372,7 +395,8 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Slope"))
         {
             is_Slope = true;
-            rigid.gravityScale = 4; 
+            rigid.gravityScale = 3;
+            player_state = PlayerState.Walk;    
         }
         else
         {
