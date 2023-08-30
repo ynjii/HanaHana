@@ -226,8 +226,8 @@ public class Launch_Fire : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             // 대기 후 split
-            GameObject cclon_obj1 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, 1.5f, 0), transform.rotation);
-            GameObject cclon_obj2 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, -1.5f, 0), transform.rotation);
+            GameObject cclon_obj1 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, 2f, 0), transform.rotation);
+            GameObject cclon_obj2 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, -2f, 0), transform.rotation);
 
             float move_time = 0;
             while (move_time <= 0.2)

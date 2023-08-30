@@ -159,10 +159,6 @@ public class Player : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
                 {
-                    if (audioSources != null)
-                    {
-                        audioSources[0].Play();
-                    }
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 }
                 else if ((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump&&!is_jump)
@@ -406,7 +402,6 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("뒤져씀");
             if (collision.gameObject.name == "t_FakeItem")
             {
                 PlayerPrefs.SetString("TransparentWall", "False");
@@ -477,15 +472,18 @@ public class Player : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Border"))
         {
-            if (audioSources != null)
+            if (!Invincibility)
             {
-                audioSources[1].Play();
-            }
+                if (audioSources != null)
+                {
+                    audioSources[1].Play();
+                }
 
-            player_state = PlayerState.Damaged;
-            this.gameObject.layer = 7;
-            isBorder = true;
-            GameManager.instance.OnPlayerDead();
+                player_state = PlayerState.Damaged;
+                this.gameObject.layer = 7;
+                isBorder = true;
+                GameManager.instance.OnPlayerDead();
+            }
         }
     }
 
@@ -540,16 +538,18 @@ public class Player : MonoBehaviour
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
-
-        if (audioSources != null)
+        if (!invincibility)
         {
-            audioSources[1].Play();
+            if (audioSources != null)
+            {
+                audioSources[1].Play();
+            }
+
+            player_state = PlayerState.Damaged;
+
+            this.gameObject.layer = 7;
+            GameManager.instance.OnPlayerDead();
         }
-
-        player_state = PlayerState.Damaged;
-
-        this.gameObject.layer = 7;
-        GameManager.instance.OnPlayerDead();
         this.gameObject.SetActive(false);
     }
 

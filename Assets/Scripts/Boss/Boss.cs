@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
 {
     public AudioSource[] audioSources;
     public GameObject clearUI;
-
+    
     [SerializeField] GameObject[] _patternChangeGO;
     private Launch_Fire launcher0_script;
     private Launch_Fire launcher1_script;
@@ -96,11 +96,7 @@ public class Boss : MonoBehaviour
     {
         if (clearUI.active == true)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+            Invoke("gotoStageScene", 3f);
         }
                 
         if (!is_dead) {
@@ -147,7 +143,7 @@ public class Boss : MonoBehaviour
 
             // 목표 위치로 이동
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
-
+                     
             if (!once)
             {
                 Dead();
@@ -311,6 +307,8 @@ public class Boss : MonoBehaviour
 
     private void Dead()
     {
+        Player player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player_script.Invincibility = true;
         DeleteCloneObjects();
         is_dead = true;
         launchers[0].SetActive(false);
@@ -383,4 +381,12 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(10);
     }
 
+    private void gotoStageScene()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            //마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
+            SceneManager.LoadScene("MainScene");
+        }
+    }
 }

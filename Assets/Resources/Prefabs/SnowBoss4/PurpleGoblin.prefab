@@ -124,7 +124,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.05
+  m_Mass: 0.5
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -145,17 +145,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpposite: 0
   obType: 7
   obDirection: 7
   gravity_scale: 1
   isPlatform: 0
-  isOpposite: 0
+  isLeftDown: 0
   color: 0
   size: 0
   rend_order: 0
   isCol: 0
   isMoving: 1
-  isEnable: 0
   waitingTime: 0
   distance: 0
   speed: 0.5
@@ -177,18 +177,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpposite: 0
   obType: 7
   obDirection: 7
   gravity_scale: 2
   isPlatform: 0
-  isOpposite: 0
+  isLeftDown: 0
   color: 0
   size: 0
   rend_order: 0
   isCol: 0
   isMoving: 1
-  isEnable: 0
-  waitingTime: 2
+  waitingTime: 0.3
   distance: 0
   speed: 1
   tagName: Untagged
@@ -209,17 +209,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpposite: 0
   obType: 13
   obDirection: 0
   gravity_scale: 4
   isPlatform: 0
-  isOpposite: 0
+  isLeftDown: 0
   color: 0
   size: 0
   rend_order: 0
   isCol: 0
   isMoving: 0
-  isEnable: 0
   waitingTime: 0
   distance: 0
   speed: 11
