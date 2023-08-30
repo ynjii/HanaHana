@@ -16,10 +16,7 @@ public class Portal : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         fade_out = true;
-        if (timer >= 1f)
-        {
-            SceneManager.LoadScene(_nextScene);
-        }
+        
     }
 
     private void Update()
@@ -28,6 +25,10 @@ public class Portal : MonoBehaviour
         {
             timer += Time.deltaTime;
             fadeOutPanel.color+= new Color(0,0,0,0.1f);
+        }
+        if (timer >= 1f)
+        {
+            SceneManager.LoadScene(_nextScene);
         }
     }
 

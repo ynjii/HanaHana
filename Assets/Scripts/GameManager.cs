@@ -67,9 +67,16 @@ public class GameManager : MonoBehaviour
     {
         if (isGameover && (Input.anyKeyDown|| Input.GetMouseButtonDown(0)))
         {
+            //보스씬이면 스노우화이트 세이브포인트부터 시작
+            if (SceneManager.GetActiveScene().name == "SnowBoss4")
+            {
+                SceneManager.LoadScene("SnowWhite");
+            }
             //게임오버 상태에서 마우스 왼쪽 버튼을 클릭하면 현재 씬 재시작
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
 
          //만약 뒤로가기키 눌렀을때
