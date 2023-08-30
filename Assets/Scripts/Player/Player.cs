@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
                     }
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 }
-                else if ((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump)
+                else if ((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump&&!is_jump)
                 {
                     if (audioSources != null)
                     {
