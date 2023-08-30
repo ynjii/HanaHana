@@ -21,7 +21,12 @@ public class BrokenMirror : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(blType==BlockType.Once){
-            this.gameObject.SetActive(false);
+            AudioSource audio = GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
+            if (audio != null && audio.clip.name == "glasscrack")
+            {
+                audio.Play();
+            }
+            Invoke("setActiveFalse", 0.5f);
         }
         else if(count==1){//Second일 때, 아직 안 밟았을 때
             before_img.sprite=after_img;
@@ -33,7 +38,12 @@ public class BrokenMirror : MonoBehaviour
             {
                 audio.Play();
             }
-            this.gameObject.SetActive(false);
+            Invoke("setActiveFalse", 0.5f);
         }
+    }
+
+    private void setActiveFalse()
+    {
+        this.gameObject.SetActive(false);   
     }
 }

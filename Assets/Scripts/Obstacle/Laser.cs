@@ -100,8 +100,7 @@ public class Laser : MonoBehaviour
                 if (is_first_entered)
                 {
                     is_first_entered = false;
-                    player_script.onDamaged(target_pos);
-                    GameManager.instance.OnPlayerDead();
+                    player_script.Die(target_pos);
                 }
             }
         }

@@ -95,10 +95,7 @@ public class Player : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            Debug.Log(player_state);
-        }
+       
 
         // 화면 위에 손가락이 없는지 확인
         if (Input.touchCount == 0)
@@ -409,6 +406,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("뒤져씀");
             if (collision.gameObject.name == "t_FakeItem")
             {
                 PlayerPrefs.SetString("TransparentWall", "False");

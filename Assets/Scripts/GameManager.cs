@@ -57,8 +57,8 @@ public class GameManager : MonoBehaviour
             {
                 player.transform.position = SaveLoad.GetComponent<SaveLoad>().LoadRespawn("respawn");
             }
-        }
-*/
+        }*/
+
         player.GetComponent<Player>().ChangeSprites();
     }
 
