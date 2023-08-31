@@ -16,7 +16,8 @@ public class Portal : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         fade_out = true;
-        
+        Transform parent_trans=fadeOutPanel.gameObject.transform.parent;
+        parent_trans.gameObject.SetActive(true);
     }
 
     private void Update()
