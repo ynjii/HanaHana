@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
         set { invincibility = value; }
     }
     public bool is_jump=false;
-    private const float JUMP_CRITERIA =0.4f;
+
+    private const float JUMP_CRITERIA =0.6f;
 
     [SerializeField]
     private float jump_power;
