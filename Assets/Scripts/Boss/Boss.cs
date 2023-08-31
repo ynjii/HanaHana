@@ -135,8 +135,9 @@ public class Boss : MonoBehaviour
         }
 
         //깼을 때
-        if (boss_hp <= 0)
+        if (boss_hp <= 0 )
         {
+            
             Vector3 targetPosition = Boss_initial_position;
             // 현재 위치와 목표 위치 사이의 거리 계산
             float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
@@ -309,27 +310,29 @@ public class Boss : MonoBehaviour
     {
         Player player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
         player_script.Invincibility = true;
-        DeleteCloneObjects();
-        is_dead = true;
-        launchers[0].SetActive(false);
-        launchers[1].SetActive(false);
-        if (launchers[2].active || launchers[3].active)
+        if (player_script.player_state != PlayerState.Damaged)
         {
-            launchers[2].SetActive(false);
-            launchers[3].SetActive(false);
+            DeleteCloneObjects();
+            is_dead = true;
+            launchers[0].SetActive(false);
+            launchers[1].SetActive(false);
+            if (launchers[2].active || launchers[3].active)
+            {
+                launchers[2].SetActive(false);
+                launchers[3].SetActive(false);
+            }
+            //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
+            StartCoroutine(PatternChange());
+
+            //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
+            Invoke("mirrorDeactive", 11f);
+
+            //시연용 UI띄우기
+            Invoke("showClearUI", 20f);
+            //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
         }
-        //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
-        StartCoroutine(PatternChange());
-        
-        //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
-        Invoke("mirrorDeactive", 11f);
 
-        //시연용 UI띄우기
-        Invoke("showClearUI", 20f);
-        //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
     }
-
-
     private void mirrorDeactive()
     {
         audioSources[0].Stop();
