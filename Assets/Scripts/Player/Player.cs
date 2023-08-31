@@ -95,8 +95,11 @@ public class Player : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
 
-       
-
+/*        if (isJumpButton)
+        {
+            Debug.Log("y속력: " + rigid.velocity.normalized.y);
+        }
+*/
         // 화면 위에 손가락이 없는지 확인
         if (Input.touchCount == 0)
         {
@@ -155,13 +158,13 @@ public class Player : MonoBehaviour
         if (isButtonPressed)
         {
 
-            if ((!ignoreJump) && isJumpButton)//y방향성이 없을 때 눌러야 함.
+            if (isJumpButton)//y방향성이 없을 때 눌러야 함.
             {
                 if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
                 {
                     rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 }
-                else if ((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump&&!is_jump)
+                else if ((!ignoreJump) && (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump&&!is_jump)
                 {
                     if (audioSources != null)
                     {
