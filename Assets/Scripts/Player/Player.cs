@@ -37,12 +37,12 @@ public class Player : MonoBehaviour
     private bool isBorder = false;
     private bool isIce = false;
     public GameObject SaveLoad;
-    private bool isClimbing = false;
+    //private bool isClimbing = false;
     private float inputVertical;
 
 
-    public float ladder_speed;
-    public LayerMask whatIsLadder;
+    //public float ladder_speed;
+    //public LayerMask whatIsLadder;
     public float distance;
     private bool jump = true;
     public bool movable = true;
@@ -303,7 +303,7 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
         }
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
+        //RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
         //점프상태설정 (player_state)
         if (rigid.velocity.normalized.y <= -JUMP_CRITERIA || rigid.velocity.normalized.y >= JUMP_CRITERIA)
@@ -348,7 +348,7 @@ public class Player : MonoBehaviour
 
 
 
-        if (hitInfo.collider != null)
+        /*if (hitInfo.collider != null)
         {
             jump = false;
             if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space))||isJumpButton)
@@ -373,7 +373,7 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(rigid.velocity.x, inputVertical * ladder_speed);
             rigid.gravityScale = 0;
         }
-        else
+        else*/
         {
             if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
             {
