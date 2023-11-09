@@ -57,6 +57,7 @@ public class ObstacleController : MonoBehaviour
         Diagonal_Left_Down,
         Diagonal_Right_Down
     }
+
     public enum IntoColor
     {
         TransParent,
@@ -261,7 +262,7 @@ public class ObstacleController : MonoBehaviour
                 ChangeColor(color);//★isMoving false없는 애 2 . 동작원리 : changeColor함수 자체에서는 반복문이없지만, ObstacleMove가 update에서 계속 불려서 반복문의 효과.
                 break;//반복문을 계속 돌려주기 위해 isMoving false처리를 안했지만, 얘도 코루틴 자체에서 반복문 돌게하고 isMoving = false처리가 나아보임
             case ObType.Rolling:
-                Rolling(obDirection, speed, gravity_scale);//★isMoving false처리 안한 애 3. isMoving=false를 함수 안에서 해주고 있기때문
+                Rolling(obDirection, speed, gravity_scale);//★isMoving false처리 안한 애 3. isMoving=false를 함수 안에서 해주고 있기때문                
                 break;
             case ObType.ChangeSize:
                 ChangeSize(size);//★ isMoving=false를 함수 안에서 해 주고 있음
@@ -300,6 +301,7 @@ public class ObstacleController : MonoBehaviour
         {
             Destroy(this.gameObject.GetComponent<BoxCollider2D>());//그래서 트리거 끝나면 destroy..
         }
+
     }
 
     private void OnBecameInvisible()
