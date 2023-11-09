@@ -32,7 +32,7 @@ public class ObstacleController : MonoBehaviour
         flipSprite
     }
 
-    public enum ObDirection
+    public enum ObDirection//★ diagonal이 되는 부분이 있고 아닌 부분이 있음!! 이거 쓸 때 제대로 알고 씁시다. 설명문서에 예전에 추가해두긴 했는데 혹시나 까먹으셨을까봐.. 실수 방지 위해 설명문서 보고 사용하는 습관 들입시다!
     {
         still, //안움직임
         /// <summary>
@@ -85,7 +85,7 @@ public class ObstacleController : MonoBehaviour
     private float gravity_scale = 4f;//중력스케일 조절
 
     [SerializeField]
-    private bool isPlatform = false; //만약 움직이는 발판이라면
+    private bool isMovingPlatform = false; //만약 움직이는 발판이라면 //★이름모호. isMovingPlatform 추천
 
     [SerializeField]
     private bool isLeftDown = false; //moveside에서 왼쪽이랑 아래쪽으로 먼저 가는지
@@ -167,9 +167,8 @@ public class ObstacleController : MonoBehaviour
     {
         if (!isCol && collision.gameObject.CompareTag(colTag.ToString()))
         {
-            StartCoroutine(SetIsmoving(true));
+            StartCoroutine(SetIsmoving(true));//★
         }
-
     }
 
     /// <summary>
@@ -182,11 +181,11 @@ public class ObstacleController : MonoBehaviour
         {
             if (isCol)
                 StartCoroutine(SetIsmoving(true));
-            if (obType == ObType.MoveSide && isPlatform)
+            if (obType == ObType.MoveSide && isMovingPlatform)
             {
                 collision.transform.SetParent(transform);
             }
-            isCol = false;
+            isCol = false;//★ false하는 이유는 한번 작동하고 끄려고? ok.
         }
 
         if (collision.gameObject.CompareTag("Player"))
@@ -197,14 +196,14 @@ public class ObstacleController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (isPlatform && collision.transform.CompareTag(colTag.ToString()))
+        if (isMovingPlatform && collision.transform.CompareTag(colTag.ToString()))
         {
             collision.transform.SetParent(null);
         }
     }
 
 
-    private void Awake()
+    private void Awake()//★
     {
         initialPosition = transform.position;
         tilemap = GetComponent<Tilemap>();
@@ -226,15 +225,15 @@ public class ObstacleController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isMoving)
+        if (isMoving)//★
         {
             initialPosition = transform.position;
-            ObstacleMove(obType);
+            ObstacleMove(obType);//isMoving 이면 동작타입에 따라 동작.
         }
     }
 
 
-    private void ObstacleMove(ObType obType)
+    private void ObstacleMove(ObType obType)//★핵심. 코루틴 수행 후 isMoving에 false대입해 멈춰주고있음
     {
         switch (obType)
         {
@@ -247,32 +246,29 @@ public class ObstacleController : MonoBehaviour
                 StartCoroutine(MoveSideCoroutine());
                 isMoving = false;
                 break;
-            case ObType.Follow:
-                //MoveToPlayer();
-                isMoving = false;
-                break;
             case ObType.Rotate:
-                Rotate();
+                Rotate();//★isMoving false가 없는애도 간혹있음. 화면에 보이는동안 계속 돌아가야하니까. 근데 shake처럼 코루틴으로 만들고, 반복문에 넣고 isMoving false가 나아보임
                 break;
             case ObType.Shake:
                 StartCoroutine(ShakeCoroutine());
-                isMoving = false;
+                isMoving = false;//★얘도 코루틴문 자체에서 반복문 돌기 때문에 isMoving false처리
                 break;
             case ObType.ChangeStatus:
                 ChangeStatus(tagName, layerIndex);
                 isMoving = false;
                 break;
             case ObType.ChangeColor:
-                ChangeColor(color);
-                break;
+                ChangeColor(color);//★isMoving false없는 애 2 . 동작원리 : changeColor함수 자체에서는 반복문이없지만, ObstacleMove가 update에서 계속 불려서 반복문의 효과.
+                break;//반복문을 계속 돌려주기 위해 isMoving false처리를 안했지만, 얘도 코루틴 자체에서 반복문 돌게하고 isMoving = false처리가 나아보임
             case ObType.Rolling:
-                Rolling(obDirection, speed, gravity_scale);
+                Rolling(obDirection, speed, gravity_scale);//★isMoving false처리 안한 애 3. isMoving=false를 함수 안에서 해주고 있기때문
                 break;
             case ObType.ChangeSize:
-                ChangeSize(size);
+                ChangeSize(size);//★ isMoving=false를 함수 안에서 해 주고 있음
                 break;
             case ObType.ChangeRendererOrder:
                 ChangeRendOrder(rend_order);
+                isMoving = false;//★ 추가한 코드 . isMoving=false가 없었음. 유진이 스크립트파악 미숙할 때 짰던거라 
                 break;
             case ObType.ChangeSprite:
                 spriteRenderer = GetComponent<SpriteRenderer>();
@@ -286,22 +282,23 @@ public class ObstacleController : MonoBehaviour
                 isMoving = false;
                 break;
             case ObType.BlowAway:
-                BlowAway(obDirection);//isCol로 판단.
+                BlowAway(obDirection);//isCol로 판단. ★collider에 닿는동안 계속 불어줘야하는 애여서 isMoving=false처리안함. 반복문 효과를 내기위해서. changeColor와 같음
                 isCol = true;
                 break;
             case ObType.Destroy:
                 destroy = true;
-                isMoving = true;
+                isMoving = false;//★true였던걸 false로 수정. destroy=true하면 OnBecameInvisible에서 destroy함. OnBecameInvisible자체가 업뎃문처럼 계속 체크하는거기 때문에 isMoving=false여도 됨
                 break;
             case ObType.flipSprite:
                 spriteRenderer = GetComponent<SpriteRenderer>();
                 FlipSprite();
+                isMoving = false;//★없던 코드 추가 .
                 break;
         }
 
-        if (this.gameObject.GetComponent<BoxCollider2D>())
+        if (this.gameObject.GetComponent<BoxCollider2D>())//★BoxCollider는 트리거로만 씀. 이거 기억 나시나요? 트리거로만 쓰자고했던거. 이거 까먹을 것 같으니 여기 제대로 써두고 그 이후는 ObstacleController 수정 절대 하지말고 냅둡시다
         {
-            Destroy(this.gameObject.GetComponent<BoxCollider2D>());
+            Destroy(this.gameObject.GetComponent<BoxCollider2D>());//그래서 트리거 끝나면 destroy..
         }
     }
 
@@ -604,8 +601,8 @@ public class ObstacleController : MonoBehaviour
 
     IEnumerator SetIsmoving(bool n)
     {
-        yield return new WaitForSeconds(waitingTime);
-        this.isMoving = n;
+        yield return new WaitForSeconds(waitingTime);//★waiting time설정한 만큼 기다리고
+        this.isMoving = n;//인자로 넣은 bool 값 넣어주고. 
     }
 
 
