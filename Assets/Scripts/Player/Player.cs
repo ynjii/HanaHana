@@ -94,8 +94,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
-
-       
+        
+        
 
         // 화면 위에 손가락이 없는지 확인
         if (Input.touchCount == 0)
@@ -154,24 +154,33 @@ public class Player : MonoBehaviour
         //버튼 이동
         if (isButtonPressed)
         {
-
-            if ((!ignoreJump) && isJumpButton)//y방향성이 없을 때 눌러야 함.
+            //점프버튼
+            if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
             {
+                // 평소 걸을때
+                if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+                {
+                    if (isJumpButton)
+                    {
+                        if (audioSources != null)
+                        {
+                            audioSources[0].Play();
+                        }
+                        is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    }
+                }
+                //무한점프 (보스패턴4)
                 if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
                 {
-                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                }
-                else if ((rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA) && (player_state != PlayerState.Jump) && jump&&!is_jump)
-                {
-                    if (audioSources != null)
+                    if (isJumpButton && player_state != PlayerState.Damaged)
                     {
-                        audioSources[0].Play();
+                        player_state = PlayerState.Fly;
+                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                     }
-                    is_jump = true;
-                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 }
-                //경사면 점프ok
-                else if (is_Slope && !is_jump)
+                //경사일때
+                if (isJumpButton && is_Slope && !is_jump)
                 {
                     if (audioSources != null)
                     {
@@ -196,8 +205,8 @@ public class Player : MonoBehaviour
         ////////////////////
         // 화면의 가로 크기의 절반 값을 구함
         float halfScreenWidth = Screen.width * 0.5f;
-
         // 터치가 하나 발생했는지 확인
+        //★이유: 
         if (Input.touchCount == 1)
         {
             // 첫 번째 터치 정보 가져오기
@@ -216,7 +225,7 @@ public class Player : MonoBehaviour
         }
 
 
-    }
+        }
     private void FixedUpdate()//물리 update
     {
 
@@ -389,7 +398,7 @@ public class Player : MonoBehaviour
         {
             is_Slope = true;
             rigid.gravityScale = 3;
-            player_state = PlayerState.Walk;    
+            player_state = PlayerState.Walk;
         }
         else
         {
