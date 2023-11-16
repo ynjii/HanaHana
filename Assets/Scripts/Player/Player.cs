@@ -194,11 +194,15 @@ public class Player : MonoBehaviour
 
             if (isLeftButton)
             {
-                transform.position += Vector3.left * max_speed * Time.deltaTime;
+                //transform.position += Vector3.left * max_speed * Time.deltaTime;
+                rigid.velocity = new Vector2(-1*max_speed, rigid.velocity.y);
+                Debug.Log("속도가해지는중");
+                Debug.Log("x속력:  "+rigid.velocity.x);
             }
             if (isRightButton)
             {
-                transform.position += Vector3.right * max_speed * Time.deltaTime;
+                //transform.position += Vector3.right * max_speed * Time.deltaTime;
+                rigid.velocity = new Vector2(-1 * max_speed, rigid.velocity.y);
             }
         }
 
