@@ -24,6 +24,7 @@ public class ParentObstacleController : MonoBehaviour
     public virtual IEnumerator Activate() //오버라이딩 당할 예정. 근데 만약 오버라이딩 안하면 기본 기능 호출된다. 만약 코루틴 사용할거면 이거 오버라이드 하기.
     {
         isMoving = true;
+        yield return null;
     } //여기는 본격적으로 동작하는 코루틴 작성
 
     private void OnCollisionEnter2D(Collision2D collision)
