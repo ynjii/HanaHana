@@ -109,7 +109,6 @@ public class Player : MonoBehaviour
             //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
             //방향에 속력을 0으로 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
-            Debug.Log("브레이크호출중");
         }
 
         if (Input.GetButton("Horizontal") && player_state != PlayerState.Damaged)
@@ -198,14 +197,12 @@ public class Player : MonoBehaviour
                 {
                     //이 때 브레이크 걸어주기
                     rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
-                    Debug.Log("브레이크호출중");
                 }
             }
             else if (Input.touchCount == 0)
             {
                 //이 때 브레이크 걸어주기
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
-                Debug.Log("브레이크호출중");
             }
         }
         //2. 좌우 및 점프키
@@ -213,8 +210,8 @@ public class Player : MonoBehaviour
         {
             if (touch.position.x >= 0 && touch.position.x < leftButtonEnd)
             {
-                Debug.Log("왼쪽으로 속력주는중(버튼)");
                 rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
+                Debug.Log("왼쪽으로 속력주는중(버튼), " + rigid.velocity.x);
             }
             if (touch.position.x >= leftButtonEnd && touch.position.x < rightButtonEnd)
             {
