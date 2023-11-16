@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Define;
@@ -116,3 +116,4 @@ public class Laser : MonoBehaviour
         m_lineRenderer.SetPosition(1, endPos);
     }
 }
+*/

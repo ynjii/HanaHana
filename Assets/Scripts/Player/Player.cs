@@ -9,6 +9,10 @@ using static Define;
 
 public class Player : MonoBehaviour
 {
+    float rightButtonEnd = Screen.width * 0.4167f;
+    float leftButtonEnd = Screen.width * 0.2083f;
+    float jumpButtonEnd = Screen.width;
+    //////////////////
     public AudioSource[] audioSources = null;
     private bool is_Slope = false;
 
@@ -28,10 +32,7 @@ public class Player : MonoBehaviour
     SpriteRenderer sprite_renderer;
     Animator anim;
     public Define.PlayerState player_state;
-    private bool isJumpButton = false;
-    private bool isLeftButton = false;
-    private bool isRightButton = false;
-    private bool isButtonPressed = false;
+
     private float horizontal = 0;
 
     private bool isBorder = false;
@@ -58,27 +59,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public bool IsLeftButton
-    {
-        get
-        {
-            return isLeftButton;
-        }
 
-    }
-
-    public bool IsRightButton
-    {
-        get
-        {
-            return isRightButton;
-        }
-    }
-
-    public bool IsJumpButton
-    {
-        get { return isJumpButton; }
-    }
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -97,14 +78,6 @@ public class Player : MonoBehaviour
         
         
 
-        // 화면 위에 손가락이 없는지 확인
-        if (Input.touchCount == 0)
-        {
-            isButtonPressed = false;
-            isJumpButton = false;
-            isLeftButton = false;
-            isRightButton = false;
-        }
         //////////////////////////////////////////
         if (!anim.GetBool("isFly") && SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
@@ -145,88 +118,8 @@ public class Player : MonoBehaviour
         }
 
 
-        // 화면 위에 손가락이 있는지 확인
-        if (Input.touchCount > 0)
-        {
-            isButtonPressed = true;
-        }
 
-        //버튼 이동
-        if (isButtonPressed)
-        {
-            //점프버튼
-            if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
-            {
-                // 평소 걸을때
-                if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
-                {
-                    if (isJumpButton)
-                    {
-                        if (audioSources != null)
-                        {
-                            audioSources[0].Play();
-                        }
-                        is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
-                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                    }
-                }
-                //무한점프 (보스패턴4)
-                if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-                {
-                    if (isJumpButton && player_state != PlayerState.Damaged)
-                    {
-                        player_state = PlayerState.Fly;
-                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                    }
-                }
-                //경사일때
-                if (isJumpButton && is_Slope && !is_jump)
-                {
-                    if (audioSources != null)
-                    {
-                        audioSources[0].Play();
-                    }
-                    is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
-                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                    is_Slope = false;//점프를 한 순간 경사가 아니니까
-                }
-            }
 
-            if (isLeftButton)
-            {
-                //transform.position += Vector3.left * max_speed * Time.deltaTime;
-                rigid.velocity = new Vector2(-1*max_speed, rigid.velocity.y);
-                Debug.Log("속도가해지는중");
-                Debug.Log("x속력:  "+rigid.velocity.x);
-            }
-            if (isRightButton)
-            {
-                //transform.position += Vector3.right * max_speed * Time.deltaTime;
-                rigid.velocity = new Vector2(1 * max_speed, rigid.velocity.y);
-            }
-        }
-
-        ////////////////////
-        // 화면의 가로 크기의 절반 값을 구함
-        float halfScreenWidth = Screen.width * 0.5f;
-        // 터치가 하나 발생했는지 확인
-        //★이유: 
-        if (Input.touchCount == 1)
-        {
-            // 첫 번째 터치 정보 가져오기
-            Touch touch = Input.GetTouch(0);
-
-            //좌우키만 클릭중이면
-            if (touch.position.x < halfScreenWidth)
-            {
-                isJumpButton = false;
-            }
-            else//점프만 클릭중이면
-            {
-                isLeftButton = false;
-                isRightButton = false;
-            }
-        }
 
 
         }
@@ -289,7 +182,75 @@ public class Player : MonoBehaviour
             this.GetComponent<BoxCollider2D>().enabled = false;
         }
 
-        
+
+        // 현재 발생 중인 모든 터치 정보 가져오기
+        Touch[] touches = Input.touches;
+        // 아래는 각 터치에 대한 처리
+        //1. 브레이크
+        if (Input.touchCount == 1 || Input.touchCount == 0) //손가락이 1개거나 없어야함
+        {
+            if (Input.touchCount == 1)//손가락이 있는 경우면
+            {
+                Touch touch = Input.GetTouch(0);
+                //좌우키 범위에 들어가면 안 됨
+                if (!(touch.position.x >= 0 && touch.position.x < rightButtonEnd))
+                {
+                    //이 때 브레이크 걸어주기
+                    rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+                }
+            }
+            else if (Input.touchCount == 0)
+            {
+                //이 때 브레이크 걸어주기
+                rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+            }
+        }
+        //2. 좌우 및 점프키
+        foreach (Touch touch in touches)
+        {
+            if (touch.position.x >= 0 && touch.position.x < leftButtonEnd)
+            {
+                Debug.Log("왼쪽으로 속력주는중(버튼)");
+                rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
+            }
+            if (touch.position.x >= leftButtonEnd && touch.position.x < rightButtonEnd)
+            {
+                rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
+            }
+            if (touch.position.x >= Screen.width * 0.5f && touch.position.x < jumpButtonEnd)
+            {
+                //그리고 점프중일때 또 점프하지못하게 해야함
+                /*if (!isJumping)
+                {
+                    isJumping = true;
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                }*/
+                //점프키누르면
+                if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
+                {
+                    if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+                    {
+                        if (audioSources != null)
+                        {
+                            audioSources[0].Play();
+                        }
+                        is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                        rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    }
+                }
+                //경사면 점프ok
+                if (is_Slope && !is_jump)
+                {
+                    if (audioSources != null)
+                    {
+                        audioSources[0].Play();
+                    }
+                    is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                    is_Slope = false;//점프를 한 순간 경사가 아니니까
+                }
+            }
+        }
 
 
         //키 컨트롤로 움직이기
@@ -364,18 +325,10 @@ public class Player : MonoBehaviour
         if (hitInfo.collider != null)
         {
             jump = false;
-            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space))||isJumpButton)
+            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space)))
             {
                 isClimbing = true;
                 rigid.velocity = new Vector2(rigid.velocity.x, ladder_speed);
-            }
-            else
-            {
-                if (isLeftButton || isRightButton)
-                {
-                    isClimbing = false;
-                    jump = true;
-                }
             }
         }
         else { jump = true; }
@@ -431,7 +384,7 @@ public class Player : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
                 {
-                    if (rigid.velocity.normalized.x != 0 || isLeftButton || isRightButton)//x에 방향성이 있으면 걷기
+                    if (rigid.velocity.normalized.x != 0 )//x에 방향성이 있으면 걷기
                     {
                         anim.SetBool("isJump", false);
                         anim.SetBool("isWalk", true);
@@ -576,37 +529,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
     }
 
-
-
-    //버튼을 눌렀는지 뗐는지
-    public void jumpButtonTrue()
-    {
-        isJumpButton = true;
-    }
-    public void jumpButtonFalse()
-    {
-        isJumpButton = false;
-    }
-    public void leftButtonTrue()
-    {
-
-        isLeftButton = true;
-        sprite_renderer.flipX = true;
-
-    }
-    public void leftButtonFalse()
-    {
-        isLeftButton = false;
-    }
-    public void rightButtonTrue()
-    {
-        sprite_renderer.flipX = false;
-        isRightButton = true;
-    }
-    public void rightButtonFalse()
-    {
-        isRightButton = false;
-    }
 
     public void ChangeSprites()
     {
