@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
             //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
             //방향에 속력을 0으로 
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+            Debug.Log("브레이크호출중");
         }
 
         if (Input.GetButton("Horizontal") && player_state != PlayerState.Damaged)
@@ -187,7 +188,7 @@ public class Player : MonoBehaviour
         Touch[] touches = Input.touches;
         // 아래는 각 터치에 대한 처리
         //1. 브레이크
-        if (Input.touchCount == 1 || Input.touchCount == 0) //손가락이 1개거나 없어야함
+        if (Input.touchCount == 1 || Input.touchCount == 0 && !isIce) //손가락이 1개거나 없어야함
         {
             if (Input.touchCount == 1)//손가락이 있는 경우면
             {
@@ -197,12 +198,14 @@ public class Player : MonoBehaviour
                 {
                     //이 때 브레이크 걸어주기
                     rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+                    Debug.Log("브레이크호출중");
                 }
             }
             else if (Input.touchCount == 0)
             {
                 //이 때 브레이크 걸어주기
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+                Debug.Log("브레이크호출중");
             }
         }
         //2. 좌우 및 점프키
@@ -220,11 +223,6 @@ public class Player : MonoBehaviour
             if (touch.position.x >= Screen.width * 0.5f && touch.position.x < jumpButtonEnd)
             {
                 //그리고 점프중일때 또 점프하지못하게 해야함
-                /*if (!isJumping)
-                {
-                    isJumping = true;
-                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                }*/
                 //점프키누르면
                 if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
                 {
@@ -236,6 +234,7 @@ public class Player : MonoBehaviour
                         }
                         is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
                         rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                        Debug.Log("점프도 누름");
                     }
                 }
                 //경사면 점프ok
