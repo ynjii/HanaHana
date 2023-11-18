@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// í‚¤ë¼ë â˜…
+/// ì˜ˆì‹œ) ìŠ¤ë…¸ìš°í™”ì´íŠ¸ë§µ êº¼ì¡Œë‹¤ì¼œì¡Œë‹¤ ê°€ì‹œ
+/// </summary>
 public class Twinkle : MonoBehaviour
 {
+    //ë Œë”ëŸ¬ê°€ì ¸ì˜´ (ìŠ¤í”„ë¼ì´íŠ¸ë Œë”ëŸ¬, íƒ€ì¼ë§µë Œë”ëŸ¬ ë¶€ëª¨í´ë˜ìŠ¤)
     private Renderer renderer;
+    //ìƒ‰ ë°”ê¿”ì£¼ê²Œ ë³€ìˆ˜ ìƒì„±
     private Color my_color;
 
     private void Update()
     {
-        //¾ËÆÄ°ªÀÌ ÀÏÁ¤ ÀÌÇÏ¸é Åë°úÇØµµ ok,ÅÂ±×- transparent, ·¹ÀÌ¾î- transparent
+        //ì•ŒíŒŒê°’ì´ ì¼ì • ì´í•˜ë©´ í†µê³¼í•´ë„ ok,íƒœê·¸- transparent, ë ˆì´ì–´- transparent
         if (my_color.a <=0.001f)
         {
             gameObject.tag = "Transparent";
             gameObject.layer = 10;
         }
-        //else: ÀÏÁ¤ ÃÊ°ú¸é ÅÂ±×: Enemy, ·¹ÀÌ¾î-Enemy
+        //else: ì¼ì • ì´ˆê³¼ë©´ íƒœê·¸: Enemy, ë ˆì´ì–´-Enemy
         else
         {
             gameObject.tag = "Enemy";
@@ -35,17 +40,17 @@ public class Twinkle : MonoBehaviour
     {
         while (true)
         {
-            // Åõ¸íÇØÁö°Ô
+            // íˆ¬ëª…í•´ì§€ê²Œ
             while (my_color.a > 0f)
             {
                 my_color.a -= 0.05f;
                 renderer.material.color = my_color;
                 yield return new WaitForSeconds(0.01f);
             }
-            // Åõ¸íÇÏ¸é ´ë±â
+            // íˆ¬ëª…í•˜ë©´ ëŒ€ê¸°
             yield return new WaitForSeconds(0.7f);
 
-            // ´ë±â ÈÄ »ö °ª ¸®¼Â
+            // ëŒ€ê¸° í›„ ìƒ‰ ê°’ ë¦¬ì…‹
             my_color.a = 1f;
         }
     }

@@ -1,6 +1,9 @@
 public class Define
 {
-    public enum BossState 
+    /// <summary>
+    /// 보스맵 4에서 쓰는 이넘
+    /// </summary>
+    public enum SnowBoss4State 
     { 
         pattern4_1,
         pattern4_2,

@@ -60,7 +60,7 @@ public class Launch_FireAndBullet : MonoBehaviour
     [SerializeField]
     private GameObject[] fires = new GameObject[0];
     //보스 정보 가져오는 변수
-    private Boss boss_script;
+    private SnowBoss4 boss_script;
 
     //캡슐화
     public float Cool_Time
@@ -82,7 +82,7 @@ public class Launch_FireAndBullet : MonoBehaviour
         player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
         if (SceneManager.GetActiveScene().name == "SnowBoss4")
         {
-            boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+            boss_script = GameObject.FindWithTag("Boss").GetComponent<SnowBoss4>();
         }
 
         //애플패턴(4_2)
@@ -186,7 +186,7 @@ public class Launch_FireAndBullet : MonoBehaviour
                     else if (fires[fires_index].name == "GreenApple")
                     {
                         //4_2 의 circle apple 패턴
-                        if (boss_script.boss_state == BossState.pattern4_2)
+                        if (boss_script.boss_state == SnowBoss4State.pattern4_2)
                         {
                             //쿨타임1초
                             cool_time = 1f;
@@ -210,7 +210,7 @@ public class Launch_FireAndBullet : MonoBehaviour
                             circle_pattern.CircleLaunch(fires[fires_index], transf);
                         }
                         //4_4에서의 원형애플
-                        else if (boss_script.boss_state == BossState.pattern4_4)
+                        else if (boss_script.boss_state == SnowBoss4State.pattern4_4)
                         {
                             //쿨타임 2초
                             cool_time = 2f;
@@ -225,7 +225,7 @@ public class Launch_FireAndBullet : MonoBehaviour
                             circle_pattern.CircleLaunch(fires[fires_index], boss_script.gameObject.GetComponent<Transform>());
                         }
                         //4_5패턴이면
-                        else if (boss_script.boss_state == BossState.pattern4_5)
+                        else if (boss_script.boss_state == SnowBoss4State.pattern4_5)
                         {
                             //쿨타임1초
                             cool_time = 1f;

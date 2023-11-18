@@ -6,51 +6,74 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Define;
-
+/// <summary>
+/// 플레이어
+/// 수정: 유진이 총책임자
+/// 수정하려면 유진에게 검토받기!!!
+/// 수정이 예민한 스크립트입니다
+/// </summary>
 public class Player : MonoBehaviour
 {
+    /// <summary>
+    /// 휴대폰 터치와 관련된 변수입니다. 
+    /// 터치 범위 계산하는 변수
+    /// </summary>
     float rightButtonEnd = Screen.width * 0.4167f;
     float leftButtonEnd = Screen.width * 0.2083f;
     float jumpButtonEnd = Screen.width;
-    //////////////////
+    //플레이어가 내는 소리에 대한 배열
     public AudioSource[] audioSources = null;
+    //경사인지 감지
     private bool is_Slope = false;
-
+    //무적모드 변수
     [SerializeField] private bool invincibility = false;
+    //캡슐화
     public bool Invincibility
     {
         get { return invincibility; }
         set { invincibility = value; }
     }
+    //점프중인지 체크하는 변수
     public bool is_jump=false;
+    //점프 허용 범위
     private const float JUMP_CRITERIA =0.4f;
-
+    /// <summary>
+    /// 점프력, 속력
+    /// </summary>
     [SerializeField]
     private float jump_power;
     private float max_speed;
+    //리지드바디
     Rigidbody2D rigid;
+    //스프라이트렌더러
     SpriteRenderer sprite_renderer;
+    //애니메이터
     Animator anim;
+    //플레이어 스테이트 선언
     public Define.PlayerState player_state;
-
+    /// <summary>
+    /// 키보드입력: 좌우키 중 어떤 키 입력하는지 받는 변수
+    /// </summary>
     private float horizontal = 0;
-
+    //보더에 맞았으면 죽어야되니까 그거 감지하는 변수
     private bool isBorder = false;
-    private bool isIce = false;
-    public GameObject SaveLoad;
-    //private bool isClimbing = false;
-    private float inputVertical;
-
-
-    //public float ladder_speed;
-    //public LayerMask whatIsLadder;
-    public float distance;
-    private bool jump = true;
-    public bool movable = true;
-
+    //점프무시
     private bool ignoreJump = false;
 
-    //getter setter
+    /// <summary>
+    /// 유진 외 정의한 변수
+    /// </summary>
+    //아이스감지변수인듯 (현민)
+    private bool isIce = false;
+    //세이브 관련 변수인듯(소연)
+    public GameObject SaveLoad;
+    //?? 누가 만든 변순지 질문
+    private bool jump = true;
+    //현민 변수(아이스와 관련된 변수)
+    public bool movable = true;
+
+
+    //캡슐화
     public float Horizontal
     {
         get
@@ -65,34 +88,27 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        //스피드 고정하려고 여기서 정의
         max_speed = 5;
         player_state = new PlayerState();
         movable = true;
-
     }
 
     // Update is called once per frame
-    // Update is called once per frame
     void Update()//단발적 입력: 업데이트함수
     {
-        
-        
+        if (!movable) return;
 
-        //////////////////////////////////////////
+        
+        /*
+         보스맵 4
+         */
+        //보스맵4에서는 날아가는 애니메이션으로 
         if (!anim.GetBool("isFly") && SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
             //애니메이션: 계속 날아가는거로.
             anim.SetBool("isFly", true);
         }
-
-        if (!movable) return;
-
-        //Idle이면 중력스케일 복구
-        if (player_state == PlayerState.Idle)
-        {
-            rigid.gravityScale = 2;
-        }
-
         //무한점프
         if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
@@ -102,6 +118,14 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
             }
         }
+
+
+        //Idle이면 중력스케일 복구
+        if (player_state == PlayerState.Idle)
+        {
+            rigid.gravityScale = 2;
+        }
+
 
         //브레이크
         if (!isIce && Input.GetButtonUp("Horizontal"))
@@ -116,16 +140,16 @@ public class Player : MonoBehaviour
             //방향전환
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
-
-
-
-
-
-
-        }
+    }
+ 
     private void FixedUpdate()//물리 update
     {
+        if (!movable) return;
 
+        /*
+         레이캐스트
+         */
+        //점프중인지 감지하는 레이캐스트. 파란색
         Debug.DrawRay(rigid.position+new Vector2(-0.4f,0), Vector3.down, new Color(0, 0, 1));
         RaycastHit2D jumpLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(-0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
         Debug.DrawRay(rigid.position + new Vector2(0.4f, 0), Vector3.down, new Color(0, 0, 1));
@@ -143,15 +167,14 @@ public class Player : MonoBehaviour
                 is_jump = true;
             }
         }
-
-        if (!movable) return;
-
         //레이캐스트(for 버튼점프 꾹 누를 시 천장붙음 방지)
+        //초록색
         Debug.DrawRay(rigid.position, Vector3.up, new Color(0, 1, 0));
         RaycastHit2D headRayHit = Physics2D.Raycast(rigid.position, Vector2.up, 1f, LayerMask.GetMask("Platform"));
         //맞았다는 뜻
         if (headRayHit.collider != null)
         {
+            //천장 못 붙게 점프 무시 변수 켜줌
             ignoreJump = true;
         }
         else
@@ -160,7 +183,8 @@ public class Player : MonoBehaviour
         }
 
 
-        //타고올라가기 방지
+        //타고올라가기 방지 레이캐스트(낭떠러지에서 이동키 누르면 쫙 올라가던 문제해결)
+        //빨간색
         Debug.DrawRay(rigid.position + new Vector2(0, -0.45f), Vector3.right, new Color(1, 0, 0));
         Debug.DrawRay(rigid.position + new Vector2(0, -0.45f), Vector3.left, new Color(1, 0, 0));
         RaycastHit2D platformRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.right, 0.5f, LayerMask.GetMask("Platform"));
@@ -171,6 +195,7 @@ public class Player : MonoBehaviour
             //평지가 아니면 && Slope이 아니면
             if (!is_Slope&&!(rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA))
             {
+                //박스콜라이더로 켜주면 못 타고 올라감
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
                 this.GetComponent<BoxCollider2D>().enabled = true;
             }
@@ -182,7 +207,9 @@ public class Player : MonoBehaviour
             this.GetComponent<BoxCollider2D>().enabled = false;
         }
 
-
+        /*
+         ★터치에 대한 코드
+         */
         // 현재 발생 중인 모든 터치 정보 가져오기
         Touch[] touches = Input.touches;
         // 아래는 각 터치에 대한 처리
@@ -191,6 +218,7 @@ public class Player : MonoBehaviour
         {
             if (Input.touchCount == 1)//손가락이 있는 경우면
             {
+                //터치정보 갖고옴
                 Touch touch = Input.GetTouch(0);
                 //좌우키 범위에 들어가면 안 됨
                 if (!(touch.position.x >= 0 && touch.position.x < rightButtonEnd))
@@ -208,28 +236,36 @@ public class Player : MonoBehaviour
         //2. 좌우 및 점프키
         foreach (Touch touch in touches)
         {
+            //왼쪽키 범위
             if (touch.position.x >= 0 && touch.position.x < leftButtonEnd)
             {
                 rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
                 Debug.Log("왼쪽으로 속력주는중(버튼), " + rigid.velocity.x);
             }
+            //오른쪽키 범위
             if (touch.position.x >= leftButtonEnd && touch.position.x < rightButtonEnd)
             {
                 rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
             }
+            //점프키범위
             if (touch.position.x >= Screen.width * 0.5f && touch.position.x < jumpButtonEnd)
             {
                 //그리고 점프중일때 또 점프하지못하게 해야함
                 //점프키누르면
+                //노말라이즈드로 한 거 이제보니 항상 -1,1,0만 되니까 JUMP_CRITERIA 변수가 의미없어지네..?
                 if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
                 {
+                    //점프중 아니어야하고, 점프무시가 켜져있는 상태가 아니어야하고, 점프상태가 아니어야하고, jump변수 true고, 씬이 보스4가 아닐 때 
                     if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
                     {
                         if (audioSources != null)
                         {
+                            //점프소리재생
                             audioSources[0].Play();
                         }
-                        is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                        //점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                        is_jump = true;
+                        //점프력 가하기
                         rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                         Debug.Log("점프도 누름");
                     }
@@ -248,9 +284,13 @@ public class Player : MonoBehaviour
             }
         }
 
-
+        /*
+         pc이동
+         문제없이 잘 됨
+         */
         //키 컨트롤로 움직이기
         horizontal = Input.GetAxisRaw("Horizontal");
+        //현민코드
         if (isIce)
         {
             if (Mathf.Abs(rigid.velocity.x) <= max_speed)
@@ -270,35 +310,44 @@ public class Player : MonoBehaviour
         }
         else
         {
+            //좌우키 누른대로 이동
             rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
         }
 
-        //RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
-
-        //점프상태설정 (player_state)
+        //점프"상태"설정 (player_state)
+        //이 속력일 때만 점프 상태로 전환 가능함.(땅에는 붙어있다고 치는 속력)
         if (rigid.velocity.normalized.y <= -JUMP_CRITERIA || rigid.velocity.normalized.y >= JUMP_CRITERIA)
         {
+            //보스맵4아닐때
             if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
             {
+                //애니메이션 켜주고
                 anim.SetBool("isJump", true);
                 anim.SetBool("isWalk", false);
+                //플레이어상태 바꿔주기
                 if (player_state != PlayerState.Damaged&&!is_Slope)
                 {
+                    //점프로
                     player_state = PlayerState.Jump;
                 }
             }
         }
 
-        //점프키누르면
+        //점프키누르면 점프력 주기
+        //이 속력일때만 점프가능함(땅에는 붙어있다고 치는 속력)
         if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
         {
+            //점프중 아니고 && 점프무시변수 안 켜진 상태고 && 플레이어 스테이트가 점프가 아니고&&스페이스바 눌렸고&&jump가 true고 && 보스맵4가 아니면
             if (!is_jump&&(!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
             {
                 if (audioSources != null)
                 {
+                    //소리재생
                     audioSources[0].Play();
                 }
-                is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                //점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                is_jump = true;
+                //점프력 주기
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
                 
             }
@@ -315,72 +364,63 @@ public class Player : MonoBehaviour
             is_Slope = false;//점프를 한 순간 경사가 아니니까
         }
 
-
-
-
-        /*if (hitInfo.collider != null)
+        //떨어질 때 빨리 떨어지게
+        if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
         {
-            jump = false;
-            if ((Input.GetButton("Jump") || Input.GetKey(KeyCode.Space)))
-            {
-                isClimbing = true;
-                rigid.velocity = new Vector2(rigid.velocity.x, ladder_speed);
-            }
-        }
-        else { jump = true; }
-
-        if (isClimbing == true && hitInfo.collider != null)
-        {
-            inputVertical = Convert.ToSingle(Input.GetButton("Jump") || Input.GetKey(KeyCode.Space));
-            rigid.velocity = new Vector2(rigid.velocity.x, inputVertical * ladder_speed);
-            rigid.gravityScale = 0;
-        }
-        else*/
-        {
-            if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
-            {
-
-                rigid.gravityScale = 3;
-            }
+            rigid.gravityScale = 3;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //경사면
         if (collision.gameObject.CompareTag("Slope"))
         {
+            //경사체크 켜주고
             is_Slope = true;
+            //여기서는 중력 세게 받게
             rigid.gravityScale = 3;
+            //플레이어 상태를 Walk로. Jump상태가 되지 않도록 Walk상태로 바꿔줌 
             player_state = PlayerState.Walk;
         }
         else
         {
+            //경사 아니면 경사 아니라고 대입해주기
             is_Slope = false;
         }
-
+        //땅이면
         if (collision.gameObject.CompareTag("Platform"))
         {
             rigid.gravityScale = 2;//땅에 착지하면 중력스케일 원상복구
         }
+        //적이면
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            //튜토리얼 보석 먹었으면
             if (collision.gameObject.name == "t_FakeItem")
             {
+                //투명벽 치워주기
                 PlayerPrefs.SetString("TransparentWall", "False");
             }
+            //주금
             Die(collision.transform.position);
         }
     }
 
+    //콜라이더 닿는동안
     private void OnCollisionStay2D(Collision2D collision)
     {
+        //땅에 닿는동안
         if (collision.gameObject.CompareTag("Platform"))
         {
+            //왜 저 속력했는지 기억은 안 나는데 그 때 엄청 디버깅했으니 어떤 이유가 있을거임
             if (rigid.velocity.normalized.y < 0.005f && rigid.velocity.normalized.y > -0.005f)
             {
+                //보스맵4 아니면
                 if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
                 {
-                    if (rigid.velocity.normalized.x != 0 )//x에 방향성이 있으면 걷기
+                    //x에 방향성이 있으면 걷기상태로 전환
+                    if (rigid.velocity.normalized.x != 0 )
                     {
                         anim.SetBool("isJump", false);
                         anim.SetBool("isWalk", true);
@@ -402,24 +442,29 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        //적에닿는동안
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            //주금
             Die(collision.transform.position);
         }
+        //서현코드
         else if (collision.gameObject.CompareTag("BurnEnemy"))
         {
             StartCoroutine(BurnAndDie());
             Die(collision.transform.position);
         }
+        //보스여도 주금
         else if (collision.gameObject.CompareTag("Boss"))
         {
             Die(collision.transform.position);
         }
     }
 
+    //트리거 감지
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        //소연코드
         if (collision.gameObject.CompareTag("Flag"))
         {
             //리스폰 위치를 해당 Flag 위치로 재설정
@@ -432,54 +477,69 @@ public class Player : MonoBehaviour
             anim.SetBool("isItemGet", true);
             collision.gameObject.SetActive(false);
         }
+        //보더면
         else if (collision.gameObject.CompareTag("Border"))
         {
+            //무적 아니면
             if (!Invincibility)
             {
                 if (audioSources != null)
                 {
+                    //퍽 소리
                     audioSources[1].Play();
                 }
-
+                //플레이어상태전환
                 player_state = PlayerState.Damaged;
+                //통과하는 레이어로 바꿈
                 this.gameObject.layer = 7;
+                //보더 감지 트루
                 isBorder = true;
+                //죽음처리 함수 불러옴(UI)
                 GameManager.instance.OnPlayerDead();
             }
         }
     }
 
+    //트리거에 닿는동안
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //현민코드
         if (!isIce && collision.gameObject.CompareTag("Ice"))
         {
             isIce = true;
         }
     }
-
+    //트리거 나가면
     private void OnTriggerExit2D(Collider2D collision)
     {
+        //현민코드
         if (collision.gameObject.CompareTag("Ice"))
         {
             isIce = false;
         }
     }
 
+    //주금 처리
+    //타겟포지션 받는 이유: 그 적의 반대방향으로 얘가 통 튀어야하니까
     public void Die(Vector2 targetPos)
     {
+        //무적아니면
         if (!invincibility)
         {
+            //주금 처리 함수
             onDamaged(targetPos);
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
         }
     }
-
+    //주그면
+    //타겟포지션: 에네미의 반대방향으로 통 튀려고
     public void onDamaged(Vector2 targetPos)
     {
 
         if (audioSources != null)
         {
+            //퍽소리
             audioSources[1].Play();
         }
 
@@ -491,7 +551,7 @@ public class Player : MonoBehaviour
         sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        if (!isBorder)
+        if (!isBorder)//보더면 통 튀면 안 되니까..
         {
             rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
         }
@@ -500,22 +560,26 @@ public class Player : MonoBehaviour
     //화면밖으로 나감: 죽음
     private void OnBecameInvisible()
     {
+        //무적아니면
         if (!invincibility)
         {
             if (audioSources != null)
             {
+                //퍽
                 audioSources[1].Play();
             }
-
+            //데미지드 상태로 전환
             player_state = PlayerState.Damaged;
-
+            //통과되는 레이어로 바꿈
             this.gameObject.layer = 7;
+            //주금처리함수 불러옴(UI)
             GameManager.instance.OnPlayerDead();
         }
+        //이 게임 오브젝트 꺼줌
         this.gameObject.SetActive(false);
     }
 
-
+    //서현 코드
     IEnumerator BurnAndDie()
     {
         player_state = PlayerState.Damaged;
@@ -525,7 +589,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
     }
 
-
+    //누군가의 코드
     public void ChangeSprites()
     {
         string realItem = PlayerPrefs.GetString("RealItem");

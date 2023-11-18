@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 /// <summary>
 /// 터치방식을 바꾼걸 테스트했던 코드입니다
 /// </summary>
