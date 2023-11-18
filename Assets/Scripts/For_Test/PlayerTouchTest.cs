@@ -2,66 +2,78 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
-
+/// <summary>
+/// í„°ì¹˜ë°©ì‹ì„ ë°”ê¾¼ê±¸ í…ŒìŠ¤íŠ¸í–ˆë˜ ì½”ë“œì…ë‹ˆë‹¤
+/// </summary>
 public class PlayerTouchTest : MonoBehaviour
 {
+    /// <summary>
+    /// í„°ì¹˜ ë²”ìœ„ ë³€ìˆ˜
+    /// </summary>
     float rightButtonEnd= Screen.width * 0.4167f;
     float leftButtonEnd= Screen.width * 0.2083f;
     float jumpButtonEnd= Screen.width;
+    //ë¬´í•œì í”„ ë§‰ê¸°ìœ„í•´ ì í”„ì¤‘ì¸ì§€ ì²´í¬í•˜ëŠ” ë³€ìˆ˜
     bool isJumping = false;
+    //ë¦¬ì§€ë“œë°”ë”” ë°›ì•„ì˜¤ëŠ” ë³€ìˆ˜
     Rigidbody2D rigid;
+    //ìµœëŒ€ì†ë ¥, ìµœëŒ€ì í”„ë ¥
     [SerializeField] private float maxSpeed=5f;
     [SerializeField] private float jumpPower=5f;
     // Start is called before the first frame update
     void Start()
     {
+        //ë¦¬ì§€ë“œë°”ë”” ê°€ì ¸ì˜¤ê¸°
         rigid=GetComponent<Rigidbody2D>();  
-        Debug.Log("leftButtonÀº 0~" + leftButtonEnd);
-        Debug.Log("rightButtonÀº"+leftButtonEnd+"~" + rightButtonEnd);
-        Debug.Log("jumpButtonÀº"+rightButtonEnd+"~" + jumpButtonEnd);
-        
+        //í„°ì¹˜ ë²”ìœ„ ì¶œë ¥í•˜ëŠ” ë””ë²„ê¹…ì½”ë“œ
+        Debug.Log("leftButtonì€ 0~" + leftButtonEnd);
+        Debug.Log("rightButtonì€"+leftButtonEnd+"~" + rightButtonEnd);
+        Debug.Log("jumpButtonì€"+rightButtonEnd+"~" + jumpButtonEnd);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        // ÇöÀç ¹ß»ı ÁßÀÎ ¸ğµç ÅÍÄ¡ Á¤º¸ °¡Á®¿À±â
+        // í˜„ì¬ ë°œìƒ ì¤‘ì¸ ëª¨ë“  í„°ì¹˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
         Touch[] touches = Input.touches;
-        // ¾Æ·¡´Â °¢ ÅÍÄ¡¿¡ ´ëÇÑ Ã³¸®
-        //1. ºê·¹ÀÌÅ©
-        if (Input.touchCount== 1|| Input.touchCount == 0) //¼Õ°¡¶ôÀÌ 1°³°Å³ª ¾ø¾î¾ßÇÔ
+        // ì•„ë˜ëŠ” ê° í„°ì¹˜ì— ëŒ€í•œ ì²˜ë¦¬
+        //1. ë¸Œë ˆì´í¬
+        if (Input.touchCount== 1|| Input.touchCount == 0) //ì†ê°€ë½ì´ 1ê°œê±°ë‚˜ ì—†ì–´ì•¼í•¨
         {
-            if (Input.touchCount == 1)//¼Õ°¡¶ôÀÌ ÀÖ´Â °æ¿ì¸é
+            if (Input.touchCount == 1)//ì†ê°€ë½ì´ ìˆëŠ” ê²½ìš°ë©´
             {
+                //ê·¸ ì†ê°€ë½ì— ëŒ€í•œ ì •ë³´ ê°€ì ¸ì˜´
                 Touch touch=Input.GetTouch(0);
-                //ÁÂ¿ìÅ° ¹üÀ§¿¡ µé¾î°¡¸é ¾È µÊ
+                //ì¢Œìš°í‚¤ ë²”ìœ„ì— ë“¤ì–´ê°€ë©´ ì•ˆ ë¨(ì¢Œìš°í‚¤ ëˆ„ë¥¼ ë•Œ ë¸Œë ˆì´í¬í•˜ë©´ ì•ˆë˜ë‹ˆê¹Œ)
                 if (!(touch.position.x >= 0 && touch.position.x < rightButtonEnd))
                 {
-                    //ÀÌ ¶§ ºê·¹ÀÌÅ© °É¾îÁÖ±â
+                    //ì´ ë•Œ ë¸Œë ˆì´í¬ ê±¸ì–´ì£¼ê¸°
                     rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
                 }
             }
             else if (Input.touchCount == 0)
             {
-                //ÀÌ ¶§ ºê·¹ÀÌÅ© °É¾îÁÖ±â
+                //ì´ ë•Œ ë¸Œë ˆì´í¬ ê±¸ì–´ì£¼ê¸°
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
             }
         } 
-        //2. ÁÂ¿ì ¹× Á¡ÇÁÅ°
+        //2. ì¢Œìš° ë° ì í”„í‚¤
         foreach (Touch touch in touches)
         {
+            //ì™¼ìª½ì´ë™
             if(touch.position.x>=0&& touch.position.x < leftButtonEnd)
             {
                 rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
             }
+            //ì˜¤ë¥¸ìª½ì´ë™
             if (touch.position.x >= leftButtonEnd && touch.position.x < rightButtonEnd)
             {
                 rigid.velocity = new Vector2(maxSpeed * 1, rigid.velocity.y);
             }
+            //ì í”„
             if (touch.position.x >= Screen.width*0.5f && touch.position.x < jumpButtonEnd)
             {
-                //±×¸®°í Á¡ÇÁÁßÀÏ¶§ ¶Ç Á¡ÇÁÇÏÁö¸øÇÏ°Ô ÇØ¾ßÇÔ
+                //ê·¸ë¦¬ê³  ì í”„ì¤‘ì¼ë•Œ ë˜ ì í”„í•˜ì§€ëª»í•˜ê²Œ í•´ì•¼í•¨
                 if (!isJumping)
                 {
                     isJumping = true;
@@ -73,8 +85,10 @@ public class PlayerTouchTest : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
+        //ë•…ì— ë‹¿ìœ¼ë©´
         if (collision.gameObject.tag == "Platform")
         {
+            //ì í”„ì¤‘ì´ ì•„ë‹Œê±°ì„
             isJumping = false;
         }
     }
