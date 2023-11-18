@@ -23,7 +23,7 @@ public class GhostEffect : MonoBehaviour
             GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
             currentGhost.transform.localScale = transform.localScale;
             currentGhost.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
-            Destroy(currentGhost, 0.01f);
+            Destroy(currentGhost, 0.01f); //이게 0.01초 안 기다리면 삭제 안 됐던 것 같음... 아마 시간 안 지나서
         }
     }
 }

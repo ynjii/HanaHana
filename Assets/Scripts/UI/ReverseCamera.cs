@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//이거는.... 안 쓰이고 있음. 그냥 is Reverse 처리하면 됨. 나중에 삭제.
 public class ReverseCamera : MonoBehaviour
 {
     [SerializeField] private GameObject backgroundCanvas;

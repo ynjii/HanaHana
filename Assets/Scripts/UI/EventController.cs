@@ -37,13 +37,11 @@ public class EventController : MonoBehaviour
 
             // 패널 활성화, Soul 활성화, Time.timeScale 조정 등의 코드 실행
             fix_panel.SetActive(true);
-            Soul.SetActive(true);
+            Soul.SetActive(true); //유령 활성화.
             Time.timeScale = 0;
             StartCoroutine(FadeInPanel());
 
             // 패널 점점 어두워짐
-            // 카메라 흔들리는 구현 (추가로 작성해야 함)
-            // 그 후 reverseCamera 시킴 (추가로 작성해야 함)
         }
     }
 
@@ -67,7 +65,7 @@ public class EventController : MonoBehaviour
         panelRenderer.SetAlpha(1f);
 
         // 페이드 인 효과가 끝나면 패널 비활성화
-        camScript.isReverse = true;
+        camScript.isReverse = true; //reverse카메라 
         fix_panel.SetActive(false);
         Soul.SetActive(false);
         Time.timeScale = 1f;
