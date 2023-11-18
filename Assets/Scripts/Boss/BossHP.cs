@@ -21,7 +21,7 @@ public class BossHP : MonoBehaviour
     void Start()
     {
 
-        if (hpType == HPType.HP)
+        if (hpType == HPType.HP) //이거는 유진님 코드
         {
             boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
             slHP.maxValue = boss_script.boss_hp;
@@ -41,6 +41,9 @@ public class BossHP : MonoBehaviour
             DecreaseHP(hpType);
         }
 
+        //이거 근데 update마다 돌아가서 
+        //1. 굳이 else를 만들어줘야하나? 0되면 어차피 다음으로 넘어가니까 굳이 신경쓸 필요는 없어보임.
+        //2. 이거 없앤 이유가 다 사라져도 피가 남은 것처럼 보임. 
         if (currentHP <= 0)
             fillArea.SetActive(false);
         else
