@@ -11,10 +11,10 @@ public class Boss : MonoBehaviour
     public GameObject clearUI;
     
     [SerializeField] GameObject[] _patternChangeGO;
-    private Launch_Fire launcher0_script;
-    private Launch_Fire launcher1_script;
-    private Launch_Fire guidedMissleLuncher1_script;
-    private Launch_Fire guidedMissleLuncher2_script;
+    private Launch_FireAndBullet launcher0_script;
+    private Launch_FireAndBullet launcher1_script;
+    private Launch_FireAndBullet guidedMissleLuncher1_script;
+    private Launch_FireAndBullet guidedMissleLuncher2_script;
     public GameObject[] launchers;
     [SerializeField]
     private List<GameObject> mirrors;
@@ -26,7 +26,7 @@ public class Boss : MonoBehaviour
     [SerializeField]
     public float boss_hp;
     private GameObject P_bullet;
-    private Fire P_bullet_script;
+    private FireAndBullet P_bullet_script;
     [SerializeField]
     private float move_speed;
     private float anim_timer;
@@ -60,13 +60,13 @@ public class Boss : MonoBehaviour
         naruto_anim=child_transform.GetComponent<Animator>();
 
         anim = GetComponent<Animator>();
-        launcher0_script = launchers[0].GetComponent<Launch_Fire>();
-        launcher1_script = launchers[1].GetComponent<Launch_Fire>();
-        guidedMissleLuncher1_script = launchers[2].GetComponent<Launch_Fire>();
-        guidedMissleLuncher2_script = launchers[3].GetComponent<Launch_Fire>();
+        launcher0_script = launchers[0].GetComponent<Launch_FireAndBullet>();
+        launcher1_script = launchers[1].GetComponent<Launch_FireAndBullet>();
+        guidedMissleLuncher1_script = launchers[2].GetComponent<Launch_FireAndBullet>();
+        guidedMissleLuncher2_script = launchers[3].GetComponent<Launch_FireAndBullet>();
 
-        P_bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_Fire>().fire;
-        P_bullet_script = P_bullet.GetComponent<Fire>();
+        P_bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_FireAndBullet>().fire;
+        P_bullet_script = P_bullet.GetComponent<FireAndBullet>();
 
         // 원하는 목표 위치들을 리스트에 추가
         B_target_positions.Add(new Vector3(23.05f, 0.27f, 0));
