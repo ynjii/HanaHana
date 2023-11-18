@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
+    
     public GameObject SaveLoad;
     private bool isNew=false;
     public void Change()

@@ -6,7 +6,9 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Define;
-
+/// <summary>
+/// 플레이어 구버전(터치 예전방식)
+/// </summary>
 public class Player2 : MonoBehaviour
 {
     public AudioSource[] audioSources = null;

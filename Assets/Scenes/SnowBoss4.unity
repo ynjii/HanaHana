@@ -297,7 +297,7 @@ MonoBehaviour:
   obType: 13
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
   obType: 13
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   obType: 13
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -1425,7 +1425,7 @@ MonoBehaviour:
   obType: 13
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -1691,7 +1691,7 @@ MonoBehaviour:
   obType: 13
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -2328,7 +2328,7 @@ MonoBehaviour:
   obType: 13
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -9398,15 +9398,11 @@ MonoBehaviour:
   audioSources:
   - {fileID: 4555549104988820608}
   - {fileID: 4555549104988820607}
-  invincibility: 0
+  invincibility: 1
   is_jump: 0
   jump_power: 8
   player_state: 0
   SaveLoad: {fileID: 1699537233}
-  ladder_speed: 15
-  whatIsLadder:
-    serializedVersion: 2
-    m_Bits: 2048
   distance: 0
   movable: 1
 --- !u!50 &4555549104988820581

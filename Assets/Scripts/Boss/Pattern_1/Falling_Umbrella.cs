@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 거울맵 떨어지는 우산
+/// </summary>
 public class Falling_Umbrella : MonoBehaviour
 {
+    //아이템 얻었나 확인 변수
     private bool item_get = false;
+    //캡슐화
     public bool Item_get
     {
         get { return item_get; } 
@@ -12,8 +16,8 @@ public class Falling_Umbrella : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        item_get = true;
-    
+        //닿았으면 아이템 얻은걸로 처리
+        item_get = true; 
     }
 
 
