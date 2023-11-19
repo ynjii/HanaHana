@@ -14,8 +14,6 @@ public class CircleMovement : MonoBehaviour
     [SerializeField]
     Transform rotationCenter;
 
-    
-
     [SerializeField]
     float rotationRadius=2f, angularSpeed=2f;
 

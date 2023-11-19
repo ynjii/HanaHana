@@ -18,7 +18,7 @@ public class Laser : MonoBehaviour
     void Awake()
     {
         m_transform = GetComponent<Transform>();
-        player = GameObject.FindWithTag("Player");//find? 다른 거 붙이기.
+        player = GameObject.FindWithTag("Player");
         player_script = player.GetComponent<Player>();
         player_spriterenderer = player.GetComponent<SpriteRenderer>();
         is_first_entered = true;

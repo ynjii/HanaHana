@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,18 +21,18 @@ public class SaveLoad : MonoBehaviour
     }
 
 //scene 이어하기, 새로하기 저장
-public void SaveBool(string key, bool value)
-{
-    PlayerPrefs.SetInt(key, value ? 1 : 0);
-}
+    public void SaveBool(string key, bool value)
+    {
+        PlayerPrefs.SetInt(key, value ? 1 : 0);
+    }
 
-//scene 이어하기, 새로하기 로드
-public bool LoadBool(string key)
-{
-    int intValue = PlayerPrefs.GetInt(key, 0);
-    bool loadedValue = intValue != 0;
-    return loadedValue;
-}
+    //scene 이어하기, 새로하기 로드
+    public bool LoadBool(string key)
+    {
+        int intValue = PlayerPrefs.GetInt(key, 0);
+        bool loadedValue = intValue != 0;
+        return loadedValue;
+    }
 
     //리스폰 위치 저장
     public void SaveRespawn(string key, Vector3 value)
