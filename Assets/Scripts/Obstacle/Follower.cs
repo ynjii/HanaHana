@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
+//player 졸졸 따라다님. 펫 기능 생각하면 됨.
 public class Follower : MonoBehaviour
 {
     public Vector3 followPos;
@@ -20,7 +21,7 @@ public class Follower : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isTriggered = true;
-            this.gameObject.layer = 3;
+            this.gameObject.layer = 3; //layer을 player로 바꿈 player랑 똑같이 collider 조건 맞추려고
             playerScript = collision.gameObject.GetComponent<Player>();
         }
         else if (isTriggered && collision.gameObject.CompareTag("Enemy"))
@@ -45,6 +46,7 @@ public class Follower : MonoBehaviour
         }
     }
 
+    //playerPos를 차곡차곡 스택에 담는다.
     void Watch()
     {
         if (!playerPos.Contains(player.position))
@@ -53,6 +55,7 @@ public class Follower : MonoBehaviour
             followPos = playerPos.Dequeue();
     }
 
+    //player 따라감.
     void Follow()
     {
         transform.position = followPos;

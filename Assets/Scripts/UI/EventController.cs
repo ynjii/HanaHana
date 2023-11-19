@@ -39,6 +39,8 @@ public class EventController : MonoBehaviour
             fix_panel.SetActive(true);
             Soul.SetActive(true); //유령 활성화.
             Time.timeScale = 0;
+            //여기서 일시정지를 위해 0f 했는데 조금 더 똑똑하게 할 수 없었나 싶다. 
+            //이게 0f로 되니까 잔상이 안사라졌다... 그런대로 킹받게 잘 나와서 다행이지만 원하던 효과는 아니었던 것.
             StartCoroutine(FadeInPanel());
 
             // 패널 점점 어두워짐
@@ -47,7 +49,6 @@ public class EventController : MonoBehaviour
 
     private IEnumerator FadeInPanel()
     {
-        float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             // 경과 시간에 따른 알파 값 변경

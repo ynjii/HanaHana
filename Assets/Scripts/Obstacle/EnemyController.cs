@@ -50,6 +50,7 @@ public class EnemyController : MonoBehaviour
 
 
     }
+    //원래는 raycast 사용하려고 했는데 힘들었다. 그냥 빈 object 넣어서 platform 처리시킴. 이렇게 해도 되는지 의문이지만... 뭐 아무튼 trigger처리해놔서 큰 문제는 없었다...
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
@@ -62,7 +63,8 @@ public class EnemyController : MonoBehaviour
             Jump();
         }
     }
-
+    //이거는 사과맵 중간에 점프하는 난쟁이. 스크립트 분리를 하는게 맞는 것 같다. 그리고 보니까 뛰는 속도가 더 빨라야 하나? 싶기도. 
+    //아무튼 플레이하는 거 보니까 원하는대로 작동 안하는 느낌이 있엇음.
     private void Jump()
     {
         Vector3 force = Vector3.up * jumpingSpeed;

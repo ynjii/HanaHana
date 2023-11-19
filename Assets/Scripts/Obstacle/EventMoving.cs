@@ -15,7 +15,7 @@ public class EventMoving : MonoBehaviour
 
     private void OnEnable()
     {
-        // GameObject가 활성화될 때마다 코루틴 시작
+        // GameObject가 활성화될 때마다 코루틴 시작. 이거!!! fade in 중복임!!!!! 걍 fadein 스크립트를 따로 만들어야 함!!!
         StartCoroutine(FadeIn());
         num = 0;
         StartCoroutine(MoveAlongPath());
@@ -25,7 +25,8 @@ public class EventMoving : MonoBehaviour
     {
         while (num < 8)
         {
-            // 처음 Waypoint로 이동
+            // 처음 Waypoint로 이동 이거 웨이 포인트 어캐했냐면 빈 obj 선택해서 그냥 끌어다줌.
+            //근데 이게... 스크린 별로 차이가 있따보니 그냥 window값 찾아서 바꿀가 생각중. 
             Vector3 targetPosition = waypoints[currentWaypointIndex].position;
             while (Vector3.Distance(transform.position, targetPosition) > 0.001f)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//얘도 주인공 따라다니는데 follower랑은 살짝 다름.  follower는 player가 간 길을 그대로 따라가고 얘는 말그대로 player가 목표
 public class Missile : MonoBehaviour
 {
     public float speed = 5f;
@@ -13,6 +14,7 @@ public class Missile : MonoBehaviour
     [SerializeField]
     private Vector3 targetPos = new Vector3(0, 0, 0);
 
+    //이거는 유진님이 만든거라 잘 모르겠습니다....
     [SerializeField]
     private bool has_rigid = false;
     [SerializeField]

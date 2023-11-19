@@ -15,15 +15,15 @@ public class GhostEffect : MonoBehaviour
         StartCoroutine(CreateGhost());
     }
 
-    private IEnumerator CreateGhost()
+    private IEnumerator CreateGhost() //ghost: 잔상, soul : 정령 
     {
-        while (true)
+        while (true) //이거 잔상임.
         {
             yield return new WaitForSecondsRealtime(ghostDelay);
             GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
             currentGhost.transform.localScale = transform.localScale;
             currentGhost.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
-            Destroy(currentGhost, 0.01f); //이게 0.01초 안 기다리면 삭제 안 됐던 것 같음... 아마 시간 안 지나서
+            Destroy(currentGhost, 0.01f); //이게 0.01초 안 기다리면 삭제 안 됐던 것 같음... 내가 timescale = 0f로 해놨더니 생긴 일. 아마 시간 안 지나서
         }
     }
 }
