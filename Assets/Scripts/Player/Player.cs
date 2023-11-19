@@ -67,11 +67,8 @@ public class Player : MonoBehaviour
     private bool isIce = false;
     //세이브 관련 변수인듯(소연)
     public GameObject SaveLoad;
-    //?? 누가 만든 변순지 질문
-    private bool jump = true;
-    //현민 변수(아이스와 관련된 변수)
+    //서현 변수: 입력무시용 변수
     public bool movable = true;
-
 
     //캡슐화
     public float Horizontal
@@ -119,13 +116,11 @@ public class Player : MonoBehaviour
             }
         }
 
-
         //Idle이면 중력스케일 복구
         if (player_state == PlayerState.Idle)
         {
             rigid.gravityScale = 2;
         }
-
 
         //브레이크
         if (!isIce && Input.GetButtonUp("Horizontal"))
@@ -214,7 +209,7 @@ public class Player : MonoBehaviour
         Touch[] touches = Input.touches;
         // 아래는 각 터치에 대한 처리
         //1. 브레이크
-        if (Input.touchCount == 1 || Input.touchCount == 0 && !isIce) //손가락이 1개거나 없어야함
+        if (!isIce) //손가락이 1개거나 없어야함
         {
             if (Input.touchCount == 1)//손가락이 있는 경우면
             {
@@ -256,7 +251,7 @@ public class Player : MonoBehaviour
                 if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
                 {
                     //점프중 아니어야하고, 점프무시가 켜져있는 상태가 아니어야하고, 점프상태가 아니어야하고, jump변수 true고, 씬이 보스4가 아닐 때 
-                    if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+                    if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
                     {
                         if (audioSources != null)
                         {
@@ -298,7 +293,7 @@ public class Player : MonoBehaviour
                 rigid.AddForce(Vector2.right * horizontal, ForceMode2D.Impulse);
             }
 
-            if ((player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump)
+            if ((player_state != PlayerState.Jump) && (Input.GetButton("Jump")))
             {
                 if (audioSources != null)
                 {
@@ -336,10 +331,11 @@ public class Player : MonoBehaviour
         //점프키누르면 점프력 주기
         //이 속력일때만 점프가능함(땅에는 붙어있다고 치는 속력)
         if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
-        {
+         {
             //점프중 아니고 && 점프무시변수 안 켜진 상태고 && 플레이어 스테이트가 점프가 아니고&&스페이스바 눌렸고&&jump가 true고 && 보스맵4가 아니면
-            if (!is_jump&&(!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && jump && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+            if (!is_jump&&(!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump"))  && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
             {
+
                 if (audioSources != null)
                 {
                     //소리재생
@@ -590,6 +586,9 @@ public class Player : MonoBehaviour
     }
 
     //누군가의 코드
+    /// <summary>
+    /// 진짜 아이템 먹으면 애니메이션 컨트롤러 바꿔주기
+    /// </summary>
     public void ChangeSprites()
     {
         string realItem = PlayerPrefs.GetString("RealItem");

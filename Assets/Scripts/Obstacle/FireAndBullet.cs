@@ -27,6 +27,7 @@ public class FireAndBullet : MonoBehaviour//SnowWhite씬의 fire에도 쓰이고
     private ObType direction; // 방향
     [SerializeField]
     private float speed; // 속도
+    
     [SerializeField]
     public float bullet_damage; // 총알데미지
 
@@ -36,18 +37,18 @@ public class FireAndBullet : MonoBehaviour//SnowWhite씬의 fire에도 쓰이고
     //2일때만 사라져야해서 넣은 변수
     //이 변수 없이 그냥 콜리젼 닿으면 사라지게하면 애가 세상밖도 못나오고 
     //그냥 발사블록 안에서 바로 사라짐 ㅋ;
-    private int num = 0;
+    private int colCount = 0;
 
     // Update is called once per frame
 
     void Update()
     {     
         //얘가 발사블록없는 총알이라면 한 번만 맞아도 사라지게 해야함
-        if (this.gameObject.CompareTag("bullet")&&num>=1)//보스패턴4에서 썼던 총알 태그. 
+        if (this.gameObject.CompareTag("bullet")&&colCount>=1)//보스패턴4에서 썼던 총알 태그. 
         {
             Destroy(gameObject);
         }
-        if (num >= 2)//근데 발사블록 안에서 발사되는 불똥같은애면은 2번 맞았을 때 사라져야함
+        if (colCount >= 2)//근데 발사블록 안에서 발사되는 불똥같은애면은 2번 맞았을 때 사라져야함
         {
             Destroy(gameObject);
         }
@@ -86,7 +87,7 @@ public class FireAndBullet : MonoBehaviour//SnowWhite씬의 fire에도 쓰이고
     //콜라이더 닿으면 num 증가해줌
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        num++;
+        colCount++;
     }
 
     //화면밖이면 애 없애줌

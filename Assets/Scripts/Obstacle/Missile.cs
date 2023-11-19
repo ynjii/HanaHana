@@ -44,7 +44,6 @@ public class Missile : MonoBehaviour
             {
                 Vector3 direction = (player.position + targetPos) - transform.position;
                 direction.Normalize();
-
                 transform.position += direction * speed * Time.deltaTime;
             }
         }

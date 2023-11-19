@@ -8,10 +8,8 @@ using UnityEngine;
 public class CirclePattern : MonoBehaviour
 {
     //프리팹이랑 발사시킬 위치 넣어준다
-    public void CircleLaunch(GameObject prefab,Transform transform)   
+    public void CircleLaunch(GameObject prefab,Transform transform,int roundNumA=15)   
     {
-        // 발사할 게임 오브젝트의 수
-        int roundNumA = 15;
 
         // 주어진 수만큼 반복하여 게임 오브젝트 발사
         for (int i = 0; i < roundNumA; i++)
@@ -39,9 +37,9 @@ public class CirclePattern : MonoBehaviour
     /// </summary>
     /// <param name="prefab"></param>
     /// <param name="transform"></param>
-    public void CLaunch(GameObject prefab, Transform transform, int hole_num)
+    public void CLaunch(GameObject prefab, Transform transform, int hole_num, int roundNumA = 15)
     {
-        int roundNumA = 15;
+        
         int whole_start=Random.Range(0, roundNumA-hole_num);//0~roundNumA-whole_num-1
         int whole_count = 0;
         for (int i = 0; i < roundNumA; i++)

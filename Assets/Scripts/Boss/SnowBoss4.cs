@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Define;
 using DG.Tweening;
+
 /// <summary>
 /// 백설공주4패턴 스크립트
 /// </summary>
@@ -270,7 +271,6 @@ public class SnowBoss4: MonoBehaviour
         launcher0_script.fires_index = 1;
         //고블린 던지기
         launcher1_script.fires_index = 3;
-
 
     }
     //랜덤패턴

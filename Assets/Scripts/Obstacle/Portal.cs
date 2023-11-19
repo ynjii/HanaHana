@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Define;
 using UnityEngine.UI;
+
 /// <summary>
 /// 포탈스크립트.
 /// 트리거로 움직입니다~
 /// </summary>
-
 public class Portal : MonoBehaviour
 {
     //페이드아웃 판넬 UI 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// 장애물 사운드 스크립트
 /// ObstacleController와 비슷한 작동방식
@@ -60,7 +61,7 @@ public class ObstacleSound : MonoBehaviour
         audio= GetComponent<AudioSource>();
     }
 
-    //보이면 활성화 안 됨
+    //보이면 활성화 
     private void OnBecameVisible()
     {
         if (audio != null)
