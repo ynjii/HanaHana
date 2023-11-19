@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 가시 깜빡이는 효과의 클래스
 /// </summary>
-public class Blink : MonoBehaviour
+public class AlertBlink : MonoBehaviour
 {
     float time;
     [SerializeField] private int r=1;

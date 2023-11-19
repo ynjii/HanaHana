@@ -19,7 +19,6 @@ public class MossWall : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             other.constraints = RigidbodyConstraints2D.FreezeAll;
-
         }
     }
 

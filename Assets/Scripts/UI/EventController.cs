@@ -49,6 +49,7 @@ public class EventController : MonoBehaviour
 
     private IEnumerator FadeInPanel()
     {
+        float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
             // 경과 시간에 따른 알파 값 변경

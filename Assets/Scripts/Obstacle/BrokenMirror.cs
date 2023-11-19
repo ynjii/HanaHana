@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*미러맵에서 깨지는 유리 타일. 2번, 1번 중 설정 가능, 알맞은 타이밍에 부서지는지 확인*/
-public class BrokenMirror : MonoBehaviour
+public class WeakPlatform : MonoBehaviour
 {
     //거울 블록 두 가지 타입
     public enum BlockType
