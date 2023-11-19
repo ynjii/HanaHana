@@ -12,7 +12,7 @@ public class BossHP : MonoBehaviour
     public float decreaseRate = 1.0f; // 감소율 조정을 위한 변수
     public float currentHP; // 현재 HP 값
     [SerializeField] private HPType hpType;
-    private Boss boss_script;
+    private SnowBoss4 boss_script;
     public enum HPType
     {
         Time, //시간따라
@@ -23,7 +23,7 @@ public class BossHP : MonoBehaviour
 
         if (hpType == HPType.HP) //이거는 유진님 코드
         {
-            boss_script = GameObject.FindWithTag("Boss").GetComponent<Boss>();
+            boss_script = GameObject.FindWithTag("Boss").GetComponent<SnowBoss4>();
             slHP.maxValue = boss_script.boss_hp;
             currentHP = boss_script.boss_hp;// 보스 피: 초기 피
         }

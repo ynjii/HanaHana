@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
+/*레이저 색깔별 활성화/비활성화 결정하는 스크립트. 해당 레이저 비활성화(enable) 대신 알파값으로 조정할 것.*/
 public class Laser : MonoBehaviour
 {
     [SerializeField] private float defDistanceRay = 1;
@@ -13,11 +14,11 @@ public class Laser : MonoBehaviour
     private Player player_script;
     private SpriteRenderer player_spriterenderer;
     private bool is_first_entered;
-    // Start is called before the first frame update
+
     void Awake()
     {
         m_transform = GetComponent<Transform>();
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");//find? 다른 거 붙이기.
         player_script = player.GetComponent<Player>();
         player_spriterenderer = player.GetComponent<SpriteRenderer>();
         is_first_entered = true;

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 가시 깜빡이는 효과의 클래스
+/// </summary>
 public class Blink : MonoBehaviour
 {
     float time;
@@ -9,7 +12,6 @@ public class Blink : MonoBehaviour
     [SerializeField] private int g=1;
     [SerializeField] private int b=1;
 
-    // Update is called once per frame
     void Update()
     {
         if (time < 0.3f)

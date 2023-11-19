@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
+/*싱글턴 사용: 프로그램 실행 시 유지할 값들
+1. 리스폰 포인트
+2. 죽은 횟수
+3. 게임 오버 상태 및 관리
+4. UI 출력을 여기서 하나...?: 굳이 얘를 스태틱으로 관리할 필요가 있나?
+게임 오버 출력을 다른 데에서 하면 안 되나?
+5. 배경 바꾸기: 여기서 꼭...? 오디오 소스... 꼭? */
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //싱글턴을 할당할 전역변수

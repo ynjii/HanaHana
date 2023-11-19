@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 시작 때 튜토리얼 진행 관련 알고리즘. 진행 사항 기록 및 체크
+/// saveload 스크립트의 함수를 이용, tutorial playerprefs가 있다.
+/// tutorial
+/// 0 : 처음 상태, 시작 튜토리얼 나감 ->1
+/// 1 : ui 꺼라
+/// 2 : tutorialfakeitem이 호출되면 2로 변함, fakeitem 튜토리얼 나감 ->3
+/// 3 : ui 꺼라
+/// TutoEnd: tutorialflag가 호출되면, 4가 아니라면, flag 튜토리얼 나감->
+/// 4:  ui 꺼라
+/// </summary>
 public class TutorialText : MonoBehaviour
 {
     [SerializeField] PopupText popup_text_prefab;
@@ -29,7 +40,9 @@ public class TutorialText : MonoBehaviour
             SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 3);
         }
     }
-
+    /// <summary>
+    /// 맨마지막, flag 닿으면 모든 튜토리얼 진행 사항을 끄고 간다. 
+    /// </summary>
     public void TutoEnd(){
             popup_text_prefab.PopupTextList(text_list1_3, true);
             SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 4);

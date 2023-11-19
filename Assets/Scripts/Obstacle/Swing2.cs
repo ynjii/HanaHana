@@ -1,8 +1,9 @@
 using UnityEngine;
 
+/*Sin 함수를 이용한 스윙 함수, 각도 조절 가능*/
 public class Swing2 : MonoBehaviour
 {
-    public float angle = 90f; // 최대 회전 각도 (양쪽으로 30도)
+    public float angle = 90f; // 최대 회전 각도 (양쪽으로 45도)
     public float addAngle=0f;
     private float lerpTime = 0;
     [SerializeField]

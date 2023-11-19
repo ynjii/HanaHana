@@ -1,9 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 닿으면 자기자신 파괴되게 하는 스크립트
+/// </summary>
 public class IfTouchDestroyMyself : MonoBehaviour
 {
+    //누구랑 닿으면 파괴되게 할지 변수넣기
     [SerializeField]
     private string tagName1 = "Untagged";
     [SerializeField]
