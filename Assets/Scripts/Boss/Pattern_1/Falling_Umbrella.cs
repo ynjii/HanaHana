@@ -11,18 +11,17 @@ public class Falling_Umbrella : MonoBehaviour
     //캡슐화
     public bool Item_get
     {
-        get { return item_get; } 
+        get { return item_get; }
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //닿았으면 아이템 얻은걸로 처리
-        item_get = true; 
+        item_get = true;
     }
 
 
 }
 
 
- 
-    
+

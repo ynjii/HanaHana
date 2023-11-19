@@ -13,14 +13,14 @@ public class PlayMusicOperator : MonoBehaviour
     public struct BgmType
     {
         public string name;
-        public AudioClip audio; 
+        public AudioClip audio;
     }
 
     // Inspector 에표시할 배경음악 목록
     public BgmType[] BGMList;
 
     private AudioSource BGM;
-    private string NowBGMname="";
+    private string NowBGMname = "";
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class PlayMusicOperator : MonoBehaviour
         BGM.loop = true;
         if (BGMList.Length > 0) PlayBGM(BGMList[0].name);
     }
-    
+
     public void PlayBGM(string name)
     {
         if (NowBGMname.Equals(name)) return;

@@ -2,8 +2,8 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //보스 패턴 랜덤으로 돌리는 코드입니다.
 //한 스크립트에 다 연결했는데 걍 스크립트를 PATTERN OBSTACLE들한테 부착해도 되지 않을까 생각중.

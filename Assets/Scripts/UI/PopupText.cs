@@ -1,15 +1,15 @@
- using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PopupText : MonoBehaviour
 {
     [SerializeField] private GameObject popup_text_GO;
     [SerializeField] private GameObject fix_panel;
-    
+
     private TextMeshProUGUI popup_text;
     private int currentTextNum;
     private List<string> text_list;

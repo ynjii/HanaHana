@@ -34,9 +34,9 @@ public class Player : MonoBehaviour
         set { invincibility = value; }
     }
     //점프중인지 체크하는 변수
-    public bool is_jump=false;
+    public bool is_jump = false;
     //점프 허용 범위
-    private const float JUMP_CRITERIA =0.4f;
+    private const float JUMP_CRITERIA = 0.4f;
     /// <summary>
     /// 점프력, 속력
     /// </summary>
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
     {
         if (!movable) return;
 
-        
+
         /*
          보스맵 4
          */
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
             sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
     }
- 
+
     private void FixedUpdate()//물리 update
     {
         if (!movable) return;
@@ -145,19 +145,19 @@ public class Player : MonoBehaviour
          레이캐스트
          */
         //점프중인지 감지하는 레이캐스트. 파란색
-        Debug.DrawRay(rigid.position+new Vector2(-0.4f,0), Vector3.down, new Color(0, 0, 1));
+        Debug.DrawRay(rigid.position + new Vector2(-0.4f, 0), Vector3.down, new Color(0, 0, 1));
         RaycastHit2D jumpLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(-0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
         Debug.DrawRay(rigid.position + new Vector2(0.4f, 0), Vector3.down, new Color(0, 0, 1));
         RaycastHit2D jumpRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
 
-        if (jumpLeftRayHit.collider != null|| jumpRightRayHit.collider != null)
+        if (jumpLeftRayHit.collider != null || jumpRightRayHit.collider != null)
         {
             is_jump = false;
         }
         else
         {
             //점프면 is_jump=true
-            if(player_state==PlayerState.Jump)
+            if (player_state == PlayerState.Jump)
             {
                 is_jump = true;
             }
@@ -186,15 +186,15 @@ public class Player : MonoBehaviour
         RaycastHit2D platformLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(0, -0.45f), Vector2.left, 0.5f, LayerMask.GetMask("Platform"));
         //맞았다는 뜻(근데 slope은 체크기준이 아님.)
         if (platformRightRayHit.collider != null || platformLeftRayHit.collider != null)
-        {  
+        {
             //평지가 아니면 && Slope이 아니면
-            if (!is_Slope&&!(rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA))
+            if (!is_Slope && !(rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA))
             {
                 //박스콜라이더로 켜주면 못 타고 올라감
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
                 this.GetComponent<BoxCollider2D>().enabled = true;
             }
-            
+
         }
         else
         {
@@ -251,7 +251,7 @@ public class Player : MonoBehaviour
                 if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
                 {
                     //점프중 아니어야하고, 점프무시가 켜져있는 상태가 아니어야하고, 점프상태가 아니어야하고, jump변수 true고, 씬이 보스4가 아닐 때 
-                    if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump)  && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+                    if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump) && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
                     {
                         if (audioSources != null)
                         {
@@ -320,7 +320,7 @@ public class Player : MonoBehaviour
                 anim.SetBool("isJump", true);
                 anim.SetBool("isWalk", false);
                 //플레이어상태 바꿔주기
-                if (player_state != PlayerState.Damaged&&!is_Slope)
+                if (player_state != PlayerState.Damaged && !is_Slope)
                 {
                     //점프로
                     player_state = PlayerState.Jump;
@@ -331,9 +331,9 @@ public class Player : MonoBehaviour
         //점프키누르면 점프력 주기
         //이 속력일때만 점프가능함(땅에는 붙어있다고 치는 속력)
         if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
-         {
+        {
             //점프중 아니고 && 점프무시변수 안 켜진 상태고 && 플레이어 스테이트가 점프가 아니고&&스페이스바 눌렸고&&jump가 true고 && 보스맵4가 아니면
-            if (!is_jump&&(!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump"))  && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+            if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
             {
 
                 if (audioSources != null)
@@ -345,11 +345,11 @@ public class Player : MonoBehaviour
                 is_jump = true;
                 //점프력 주기
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                
+
             }
         }
         //경사면 점프ok
-        if (Input.GetButton("Jump") && is_Slope&&!is_jump)
+        if (Input.GetButton("Jump") && is_Slope && !is_jump)
         {
             if (audioSources != null)
             {
@@ -416,7 +416,7 @@ public class Player : MonoBehaviour
                 if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
                 {
                     //x에 방향성이 있으면 걷기상태로 전환
-                    if (rigid.velocity.normalized.x != 0 )
+                    if (rigid.velocity.normalized.x != 0)
                     {
                         anim.SetBool("isJump", false);
                         anim.SetBool("isWalk", true);

@@ -1,15 +1,15 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Define;
-using DG.Tweening;
 
 /// <summary>
 /// 백설공주4패턴 스크립트
 /// </summary>
-public class SnowBoss4: MonoBehaviour
+public class SnowBoss4 : MonoBehaviour
 {
     //얘가 내는 소리들 
     public AudioSource[] audioSources;
@@ -17,7 +17,7 @@ public class SnowBoss4: MonoBehaviour
     public GameObject clearUI;
     //죽고나서 터지는 불들
     [SerializeField] GameObject[] afterKilledFlames;
-    
+
     //발사블록들
     public GameObject[] launchers;
     //발사블록1의 스크립트
@@ -27,7 +27,7 @@ public class SnowBoss4: MonoBehaviour
     //발사블록 34 스크립트(미사일용 발사블록)
     private Launch_FireAndBullet guidedMissleLuncher1_script;
     private Launch_FireAndBullet guidedMissleLuncher2_script;
-    
+
     //주그면 나오는 거울 깨진 조각들
     [SerializeField]
     private List<GameObject> mirrors;
@@ -53,7 +53,7 @@ public class SnowBoss4: MonoBehaviour
     private float anim_timer;
     //애니메이션 켜지는 조건변수
     private bool turn_on_anim_timer = false;
-    
+
     //버드 패턴에서 쓰는 변수라는 뜻에서 말머리 붙임
     private List<Vector3> B_target_positions = new List<Vector3>();
     private int B_current_target_index = 0;
@@ -75,15 +75,15 @@ public class SnowBoss4: MonoBehaviour
     //주금
     private bool is_dead = false;
     //죽는거 한 번만 실행해야하니까 그거 위한 변수
-    private bool once=false;
+    private bool once = false;
     private void Awake()
     {
         Transform child_transform = this.transform.GetChild(1);
         //미러 애니메이션 갖고오기(쨍그랑)
-        mirror_anim =child_transform.GetComponent<Animator>();
-        child_transform=this.transform.GetChild(2);
+        mirror_anim = child_transform.GetComponent<Animator>();
+        child_transform = this.transform.GetChild(2);
         //나루토 애니메이션 갖고오기(샤샥)
-        naruto_anim =child_transform.GetComponent<Animator>();
+        naruto_anim = child_transform.GetComponent<Animator>();
         //보스 애니메이션(공주)
         anim = GetComponent<Animator>();
         //발사 박스 스크립트들 갖고오기
@@ -92,7 +92,7 @@ public class SnowBoss4: MonoBehaviour
         //미사일 박스 스크립트들 갖고오기
         guidedMissleLuncher1_script = launchers[2].GetComponent<Launch_FireAndBullet>();
         guidedMissleLuncher2_script = launchers[3].GetComponent<Launch_FireAndBullet>();
-        
+
         //플레이어불렛
         P_bullet = GameObject.FindWithTag("bullet").GetComponent<Launch_FireAndBullet>().fire;
         //플레이어불렛 스크립트
@@ -116,7 +116,7 @@ public class SnowBoss4: MonoBehaviour
         G_target_positions.Add(new Vector3(17.22f, -0.66f, 0));
         G_target_positions.Add(new Vector3(18.92f, -2f, 0));
         G_target_positions.Add(new Vector3(21.55f, -1.85f, 0));
-        
+
         //랜덤패턴시작
         RandomPattern();
     }
@@ -130,9 +130,10 @@ public class SnowBoss4: MonoBehaviour
         {
             Invoke("gotoStageScene", 3f);
         }
-                
+
         //안죽었으면 패턴진행(스포당하면 안되니까)
-        if (!is_dead) {
+        if (!is_dead)
+        {
             //맞으면 빨간색 처리됐던걸 원상복구
             hit_timer += Time.deltaTime;
             if (hit_timer >= 0.15f)
@@ -162,7 +163,7 @@ public class SnowBoss4: MonoBehaviour
 
             //샤샥 하고 1초 지났으면
             if (anim_timer >= 1f && naruto_anim.GetBool("pattern_change"))
-             {
+            {
                 //애니메이션꺼주기
                 naruto_anim.SetBool("pattern_change", false);
                 anim_timer = 0;
@@ -181,7 +182,7 @@ public class SnowBoss4: MonoBehaviour
         }
 
         //깼을 때
-        if (boss_hp <= 0 )
+        if (boss_hp <= 0)
         {
             //여기로 갈거임
             Vector3 targetPosition = Boss_initial_position;
@@ -190,16 +191,16 @@ public class SnowBoss4: MonoBehaviour
 
             // 목표 위치로 이동
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * move_speed);
-                     
+
             //죽는거 한 번만 실행해야하니까 once변수 씀
             if (!once)
             {
                 Dead();
                 once = true;
             }
-        }      
+        }
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //총알(플레이어가 쏘는거) 맞으면
@@ -234,7 +235,7 @@ public class SnowBoss4: MonoBehaviour
         //다이아 사과
         launcher1_script.fires_index = 1;
     }
-    
+
     //패턴3
     private void Pattern3()
     {
@@ -357,7 +358,7 @@ public class SnowBoss4: MonoBehaviour
     public void DeleteCloneObjects()
     {
         // 씬 내의 모든 게임 오브젝트 가져오기
-        GameObject[] allObjects = FindObjectsOfType<GameObject>(); 
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
 
         foreach (GameObject obj in allObjects)
         {
@@ -373,7 +374,7 @@ public class SnowBoss4: MonoBehaviour
     private bool IsClone(GameObject obj)
     {
         // 이름에 "(Clone)" 문자열이 포함되어 있는지 검사
-        return obj.name.Contains("(Clone)"); 
+        return obj.name.Contains("(Clone)");
     }
 
     //주금
@@ -434,7 +435,7 @@ public class SnowBoss4: MonoBehaviour
         {
             obj.SetActive(true);
         }
-        circle_pattern.CircleLaunch(mirrors, this.transform,10);
+        circle_pattern.CircleLaunch(mirrors, this.transform, 10);
         //쨍그랑
         audioSources[1].Play();
     }
@@ -443,7 +444,7 @@ public class SnowBoss4: MonoBehaviour
     {
         clearUI.SetActive(true);
         //짝짞~
-        audioSources[2].Play();        
+        audioSources[2].Play();
     }
 
     //죽고나서 일어나는 일들
@@ -451,7 +452,7 @@ public class SnowBoss4: MonoBehaviour
     {
         //코루틴 다 꺼주고
         StopAllCoroutines();
-        foreach(GameObject obj in afterKilledFlames)
+        foreach (GameObject obj in afterKilledFlames)
         {
             //불꽃 켜주고
             obj.SetActive(true);
@@ -468,7 +469,7 @@ public class SnowBoss4: MonoBehaviour
         //폭발사운드
         audioSources[0].loop = true;
         audioSources[0].Play();
-        
+
 
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
         yield return new WaitForSeconds(10);

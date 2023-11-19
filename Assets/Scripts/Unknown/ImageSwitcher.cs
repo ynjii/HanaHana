@@ -19,7 +19,7 @@ public class ImageSwitcher : MonoBehaviour
     {
         // 이미지 전환 여부 토글
         switchImages = true;
-        
+
         // 이미지 변경
         image1.enabled = false;
         image2.enabled = true;

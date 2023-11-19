@@ -5,7 +5,8 @@ using UnityEngine;
 /*성맵에서 빙글빙글 도는 바닥 4개, 플레이어 물리기 바닥의 물리를 이어받음*/
 public class CircleMovement : MonoBehaviour
 {
-    public enum Direc{
+    public enum Direc
+    {
         up,
         down,
         left,
@@ -15,47 +16,50 @@ public class CircleMovement : MonoBehaviour
     Transform rotationCenter;
 
     [SerializeField]
-    float rotationRadius=2f, angularSpeed=2f;
+    float rotationRadius = 2f, angularSpeed = 2f;
 
     [SerializeField]
     private Direc direc;
 
 
 
-    float posX, posY, angle=0f;
+    float posX, posY, angle = 0f;
 
     void Awake()
     {
-        switch(direc){
+        switch (direc)
+        {
             case Direc.up:
-                angle=1.5f;
+                angle = 1.5f;
                 break;
-            
+
             case Direc.down:
-                angle=4.6f;
+                angle = 4.6f;
                 break;
 
-            
+
             case Direc.left:
-                angle=3.1f;
+                angle = 3.1f;
                 break;
 
-            
+
             case Direc.right:
-                angle=0f;
-                break;}
+                angle = 0f;
+                break;
+        }
     }
     void Update()
-    {  
-        posX=rotationCenter.position.x+Mathf.Cos(angle)*rotationRadius;
-        posY=rotationCenter.position.y+Mathf.Sin(angle)*rotationRadius;
+    {
+        posX = rotationCenter.position.x + Mathf.Cos(angle) * rotationRadius;
+        posY = rotationCenter.position.y + Mathf.Sin(angle) * rotationRadius;
 
-        transform.position=new Vector2(posX, posY);
-        angle=angle+Time.deltaTime*angularSpeed;
+        transform.position = new Vector2(posX, posY);
+        angle = angle + Time.deltaTime * angularSpeed;
 
-        if(angle>=360f){
-            angle=0f;
-            }
+        if (angle >= 360f)
+        {
+            angle = 0f;
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

@@ -23,7 +23,7 @@ public class SnowWhite_Rope : MonoBehaviour
         {
             yield return new WaitForSeconds(0.12f);
             _ropeSprites[i].gameObject.SetActive(false);
-            _ropeSprites[i+1].sprite = _burningSprite;
+            _ropeSprites[i + 1].sprite = _burningSprite;
             _ropeSprites[i + 1].transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
             _ropeSprites[i + 1].transform.localScale = new Vector3(2, 2, 2);
         }

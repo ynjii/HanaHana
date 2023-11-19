@@ -16,13 +16,13 @@ public class BGScroller : MonoBehaviour
     private float speed;
     private void Awake()
     {
-        m_renderer=GetComponent<MeshRenderer>();
+        m_renderer = GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        offset+=Time.deltaTime*speed;
+        offset += Time.deltaTime * speed;
         m_renderer.material.mainTextureOffset = new Vector2(offset, 0);
     }
 }

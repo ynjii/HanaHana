@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Define;
 using UnityEngine.UI;
+using static Define;
 
 /// <summary>
 /// 포탈스크립트.
@@ -28,7 +28,7 @@ public class Portal : MonoBehaviour
         //페이드아웃 켜지고
         fade_out = true;
         //페이드아웃 판넬의 부모오브젝트(캔버스) 가져옴
-        Transform parent_trans=fadeOutPanel.gameObject.transform.parent;
+        Transform parent_trans = fadeOutPanel.gameObject.transform.parent;
         //켜주기
         parent_trans.gameObject.SetActive(true);
     }
@@ -41,7 +41,7 @@ public class Portal : MonoBehaviour
             //타이머 키고
             timer += Time.deltaTime;
             //색 까매지게
-            fadeOutPanel.color+= new Color(0,0,0,0.1f);
+            fadeOutPanel.color += new Color(0, 0, 0, 0.1f);
         }
         if (timer >= 1f)
         {

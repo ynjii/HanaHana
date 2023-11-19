@@ -10,7 +10,7 @@ public class IfTouchDestroyMyself : MonoBehaviour
     [SerializeField]
     private string tagName1 = "Untagged";
     [SerializeField]
-    private string tagName2="Untagged";
+    private string tagName2 = "Untagged";
     // Start is called before the first frame update
 
     private void OnCollisionEnter2D(Collision2D collision)

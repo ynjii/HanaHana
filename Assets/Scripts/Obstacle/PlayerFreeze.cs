@@ -17,8 +17,8 @@ public class PlayerFreeze : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(!_isCol || !other.gameObject.CompareTag("Player")) return;
-        
+        if (!_isCol || !other.gameObject.CompareTag("Player")) return;
+
         other.gameObject.GetComponent<Player>().movable = false;
     }
 }

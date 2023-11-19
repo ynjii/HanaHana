@@ -8,9 +8,9 @@ using UnityEngine;
 public class AlertBlink : MonoBehaviour
 {
     float time;
-    [SerializeField] private int r=1;
-    [SerializeField] private int g=1;
-    [SerializeField] private int b=1;
+    [SerializeField] private int r = 1;
+    [SerializeField] private int g = 1;
+    [SerializeField] private int b = 1;
 
     void Update()
     {
@@ -20,14 +20,14 @@ public class AlertBlink : MonoBehaviour
         }
         else
         {
-            GetComponent<SpriteRenderer>().color = new Color(r, g, b, time) ;
-            if(time > 0.5f)
+            GetComponent<SpriteRenderer>().color = new Color(r, g, b, time);
+            if (time > 0.5f)
             {
                 time = 0;
             }
         }
 
         time += Time.deltaTime;
-        
+
     }
 }

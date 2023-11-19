@@ -8,16 +8,17 @@ using UnityEngine;
 public class Lightning : MonoBehaviour
 {
     // 아이템을 먹어야 켜짐-> 아이템에 대한 정보 필요
-    [SerializeField] private GameObject need_item; 
+    [SerializeField] private GameObject need_item;
     //번개 정보들(SnowWhite에서는 번개랑 불 오브젝트 가져옴)
     [SerializeField] private GameObject[] lightnings;
     [SerializeField] private bool isCol;
 
     private void OnCollisionEnter2D(Collision2D other)
-    {       
-        if(!isCol) return;
+    {
+        if (!isCol) return;
         //플레이어한테 닿았고, 필요아이템도 얻었으면
-        if ((other.gameObject.CompareTag("Player"))&&need_item.GetComponent<Falling_Umbrella>().Item_get){
+        if ((other.gameObject.CompareTag("Player")) && need_item.GetComponent<Falling_Umbrella>().Item_get)
+        {
             foreach (GameObject gameObject in lightnings)
             {
                 gameObject.SetActive(true);//번개 켜주기

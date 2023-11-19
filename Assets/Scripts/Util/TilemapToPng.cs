@@ -13,7 +13,7 @@ public class TilemapToPngEditor : Editor
 {
     string nombre = "";
 
-    public override void OnInspectorGUI ()
+    public override void OnInspectorGUI()
     {
         TilemapToPng GTM = (TilemapToPng)target;
 
@@ -31,17 +31,17 @@ public class TilemapToPngEditor : Editor
         {
             GUILayout.Label("Nombre del archivo");
             nombre = GUILayout.TextField(nombre);
-            if(nombre.Length > 0)
+            if (nombre.Length > 0)
             {
                 if (GUILayout.Button("Exportar archivo"))
                 {
                     GTM.ExportarPng(nombre);
                 }
             }
-            
+
         }
-            
-        
+
+
     }
 
 }
@@ -49,7 +49,7 @@ public class TilemapToPngEditor : Editor
 
 
 
-    public class TilemapToPng : MonoBehaviour
+public class TilemapToPng : MonoBehaviour
 {
 
     Tilemap tm;
@@ -58,7 +58,7 @@ public class TilemapToPngEditor : Editor
     int maxX = 0;
     int minY = 0;
     int maxY = 0;
-    
+
     public Texture2D ImagenLista;
 
     public void Empacar()
@@ -123,13 +123,13 @@ public class TilemapToPngEditor : Editor
         {
             invisible[i] = new Color(0f, 0f, 0f, 0f);
         }
-        Imagen.SetPixels(0,0,Imagen.width, Imagen.height, invisible);
-        
+        Imagen.SetPixels(0, 0, Imagen.width, Imagen.height, invisible);
+
 
         //Ahora asignamos a cada bloque sus respectivos pixeles
         for (int x = minX; x <= maxX; x++)
         {
-            for(int y = minY; y <= maxY; y++)
+            for (int y = minY; y <= maxY; y++)
             {
                 if (tm.GetSprite(new Vector3Int(x, y, 0)) == null)
                 {
@@ -138,7 +138,7 @@ public class TilemapToPngEditor : Editor
                 else
                 {
                     //mapeamos los pixeles para que el minX = 0 y minY = 0
-                    Imagen.SetPixels((x - minX) * (int)width, (y - minY) * (int)height, (int)width, (int)height, GetCurrentSprite(tm.GetSprite(new Vector3Int(x, y, 0))).GetPixels()   );
+                    Imagen.SetPixels((x - minX) * (int)width, (y - minY) * (int)height, (int)width, (int)height, GetCurrentSprite(tm.GetSprite(new Vector3Int(x, y, 0))).GetPixels());
                 }
             }
         }
@@ -162,16 +162,16 @@ public class TilemapToPngEditor : Editor
         return textura;
     }
 
-     public void ExportarPng (string nombre) //metodo que exporta como png
-     {
-         byte[] bytes = ImagenLista.EncodeToPNG();
-         var dirPath = Application.dataPath + "/Exported Tilemaps/";
-         if (!Directory.Exists(dirPath))
-         {
-             Directory.CreateDirectory(dirPath);
-         }
-         File.WriteAllBytes(dirPath + nombre + ".png", bytes);
+    public void ExportarPng(string nombre) //metodo que exporta como png
+    {
+        byte[] bytes = ImagenLista.EncodeToPNG();
+        var dirPath = Application.dataPath + "/Exported Tilemaps/";
+        if (!Directory.Exists(dirPath))
+        {
+            Directory.CreateDirectory(dirPath);
+        }
+        File.WriteAllBytes(dirPath + nombre + ".png", bytes);
         ImagenLista = null;
-     }
+    }
 
 }

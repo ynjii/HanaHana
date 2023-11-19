@@ -14,8 +14,8 @@ public class Visible : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(!isCol) return;
-        
+        if (!isCol) return;
+
         if (_newSprite.IsUnityNull())
         {
             _targetSprite.color = new Color(1, 1, 1, 1);
@@ -28,8 +28,8 @@ public class Visible : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(isCol) return;
-        
+        if (isCol) return;
+
         if (_newSprite.IsUnityNull())
         {
             _targetSprite.color = new Color(1, 1, 1, 1);

@@ -30,7 +30,7 @@ public class Pattern3 : MonoBehaviour
         // 보스 체력/시간 변수가 0이하가 되면 패턴 넘기는 처리를 시작
         if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover && !isEnd)
         {
-            isEnd= true;
+            isEnd = true;
             PatternChange();
         }
     }
@@ -38,13 +38,13 @@ public class Pattern3 : MonoBehaviour
     private void PatternChange()
     {
         StopAllCoroutines();
-        _patternChangeGO.SetActive(true); 
-        
+        _patternChangeGO.SetActive(true);
+
         // 카메라 shaking
         _camera.transform.DOShakePosition(3, 1);
 
         // 보스 애니메이션 변경
-        _bossAnim.SetBool("isHideEye",true);
+        _bossAnim.SetBool("isHideEye", true);
 
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
@@ -69,7 +69,7 @@ public class Pattern3 : MonoBehaviour
     {
         HashSet<int> executedPatterns = new HashSet<int>();
 
-        for (int i = 0; i<_patterns.Count; i++)
+        for (int i = 0; i < _patterns.Count; i++)
         {
             int rand = Random.Range(0, 5);
             if (executedPatterns.Contains(rand))
@@ -85,9 +85,9 @@ public class Pattern3 : MonoBehaviour
 
     void PatternActivate(int patternNum)
     {
-        for(int i = 0; i<_patterns.Count; i++)
+        for (int i = 0; i < _patterns.Count; i++)
         {
-            if(i == patternNum)
+            if (i == patternNum)
             {
                 _patterns[i].SetActive(true);
                 continue;

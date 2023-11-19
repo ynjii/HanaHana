@@ -14,7 +14,7 @@ public class Phase3 : MonoBehaviour
     public GameObject RightSpike;
     public GameObject Block;
     public GameObject GoFire;
-    
+
 
     void Start()
     {
@@ -41,6 +41,6 @@ public class Phase3 : MonoBehaviour
         yield return new WaitForSeconds(1.38f);
         Block.SetActive(false);
         GoFire.SetActive(false);
-        
+
     }
 }

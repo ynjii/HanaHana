@@ -54,7 +54,7 @@ public class Laser : MonoBehaviour
 
         if (m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)")
         {
-            if (player_script.Horizontal != 0 )
+            if (player_script.Horizontal != 0)
             {
                 //얘가 pc버전이면 좌우키 누를때 레이저가 켜짐
                 if (Input.touchCount == 0)

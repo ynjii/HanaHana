@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class DestroyAfter : MonoBehaviour
 {
-    [SerializeField] private float waitingTime=3f; 
+    [SerializeField] private float waitingTime = 3f;
     void Start()
     {
         StartCoroutine(WaitDestroy());

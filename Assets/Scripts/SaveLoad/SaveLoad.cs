@@ -16,11 +16,11 @@ public class SaveLoad : MonoBehaviour
     //데스카운트 로드, playerprefs
     public int LoadDeathCount(string key)
     {
-        int count=PlayerPrefs.GetInt(key, 0);
+        int count = PlayerPrefs.GetInt(key, 0);
         return count;
     }
 
-//scene 이어하기, 새로하기 저장
+    //scene 이어하기, 새로하기 저장
     public void SaveBool(string key, bool value)
     {
         PlayerPrefs.SetInt(key, value ? 1 : 0);
@@ -37,19 +37,19 @@ public class SaveLoad : MonoBehaviour
     //리스폰 위치 저장
     public void SaveRespawn(string key, Vector3 value)
     {
-        PlayerPrefs.SetFloat(key+"X", value.x);
-        PlayerPrefs.SetFloat(key+"Y", value.y);
-        PlayerPrefs.SetFloat(key+"Z", value.z);
+        PlayerPrefs.SetFloat(key + "X", value.x);
+        PlayerPrefs.SetFloat(key + "Y", value.y);
+        PlayerPrefs.SetFloat(key + "Z", value.z);
 
     }
 
     //리스폰 위치 로드
     public Vector3 LoadRespawn(string key)
     {
-        Vector3 v3=Vector3.zero;
-        v3.x=PlayerPrefs.GetFloat(key+"X");
-        v3.y=PlayerPrefs.GetFloat(key+"Y");
-        v3.z=PlayerPrefs.GetFloat(key+"Z");
+        Vector3 v3 = Vector3.zero;
+        v3.x = PlayerPrefs.GetFloat(key + "X");
+        v3.y = PlayerPrefs.GetFloat(key + "Y");
+        v3.z = PlayerPrefs.GetFloat(key + "Z");
         return v3;
     }
 }

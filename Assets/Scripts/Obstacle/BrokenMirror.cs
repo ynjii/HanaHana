@@ -14,13 +14,15 @@ public class WeakPlatform : MonoBehaviour
     }
     public SpriteRenderer before_img;
     public Sprite after_img;
-    
+
 
     [SerializeField]
     private BlockType blType;
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if(blType==BlockType.Once){//처음 밟아도 죽을 때
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (blType == BlockType.Once)
+        {//처음 밟아도 죽을 때
             AudioSource audio = GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
             if (audio != null && audio.clip.name == "glasscrack")
             {
@@ -28,14 +30,15 @@ public class WeakPlatform : MonoBehaviour
             }
             Invoke("setActiveFalse", 0.5f);
         }
-        else if(blType==BlockType.Second){//Second일 때, 아직 안 밟았을 때
-            before_img.sprite=after_img;
+        else if (blType == BlockType.Second)
+        {//Second일 때, 아직 안 밟았을 때
+            before_img.sprite = after_img;
             blType--;
         }
     }
 
     private void setActiveFalse()
     {
-        this.gameObject.SetActive(false);   
+        this.gameObject.SetActive(false);
     }
 }
