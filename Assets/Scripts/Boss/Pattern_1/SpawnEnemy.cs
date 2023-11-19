@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 첫번째 phase에 불덩이 랜덤 위치에 spawn 하는 함수
+/// 변수 값 좀 줄여라
+/// </summary>
 public class SpawnEnemy : MonoBehaviour
 {
     public bool enableSpawn = false;
