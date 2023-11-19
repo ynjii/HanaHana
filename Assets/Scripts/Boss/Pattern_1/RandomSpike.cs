@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 1~3개의 가시를 랜덤으로 꺼내는 함수.
+/// 장난하나? 중복하는 코드 전부 삭제
+/// </summary>
 public class RandomSpike : MonoBehaviour
 {
     public enum actDe{

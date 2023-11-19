@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// 거울맵 떨어지는 우산
+/// 거울맵 떨어지는 우산: 아이템 닿았나, 안 닿았나만 감지
 /// </summary>
 public class Falling_Umbrella : MonoBehaviour
 {

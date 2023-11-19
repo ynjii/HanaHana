@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// pattern1 controller
+/// 초단위로 계산해서 아래 phase object 활성/비활성화함
+/// 1. phase object를 함수로 만들어서 하나의 스크립트/여러개 스크립트에 넣기
+/// 2. 이것도 다시 개선
+/// </summary>
 public class Pattern1Controller : MonoBehaviour
 {
     //public GameObject phases=new List<GameObject>();

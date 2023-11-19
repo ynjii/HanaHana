@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*성맵에서 빙글빙글 도는 바닥 4개, 플레이어 물리기 바닥의 물리를 이어받음*/
 public class CircleMovement : MonoBehaviour
 {
     public enum Direc{
