@@ -27,7 +27,7 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //���� �������� : �ְ� ���� �پ����� ���� ���� 
+        //빨간레이저: 점프 아닐 때 켜짐
         if (m_lineRenderer.materials[0].name == "RedLaserMat (Instance)" && (player_script.player_state != PlayerState.Jump))
         {
             ShowLaser();
@@ -37,6 +37,7 @@ public class Laser : MonoBehaviour
         {
             HideLaser();
         }
+        //파란레이저: 점프일때 켜짐
         else if (m_lineRenderer.materials[0].name == "BlueLaserMat (Instance)" && player_script.player_state == PlayerState.Jump)
         {
             ShowLaser();
@@ -46,12 +47,13 @@ public class Laser : MonoBehaviour
         {
             HideLaser();
         }
+        //보라레이저: 계속 켜짐
         else if (m_lineRenderer.materials[0].name == "VioletLaserMat (Instance)")
         {
             ShowLaser();
             ShootLaser();
         }
-
+        //노랑레이저: 좌우키 누르는 중에 켜짐
         if (m_lineRenderer.materials[0].name == "YellowLaserMat (Instance)")
         {
             if (player_script.Horizontal != 0 )
@@ -68,7 +70,7 @@ public class Laser : MonoBehaviour
                     foreach (Touch touch in touches)
                     {
                         //좌우키 중 하나라도 손가락 올라가있으면
-                        if (touch.position.x >= 0 && touch.position.x < Screen.width * 0.2083f || touch.position.x >= Screen.width * 0.2083f && touch.position.x < Screen.width * 0.4167f)
+                        if (touch.position.x >= 0 && touch.position.x < player_script.LeftButtonEnd || touch.position.x >= player_script.LeftButtonEnd&& touch.position.x < player_script.RightButtonEnd)
                         {
                             ShowLaser();//레이저켜줌
                             ShootLaser();
@@ -85,13 +87,13 @@ public class Laser : MonoBehaviour
 
     }
 
-    // �������� ����� �Լ�
+    // 레이저끄기
     void HideLaser()
     {
         m_lineRenderer.enabled = false;
     }
 
-    // �������� �ٽ� ���̰� �ϴ� �Լ�
+    // 레이저켜기
     void ShowLaser()
     {
         m_lineRenderer.enabled = true;
