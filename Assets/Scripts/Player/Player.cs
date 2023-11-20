@@ -21,6 +21,18 @@ public class Player : MonoBehaviour
     float rightButtonEnd = Screen.width * 0.4167f;
     float leftButtonEnd = Screen.width * 0.2083f;
     float jumpButtonEnd = Screen.width;
+    public float RightButtonEnd
+    {
+        get { return RightButtonEnd; }
+    }
+    public float LeftButtonEnd
+    {
+        get { return LeftButtonEnd; }
+    }
+    public float JumpButtonEnd
+    {
+        get { return JumpButtonEnd; }
+    }
     //플레이어가 내는 소리에 대한 배열
     public AudioSource[] audioSources = null;
     //경사인지 감지
