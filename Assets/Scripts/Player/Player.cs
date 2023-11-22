@@ -247,12 +247,21 @@ public class Player : MonoBehaviour
             if (touch.position.x >= 0 && touch.position.x < leftButtonEnd)
             {
                 rigid.velocity = new Vector2(max_speed * -1, rigid.velocity.y);
-                Debug.Log("왼쪽으로 속력주는중(버튼), " + rigid.velocity.x);
+                if (player_state != PlayerState.Damaged)
+                {
+                    //방향전환
+                    sprite_renderer.flipX = true;
+                }
             }
             //오른쪽키 범위
             if (touch.position.x >= leftButtonEnd && touch.position.x < rightButtonEnd)
             {
                 rigid.velocity = new Vector2(max_speed * 1, rigid.velocity.y);
+                if (player_state != PlayerState.Damaged)
+                {
+                    //방향전환
+                    sprite_renderer.flipX = false;
+                }
             }
             //점프키범위
             if (touch.position.x >= Screen.width * 0.5f && touch.position.x < jumpButtonEnd)
@@ -318,7 +327,10 @@ public class Player : MonoBehaviour
         else
         {
             //좌우키 누른대로 이동
-            rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
+            if (horizontal != 0)
+            {
+                rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
+            }
         }
 
         //점프"상태"설정 (player_state)
