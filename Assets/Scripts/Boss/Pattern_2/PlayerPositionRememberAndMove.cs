@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //player에 있는 위치를 기억했다가 1초후 player 있었던 위치로 달려가는 코드다. 이 기믹은 자주 써먹을 수 있을 것 같다.
-public class RuntoPlayer : MonoBehaviour
+public class PlayerPositionRememberAndMove : MonoBehaviour
 {
     private float accumTimeAfterUpdate;
     private float moveSpeed = 20f;

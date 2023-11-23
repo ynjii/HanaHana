@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GhostEffect : MonoBehaviour
 {
-    public GameObject ghost; // 잔상으로 사용할 게임 오브젝트
-    public float ghostDelay = 0.1f; // 잔상 생성 간격
+    [SerializeField] private GameObject ghost; // 잔상으로 사용할 게임 오브젝트
+    [SerializeField] private float ghostDelay = 0.1f; // 잔상 생성 간격
 
     private SpriteRenderer spriteRenderer;
 
