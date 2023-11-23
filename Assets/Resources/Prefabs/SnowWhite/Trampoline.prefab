@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862d90ce0133fdd4aa23c843d302e93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   jumpPower: 1
 --- !u!60 &6668443641419820797
 PolygonCollider2D:
@@ -145,10 +144,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpposite: 0
   obType: 11
   obDirection: 0
   gravity_scale: 4
-  isPlatform: 0
+  isMovingPlatform: 0
+  isLeftDown: 0
+  color: 0
+  size: 0
+  rend_order: 0
+  isCol: 1
+  isMoving: 0
+  waitingTime: 0
+  distance: 0
+  speed: 11
+  tagName: Untagged
+  layerIndex: 0
+  colTag: 2
+  animName: 
+  img: {fileID: 1430112843, guid: f41618dbe4822c9428810f01431f4c2a, type: 3}
+  rotateSpeed: 10000
+--- !u!114 &6668443641419820799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668443641419820792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpposite: 0
+  obType: 11
+  obDirection: 0
+  gravity_scale: 4
+  isMovingPlatform: 0
   isLeftDown: 0
   color: 0
   size: 0
@@ -162,34 +194,5 @@ MonoBehaviour:
   layerIndex: 0
   colTag: 2
   animName: 
-  img: {fileID: 1430112843, guid: f41618dbe4822c9428810f01431f4c2a, type: 3}
---- !u!114 &6668443641419820799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6668443641419820792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obType: 11
-  obDirection: 0
-  gravity_scale: 4
-  isPlatform: 0
-  isLeftDown: 0
-  color: 0
-  size: 0
-  rend_order: 0
-  isCol: 1
-  isMoving: 0
-  waitingTime: 0.5
-  distance: 0
-  speed: 11
-  tagName: Untagged
-  layerIndex: 0
-  colTag: 2
-  animName: 
   img: {fileID: -1731213946, guid: f41618dbe4822c9428810f01431f4c2a, type: 3}
+  rotateSpeed: 10000
