@@ -8,16 +8,17 @@ public class PlayerPositionRememberAndMove : MonoBehaviour
     private float accumTimeAfterUpdate;
     private float moveSpeed = 20f;
     private Vector3 myPosition;
+    private Vector3 fixedPos;
 
     private bool isMoving = false;
 
-    [SerializeField] private Transform playerPos;
-    private Vector3 fixedPos;
+    private GameObject player; //주인공 오브젝트를 저장하는 변수
 
     private void Start()
     {
         myPosition = transform.position; //현재 obstacle의 위치 (이 스크립트가 부착되어 있는 object)
-        fixedPos = playerPos.position; //player의 현재 pos. 
+        player = GameObject.FindWithTag("Player");
+        fixedPos = player.transform.position;
         Invoke("startMoving", 1f);
     }
 
