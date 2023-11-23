@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
 
 /*싱글턴 사용: 프로그램 실행 시 유지할 값들
 1. 리스폰 포인트
@@ -15,7 +15,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //싱글턴을 할당할 전역변수
-    public AudioSource[] audioSources=null;
+    public AudioSource[] audioSources = null;
 
     [SerializeField] private Vector3 respawnPoint = new Vector3(-9.16f, -0.48f, 0f); // 플레이어가 리스폰할 체크포인트 위치
     private int death_count = 0;//죽은 횟수
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameover && (Input.anyKeyDown|| Input.GetMouseButtonDown(0)))
+        if (isGameover && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
         {
             //보스씬이면 스노우화이트 세이브포인트부터 시작
             if (SceneManager.GetActiveScene().name == "SnowBoss4")
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-         //만약 뒤로가기키 눌렀을때
+        //만약 뒤로가기키 눌렀을때
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0f; //시간 정지
@@ -127,14 +127,14 @@ public class GameManager : MonoBehaviour
             {
                 Image sky_image = Sky.GetComponent<Image>();
                 sky_image.sprite = backgrounds[2];
-                if (audioSources != null) 
+                if (audioSources != null)
                 {
                     audioSources[2].enabled = true;
                     audioSources[0].enabled = false;
                     audioSources[1].enabled = false;
                     audioSources[3].enabled = true;
                 }
-                
+
             }
         }
     }

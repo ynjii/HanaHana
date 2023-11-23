@@ -16,19 +16,20 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] private bool isPanel = false;
     [SerializeField] private float randomX = 0f;
     [SerializeField] private float randomY = 0f;
-    [SerializeField] private float theend=20f;
+    [SerializeField] private float theend = 20f;
 
     void Start()
     {
         InvokeRepeating("EnemySpawn", second, delay); // 3초후 부터, SpawnEnemy 함수를 1초마다 반복해서 실행 시킵니다.
-        Invoke("CancelInvokeLog",theend);
+        Invoke("CancelInvokeLog", theend);
         // 일정 시간 후에 enableSpawn 변수를 끄는 코드
     }
 
     void Update()
     {
-        if(player.active==false){
-            CancelInvoke("EnemySpawn");    
+        if (player.active == false)
+        {
+            CancelInvoke("EnemySpawn");
         }
     }
     void EnemySpawn()
@@ -47,7 +48,7 @@ public class SpawnEnemy : MonoBehaviour
     private void CancelInvokeLog()
     {
 
-        CancelInvoke("EnemySpawn");    
+        CancelInvoke("EnemySpawn");
 
     }
 }

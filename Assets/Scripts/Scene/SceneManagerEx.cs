@@ -23,7 +23,7 @@ public class SceneManagerEx : MonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-     string GetSceneName(Define.Scene type)
+    string GetSceneName(Define.Scene type)
     {
         string name = System.Enum.GetName(typeof(Define.Scene), type);
         return name;

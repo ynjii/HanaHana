@@ -10,14 +10,16 @@ public class TutorialFlag : MonoBehaviour
 {
     public GameObject SaveLoad;
     public GameObject TutorialText;
-    private void OnTriggerEnter2D(Collider2D collision){
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         Debug.Log("OnTriggerEnter2D called");
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if(SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("tutorial")!=4){
+            if (SaveLoad.GetComponent<SaveLoad>().LoadDeathCount("tutorial") != 4)
+            {
                 TutorialText.GetComponent<TutorialText>().TutoEnd();//튜토리얼 마지막 text를 출력, 관련 UI를 끄세요.
             }
         }
-        
+
     }
 }

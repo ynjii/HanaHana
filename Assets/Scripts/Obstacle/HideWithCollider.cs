@@ -11,6 +11,6 @@ public class HideWithCollider : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (!isCol) return;
-        
+
     }
 }

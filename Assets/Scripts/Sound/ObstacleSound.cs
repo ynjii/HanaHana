@@ -10,30 +10,30 @@ public class ObstacleSound : MonoBehaviour
 {
     //콜라이더로 감지하는가?
     [SerializeField]
-    private bool isCol=false;
+    private bool isCol = false;
     //오디오넣기
     private AudioSource audio;
     //오디오 작동시키기 위한 조건변수
     [SerializeField]
-    private bool isMoving = false; 
+    private bool isMoving = false;
     //오디오 작동시키기까지 기다리는 시간
     [SerializeField]
     private float waitingTime = 0f;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //플레이어한테 닿으면 조건변수 킴
-        if (isCol&&collision.gameObject.CompareTag("Player"))
+        if (isCol && collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(SetIsmoving(true));
         }
     }
 
 
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //트리거 닿으면 조건변수 킴
-        if ((!isCol)&&collision.gameObject.CompareTag("Player"))
+        if ((!isCol) && collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(SetIsmoving(true));
         }
@@ -58,7 +58,7 @@ public class ObstacleSound : MonoBehaviour
     void Awake()
     {
         //오디오소스 컴포넌트 가져오기
-        audio= GetComponent<AudioSource>();
+        audio = GetComponent<AudioSource>();
     }
 
     //보이면 활성화 
@@ -74,7 +74,7 @@ public class ObstacleSound : MonoBehaviour
     {
         if (audio != null)
         {
-            audio.enabled=false;
+            audio.enabled = false;
         }
     }
 

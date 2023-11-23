@@ -3,8 +3,8 @@ public class Define
     /// <summary>
     /// 보스맵 4에서 쓰는 이넘
     /// </summary>
-    public enum SnowBoss4State 
-    { 
+    public enum SnowBoss4State
+    {
         pattern4_1,
         pattern4_2,
         pattern4_3,
@@ -15,9 +15,9 @@ public class Define
     public enum CameraState
     {
         Player,
-        None 
+        None
     }
-    
+
     // 새로 만드는 씬들은 모두 여기에 업데이트해주기
     public enum Scene
     {
@@ -27,7 +27,7 @@ public class Define
         SnowBoss4,
         ClosetScene,
         StageScene
-        ,None
+        , None
     }
 
     public enum PlayerState
@@ -38,11 +38,11 @@ public class Define
         Idle,
         Fly
     }
-    
+
     public enum Tags
     {
         Untagged,
-        Enemy, 
+        Enemy,
         Player,
         Platform,
         PlayerDied,
@@ -52,7 +52,7 @@ public class Define
         FallingBlock,
         Transparent
     }
-    
+
     public enum RotateDelta
     {
         Left = 90,

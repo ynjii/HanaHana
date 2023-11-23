@@ -21,26 +21,26 @@ public class PinWheel : MonoBehaviour
     [SerializeField]
     private float spreadFactor;
     //타이머
-    float launch_timer=0;
+    float launch_timer = 0;
     //사라지는타임
-    float destroy_time=0;
+    float destroy_time = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        pattern=new CirclePattern();
+        pattern = new CirclePattern();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         launch_timer += Time.deltaTime;
-        destroy_time+= Time.deltaTime;
+        destroy_time += Time.deltaTime;
         //계속돌기
         Rotate();
-        
-        if (launch_timer>=launch_time)
+
+        if (launch_timer >= launch_time)
         {
             //쏘는 소리
             GetComponent<AudioSource>().Play();

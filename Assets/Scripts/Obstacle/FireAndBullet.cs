@@ -27,7 +27,7 @@ public class FireAndBullet : MonoBehaviour//SnowWhite씬의 fire에도 쓰이고
     private ObType direction; // 방향
     [SerializeField]
     private float speed; // 속도
-    
+
     [SerializeField]
     public float bullet_damage; // 총알데미지
 
@@ -42,9 +42,9 @@ public class FireAndBullet : MonoBehaviour//SnowWhite씬의 fire에도 쓰이고
     // Update is called once per frame
 
     void Update()
-    {     
+    {
         //얘가 발사블록없는 총알이라면 한 번만 맞아도 사라지게 해야함
-        if (this.gameObject.CompareTag("bullet")&&colCount>=1)//보스패턴4에서 썼던 총알 태그. 
+        if (this.gameObject.CompareTag("bullet") && colCount >= 1)//보스패턴4에서 썼던 총알 태그. 
         {
             Destroy(gameObject);
         }
@@ -81,7 +81,7 @@ public class FireAndBullet : MonoBehaviour//SnowWhite씬의 fire에도 쓰이고
                 transform.Translate((-transform.right - transform.up).normalized * speed * Time.deltaTime);
                 break;
         }
-        
+
     }
 
     //콜라이더 닿으면 num 증가해줌

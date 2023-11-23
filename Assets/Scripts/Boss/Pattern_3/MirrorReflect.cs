@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Define;
@@ -77,7 +77,7 @@ public class MirrorReflect : MonoBehaviour
         predictionHit = Physics2D.Raycast(transform.position, _direction, Mathf.Infinity, predictionLayerMask);
         Debug.DrawRay(transform.position, _direction * 10, Color.red);
 
-        if(predictionHit.collider == null)
+        if (predictionHit.collider == null)
         {
             predictionLine.positionCount = 2;
             predictionLine.SetPosition(1, new Vector3(_direction.x * 100, _direction.y * 100, 0));
@@ -93,13 +93,13 @@ public class MirrorReflect : MonoBehaviour
 
         // draw first collision point
         predictionLine.SetPosition(1, predictionHit.point);
-        
+
         if (!isReflectable)
         {
             predictionLine.positionCount = 2;
             return;
         }
-        
+
         // calculate second ray by Vector2.Reflect
         var inDirection = (predictionHit.point - (Vector2)transform.position).normalized;
         var reflectionDir = Vector2.Reflect(inDirection, predictionHit.normal);
@@ -117,7 +117,7 @@ public class MirrorReflect : MonoBehaviour
         if (predictionHit.collider.CompareTag("Player"))
         {
             player_script.Die(new Vector2(transform.position.x, transform.position.y));
-           // PlayerDied();
+            // PlayerDied();
         }
         predictionLine.SetPosition(2, predictionHit.point);
 
@@ -218,7 +218,7 @@ public class MirrorReflect : MonoBehaviour
         }
     }
 
-    
+
     private void PlayLaserSound()
     {
         if (!_isActivatedBefore)

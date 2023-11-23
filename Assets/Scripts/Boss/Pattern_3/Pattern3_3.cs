@@ -19,7 +19,7 @@ public class Pattern3_3 : MonoBehaviour
 
     void MoveMirror()
     {
-       switch (_color)
+        switch (_color)
         {
             case "Red":
                 StartCoroutine(moveRed());
@@ -33,7 +33,7 @@ public class Pattern3_3 : MonoBehaviour
 
     IEnumerator moveRed()
     {
-        while(true)
+        while (true)
         {
             transform.DORotate(new Vector3(0, 0, _rotateOnceValue), _rotateInterval);
             yield return new WaitForSeconds(_rotateInterval);

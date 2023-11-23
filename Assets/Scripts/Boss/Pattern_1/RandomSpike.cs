@@ -8,7 +8,8 @@ using UnityEngine;
 /// </summary>
 public class RandomSpike : MonoBehaviour
 {
-    public enum actDe{
+    public enum actDe
+    {
         Activate,
         Deactivate
     }
@@ -18,14 +19,14 @@ public class RandomSpike : MonoBehaviour
     [SerializeField]
     private float waitingTime = 3f;
     [SerializeField]
-    private int max=3;
+    private int max = 3;
     [SerializeField]
-    private int Xmax=1;
+    private int Xmax = 1;
     private int[] indexNum;
 
     void Start()
     {
-        switch(Deact)
+        switch (Deact)
         {
             case actDe.Activate:
                 chooseRandom();
@@ -34,12 +35,12 @@ public class RandomSpike : MonoBehaviour
                 XchooseRandom();
                 break;
         }
-        
+
     }
 
     private void chooseRandom()
     {
-        indexNum=new int[obstacle.Length];
+        indexNum = new int[obstacle.Length];
         for (int i = 0; i < max; i++)
         {
             indexNum[i] = Random.Range(0, obstacle.Length);
@@ -53,7 +54,7 @@ public class RandomSpike : MonoBehaviour
 
     private void XchooseRandom()
     {
-        indexNum=new int[obstacle.Length];
+        indexNum = new int[obstacle.Length];
         for (int i = 0; i < Xmax; i++)
         {
             indexNum[i] = Random.Range(0, obstacle.Length);

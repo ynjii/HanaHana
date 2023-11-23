@@ -26,7 +26,7 @@ namespace Gamekit2D
 
         public float[] waitTimes = new float[1];
 
-        public Vector3[] worldNode {  get { return m_WorldNode; } }
+        public Vector3[] worldNode { get { return m_WorldNode; } }
 
         protected Vector3[] m_WorldNode;
 
@@ -61,7 +61,7 @@ namespace Gamekit2D
         {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             m_Rigidbody2D.isKinematic = true;
-      
+
             //Allow to make platform only move when they became visible
             /*
             Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -109,7 +109,7 @@ namespace Gamekit2D
             if (m_Current == m_Next)
                 return;
 
-            if(m_WaitTime > 0)
+            if (m_WaitTime > 0)
             {
                 m_WaitTime -= Time.deltaTime;
                 return;
@@ -117,13 +117,13 @@ namespace Gamekit2D
 
             float distanceToGo = speed * Time.deltaTime;
 
-            while(distanceToGo > 0)
+            while (distanceToGo > 0)
             {
 
                 Vector2 direction = m_WorldNode[m_Next] - transform.position;
 
                 float dist = distanceToGo;
-                if(direction.sqrMagnitude < dist * dist)
+                if (direction.sqrMagnitude < dist * dist)
                 {   //we have to go farther than our current goal point, so we set the distance to the remaining distance
                     //then we change the current & next indexes
                     dist = direction.magnitude;
@@ -138,7 +138,7 @@ namespace Gamekit2D
                         if (m_Next >= m_WorldNode.Length)
                         { //we reach the end
 
-                            switch(platformType)
+                            switch (platformType)
                             {
                                 case MovingPlatformType.BACK_FORTH:
                                     m_Next = m_WorldNode.Length - 2;
@@ -157,7 +157,7 @@ namespace Gamekit2D
                     else
                     {
                         m_Next -= 1;
-                        if(m_Next < 0)
+                        if (m_Next < 0)
                         { //reached the beginning again
 
                             switch (platformType)
@@ -187,7 +187,7 @@ namespace Gamekit2D
                 distanceToGo -= dist;
 
                 // we have some wait launch_time set, that mean we reach a point where we have to wait. So no need to continue to move the platform, early exit.
-                if (m_WaitTime > 0.001f) 
+                if (m_WaitTime > 0.001f)
                     break;
             }
         }
@@ -218,6 +218,6 @@ namespace Gamekit2D
             }
         }
         */
-        
+
     }
 }

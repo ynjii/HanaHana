@@ -15,7 +15,7 @@ public class Twinkle : MonoBehaviour
     private void Update()
     {
         //알파값이 일정 이하면 통과해도 ok,태그- transparent, 레이어- transparent
-        if (my_color.a <=0.001f)
+        if (my_color.a <= 0.001f)
         {
             gameObject.tag = "Transparent";
             gameObject.layer = 10;
@@ -35,7 +35,7 @@ public class Twinkle : MonoBehaviour
         renderer.material.color = my_color;
         StartCoroutine(TwinkleCoroutine());
     }
-    
+
     IEnumerator TwinkleCoroutine()
     {
         while (true)

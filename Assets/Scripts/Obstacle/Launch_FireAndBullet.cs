@@ -131,7 +131,7 @@ public class Launch_FireAndBullet : MonoBehaviour
                         //그 프리팹을 클론해줌. 
                         GameObject clone_obj = Instantiate(fires[fires_index], pos.position, transform.rotation) as GameObject;
                         // 클론된 객체에 대해 코루틴 시작
-                        StartCoroutine(SplitCoroutine(clone_obj));                     
+                        StartCoroutine(SplitCoroutine(clone_obj));
                     }
                     //애플 패턴일 때(4_2패턴)
                     else if (fires[fires_index].name == "Apple")
@@ -171,7 +171,7 @@ public class Launch_FireAndBullet : MonoBehaviour
                     else if (fires[fires_index].name == "fireworks")
                     {
                         //발사쿨타임 1초
-                        cool_time = 1f; 
+                        cool_time = 1f;
                         //랜덤위치에서 불꽃놀이
                         float x = Random.Range(18f, 24f);
                         float y = Random.Range(4f, -4f);
@@ -272,7 +272,7 @@ public class Launch_FireAndBullet : MonoBehaviour
         }
 
     }
-    
+
     /// <summary>
     ///톱니바퀴 3단 나루토분신 코드
     /// </summary>

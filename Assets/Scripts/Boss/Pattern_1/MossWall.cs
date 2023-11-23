@@ -23,13 +23,13 @@ public class MossWall : MonoBehaviour
     }
 
 
-    
+
     void Update()
     {
         if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space))
         {
-            other.constraints = RigidbodyConstraints2D.FreezeRotation ;
+            other.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-        
+
     }
 }

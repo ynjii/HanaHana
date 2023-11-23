@@ -18,7 +18,7 @@ public class Green_Yellow_Mirror : MonoBehaviour
 
     void Update()
     {
-       
+
         // 초록 레이저가 활성화 될때
         if (_player.GetComponent<SpriteRenderer>().flipX)
         {

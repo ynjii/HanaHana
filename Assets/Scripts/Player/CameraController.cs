@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using static Define;
 using UnityEngine.SceneManagement;
+using static Define;
 
 public class CameraController : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
 
     void Init()
     {
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString() || SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == "SnowBoss3" )
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString() || SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == "SnowBoss3")
         {
             return;
         }
@@ -59,7 +59,7 @@ public class CameraController : MonoBehaviour
         }
 
         // 카메라가 고정되어야하는 경우에는 return;
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == "SnowBoss3"|| SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss123.ToString() || SceneManager.GetActiveScene().name == "SnowBoss3" || SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
             return;
         }
