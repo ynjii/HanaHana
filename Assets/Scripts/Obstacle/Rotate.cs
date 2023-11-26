@@ -6,9 +6,9 @@ using UnityEngine;
 public class Rotate : MonoBehaviour
 {
     [SerializeField]
-    private bool isLoop = false; //반복하는지 반복 안 하는지
-    public float rotationSpeed = 360; //회전 속도 (도/초)
-    private bool isRotating = false; //회전 중인지 여부
+    private float rotationSpeed = 360f; //회전 속도 (도/초)
+    [SerializeField]
+    private float endDegree=540f;
     public GameObject other;
     /*
     1. Trigger 되면
@@ -20,32 +20,26 @@ public class Rotate : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Swing>().enabled = false;
-            //transform.Rotate(0, 0, -Time.deltaTime * rotateSpeed, Space.Self);
-            //isRotating = true;
             StartCoroutine(RotateObject());
         }
-
-        //StartCoroutine(SetIsmoving(true));
     }
 
     private IEnumerator RotateObject()
     {
         float startRotation = transform.rotation.eulerAngles.z;//현재 회전 각도
-        float targetRotation = startRotation + 540f; //목표 회전 각도(한 바퀴 회전)
-
+        float targetRotation = startRotation + endDegree; //목표 회전 각도
         float t = 0f;
+        float currentRotation=startRotation;
 
-        while (t < 1f)
+        while (currentRotation < targetRotation)
         {
-            t += Time.deltaTime * (rotationSpeed / 360f);//회전 속도 조절
+            t += Time.deltaTime*rotationSpeed;
 
-            float currentRotation = Mathf.Lerp(startRotation, targetRotation, t);
+            currentRotation = Mathf.Lerp(startRotation, targetRotation, t);
             transform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
-
+            
             yield return null;
         }
-        isRotating = false;
     }
 }
 
