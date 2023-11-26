@@ -107,46 +107,10 @@ public class Player : MonoBehaviour
     void Update()//단발적 입력: 업데이트함수
     {
         if (!movable) return;
-
-
         /*
          보스맵 4
          */
-        //보스맵4에서는 날아가는 애니메이션으로 
-        if (!anim.GetBool("isFly") && SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-        {
-            //애니메이션: 계속 날아가는거로.
-            anim.SetBool("isFly", true);
-        }
-        //무한점프
-        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
-        {
-            if (Input.GetButton("Jump") && player_state != PlayerState.Damaged)
-            {
-                player_state = PlayerState.Fly;
-                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-            }
-        }
-
-        //Idle이면 중력스케일 복구
-        if (player_state == PlayerState.Idle)
-        {
-            rigid.gravityScale = 2;
-        }
-
-        //브레이크
-        if (!isIce && Input.GetButtonUp("Horizontal"))
-        {
-            //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
-            //방향에 속력을 0으로 
-            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
-        }
-
-        if (Input.GetButton("Horizontal") && player_state != PlayerState.Damaged)
-        {
-            //방향전환
-            sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
-        }
+        SnowBoss4();        
     }
 
     private void FixedUpdate()//물리 update
@@ -156,6 +120,63 @@ public class Player : MonoBehaviour
         /*
          레이캐스트
          */
+        RayCastProcess();
+
+
+        //터치로 움직이기
+        TouchProcess();
+
+        //키 컨트롤로 움직이기
+        PcProcess();
+
+        //점프상태 처리
+        JumpStateProcess();
+
+        //중력스케일 처리
+        GravityProcess();
+
+        
+    }
+
+    private void GravityProcess()
+    {
+        //떨어질 때 빨리 떨어지게
+        if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
+        {
+            rigid.gravityScale = 3;
+        }
+
+        //Idle이면 중력스케일 복구
+        if (player_state == PlayerState.Idle)
+        {
+            rigid.gravityScale = 2;
+        }
+    }
+
+    private void JumpStateProcess()
+    {
+        //점프"상태"설정 (player_state)
+        //이 속력일 때만 점프 상태로 전환 가능함.(땅에는 붙어있다고 치는 속력)
+        if (rigid.velocity.normalized.y <= -JUMP_CRITERIA || rigid.velocity.normalized.y >= JUMP_CRITERIA)
+        {
+            //보스맵4아닐때
+            if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
+            {
+                //애니메이션 켜주고
+                anim.SetBool("isJump", true);
+                anim.SetBool("isWalk", false);
+                //플레이어상태 바꿔주기
+                if (player_state != PlayerState.Damaged && !is_Slope)
+                {
+                    //점프로
+                    player_state = PlayerState.Jump;
+                }
+            }
+        }
+    }
+
+    private void RayCastProcess()
+    {
         //점프중인지 감지하는 레이캐스트. 파란색
         Debug.DrawRay(rigid.position + new Vector2(-0.4f, 0), Vector3.down, new Color(0, 0, 1));
         RaycastHit2D jumpLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(-0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
@@ -213,10 +234,86 @@ public class Player : MonoBehaviour
             this.GetComponent<CapsuleCollider2D>().enabled = true;
             this.GetComponent<BoxCollider2D>().enabled = false;
         }
+    }
 
-        /*
-         ★터치에 대한 코드
-         */
+    private void PcProcess()
+    {
+        horizontal = Input.GetAxisRaw("Horizontal");
+        //현민코드
+        if (isIce)
+        {
+            if (Mathf.Abs(rigid.velocity.x) <= max_speed)
+            {
+                rigid.AddForce(Vector2.right * horizontal, ForceMode2D.Impulse);
+            }
+
+            if ((player_state != PlayerState.Jump) && (Input.GetButton("Jump")))
+            {
+                if (audioSources != null)
+                {
+                    audioSources[0].Play();
+                }
+
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power * 1.08f);
+            }
+        }
+        else
+        {
+            //좌우키 누른대로 이동
+            if (horizontal != 0)
+            {
+                rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
+            }
+        }
+
+        //점프키누르면 점프력 주기
+        //이 속력일때만 점프가능함(땅에는 붙어있다고 치는 속력)
+        if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
+        {
+            //점프중 아니고 && 점프무시변수 안 켜진 상태고 && 플레이어 스테이트가 점프가 아니고&&스페이스바 눌렸고&&jump가 true고 && 보스맵4가 아니면
+            if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
+            {
+
+                if (audioSources != null)
+                {
+                    //소리재생
+                    audioSources[0].Play();
+                }
+                //점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+                is_jump = true;
+                //점프력 주기
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+
+            }
+        }
+        //경사면 점프ok
+        if (Input.GetButton("Jump") && is_Slope && !is_jump)
+        {
+            if (audioSources != null)
+            {
+                audioSources[0].Play();
+            }
+            is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
+            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+            is_Slope = false;//점프를 한 순간 경사가 아니니까
+        }
+        //브레이크
+        if (!isIce && Input.GetButtonUp("Horizontal"))
+        {
+            //normalized: 벡터크기를 1로 만든 상태. 방향구할 때 씀
+            //방향에 속력을 0으로 
+            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.0000001f, rigid.velocity.y);
+        }
+
+        if (Input.GetButton("Horizontal") && player_state != PlayerState.Damaged)
+        {
+            //방향전환
+            sprite_renderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+        }
+    }
+
+    private void TouchProcess()
+    {
         // 현재 발생 중인 모든 터치 정보 가져오기
         Touch[] touches = Input.touches;
         // 아래는 각 터치에 대한 처리
@@ -298,96 +395,6 @@ public class Player : MonoBehaviour
                     is_Slope = false;//점프를 한 순간 경사가 아니니까
                 }
             }
-        }
-
-        /*
-         pc이동
-         문제없이 잘 됨
-         */
-        //키 컨트롤로 움직이기
-        horizontal = Input.GetAxisRaw("Horizontal");
-        //현민코드
-        if (isIce)
-        {
-            if (Mathf.Abs(rigid.velocity.x) <= max_speed)
-            {
-                rigid.AddForce(Vector2.right * horizontal, ForceMode2D.Impulse);
-            }
-
-            if ((player_state != PlayerState.Jump) && (Input.GetButton("Jump")))
-            {
-                if (audioSources != null)
-                {
-                    audioSources[0].Play();
-                }
-
-                rigid.velocity = new Vector2(rigid.velocity.x, jump_power * 1.08f);
-            }
-        }
-        else
-        {
-            //좌우키 누른대로 이동
-            if (horizontal != 0)
-            {
-                rigid.velocity = new Vector2(max_speed * horizontal, rigid.velocity.y);
-            }
-        }
-
-        //점프"상태"설정 (player_state)
-        //이 속력일 때만 점프 상태로 전환 가능함.(땅에는 붙어있다고 치는 속력)
-        if (rigid.velocity.normalized.y <= -JUMP_CRITERIA || rigid.velocity.normalized.y >= JUMP_CRITERIA)
-        {
-            //보스맵4아닐때
-            if (SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())
-            {
-                //애니메이션 켜주고
-                anim.SetBool("isJump", true);
-                anim.SetBool("isWalk", false);
-                //플레이어상태 바꿔주기
-                if (player_state != PlayerState.Damaged && !is_Slope)
-                {
-                    //점프로
-                    player_state = PlayerState.Jump;
-                }
-            }
-        }
-
-        //점프키누르면 점프력 주기
-        //이 속력일때만 점프가능함(땅에는 붙어있다고 치는 속력)
-        if (rigid.velocity.normalized.y > -JUMP_CRITERIA && rigid.velocity.normalized.y < JUMP_CRITERIA)//y방향성이 없을 때 눌러야 함.
-        {
-            //점프중 아니고 && 점프무시변수 안 켜진 상태고 && 플레이어 스테이트가 점프가 아니고&&스페이스바 눌렸고&&jump가 true고 && 보스맵4가 아니면
-            if (!is_jump && (!ignoreJump) && (player_state != PlayerState.Jump) && (Input.GetButton("Jump")) && SceneManager.GetActiveScene().name != Define.Scene.SnowBoss4.ToString())//점프 bool값이 false 이고, 천장에 붙은 상태면 점프 안 되고(!ignoreJump), state가 Jump가 아니어야하고, 점프 버튼이 눌려야하고, SnowBoss4씬이 아니어야 함(SnowBoss4씬은 무한점프이므로.) 
-            {
-
-                if (audioSources != null)
-                {
-                    //소리재생
-                    audioSources[0].Play();
-                }
-                //점프를 한 순간 is_jump=true. 이단점프 방지용 변수
-                is_jump = true;
-                //점프력 주기
-                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-
-            }
-        }
-        //경사면 점프ok
-        if (Input.GetButton("Jump") && is_Slope && !is_jump)
-        {
-            if (audioSources != null)
-            {
-                audioSources[0].Play();
-            }
-            is_jump = true;//점프를 한 순간 is_jump=true. 이단점프 방지용 변수
-            rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-            is_Slope = false;//점프를 한 순간 경사가 아니니까
-        }
-
-        //떨어질 때 빨리 떨어지게
-        if (rigid.velocity.normalized.y <= -JUMP_CRITERIA)//낙하하면 훅 떨어지게
-        {
-            rigid.gravityScale = 3;
         }
     }
 
@@ -607,6 +614,26 @@ public class Player : MonoBehaviour
         anim.SetBool("isExplosion", true);
         anim.SetBool("isJump", false);
         yield return new WaitForSeconds(1.0f);
+    }
+
+    private void SnowBoss4()
+    {
+        //보스맵4에서는 날아가는 애니메이션으로 
+        if (!anim.GetBool("isFly") && SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            //애니메이션: 계속 날아가는거로.
+            anim.SetBool("isFly", true);
+        }
+        //무한점프
+        if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        {
+            if (Input.GetButton("Jump") && player_state != PlayerState.Damaged)
+            {
+                player_state = PlayerState.Fly;
+                rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+            }
+        }
+
     }
 
     //누군가의 코드
