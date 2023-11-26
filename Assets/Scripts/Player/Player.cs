@@ -380,7 +380,6 @@ public class Player : MonoBehaviour
                         is_jump = true;
                         //점프력 가하기
                         rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
-                        Debug.Log("점프도 누름");
                     }
                 }
                 //경사면 점프ok
