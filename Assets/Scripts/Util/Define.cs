@@ -49,7 +49,6 @@ public class Define
         Flag,
         Item,
         Border,
-        FallingBlock,
         Transparent
     }
 
