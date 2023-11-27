@@ -600,9 +600,10 @@ public class Player : MonoBehaviour
             this.gameObject.layer = 7;
             //주금처리함수 불러옴(UI)
             GameManager.instance.OnPlayerDead();
+            //이 게임 오브젝트 꺼줌
+            this.gameObject.SetActive(false);
         }
-        //이 게임 오브젝트 꺼줌
-        this.gameObject.SetActive(false);
+        
     }
 
     //서현 코드
@@ -648,7 +649,7 @@ public class Player : MonoBehaviour
 
     }
 
-    //누군가의 코드
+    //서현
     /// <summary>
     /// 진짜 아이템 먹으면 애니메이션 컨트롤러 바꿔주기
     /// </summary>

@@ -831,15 +831,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d755e9fc29b3f024b9caa3b8092eae85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "\uBB34\uC801\uBAA8\uB4DC": 0
+  audioSources: []
+  invincibility: 0
+  is_jump: 0
   jump_power: 0
   player_state: 0
   SaveLoad: {fileID: 0}
-  ladder_speed: 15
-  whatIsLadder:
-    serializedVersion: 2
-    m_Bits: 2048
-  distance: 0
   movable: 1
 --- !u!50 &5802713779448007115
 Rigidbody2D:
@@ -999,7 +996,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5919715946806755813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
