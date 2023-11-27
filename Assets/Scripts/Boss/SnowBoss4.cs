@@ -410,21 +410,27 @@ public class SnowBoss4 : MonoBehaviour
             }
             //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
             StartCoroutine(AfterDead());
-
             //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
             Invoke("mirrorDeactive", 11f);
-            //시연용 UI띄우기(와 짝짝~)
-            Invoke("showClearUI", 20f);
-            //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
-        
+                   
         }
 
     }
     //거울 삭제
     private void mirrorDeactive()
     {
+        //무적해제
+        player_script.Invincibility = false;
+        //무적해제했을 때 화면안에 플레이어가 없으면 죽음
+        if(!(player_script.gameObject.transform.position.y<=5&& player_script.gameObject.transform.position.y >=-5))
+        {
+            player_script.Die(player_script.transform.position);
+        }
+
         //쿠광광소리끄고
         audioSources[0].Stop();
+        //비명소리끄고
+        audioSources[2].Stop();
         foreach (GameObject obj in afterKilledFlames)
         {
             //불도 꺼주고
@@ -485,7 +491,6 @@ public class SnowBoss4 : MonoBehaviour
     IEnumerator FadeOutAndSceneLoad()
     {
         yield return new WaitForSeconds(5f);
-
         if (player_script.player_state != PlayerState.Damaged)
         {
             //페이드아웃 켜지고
@@ -497,18 +502,20 @@ public class SnowBoss4 : MonoBehaviour
             //페이드아웃 조건변수 켜지면
             if (fade_out)
             {
+                player_script.Invincibility = true;//페이드아웃일 때는 무적.
                 while (true)
                 {
                     //타이머 키고
                     timer += Time.deltaTime;
                     //색 까매지게
                     fadeOutPanel.color += new Color(0, 0, 0, 0.05f);
-                    if (timer >= 500f)
+                    if (timer >= 2f)
                     {
                         //n초 되면 씬로드
                         SceneManager.LoadScene(Define.Scene.SnowBossClear.ToString());
                         break;
                     }
+                    yield return null;
                 }
             }
         }
