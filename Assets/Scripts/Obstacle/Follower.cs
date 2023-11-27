@@ -6,26 +6,28 @@ using static Define;
 //player 졸졸 따라다님. 펫 기능 생각하면 됨.
 public class Follower : MonoBehaviour
 {
-    public Vector3 followPos;
+    private Vector3 followPos;
 
     [SerializeField]
-    private int followDelay;
+    private int followDelay = 20;
 
-    public Transform player;
+    private GameObject player;
     private Queue<Vector3> playerPos;
     private bool isTriggered = false;
     private Player playerScript;
     // Start is called before the first frame update
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!isTriggered && collision.gameObject.CompareTag("Player"))
         {
             isTriggered = true;
             this.gameObject.layer = 3; //layer을 player로 바꿈 player랑 똑같이 collider 조건 맞추려고
             playerScript = collision.gameObject.GetComponent<Player>();
+            player = collision.gameObject;
         }
-        else if (isTriggered && collision.gameObject.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("걸림");
             playerScript.onDamaged(collision.transform.position);
             //게임 매니저의 게임오버 처리 실행
             GameManager.instance.OnPlayerDead();
@@ -49,8 +51,8 @@ public class Follower : MonoBehaviour
     //playerPos를 차곡차곡 스택에 담는다.
     void Watch()
     {
-        if (!playerPos.Contains(player.position))
-            playerPos.Enqueue(player.position);
+        if (!playerPos.Contains(player.transform.position))
+            playerPos.Enqueue(player.transform.position);
         if (playerPos.Count > followDelay)
             followPos = playerPos.Dequeue();
     }
