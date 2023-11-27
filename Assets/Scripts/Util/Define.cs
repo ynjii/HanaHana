@@ -28,6 +28,7 @@ public class Define
         ClosetScene,
         StageScene
         , SnowBossClear,
+        EndingScene,
         None
     }
 

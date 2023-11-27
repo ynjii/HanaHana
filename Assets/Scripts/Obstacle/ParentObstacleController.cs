@@ -8,6 +8,12 @@ public class ParentObstacleController : MonoBehaviour
 {
     //obtype은 enum이라 미리 틀 만들기 힘듬. 그냥 필요할때 obtype 사용해서 옵스타클 종류 나누기
     [SerializeField] private bool isMoving = false;
+    // 프로퍼티 선언
+    public bool IsMoving
+    {
+        get { return isMoving; }
+        set { isMoving = value; }
+    }
     [SerializeField] private bool isCol = false;
     [SerializeField] private bool isActivated = false;
     [SerializeField] private float waitingTime = 0f;

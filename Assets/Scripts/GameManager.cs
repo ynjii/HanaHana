@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
             exitPanel.SetActive(true); //exit팝업착 띄우기
         }
 
-        //배경바꾸기
+        //배경바꾸기 & 소리넣기
         if (SceneManager.GetActiveScene().name == "SnowWhite")
         {
             if (player.transform.position.x < 382)
@@ -136,6 +136,30 @@ public class GameManager : MonoBehaviour
                 }
 
             }
+        }
+        if (SceneManager.GetActiveScene().name == Define.Scene.EndingScene.ToString())
+        {
+            if (player.transform.position.x < 382)
+            {
+
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[0];
+                
+            }
+
+            if (player.transform.position.x >= 382 && player.transform.position.x < 650)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[1];
+            }
+
+            if (player.transform.position.x >= 650)
+            {
+                Image sky_image = Sky.GetComponent<Image>();
+                sky_image.sprite = backgrounds[2];
+
+            }
+
         }
     }
 
