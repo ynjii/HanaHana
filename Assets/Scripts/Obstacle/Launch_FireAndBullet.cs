@@ -197,8 +197,8 @@ public class Launch_FireAndBullet : MonoBehaviour
                             //x: 18~24
                             //y: 4~-4
                             //랜덤위치
-                            float x = Random.Range(18f, 24f);
-                            float y = Random.Range(4f, -4f);
+                            float x = Random.Range(20f, 24f);
+                            float y = Random.Range(2f, -2f);
                             transf.position = new Vector3(x, y, 0);
                             //퍼져나갈때소리
                             AudioSource audio = GetComponent<AudioSource>();
@@ -280,36 +280,30 @@ public class Launch_FireAndBullet : MonoBehaviour
     /// <returns></returns>
     IEnumerator SplitCoroutine(GameObject clone_obj)
     {
-        while (true)
+        // n 초 대기(n초 기다린 후에 분열될거임)
+        yield return new WaitForSeconds(0.5f);
+
+        // 대기 후 split(분열)
+        GameObject cclon_obj1 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, 2f, 0), transform.rotation);
+        GameObject cclon_obj2 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, -2f, 0), transform.rotation);
+        float 초기위치 = clone_obj.transform.position.y;
+        float move_time = 0;
+
+        Rigidbody2D cclon_obj1_rigid=cclon_obj1.GetComponent<Rigidbody2D>();
+        Rigidbody2D cclon_obj2_rigid = cclon_obj2.GetComponent<Rigidbody2D>();
+        //n초동안 각각 위/아래로 퍼짐
+        while (move_time <= 0.5f)
         {
-            // n 초 대기(n초 기다린 후에 분열될거임)
-            yield return new WaitForSeconds(0.2f);
-
-            // 대기 후 split(분열)
-            GameObject cclon_obj1 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, 2f, 0), transform.rotation);
-            GameObject cclon_obj2 = Instantiate(clone_obj, clone_obj.transform.position + new Vector3(0, -2f, 0), transform.rotation);
-
-            float move_time = 0;
-
-            //0.2초동안 각각 위/아래로 퍼짐
-            while (move_time <= 0.2)
+            move_time += Time.deltaTime;//타이머 시간 더해주는 중
+            // 체크 후에 접근
+            if (cclon_obj1 != null && cclon_obj2 != null)
             {
-                move_time += Time.deltaTime;//타이머 시간 더해주는 중
-                // 체크 후에 접근
-                if (cclon_obj1 != null && cclon_obj2 != null)
-                {
-                    cclon_obj1.transform.position += new Vector3(0, 0.4f, 0);
-                    cclon_obj2.transform.position += new Vector3(0, -0.4f, 0);
-                }
-                yield return new WaitForSeconds(0.1f);
+                cclon_obj1_rigid.velocity = new Vector2(0, 5);
+                cclon_obj2_rigid.velocity = new Vector2(0, -5);
             }
-
-            //화면밖으로 나갈때까지 대기
-            //얘는 분열만 해주는 코드라 왼쪽으로 이동하는 건 총알 자체에 구현되어있음
-            //->따라서 이 코드는 화면밖으로 톱니가 스스로 나갈때까지 기다려주는 코드
-            //왜냐면 분열 3덩어리당 한 함수(이 함수) 쓰니까 
-            yield return new WaitForSeconds(5f);
+            yield return null; // 한 프레임을 기다림
         }
+        cclon_obj1_rigid.velocity = new Vector2(0, 0);
+        cclon_obj2_rigid.velocity = new Vector2(0, 0);
     }
-
 }

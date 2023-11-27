@@ -623,13 +623,26 @@ public class Player : MonoBehaviour
             //애니메이션: 계속 날아가는거로.
             anim.SetBool("isFly", true);
         }
+        
         //무한점프
         if (SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
+            //pc
             if (Input.GetButton("Jump") && player_state != PlayerState.Damaged)
             {
                 player_state = PlayerState.Fly;
                 rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+            }
+            Touch[] touches = Input.touches;
+            //모바일
+            foreach (Touch touch in touches)
+            {
+                //점프키범위
+                if (touch.position.x >= Screen.width * 0.5f && touch.position.x < jumpButtonEnd)
+                {
+                    player_state = PlayerState.Fly;
+                    rigid.velocity = new Vector2(rigid.velocity.x, jump_power);
+                }
             }
         }
 

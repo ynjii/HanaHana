@@ -381,8 +381,7 @@ public class SnowBoss4 : MonoBehaviour
     private void Dead()
     {
         Player player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
-        //보스 죽으면 플레이어 무적으로 만들어줘야함
-        player_script.Invincibility = true;
+        
         //플레이어가 데미지드 아닌 상태여야함
         if (player_script.player_state != PlayerState.Damaged)
         {
@@ -404,10 +403,10 @@ public class SnowBoss4 : MonoBehaviour
 
             //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
             Invoke("mirrorDeactive", 11f);
-
             //시연용 UI띄우기(와 짝짝~)
             Invoke("showClearUI", 20f);
             //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
+        
         }
 
     }
@@ -474,5 +473,4 @@ public class SnowBoss4 : MonoBehaviour
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
         yield return new WaitForSeconds(10);
     }
-
 }
