@@ -509,7 +509,7 @@ public class SnowBoss4 : MonoBehaviour
                     timer += Time.deltaTime;
                     //색 까매지게
                     fadeOutPanel.color += new Color(0, 0, 0, 0.05f);
-                    if (timer >= 2f)
+                    if (timer >= 5f)
                     {
                         //n초 되면 씬로드
                         SceneManager.LoadScene(Define.Scene.SnowBossClear.ToString());
