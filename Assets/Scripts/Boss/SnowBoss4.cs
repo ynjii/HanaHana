@@ -5,16 +5,29 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Define;
+using UnityEngine.UI;
 
 /// <summary>
 /// 백설공주4패턴 스크립트
 /// </summary>
 public class SnowBoss4 : MonoBehaviour
 {
+    //플레이어스크립트
+    Player player_script;
+    /// <summary>
+    /// 페이드아웃 & 씬로드 변수
+    /// </summary>
+    //페이드아웃 bool 변수
+    private bool fade_out = false;
+    //타이머
+    private float timer = 0;
+    //페이드아웃 판넬 UI 
+    [SerializeField] private Image fadeOutPanel;
+
+    /////////////////////////////////////////////////
+
     //얘가 내는 소리들 
     public AudioSource[] audioSources;
-    //클리어했을 때 UI (11.19시점 베타버전 플레이했네요 짝짝~으로 되어있음)
-    public GameObject clearUI;
     //죽고나서 터지는 불들
     [SerializeField] GameObject[] afterKilledFlames;
 
@@ -116,6 +129,8 @@ public class SnowBoss4 : MonoBehaviour
         G_target_positions.Add(new Vector3(17.22f, -0.66f, 0));
         G_target_positions.Add(new Vector3(18.92f, -2f, 0));
         G_target_positions.Add(new Vector3(21.55f, -1.85f, 0));
+        //플레이어스크립트가져오기
+        player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
 
         //랜덤패턴시작
         RandomPattern();
@@ -124,12 +139,7 @@ public class SnowBoss4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //클리어유아이 떴으면 스테이지 씬으로 돌려보내기(베타용임.)
-        //엔딩씬으로 가도록 추가개발필요
-        if (clearUI.active == true)
-        {
-            Invoke("gotoStageScene", 3f);
-        }
+        
 
         //안죽었으면 패턴진행(스포당하면 안되니까)
         if (!is_dead)
@@ -400,21 +410,27 @@ public class SnowBoss4 : MonoBehaviour
             }
             //쿠광쾅콰광(소리+ 화면흔들림+ 폭발애니메이션: 이미 구현한 코더분들거 쌔벼오기)
             StartCoroutine(AfterDead());
-
             //거울쨍그랑(쨍그랑 애니메이션 후->거울 deactive-> 원형 프리팹 이용해 거울 파편 퍼져나가기)   
             Invoke("mirrorDeactive", 11f);
-            //시연용 UI띄우기(와 짝짝~)
-            Invoke("showClearUI", 20f);
-            //페이드인페이드아웃(이미 구현 쌔벼오기) white ver. -> 씬이동(잠잠해짐 씬으로 이동)
-        
+                   
         }
 
     }
     //거울 삭제
     private void mirrorDeactive()
     {
+        //무적해제
+        player_script.Invincibility = false;
+        //무적해제했을 때 화면안에 플레이어가 없으면 죽음
+        if(!(player_script.gameObject.transform.position.y<=5&& player_script.gameObject.transform.position.y >=-5))
+        {
+            player_script.Die(player_script.transform.position);
+        }
+
         //쿠광광소리끄고
         audioSources[0].Stop();
+        //비명소리끄고
+        audioSources[2].Stop();
         foreach (GameObject obj in afterKilledFlames)
         {
             //불도 꺼주고
@@ -437,18 +453,14 @@ public class SnowBoss4 : MonoBehaviour
         circle_pattern.CircleLaunch(mirrors, this.transform, 10);
         //쨍그랑
         audioSources[1].Play();
-    }
-
-    private void showClearUI()
-    {
-        clearUI.SetActive(true);
-        //짝짞~
-        audioSources[2].Play();
+        StartCoroutine(FadeOutAndSceneLoad());
+        
     }
 
     //죽고나서 일어나는 일들
     IEnumerator AfterDead()
     {
+        yield return null;
         //코루틴 다 꺼주고
         StopAllCoroutines();
         foreach (GameObject obj in afterKilledFlames)
@@ -457,6 +469,8 @@ public class SnowBoss4 : MonoBehaviour
             obj.SetActive(true);
         }
 
+        //카메라를 흔들어주기때문에 카메라 안에 안 담기면 죽는 불상사 막기위함.
+        player_script.Invincibility = true;
         // 카메라 shaking
         Camera.main.transform.DOShakePosition(10, 3);
 
@@ -468,9 +482,42 @@ public class SnowBoss4 : MonoBehaviour
         //폭발사운드
         audioSources[0].loop = true;
         audioSources[0].Play();
+        //절규사운드
+        audioSources[2].loop = true;
+        audioSources[2].Play();
+        
+    }
 
-
-        // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForSeconds(10);
+    IEnumerator FadeOutAndSceneLoad()
+    {
+        yield return new WaitForSeconds(5f);
+        if (player_script.player_state != PlayerState.Damaged)
+        {
+            //페이드아웃 켜지고
+            fade_out = true;
+            //페이드아웃 판넬의 부모오브젝트(캔버스) 가져옴
+            Transform parent_trans = fadeOutPanel.gameObject.transform.parent;
+            //켜주기
+            parent_trans.gameObject.SetActive(true);
+            //페이드아웃 조건변수 켜지면
+            if (fade_out)
+            {
+                player_script.Invincibility = true;//페이드아웃일 때는 무적.
+                while (true)
+                {
+                    //타이머 키고
+                    timer += Time.deltaTime;
+                    //색 까매지게
+                    fadeOutPanel.color += new Color(0, 0, 0, 0.05f);
+                    if (timer >= 2f)
+                    {
+                        //n초 되면 씬로드
+                        SceneManager.LoadScene(Define.Scene.SnowBossClear.ToString());
+                        break;
+                    }
+                    yield return null;
+                }
+            }
+        }
     }
 }
