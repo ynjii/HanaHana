@@ -27,7 +27,7 @@ public class Pattern3 : MonoBehaviour
 
     private void Update()
     {
-        // º¸½º Ã¼·Â/½Ã°£ º¯¼ö°¡ 0ÀÌÇÏ°¡ µÇ¸é ÆÐÅÏ ³Ñ±â´Â Ã³¸®¸¦ ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½/ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover && !isEnd)
         {
             isEnd = true;
@@ -40,14 +40,14 @@ public class Pattern3 : MonoBehaviour
         StopAllCoroutines();
         _patternChangeGO.SetActive(true);
 
-        // Ä«¸Þ¶ó shaking
+        // Ä«ï¿½Þ¶ï¿½ shaking
         _camera.transform.DOShakePosition(3, 1);
 
-        // º¸½º ¾Ö´Ï¸ÞÀÌ¼Ç º¯°æ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         _bossAnim.SetBool("isHideEye", true);
 
-        // ºÒ ½ºÇÁ¶óÀÌÆ®´Â ÀÚµ¿ Àç»ý
-        // ´ÙÀ½ ¾À ·Îµå : º¸½º ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³ª°í ÀÌµ¿
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ : ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         _bossAnim.SetBool("isHideEye", false);
         _clearUI.SetActive(true);
         Time.timeScale = 0f;
@@ -71,7 +71,7 @@ public class Pattern3 : MonoBehaviour
 
         for (int i = 0; i < _patterns.Count; i++)
         {
-            int rand = Random.Range(0, 5);
+            int rand = Random.Range(0, _patterns.Count);
             if (executedPatterns.Contains(rand))
             {
                 i--;
