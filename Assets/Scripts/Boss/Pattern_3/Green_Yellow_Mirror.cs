@@ -41,7 +41,7 @@ public class Green_Yellow_Mirror : MonoBehaviour
         }
         foreach (Collider2D col in colliders)
         {
-            col.isTrigger = false;
+            col.enabled = true;
         }
     }
 
@@ -53,7 +53,7 @@ public class Green_Yellow_Mirror : MonoBehaviour
         }
         foreach (Collider2D col in colliders)
         {
-            col.isTrigger = true;
+            col.enabled = false;
         }
     }
 }

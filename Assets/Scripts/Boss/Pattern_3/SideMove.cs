@@ -8,24 +8,19 @@ using UnityEngine.UI;
 
 public class SideMove : MonoBehaviour
 {
-    public float direction = 1f;
-    public float duration;
-    public float target;
+    public float speed;
+    public float direction = 1;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void Update()
     {
-        if (other.transform.tag == "Alert")
+        transform.parent.position += Vector3.right * direction * Time.deltaTime * speed;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Alert"))
         {
             direction = direction * -1;
-        }
-    }
-
-    private void Start()
-    {
-        for(int i=0; i<6; i++)
-        {
-            transform.DOMoveX(target * direction, duration, false);
-            direction = direction * -1f;
         }
     }
 }
