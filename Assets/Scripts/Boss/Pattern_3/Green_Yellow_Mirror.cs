@@ -19,13 +19,13 @@ public class Green_Yellow_Mirror : MonoBehaviour
     void Update()
     {
 
-        // ÃÊ·Ï ·¹ÀÌÀú°¡ È°¼ºÈ­ µÉ¶§
+        // ï¿½Ê·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½É¶ï¿½
         if (_player.GetComponent<SpriteRenderer>().flipX)
         {
             ActivateMirror(_greenMirrorSprites, _greenMirrorCols);
             DeActivateMirror(_yellowMirrorSprites, _yellowMirrorCols);
         }
-        // ³ë¶õ ·¹ÀÌÀú°¡ È°¼ºÈ­ µÉ¶§
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½É¶ï¿½
         else
         {
             ActivateMirror(_yellowMirrorSprites, _yellowMirrorCols);
@@ -37,11 +37,11 @@ public class Green_Yellow_Mirror : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in sprites)
         {
-            sprite.enabled = true;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
         }
         foreach (Collider2D col in colliders)
         {
-            col.enabled = true;
+            col.isTrigger = false;
         }
     }
 
@@ -49,11 +49,11 @@ public class Green_Yellow_Mirror : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in sprites)
         {
-            sprite.enabled = false;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
         }
         foreach (Collider2D col in colliders)
         {
-            col.enabled = false;
+            col.isTrigger = true;
         }
     }
 }

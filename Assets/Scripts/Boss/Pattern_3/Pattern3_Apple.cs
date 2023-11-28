@@ -21,7 +21,6 @@ public class Pattern3_Apple : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().Die(new Vector2(transform.position.x, transform.position.y));
             Destroy(gameObject, 0.1f);
         }
         if (other.transform.CompareTag("Enemy"))
