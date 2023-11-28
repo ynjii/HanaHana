@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VolumetricLines
 {
     /// <summary>
-    /// Render a line strip consisting of multiple VolumetricLineBehavior pieces stitched together
+    /// Render a path strip consisting of multiple VolumetricLineBehavior pieces stitched together
     /// 
     /// Based on the Volumetric lines algorithm by Sebastien Hillaire
     /// http://sebastien.hillaire.free.fr/index.php?option=com_content&view=article&id=57&Itemid=74
@@ -28,7 +28,7 @@ namespace VolumetricLines
     {
         #region private variables
         /// <summary>
-        /// Template material to be used for all line parts of this multiline
+        /// Template material to be used for all path parts of this multiline
         /// </summary>
         [SerializeField]
         public Material m_templateMaterial;
@@ -41,19 +41,19 @@ namespace VolumetricLines
         private bool m_doNotOverwriteTemplateMaterialProperties;
 
         /// <summary>
-        /// Line Color for all line parts of this multiline
+        /// Line Color for all path parts of this multiline
         /// </summary>
         [SerializeField]
         private Color m_lineColor;
 
         /// <summary>
-        /// The width of all line parts of this multiline
+        /// The width of all path parts of this multiline
         /// </summary>
         [SerializeField]
         private float m_lineWidth;
 
         /// <summary>
-        /// Light saber factor for all line parts of this multiline
+        /// Light saber factor for all path parts of this multiline
         /// </summary>
         [SerializeField]
         [Range(0.0f, 1.0f)]
@@ -61,7 +61,7 @@ namespace VolumetricLines
 
         /// <summary>
         /// The vertices where 2 adjacent multi lines touch each other. 
-        /// The end of line 1 is the start of line 2, etc.
+        /// The end of path 1 is the start of path 2, etc.
         /// </summary>
         [SerializeField]
         private Vector3[] m_lineVertices;
@@ -98,7 +98,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the line color for each line part of this multiline
+        /// Get or set the path color for each path part of this multiline
         /// </summary>
         public Color LineColor
         {
@@ -124,7 +124,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the line width of this volumetric line's material
+        /// Get or set the path width of this volumetric path's material
         /// </summary>
         public float LineWidth
         {
@@ -150,7 +150,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the light saber factor of this volumetric line's material
+        /// Get or set the light saber factor of this volumetric path's material
         /// </summary>
         public float LightSaberFactor
         {
@@ -178,7 +178,7 @@ namespace VolumetricLines
 
         #region methods
         /// <summary>
-        /// Instantiate all line parts of this multiline and set their properties
+        /// Instantiate all path parts of this multiline and set their properties
         /// </summary>
         public void CreateAllVolumetricLines()
         {
@@ -210,7 +210,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Destroys all line parts of this multiline
+        /// Destroys all path parts of this multiline
         /// </summary>
         public void DestroyAllVolumetricLines()
         {
@@ -235,7 +235,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Update the vertices of this multi line.
+        /// Update the vertices of this multi path.
         /// </summary>
         /// <param name="newSetOfVertices">New set of vertices.</param>
         public void UpdateLineVertices(Vector3[] newSetOfVertices)

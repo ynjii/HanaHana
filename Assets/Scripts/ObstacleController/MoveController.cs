@@ -8,13 +8,11 @@ public class MoveController : ParentObstacleController
     {
         MoveToPoints
     }
-   
-    [SerializeField] Obtype obtype;
-    
-    [SerializeField] Transform line; // 미리 그려진 선의 Transform
-    [SerializeField] float moveSpeed;
-    [SerializeField] Transform transform;
 
+    [SerializeField] Obtype obtype;
+    [SerializeField] LineRenderer line;
+    [SerializeField] float moveSpeed;
+    [SerializeField] Transform _transform;
 
 
     private void Update()
@@ -24,7 +22,7 @@ public class MoveController : ParentObstacleController
             switch (obtype)
             {
                 case Obtype.MoveToPoints:
-                    StartCoroutine(MoveToPoints(line, moveSpeed, transform));
+                    StartCoroutine(MoveToPoints(line, moveSpeed, _transform));
                     base.IsMoving = false;
                     break;
             }   
@@ -37,39 +35,34 @@ public class MoveController : ParentObstacleController
     /// targetPositions: 꼭짓점 리스트
     /// transform: 움직일 오브젝트의 Transform
     /// moveSpeed: 움직일 스피드
-    IEnumerator MoveToPoints(Transform line, float moveSpeed, Transform transform)
+    IEnumerator MoveToPoints(LineRenderer line, float moveSpeed, Transform _transform)
     {
-
-        int currentTargetIndex = 0;
-        private Transform[] waypoints; // 선의 각 점을 저장할 배열
-        waypoints = new Transform[line.childCount];
-        for (int i = 0; i <line.childCount; i++)
+        //배열생성
+        Vector3[] path=new Vector3[line.positionCount];
+        for (int i = 0; i < line.positionCount; i++)
         {
-            waypoints[i] = path.GetChild(i);
+            // 선의 꼭짓점 가져옴
+            path[i] = line.GetPosition(i);
         }
+        //시작점
+        int currentTargetIndex = 0;
+        Vector3 targetPosition = path[currentTargetIndex];
 
         while (true)
         {
-            
-            //위치점 찍어놨던 배열에서 하나씩 꺼냄
-            Vector3 targetPosition = targetPositions[currentTargetIndex];
-            // 현재 위치와 목표 위치 사이의 거리 계산
-            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-            // 일정 거리 내에 있으면 다음 목표 위치로 변경
-            if (distanceToTarget <= 0.1f) // 예시로 0.1f를 사용, 원하는 값으로 조정 가능
+            //타겟 꼭짓점과의 거리재기
+            float distanceToTarget = Vector3.Distance(_transform.position, targetPosition);
+            //도달했으면
+            if (distanceToTarget <= 1.0f)
             {
-                if (currentTargetIndex == targetPositions.Count - 1)
-                {
-                    break;
-                }
-                currentTargetIndex = (currentTargetIndex + 1) % targetPositions.Count;
-                targetPosition = targetPositions[currentTargetIndex];
+                //다음 꼭짓점으로 타겟변경
+                currentTargetIndex = (currentTargetIndex + 1) % path.Length;
+                targetPosition = path[currentTargetIndex];
             }
-
-            // 목표 위치로 이동
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
-            
-            yield return null;
+            //이 쪽으로 이동
+            _transform.position = Vector3.MoveTowards(_transform.position, targetPosition, Time.deltaTime * moveSpeed);
+            //_transform.position = new Vector3(_transform.position.x,_transform.position.y,-1f);
+            yield return null;//deltaTime 기다리고 돌아감
         }
     }
 }

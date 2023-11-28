@@ -204,6 +204,7 @@ public class ObstacleController : MonoBehaviour
     }
 
 
+
     private void Awake()//★
     {
         initialPosition = transform.position;

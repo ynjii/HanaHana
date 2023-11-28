@@ -15,7 +15,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //싱글턴을 할당할 전역변수
-    public AudioSource[] audioSources = null;
 
     [SerializeField] private Vector3 respawnPoint = new Vector3(-9.16f, -0.48f, 0f); // 플레이어가 리스폰할 체크포인트 위치
     private int death_count = 0;//죽은 횟수
@@ -26,11 +25,6 @@ public class GameManager : MonoBehaviour
     public GameObject player;//플레이어
     public GameObject SaveLoad;
     public GameObject exitPanel;
-    public GameObject Sky;
-    public Sprite[] backgrounds;
-    //배경 변경 위한 변수
-    private bool is_Castle;
-    private bool is_Mirror;
 
     /// <summary>
     /// 게임 시작과 동시에 싱글턴을 구성
@@ -93,74 +87,6 @@ public class GameManager : MonoBehaviour
             exitPanel.SetActive(true); //exit팝업착 띄우기
         }
 
-        //배경바꾸기 & 소리넣기
-        if (SceneManager.GetActiveScene().name == "SnowWhite")
-        {
-            if (player.transform.position.x < 382)
-            {
-
-                Image sky_image = Sky.GetComponent<Image>();
-                sky_image.sprite = backgrounds[0];
-                if (audioSources != null)
-                {
-                    audioSources[0].enabled = true;
-                    audioSources[1].enabled = false;
-                    audioSources[2].enabled = false;
-                    audioSources[3].enabled = false;
-                }
-            }
-
-            if (player.transform.position.x >= 382 && player.transform.position.x < 650)
-            {
-                Image sky_image = Sky.GetComponent<Image>();
-                sky_image.sprite = backgrounds[1];
-                if (audioSources != null)
-                {
-                    audioSources[1].enabled = true;
-                    audioSources[2].enabled = false;
-                    audioSources[0].enabled = false;
-                    audioSources[3].enabled = false;
-                }
-            }
-
-            if (player.transform.position.x >= 650)
-            {
-                Image sky_image = Sky.GetComponent<Image>();
-                sky_image.sprite = backgrounds[2];
-                if (audioSources != null)
-                {
-                    audioSources[2].enabled = true;
-                    audioSources[0].enabled = false;
-                    audioSources[1].enabled = false;
-                    audioSources[3].enabled = true;
-                }
-
-            }
-        }
-        if (SceneManager.GetActiveScene().name == Define.Scene.EndingScene.ToString())
-        {
-            if (player.transform.position.x < 382)
-            {
-
-                Image sky_image = Sky.GetComponent<Image>();
-                sky_image.sprite = backgrounds[0];
-                
-            }
-
-            if (player.transform.position.x >= 382 && player.transform.position.x < 650)
-            {
-                Image sky_image = Sky.GetComponent<Image>();
-                sky_image.sprite = backgrounds[1];
-            }
-
-            if (player.transform.position.x >= 650)
-            {
-                Image sky_image = Sky.GetComponent<Image>();
-                sky_image.sprite = backgrounds[2];
-
-            }
-
-        }
     }
 
     /// <summary>

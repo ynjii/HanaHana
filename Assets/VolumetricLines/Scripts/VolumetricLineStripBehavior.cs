@@ -3,7 +3,7 @@ using UnityEngine;
 namespace VolumetricLines
 {
     /// <summary>
-    /// Render a line strip of volumetric lines
+    /// Render a path strip of volumetric lines
     /// 
     /// Based on the Volumetric lines algorithm by Sebastien Hillaire
     /// http://sebastien.hillaire.free.fr/index.php?option=com_content&view=article&id=57&Itemid=74
@@ -52,7 +52,7 @@ namespace VolumetricLines
         private Color m_lineColor;
 
         /// <summary>
-        /// The width of the line
+        /// The width of the path
         /// </summary>
         [SerializeField]
         private float m_lineWidth;
@@ -75,7 +75,7 @@ namespace VolumetricLines
         private MeshFilter m_meshFilter;
 
         /// <summary>
-        /// The vertices of the line
+        /// The vertices of the path
         /// </summary>
         [SerializeField]
         private Vector3[] m_lineVertices;
@@ -107,7 +107,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the line color of this volumetric line's material
+        /// Get or set the path color of this volumetric path's material
         /// </summary>
         public Color LineColor
         {
@@ -124,7 +124,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the line width of this volumetric line's material
+        /// Get or set the path width of this volumetric path's material
         /// </summary>
         public float LineWidth
         {
@@ -142,7 +142,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the light saber factor of this volumetric line's material
+        /// Get or set the light saber factor of this volumetric path's material
         /// </summary>
         public float LightSaberFactor
         {
@@ -159,7 +159,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Gets the vertices of this line strip
+        /// Gets the vertices of this path strip
         /// </summary>
         public Vector3[] LineVertices
         {
@@ -209,7 +209,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Updates the line scaling of this volumetric line based on the current object scaling.
+        /// Updates the path scaling of this volumetric path based on the current object scaling.
         /// </summary>
         public void UpdateLineScale()
         {
@@ -240,8 +240,8 @@ namespace VolumetricLines
 
 
         /// <summary>
-        /// Calculate the bounds of this line based on the coordinates of the line vertices,
-        /// the line width, and the scaling of the object.
+        /// Calculate the bounds of this path based on the coordinates of the path vertices,
+        /// the path width, and the scaling of the object.
         /// </summary>
         private Bounds CalculateBounds()
         {
@@ -279,8 +279,8 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Updates the bounds of this line according to the current properties, 
-        /// which there are: coordinates of the line vertices, line width, scaling of the object.
+        /// Updates the bounds of this path according to the current properties, 
+        /// which there are: coordinates of the path vertices, path width, scaling of the object.
         /// </summary>
         public void UpdateBounds()
         {
@@ -299,7 +299,7 @@ namespace VolumetricLines
         /// Updates the vertices of this VolumetricLineStrip.
         /// This is an expensive operation.
         /// </summary>
-        /// <param name="newSetOfVertices">new set of vertices for the line strip.</param>
+        /// <param name="newSetOfVertices">new set of vertices for the path strip.</param>
         public void UpdateLineVertices(Vector3[] newSetOfVertices)
         {
             if (null == newSetOfVertices)

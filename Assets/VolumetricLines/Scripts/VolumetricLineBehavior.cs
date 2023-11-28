@@ -3,7 +3,7 @@ using UnityEngine;
 namespace VolumetricLines
 {
     /// <summary>
-    /// Render a single volumetric line
+    /// Render a single volumetric path
     /// 
     /// Based on the Volumetric lines algorithm by Sebastien Hillaire
     /// http://sebastien.hillaire.free.fr/index.php?option=com_content&view=article&id=57&Itemid=74
@@ -64,7 +64,7 @@ namespace VolumetricLines
         private Color m_lineColor;
 
         /// <summary>
-        /// The width of the line
+        /// The width of the path
         /// </summary>
         [SerializeField]
         private float m_lineWidth;
@@ -113,7 +113,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the line color of this volumetric line's material
+        /// Get or set the path color of this volumetric path's material
         /// </summary>
         public Color LineColor
         {
@@ -130,7 +130,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the line width of this volumetric line's material
+        /// Get or set the path width of this volumetric path's material
         /// </summary>
         public float LineWidth
         {
@@ -148,7 +148,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the light saber factor of this volumetric line's material
+        /// Get or set the light saber factor of this volumetric path's material
         /// </summary>
         public float LightSaberFactor
         {
@@ -165,7 +165,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the start position of this volumetric line's mesh
+        /// Get or set the start position of this volumetric path's mesh
         /// </summary>
         public Vector3 StartPos
         {
@@ -178,7 +178,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Get or set the end position of this volumetric line's mesh
+        /// Get or set the end position of this volumetric path's mesh
         /// </summary>
         public Vector3 EndPos
         {
@@ -234,7 +234,7 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Updates the line scaling of this volumetric line based on the current object scaling.
+        /// Updates the path scaling of this volumetric path based on the current object scaling.
         /// </summary>
         public void UpdateLineScale()
         {
@@ -264,8 +264,8 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Calculate the bounds of this line based on start and end points,
-        /// the line width, and the scaling of the object.
+        /// Calculate the bounds of this path based on start and end points,
+        /// the path width, and the scaling of the object.
         /// </summary>
         private Bounds CalculateBounds()
         {
@@ -291,8 +291,8 @@ namespace VolumetricLines
         }
 
         /// <summary>
-        /// Updates the bounds of this line according to the current properties, 
-        /// which there are: start point, end point, line width, scaling of the object.
+        /// Updates the bounds of this path according to the current properties, 
+        /// which there are: start point, end point, path width, scaling of the object.
         /// </summary>
         public void UpdateBounds()
         {

@@ -62,7 +62,7 @@ namespace TMPro
 
 
         /// <summary>
-        /// Event delegate triggered when pointer is over a line.
+        /// Event delegate triggered when pointer is over a path.
         /// </summary>
         public LineSelectionEvent onLineSelection
         {
