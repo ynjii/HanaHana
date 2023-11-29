@@ -8,12 +8,14 @@ public class MoveController : ParentObstacleController
     {
         MoveToPoints
     }
-
+    /// <summary>
+    /// MoveToPoints변수들
+    /// </summary>
     [SerializeField] Obtype obtype;
     [SerializeField] LineRenderer line;
     [SerializeField] float moveSpeed;
     [SerializeField] Transform _transform;
-
+    [SerializeField] bool repeatLine = false;//라인을 반복해서 움직이는지, 라인의 끝 꼭짓점 가면 끝나는지
 
     private void Update()
     {
@@ -57,10 +59,14 @@ public class MoveController : ParentObstacleController
             if (distanceToTarget <= 1.0f)
             {
                 //마지막 꼭짓점 도달시 break
-                if (currentTargetIndex == path.Length - 1)
+                if (!repeatLine)
                 {
-                    break;
+                    if (currentTargetIndex == path.Length - 1)
+                    {
+                        break;
+                    }
                 }
+                
                 //다음 꼭짓점으로 타겟변경
                 currentTargetIndex = (currentTargetIndex + 1) % path.Length;
                 targetPosition = path[currentTargetIndex];
