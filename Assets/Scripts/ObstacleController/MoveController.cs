@@ -50,11 +50,17 @@ public class MoveController : ParentObstacleController
 
         while (true)
         {
+            
             //타겟 꼭짓점과의 거리재기
             float distanceToTarget = Vector3.Distance(_transform.position, targetPosition);
             //도달했으면
             if (distanceToTarget <= 1.0f)
             {
+                //마지막 꼭짓점 도달시 break
+                if (currentTargetIndex == path.Length - 1)
+                {
+                    break;
+                }
                 //다음 꼭짓점으로 타겟변경
                 currentTargetIndex = (currentTargetIndex + 1) % path.Length;
                 targetPosition = path[currentTargetIndex];

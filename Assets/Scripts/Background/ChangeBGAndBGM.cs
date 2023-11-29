@@ -64,7 +64,7 @@ public class ChangeBGAndBGM : MonoBehaviour
 
                 }
                 break;
-            case SceneType.EndingScene:
+                case SceneType.EndingScene:
                 audioSources[0].volume += 0.01f;
                 if (_transform.position.x < 382)
                 {
