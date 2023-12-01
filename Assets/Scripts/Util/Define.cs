@@ -27,7 +27,8 @@ public class Define
         SnowBoss4,
         ClosetScene,
         StageScene
-        , None
+        , SnowBossClear,
+        None
     }
 
     public enum PlayerState
