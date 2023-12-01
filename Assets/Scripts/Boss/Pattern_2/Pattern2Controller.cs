@@ -12,7 +12,8 @@ using UnityEngine.UI;
 public class Pattern2Controller : MonoBehaviour
 {
     private System.Random random = new System.Random();
-    private List<System.Action> availablePatterns = new List<System.Action>(); //패턴을 넣습니다. 패턴별로 부모 스크립트에 넣고, 비활성화했다가 활성화 되면 움직이는 식으로 만들었어요 
+    //패턴을 넣습니다. 패턴별로 부모 스크립트에 넣고, 비활성화했다가 활성화 되면 움직이는 식으로 만들었어요 
+    private List<System.Action> availablePatterns = new List<System.Action>();
     public List<GameObject> enemyPatterns = new List<GameObject>();
 
     private ThrowObj throwObj;
@@ -25,7 +26,7 @@ public class Pattern2Controller : MonoBehaviour
 
     [SerializeField] Camera camera;
 
-    [SerializeField] GameObject patternChangeGO;
+    [SerializeField] GameObject sceneChangeGO;
     [SerializeField] GameObject FadeIn;
     [SerializeField] GameObject FadeOut;
     private System.Action previousPattern;
@@ -55,8 +56,6 @@ public class Pattern2Controller : MonoBehaviour
             Pattern3,
             Pattern4
         };
-
-
         //StartCoroutine(startEvent());
         // 첫 번째 패턴 시작
         StartNextPattern();
@@ -64,20 +63,20 @@ public class Pattern2Controller : MonoBehaviour
 
     private void Update()
     {
-        //만약 슬라이더 HP가 0 이하면 시간이 지난것이기 때문에 다음 scene 으로 넘어간다. 
         if (slHP.value <= 0)
         {
-            StartCoroutine(PatternChange()); //이거는 전체 보스맵 4개의 패턴에서의 패턴. scene change로 바꾸면 좋을 것 같음.
+            StartCoroutine(ChangetoNextScene()); //이거는 전체 보스맵 4개의 패턴에서의 패턴. scene change로 바꾸면 좋을 것 같음.
         }
-        // 보스 패턴이 끝나면 다음 패턴 시작
-        // 패턴 이름을 수정해야할 것 같다. 구분이 힘듬. 
-        // 이 부분은 패턴이 끝나는 조건에 따라 수정되어야 합니다.
+
         if (slHP.value <= currentHP - 15f && availablePatterns.Count > 0) //15초 지나면, 그리고 가능한 패턴이 남아있다면
         {
             currentHP -= 15f;
             StartNextPattern(); //여기서는 보스맵 2 안의 패턴
         }
-
+        //밑에는 WARNING 하는건데 너무 난잡한것 같아서 잠시 주석처리
+        /*
+        //만약 슬라이더 HP가 0 이하면 시간이 지난것이기 때문에 다음 scene 으로 넘어간다. 
+        
         //이거 전체를 60으로 하지 말고 더 길게 잡고 보스가 패턴 바꾸는 동안 더 시간을 주면 좋을 것 같다. 
         if (slHP.value <= warningHP - 11f) //3초 경고 1초동안 피하기 
         {
@@ -96,7 +95,7 @@ public class Pattern2Controller : MonoBehaviour
             {
                 enemyPattern.SetActive(false);
             }
-        }
+        }*/
 
     }
     /*
@@ -113,9 +112,9 @@ public class Pattern2Controller : MonoBehaviour
         }*/
 
     //이건 다음 패턴으로 옮김
-    private IEnumerator PatternChange()
+    private IEnumerator ChangetoNextScene()
     {
-        patternChangeGO.SetActive(true);
+        sceneChangeGO.SetActive(true);
 
         // 카메라 shaking
         camera.transform.DOShakePosition(3, 1);
@@ -125,7 +124,7 @@ public class Pattern2Controller : MonoBehaviour
 
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         animator.SetBool("isHideEye", false);
         SceneManager.LoadScene("SnowBoss3");
     }
@@ -133,6 +132,7 @@ public class Pattern2Controller : MonoBehaviour
     //랜덤으로 패턴 시작하기. 과거 나온 패턴은 리스트에서 삭제한다. 
     private void StartNextPattern()
     {
+
         // 이전 패턴을 제외한 패턴들로 리스트 갱신
         if (previousPattern != null)
         {
@@ -192,10 +192,8 @@ public class Pattern2Controller : MonoBehaviour
     // 패턴 함수들 (구현 필요)
     private void Pattern1()
     {
-        // 패턴 1 실행 코드
-        float current = slHP.value;
+        animator.Play("Boss_CollectingEnergy");
         enemyPatterns[0].SetActive(true);
-        StartCoroutine(SlidingFireCoroutine(current));
     }
 
     //슬라이딩 하는 fire다. 
