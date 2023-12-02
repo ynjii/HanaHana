@@ -10,11 +10,10 @@ public class ParentObstacleController : MonoBehaviour
     [SerializeField] private bool isMoving = false; //이건 test용. 누르면 바로 움직이긴 함. 
     [SerializeField] private bool isMovingFromStart = false;
     [SerializeField] private bool isCol = false;
-    [SerializeField] private bool isActivated = false;
     [SerializeField] private float waitingTime = 0f;
     [SerializeField] private Define.Tags colTag = Define.Tags.Player;
 
-    public GameObject player;
+    private GameObject player;
 
     IEnumerator WaitforGivenTime()
     {
@@ -50,7 +49,7 @@ public class ParentObstacleController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Awake()
+    public void Awake()
     {
         if (isMovingFromStart)
         {
