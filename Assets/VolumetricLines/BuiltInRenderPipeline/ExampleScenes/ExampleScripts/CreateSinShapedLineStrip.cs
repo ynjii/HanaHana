@@ -3,7 +3,7 @@ using UnityEngine;
 using VolumetricLines;
 
 /// <summary>
-/// Create a sin shaped line strip using a volumetric line strip
+/// Create a sin shaped path strip using a volumetric path strip
 /// </summary>
 public class CreateSinShapedLineStrip : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class CreateSinShapedLineStrip : MonoBehaviour
         // Add a MeshRenderer, VolumetricLineStripBehavior requires it
         go.AddComponent<MeshRenderer>();
 
-        // Add the VolumetricLineStripBehavior and set parameters, like color and all the vertices of the line
+        // Add the VolumetricLineStripBehavior and set parameters, like color and all the vertices of the path
         var volLineStrip = go.AddComponent<VolumetricLineStripBehavior>();
         volLineStrip.DoNotOverwriteTemplateMaterialProperties = false;
         volLineStrip.TemplateMaterial = m_volumetricLineStripMaterial;
