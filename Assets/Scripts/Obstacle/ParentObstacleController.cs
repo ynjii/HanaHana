@@ -7,7 +7,7 @@ using static Define;
 public class ParentObstacleController : MonoBehaviour
 {
     //obtype은 enum이라 미리 틀 만들기 힘듬. 그냥 필요할때 obtype 사용해서 옵스타클 종류 나누기
-    [SerializeField] private bool isMoving = false; //이건 test용. 누르면 바로 움직이긴 함. 
+    private bool isMoving = false; //이건 test용. 누르면 바로 움직이긴 함. 
     [SerializeField] private bool isMovingFromStart = false;
     [SerializeField] private bool isCol = false;
     [SerializeField] private float waitingTime = 0f;
