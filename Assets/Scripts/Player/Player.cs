@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
         //레이캐스트(for 버튼점프 꾹 누를 시 천장붙음 방지)
         //초록색
         Debug.DrawRay(rigid.position, Vector3.up, new Color(0, 1, 0));
-        RaycastHit2D headRayHit = Physics2D.Raycast(rigid.position, Vector2.up, 1f, LayerMask.GetMask("Platform"));
+        RaycastHit2D headRayHit = Physics2D.Raycast(rigid.position, Vector2.up, 0.1f, LayerMask.GetMask("Platform"));
         //맞았다는 뜻
         if (headRayHit.collider != null)
         {
