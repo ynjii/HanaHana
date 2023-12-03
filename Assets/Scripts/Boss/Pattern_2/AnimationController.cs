@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class AnimationController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Animator f_Animator;
+    private bool endBool = false;
+    [SerializeField] private float delayTime = 5.0f; // 애니메이션 시작을 기다릴 시간
+
+    [SerializeField] private float waitingTime = 0f; //몇초 후에 시작할지
+
+    void Awake()
     {
-        
+        f_Animator = GetComponent<Animator>();
+        StartCoroutine(FirstAnimation());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator FirstAnimation()
     {
-        
+        yield return new WaitForSeconds(waitingTime); // 지정된 시간 동안 기다림
+        // 애니메이션 시작
+        f_Animator.Play("upFlame", 0, 0f);
     }
+
+
+    IEnumerator StartAnimationAfterDelay()
+    {
+        yield return new WaitForSeconds(delayTime); // 지정된 시간 동안 기다림
+        // 애니메이션 시작
+        f_Animator.Play("upFlame", 0, 0f);
+    }
+
 }
