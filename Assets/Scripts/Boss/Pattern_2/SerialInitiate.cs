@@ -7,9 +7,10 @@ public class SerialInitiate : MonoBehaviour
     public List<GameObject> prefabsToSpawn; // 인스펙터 창에서 프리팹 리스트 지정
     [SerializeField] private float totalTime = 5.5f; // 생성을 진행할 총 시간
     [SerializeField] private float interval = 0.5f; // 생성 간격
-
+    private Transform parentTransform;
     void Start()
     {
+        parentTransform = this.gameObject.transform;
         StartCoroutine(SerialInitiateCoroutine());
     }
 
@@ -23,6 +24,7 @@ public class SerialInitiate : MonoBehaviour
         {
             // 프리팹을 생성하면서 프리팹이 가지고 있는 초기 위치로 설정
             GameObject prefabInstance = Instantiate(prefabsToSpawn[prefabIndex], prefabsToSpawn[prefabIndex].transform.position, Quaternion.identity);
+            prefabInstance.transform.parent = parentTransform;
 
             yield return new WaitForSeconds(interval);
             elapsedTime += interval;

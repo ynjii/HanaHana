@@ -98,7 +98,7 @@ public class ThrowObj : MonoBehaviour
             if (objRigidbody != null)
             {
                 // 랜덤한 방향과 힘을 생성하여 불을 튀어오르게 만듦
-                Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 0f), 0f).normalized;
+                Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
 
                 objRigidbody.AddForce(randomDirection * force, ForceMode2D.Impulse);
             }

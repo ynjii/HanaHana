@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 //얘도 주인공 따라다니는데 follower랑은 살짝 다름.  follower는 player가 간 길을 그대로 따라가고 얘는 말그대로 player가 목표
 public class Missile : MonoBehaviour
 {
+    public float waitingTime = 0f;
+    private bool hasStarted = false;
     public float speed = 5f;
     public float inertiaStrength = 1.5f; // ���� ���� ����
     public Transform player;
@@ -23,6 +25,7 @@ public class Missile : MonoBehaviour
     private bool follow_once = false;
     private void Awake()
     {
+        StartCoroutine(Wait());
         if (is_prefab)
         {
             player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -36,9 +39,17 @@ public class Missile : MonoBehaviour
             inertiaMissle();
         }
     }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(waitingTime);
+
+        hasStarted = true;
+    }
+
     void Update()
     {
-        if (!follow_once)
+        if (!follow_once && hasStarted)
         {
             if (player.position != null)
             {
