@@ -1,58 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IfExitDie : MonoBehaviour
 {
-    public GameObject player;
-    private float checkInterval = 0.1f; // 플레이어 위치 확인 간격
-    private bool isPlayerInsideCollider = false;
+    public Player player;
+    private bool playerInside = false;
 
-    void Start()
+    private void OnTriggerStay2D(Collider2D other)
     {
-        // 일정 간격으로 플레이어 위치를 확인하는 코루틴 시작
-        InvokeRepeating("CheckPlayerPosition", 0.0f, checkInterval);
-    }
-
-    void CheckPlayerPosition()
-    {
-        // 플레이어의 위치를 확인
-        CheckIfPlayerInsideCollider();
-
-        // 플레이어가 collider 밖에 있고, isPlayerInsideCollider가 false인 경우 die 함수 실행
-        if (!isPlayerInsideCollider)
+        if (other.CompareTag("Player"))
         {
-            Die();
+            Debug.Log("들어옴");
+            playerInside = true;
         }
     }
 
-    void CheckIfPlayerInsideCollider()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, GetComponent<Collider2D>().bounds.extents.x);
-
-        foreach (Collider2D collider in colliders)
+        if (other.CompareTag("Player"))
         {
-            if (collider.CompareTag("Player"))
-            {
-                isPlayerInsideCollider = true;
-                return;
-            }
+            playerInside = false;
         }
-
-        isPlayerInsideCollider = false;
     }
 
-    void Die()
+    private void Update()
     {
-        Debug.Log("씨발 대체 왜?");
-        player.GetComponent<Player>().Die(transform.position);
-    }
-
-    private void OnDisable()
-    {
-        CancelInvoke("CheckPlayerPosition");
-    }
-    void OnDestroy()
-    {
-        // 스크립트가 제거될 때 InvokeRepeating을 정지시킴
-        CancelInvoke("CheckPlayerPosition");
+        if (!playerInside)
+        {
+            player.GetComponent<Player>().Die(transform.position);
+            return;
+        }
     }
 }

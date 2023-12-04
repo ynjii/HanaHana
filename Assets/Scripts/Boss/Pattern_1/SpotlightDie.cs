@@ -9,11 +9,10 @@ public class SpotlightDie : MonoBehaviour
     [SerializeField] private int n = 3;
     [SerializeField] private Player player;
     [SerializeField] private float blinkSec = 3.0f;
-    private bool isCanDie = false;
 
     void Start()
     {
-        List<Transform> randomChildren = GetRandomChildren(Spotlight.transform, n);
+        List<Transform> randomChildren = GetRandomChildren(Spotlight.transform, 3);
         controlSpotlight(randomChildren, blinkSec);
     }
 
@@ -73,37 +72,30 @@ public class SpotlightDie : MonoBehaviour
         foreach (Transform child in children)
         {
             child.gameObject.SetActive(true);
-            AlertBlink alertBlink = child.GetComponent<AlertBlink>();
-
-            if (alertBlink != null)
-            {
-                yield return StartCoroutine(BlinkChild(child, alertBlink, blinkSec));
-            }
+            yield return StartCoroutine(BlinkChild(child, blinkSec));
         }
     }
 
-    IEnumerator BlinkChild(Transform child, AlertBlink alertBlink, float duration)
+    IEnumerator BlinkChild(Transform child, float duration)
     {
-        alertBlink.enabled = true;
-        yield return new WaitForSeconds(duration);
-        alertBlink.enabled = false;
+        AlertBlink alertBlink = child.GetComponent<AlertBlink>();
+        IfExitDie ifExitDie = child.GetComponent<IfExitDie>();
 
-        isCanDie = true;
-        Blackout.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
 
-        isCanDie = false;
-        Blackout.SetActive(false);
-        child.gameObject.SetActive(false);
+        if (alertBlink != null && ifExitDie != null)
+        {
+            alertBlink.enabled = true;
+            yield return new WaitForSeconds(duration);
+            alertBlink.enabled = false;
+
+            ifExitDie.enabled = true;
+            Blackout.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+
+            ifExitDie.enabled = false;
+            Blackout.SetActive(false);
+            child.gameObject.SetActive(false);
+        }
     }
     #endregion
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (isCanDie && other.transform.CompareTag("Player"))
-        {
-            player.GetComponent<Player>().Die(transform.position);
-            isCanDie = false;
-        }
-    }
 }
