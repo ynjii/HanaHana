@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &54829135
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &183818504
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &346435975
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &512709022 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1195257568273850064, guid: 3360007f28634414db1fcaa65e561bec, type: 3}
@@ -492,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &565650945 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5838857804107667828, guid: 936ef3d390b696b42a1df89e4a7bb414, type: 3}
@@ -511,6 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1001 &570611105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -699,6 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &622154660
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &816663657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &854219224 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1195257567665426293, guid: 3360007f28634414db1fcaa65e561bec, type: 3}
@@ -1279,6 +1288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &858747301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,7 +1310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &858747302
 Transform:
   m_ObjectHideFlags: 0
@@ -1723,6 +1733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &951490178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +1961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!4 &1095155306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6103696949790880315, guid: 936ef3d390b696b42a1df89e4a7bb414, type: 3}
@@ -1974,6 +1986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &1293372329
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,6 +2142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1001 &1372685451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2310,7 +2324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1431119229
 Transform:
   m_ObjectHideFlags: 0
@@ -2335,17 +2349,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1431119228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8598768c89864f34d8ad7df721ed047e, type: 3}
+  m_Script: {fileID: 11500000, guid: 01deebddec3d65d458872411e5081a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPrefab: {fileID: 6693720543370294105, guid: f9142066c902ba84c811d647b14a1341, type: 3}
-  spewInterval: 5
-  spewDuration: 17
-  force: 2
-  angleStep: 30
-  angleStart: 0
-  angleEnd: 180
-  objType: 1
+  prefabsToSpawn:
+  - {fileID: 6693720543370294105, guid: f9142066c902ba84c811d647b14a1341, type: 3}
+  totalTime: 17
+  interval: 4
 --- !u!1 &1443750182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1195257567867366140, guid: 3360007f28634414db1fcaa65e561bec, type: 3}
@@ -2365,6 +2375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!1 &1446951615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2561,6 +2572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &1599163153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,7 +2660,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6083247013897265905}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dc3244ce8e1d554bb0d0224961d4c36, type: 3}
   m_Name: 
@@ -2774,7 +2786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1885600090
 Transform:
   m_ObjectHideFlags: 0
@@ -2888,6 +2900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 2
+  aniName: upFlame
 --- !u!1 &2052315840 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1195257567626925710, guid: 3360007f28634414db1fcaa65e561bec, type: 3}
@@ -2907,6 +2920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 4
   waitingTime: 5
+  aniName: upFlame
 --- !u!114 &365836786808804190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4415,7 +4429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6083247014482585290
 GameObject:
   m_ObjectHideFlags: 0
