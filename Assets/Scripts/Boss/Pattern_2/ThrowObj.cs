@@ -9,7 +9,7 @@ public class ThrowObj : MonoBehaviour
     public float spewInterval = 1f;     // 불을 뱉는 간격
     public float spewDuration = 3f;
     public float force = 10f;
-    private float timeSinceLastSpew = 0f;
+    private float timeSinceLastSpew = -2f; //임시 나중에 waitingTime 추가할 것 
 
     // 각도 증가 단계
     [SerializeField]
