@@ -9,6 +9,13 @@ public class RandomInitiate : MonoBehaviour
     [SerializeField] private float objectLifeTime = 4f;
 
     private float timer = 2f;
+    private Transform parentTransform;
+
+    void Awake()
+    {
+        parentTransform = this.gameObject.transform;
+    }
+
     void Update()
     {
         timer += Time.deltaTime;
@@ -30,8 +37,8 @@ public class RandomInitiate : MonoBehaviour
         }
 
         int randomIndex = Random.Range(0, objPrefabs.Count);
-        GameObject selectedPrefab = objPrefabs[randomIndex];
-
-        return Instantiate(selectedPrefab, transform.position, Quaternion.identity);
+        GameObject newObject = Instantiate(objPrefabs[randomIndex], transform.position, Quaternion.identity);
+        newObject.transform.parent = parentTransform;
+        return newObject;
     }
 }

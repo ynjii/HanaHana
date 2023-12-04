@@ -181,18 +181,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54829135}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01deebddec3d65d458872411e5081a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefabsToSpawn:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  totalTime: 5.5
+  - {fileID: 3983231730007211290, guid: f114e3684dbd7624bbb77f600332e22b, type: 3}
+  - {fileID: 6175426812659204660, guid: 564b375acb8cdad4d927656d5d5d6e42, type: 3}
+  - {fileID: 2943247838612345891, guid: b19cdead9e03ede4892ab5ddb0cb8518, type: 3}
+  - {fileID: 3951979570590278303, guid: 26f846ebacf774a4497036ec376c8efd, type: 3}
+  - {fileID: 3503426892575749499, guid: 9523d17aba0007343bc384f03399dbe0, type: 3}
+  totalTime: 4.6
   interval: 0.5
 --- !u!1 &105303882 stripped
 GameObject:
@@ -1300,7 +1300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &858747302
 Transform:
   m_ObjectHideFlags: 0
@@ -1432,7 +1432,9 @@ MonoBehaviour:
   targetPositions:
   - {fileID: 1912217893}
   - {fileID: 54829136}
-  birdSpawn: []
+  birdSpawn:
+  - {fileID: 1912217892}
+  - {fileID: 54829135}
 --- !u!70 &858747310
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2625,7 +2627,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6083247013897265905}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dc3244ce8e1d554bb0d0224961d4c36, type: 3}
   m_Name: 
@@ -4392,7 +4394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6083247014482585290
 GameObject:
   m_ObjectHideFlags: 0
