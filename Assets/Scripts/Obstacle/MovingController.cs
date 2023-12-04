@@ -8,7 +8,8 @@ public class MovingController : ParentObstacleController
     {
         Move, //단방향으로 움직임
         MoveSide, //왔다갔다
-        MoveToPoints//꼭짓점 위치로 이동
+        DrawingLine,//꼭짓점 위치로 선을 그리며 이동
+        MoveToTarget //특정 위치를 받아와서 해당 위치로 이동 shake랑 같이 쓰면 잘 안된다. shake는 위아래값이 고정되어 잇기 때문. 후에 shake도 수정해야할듯.
     }
 
     public enum ObDirection
@@ -45,11 +46,13 @@ public class MovingController : ParentObstacleController
 
     private Vector3 initialPosition; //움직인 거리를 재기 위해 사용
 
+    [SerializeField]
+    private Transform _transform; //이건 moveto target에서도 사용된다. => 이동시키고 싶은 위치
+
     /// <summary>
-    /// MoveToPoints변수들
+    /// DrawingLine변수들
     /// </summary>
     [SerializeField] LineRenderer line;
-    [SerializeField] Transform _transform;
     [SerializeField] bool repeatLine = false;//라인을 반복해서 움직이는지, 라인의 끝 꼭짓점 가면 끝나는지
 
     // Start is called before the first frame update
@@ -58,17 +61,20 @@ public class MovingController : ParentObstacleController
         switch (obType)
         {
             case ObType.Move:
-                StartCoroutine(MoveToTarget());
+                StartCoroutine(Move());
                 break;
-            case ObType.MoveToPoints:
-                StartCoroutine(MoveToPoints(line, speed, _transform));
+            case ObType.DrawingLine:
+                StartCoroutine(DrawingLine(line, speed, _transform));
+                break;
+            case ObType.MoveToTarget:
+                StartCoroutine(MoveToTarget(_transform));
                 break;
         }
         yield return base.Activate(); // 부모 클래스의 Activate 메서드 실행 
         //사실 ismoving과 별개로 움직이기 때문에 이걸 굳이 부모 activate를 실행하지 않아도 되지만 후에 test할때를 위해 그냥 실행하겠음. 
     }
 
-    private IEnumerator MoveToTarget()
+    private IEnumerator Move()
     {
         Vector3 targetPosition = CalculateTargetPosition(obDirection, distance);
 
@@ -104,7 +110,7 @@ public class MovingController : ParentObstacleController
     /// targetPositions: 꼭짓점 리스트
     /// transform: 움직일 오브젝트의 Transform
     /// moveSpeed: 움직일 스피드
-    IEnumerator MoveToPoints(LineRenderer line, float moveSpeed, Transform _transform)
+    IEnumerator DrawingLine(LineRenderer line, float moveSpeed, Transform _transform)
     {
         //배열생성
         Vector3[] path = new Vector3[line.positionCount];
@@ -144,6 +150,14 @@ public class MovingController : ParentObstacleController
         }
     }
 
+    IEnumerator MoveToTarget(Transform tr)
+    {
+        while (Vector3.Distance(transform.position, tr.position) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, tr.position, speed * Time.deltaTime);
+            yield return null;
+        }
+    }
 
     private void Awake()
     {

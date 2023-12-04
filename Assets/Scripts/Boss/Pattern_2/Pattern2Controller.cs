@@ -65,7 +65,7 @@ public class Pattern2Controller : MonoBehaviour
 
         // 불 스프라이트는 자동 재생
         // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         animator.SetBool("isHideEye", false);
         SceneManager.LoadScene("SnowBoss3");
     }
