@@ -2122,7 +2122,7 @@ GameObject:
   - component: {fileID: 1251673504}
   - component: {fileID: 1251673503}
   m_Layer: 5
-  m_Name: Background
+  m_Name: Zzangrang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2148,7 +2148,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc6707abef5f5a04c9e4ad3f898e25bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 813dd39f55c43a346bc63379b18906fb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2216,16 +2216,16 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_Camera: {fileID: 519420031}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: -994029321
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!224 &1251673508
 RectTransform:
@@ -2622,6 +2622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858c46a1097db164e997c74af0f831d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zzangrang: {fileID: 1251673503}
   fadeOutPanel: {fileID: 4134723107521711357}
   audioSources:
   - {fileID: 1409782400}
@@ -2645,7 +2646,7 @@ MonoBehaviour:
   - {fileID: 1175241016}
   - {fileID: 941658502}
   mirror_renderer: {fileID: 2004506180}
-  boss_hp: 300
+  boss_hp: 3
   move_speed: 3
   boss_state: 0
 --- !u!95 &1409782397

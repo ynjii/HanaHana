@@ -12,6 +12,8 @@ using UnityEngine.UI;
 /// </summary>
 public class SnowBoss4 : MonoBehaviour
 {
+    //쨍그랑 판넬
+    [SerializeField] private Image zzangrang;
     //플레이어스크립트
     Player player_script;
     /// <summary>
@@ -91,7 +93,7 @@ public class SnowBoss4 : MonoBehaviour
     private bool once = false;
     private void Awake()
     {
-        Transform child_transform = this.transform.GetChild(1);
+        Transform child_transform = this.transform.GetChild(0);
         //미러 애니메이션 갖고오기(쨍그랑)
         mirror_anim = child_transform.GetComponent<Animator>();
         child_transform = this.transform.GetChild(2);
@@ -229,7 +231,17 @@ public class SnowBoss4 : MonoBehaviour
             //타이머 초기화
             hit_timer = 0f;
         }
-
+        //무적이어도 보스에게 닿으면 플레이어 주금
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (player_script.Invincibility)
+            {
+                if (this.boss_hp <= 0)
+                {
+                    player_script.Invincibility = false;
+                }
+            }
+        }
     }
     //패턴1
     private void Pattern1()
@@ -442,6 +454,8 @@ public class SnowBoss4 : MonoBehaviour
             //불도 꺼주고
             obj.SetActive(false);
         }
+        //쨍그랑 판넬 키기
+        zzangrang.gameObject.SetActive(true);
         //쨍그랑 애니메이션 켜주고
         mirror_anim.SetBool("isDead", true);
         //쨍그랑 틀어주고
@@ -520,8 +534,13 @@ public class SnowBoss4 : MonoBehaviour
                     fadeOutPanel.color += new Color(0, 0, 0, 0.01f);
                     //브금 줄어들게
                     bgmAudio.volume -= 0.01f;
+                    if (fadeOutPanel.color.a >= 0.7f)
+                    {
+                        player_script.gameObject.SetActive(false);
+                    }
                     if (timer >= 5f)
                     {
+                        
                         //n초 되면 씬로드
                         SceneManager.LoadScene(Define.Scene.SnowBossClear.ToString());
                         break;
