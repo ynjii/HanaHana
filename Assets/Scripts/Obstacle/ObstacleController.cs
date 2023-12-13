@@ -106,6 +106,13 @@ public class ObstacleController : MonoBehaviour
 
     [SerializeField]
     private bool isMoving = false; //시작부터 움직이이려면 true 체크
+    public bool IsMoving//캡슐화
+    {
+        set
+        {
+            isMoving = value;
+        }
+    }
 
     [SerializeField]
     private float waitingTime = 0f;

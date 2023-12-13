@@ -139,7 +139,13 @@ public class SnowBoss4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //카메라흔들리는것때문에 죽게되는 경우를 위한 코드
+        //무적이더라도 화면안에 플레이어가 없으면 죽음
+        if (!(player_script.gameObject.transform.position.y <= 5.5 && player_script.gameObject.transform.position.y >= -5.5))
+        {
+            player_script.Invincibility = false;
+            player_script.Die(player_script.transform.position);
+        }
 
         //안죽었으면 패턴진행(스포당하면 안되니까)
         if (!is_dead)
@@ -422,7 +428,7 @@ public class SnowBoss4 : MonoBehaviour
         //무적해제
         player_script.Invincibility = false;
         //무적해제했을 때 화면안에 플레이어가 없으면 죽음
-        if(!(player_script.gameObject.transform.position.y<=5&& player_script.gameObject.transform.position.y >=-5))
+        if(!(player_script.gameObject.transform.position.y<=5.5&& player_script.gameObject.transform.position.y >=-5.5))
         {
             player_script.Die(player_script.transform.position);
         }
@@ -471,6 +477,7 @@ public class SnowBoss4 : MonoBehaviour
 
         //카메라를 흔들어주기때문에 카메라 안에 안 담기면 죽는 불상사 막기위함.
         player_script.Invincibility = true;
+        
         // 카메라 shaking
         Camera.main.transform.DOShakePosition(10, 3);
 
