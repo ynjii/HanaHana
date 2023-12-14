@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 public class SnowBossClear : MonoBehaviour
 {
+
+    [SerializeField] GameObject stage;
     bool giveItemOnce = false;
     [SerializeField] GameObject[] texts; 
     Animator anim;
@@ -44,7 +46,7 @@ public class SnowBossClear : MonoBehaviour
                         anim.SetBool("isClear", true);
                         Invoke("SqueekSound", 2.2f);
                         Invoke("Cheers", 9f);
-                        StartCoroutine(ShowTexts());
+                        StartCoroutine(ShowTextsAndStage());
                         giveItemOnce = true;
                     }
                     
@@ -82,7 +84,7 @@ public class SnowBossClear : MonoBehaviour
         audio[2].Play();
         audio[3].Play();
     }
-    IEnumerator ShowTexts()
+    IEnumerator ShowTextsAndStage()
     {
         yield return new WaitForSeconds(12f);
         texts[0].SetActive(true);
@@ -92,6 +94,9 @@ public class SnowBossClear : MonoBehaviour
         yield return new WaitForSeconds(5f);
         texts[1].SetActive(false);
         yield return new WaitForSeconds(2f);
+        stage.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        stage.SetActive(false);
         goToEndingPotal.SetActive(true);
     }
 }
