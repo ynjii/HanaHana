@@ -12,6 +12,7 @@ public class Rotate_DeltaAxis : MonoBehaviour
     [SerializeField] private Collider2D collisionCollider;
 
     /// <summary>
+    /// ex) a_Tree2
     /// 트리거가 감지되면 현재위치에서 point를 더한 위치를 기준으로 rotateDelta만큼 회전
     /// </summary>
     /// <param name="other"></param>
