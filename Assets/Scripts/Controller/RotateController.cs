@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 public class RotateController : ParentObstacleController
@@ -10,7 +11,9 @@ public class RotateController : ParentObstacleController
         Rotate,
         Rolling,
         Swing,
-        RotateDeltaAxis
+        RotateDeltaAxis,
+        RotateLoop,
+        RotateAround
     }
     public enum ObDirection
     {
@@ -43,6 +46,21 @@ public class RotateController : ParentObstacleController
     [SerializeField] private float rotateDelta;
     [SerializeField] private Vector3 point;
     [SerializeField] private Collider2D collisionCollider;
+    /// <summary>
+    /// RotateLoop
+    /// </summary>
+    /// <returns></returns>
+    [SerializeField] private float _rotateDuration = 10.0f;
+    [SerializeField] private int _direction = 1;
+
+    /// <summary>
+    /// RotateAround
+    /// </summary>
+    /// <returns></returns>
+    /// 
+    [SerializeField] private Vector3 _targetVector3 = Vector3.zero;
+    [SerializeField] private float _moveSpeed = 3.0f;
+    [SerializeField] private float _moveDirection = 1;
     public override IEnumerator Activate()
     {
         switch (obType)
@@ -59,6 +77,12 @@ public class RotateController : ParentObstacleController
             case ObType.RotateDeltaAxis:
                 StartCoroutine(RotateDeltaAxis());
                 break;
+            case ObType.RotateLoop:
+                StartCoroutine(RotateLoop());
+                break;
+            case ObType.RotateAround:
+                StartCoroutine(RotateAround());
+                break;
         }
         yield return base.Activate(); // 부모 클래스의 Activate 메서드 실행 
                                       //사실 ismoving과 별개로 움직이기 때문에 이걸 굳이 부모 activate를 실행하지 않아도 되지만 후에 test할때를 위해 그냥 실행하겠음. 
@@ -69,6 +93,13 @@ public class RotateController : ParentObstacleController
         base.Awake();
     }
 
+    IEnumerator RotateLoop()
+    {
+        transform.DORotate(new Vector3(0, 0, _direction * 360), _rotateDuration, RotateMode.FastBeyond360)
+                         .SetEase(Ease.Linear)
+                         .SetLoops(-1);
+        yield return null;
+    }
     IEnumerator Rotate()
     {
         while (true)
@@ -143,5 +174,14 @@ public class RotateController : ParentObstacleController
         collisionCollider.enabled = true;
         transform.RotateAround(transform.position + point, Vector3.forward, rotateDelta);
         yield return null;
+    }
+    
+    IEnumerator RotateAround()
+    {
+        while (true)
+        {
+            transform.RotateAround(_targetVector3, Vector3.back, _moveSpeed * Time.fixedDeltaTime * _moveDirection);
+            yield return null;
+        }
     }
 }
