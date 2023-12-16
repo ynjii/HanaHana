@@ -9,13 +9,13 @@ public class Pattern3_1 : MonoBehaviour
 {
     GameObject _player;
     LineRenderer _lineRenderer;
+    private AudioSource _audioSource;
     
     public LayerMask _layerMask;
     public Transform _appleGenPosition;
     public GameObject _apple;
     public int _reflectionsNum = 4;
     public int max, min;
-    public Color lineColor = new Color(1,0,0,0.7f);
 
     private bool _lookAtPlayer = true;
     private Vector3 fixedDir;
@@ -25,8 +25,9 @@ public class Pattern3_1 : MonoBehaviour
     {
         _lineRenderer = GetComponent<LineRenderer>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _audioSource = gameObject.GetComponent<AudioSource>();
 
-        _lineRenderer.startColor = _lineRenderer.endColor = lineColor;
+        _lineRenderer.startColor = _lineRenderer.endColor = new Color(1,0,0,0.7f);
         _lineRenderer.startWidth = _lineRenderer.endWidth = 0.25f;
 
         StartCoroutine(Pattern());
@@ -34,17 +35,10 @@ public class Pattern3_1 : MonoBehaviour
 
     IEnumerator Pattern()
     {
-        if (lineColor == new Color(1, 0, 0, 0.5f))
-        {
-            yield return new WaitForSeconds(1f);
-        }
-        for (int i = 0; i < 6; i++)
-        {
-            // int range = Random.Range(min, max);
-            _appleGenPosition.localPosition = new Vector3(GetShooterRange(), _appleGenPosition.localPosition.y, 0);
-            StartCoroutine(WaitPlayer());
-            yield return new WaitForSeconds(3f);
-        }
+        // int range = Random.Range(min, max);
+        _appleGenPosition.localPosition = new Vector3(GetShooterRange(), _appleGenPosition.localPosition.y, 0);
+        StartCoroutine(WaitPlayer());
+        yield return new WaitForSeconds(3f);
     }
 
     private int GetShooterRange()
@@ -106,7 +100,7 @@ public class Pattern3_1 : MonoBehaviour
             _lineRenderer.SetPosition(i, newPosiiton);
         }
         **/
-        
+        _audioSource.Play();
         Vector3 newPosiiton = _appleGenPosition.localPosition;
         fixedDir = (_player.transform.localPosition - newPosiiton).normalized;
         Vector3 newDir = fixedDir;
@@ -129,6 +123,7 @@ public class Pattern3_1 : MonoBehaviour
 
     public void DangerMarkerDeactive()
     {
+        _audioSource.Stop();
         _lookAtPlayer = false;
         for (int i = 0; i < _lineRenderer.positionCount; i++)
         {
@@ -141,5 +136,6 @@ public class Pattern3_1 : MonoBehaviour
     {
         GameObject apple = Instantiate(_apple, _appleGenPosition.position, Quaternion.Euler(fixedDir));
         apple.GetComponent<Pattern3_Apple>().newDir = fixedDir;
+        _appleGenPosition.GetComponent<SpriteRenderer>().enabled = false;
     }
 }

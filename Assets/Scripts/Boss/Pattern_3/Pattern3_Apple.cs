@@ -9,12 +9,15 @@ public class Pattern3_Apple : MonoBehaviour
     public Vector3 newDir;
     public int bounceCount = 3;
     public int _speed = 15;
+    public bool _isFirstColision = true;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = newDir * _speed;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 15f);
+        _audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -30,6 +33,7 @@ public class Pattern3_Apple : MonoBehaviour
         }
         if (other.transform.CompareTag("Platform"))
         {
+            _audioSource.PlayOneShot(_audioSource.clip);
             Debug.Log(other.transform.name);
             bounceCount--;
             if (bounceCount >= 0)

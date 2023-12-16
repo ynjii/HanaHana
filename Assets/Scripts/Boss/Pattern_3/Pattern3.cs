@@ -11,6 +11,7 @@ public class Pattern3 : MonoBehaviour
     [SerializeField] List<GameObject> _patterns;
     [SerializeField] Camera _camera;
     [SerializeField] BossHP _bossHP;
+    private AudioSource _audio;
 
     [SerializeField] GameObject _patternChangeGO;
     [SerializeField] private Animator _bossAnim;
@@ -20,6 +21,7 @@ public class Pattern3 : MonoBehaviour
 
     void Start()
     {
+        _audio = gameObject.GetComponent<AudioSource>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         // StartCoroutine(InvertScene());
         StartCoroutine(PatternExecute());
@@ -27,30 +29,32 @@ public class Pattern3 : MonoBehaviour
 
     private void Update()
     {
-        // ���� ü��/�ð� ������ 0���ϰ� �Ǹ� ���� �ѱ�� ó���� ����
-        if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover && !isEnd)
+        if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover)
         {
-            isEnd = true;
-            PatternChange();
+            StartCoroutine(PatternChange());
         }
     }
 
-    private void PatternChange()
+    IEnumerator PatternChange()
     {
-        StopAllCoroutines();
+        foreach (var pattern in _patterns)
+        {
+            pattern.SetActive(false);
+        }
+        
+        _player.Invincibility = true;
         _patternChangeGO.SetActive(true);
 
+        _audio.Play();
+        
         // ī�޶� shaking
-        _camera.transform.DOShakePosition(3, 1);
+        _camera.transform.DOShakePosition(3f, new Vector3(0.1f, 0.1f, 0));
 
         // ���� �ִϸ��̼� ����
         _bossAnim.SetBool("isHideEye", true);
 
-        // �� ��������Ʈ�� �ڵ� ���
-        // ���� �� �ε� : ���� �ִϸ��̼� ������ �̵�
-        _bossAnim.SetBool("isHideEye", false);
-        _clearUI.SetActive(true);
-        Time.timeScale = 0f;
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("SnowBoss4");
     }
 
     IEnumerator InvertScene()
@@ -61,7 +65,7 @@ public class Pattern3 : MonoBehaviour
             _bossAnim.SetBool("isRaiseHand", true);
             CameraController cameraController = _camera.GetComponent<CameraController>();
             cameraController.isReverse = !cameraController.isReverse;
-            _bossAnim.SetBool("isRaiseHand", true);
+            _bossAnim.SetBool("isRaiseHand", false);
         }
     }
 
@@ -79,7 +83,7 @@ public class Pattern3 : MonoBehaviour
             }
             executedPatterns.Add(rand);
             PatternActivate(rand);
-            yield return new WaitForSeconds(12);
+            yield return new WaitForSeconds(14.5f);
         }
     }
 

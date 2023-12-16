@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     public CameraState cameraState;
     [SerializeField] private Transform player;
     private Player player_script;
-    [SerializeField] private Vector3 delta;
+    [SerializeField] public Vector3 delta;
 
     public bool isReverse = false;
     private bool preIsReverse; //이전 프레임의 isReverse 저장
@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
         delta = new Vector3(3f, 1f, zValue);
 
         Quaternion newRotation = Quaternion.Euler(0f, isReverse ? 180f : 0f, 0f);
-        transform.rotation = newRotation;
+        // transform.rotation = newRotation;
     }
 
     void LateUpdate()
@@ -55,7 +55,6 @@ public class CameraController : MonoBehaviour
         {
             preIsReverse = isReverse;
             UpdateDelta(); // delta 값 업데이트
-
         }
 
         // 카메라가 고정되어야하는 경우에는 return;
