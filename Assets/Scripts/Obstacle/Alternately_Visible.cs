@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Alternately_Visible : MonoBehaviour
 {
+    [SerializeField] private bool repeat=true;
     [SerializeField] private List<GameObject> _gameObjects;
     [SerializeField] private float _time = 1.0f;
     private int _previousIndex = -1;
@@ -23,6 +24,7 @@ public class Alternately_Visible : MonoBehaviour
     {
         for (int i = 0; i < _gameObjects.Count + 1; i++)
         {
+            if (!repeat && i==_gameObjects.Count) { break; }
             i %= _gameObjects.Count;
             yield return new WaitForSeconds(time);
             if (_previousIndex != -1)
