@@ -245,8 +245,8 @@ GameObject:
   - component: {fileID: 1886691276}
   - component: {fileID: 1886691275}
   - component: {fileID: 1886691274}
-  - component: {fileID: 1886691277}
   - component: {fileID: 1886691278}
+  - component: {fileID: 1886691279}
   m_Layer: 0
   m_Name: Square
   m_TagString: Platform
@@ -347,31 +347,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1886691277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886691273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a162e5bdafd08241ab42054d3ceca27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMovingFromStart: 0
-  isCol: 0
-  waitingTime: 0
-  colTag: 2
-  obDirection: 0
-  obType: 1
-  rotateSpeed: 10000
-  rollingSpeed: 11
-  gravityScale: 4
-  angle: 30
-  rotateDelta: 0
-  point: {x: 0, y: 0, z: 0}
-  collisionCollider: {fileID: 0}
 --- !u!50 &1886691278
 Rigidbody2D:
   serializedVersion: 4
@@ -393,6 +368,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1886691279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886691273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e8f03e434b28458c922a4be7c0577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMovingFromStart: 0
+  isCol: 0
+  waitingTime: 0
+  colTag: 2
+  obType: 0
+  obDirection: 4
+  distance: 3
+  speed: 11
+  _transform: {fileID: 0}
+  line: {fileID: 0}
+  repeatLine: 0
 --- !u!1 &1988045480
 GameObject:
   m_ObjectHideFlags: 0
