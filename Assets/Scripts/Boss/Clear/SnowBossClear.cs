@@ -52,7 +52,7 @@ public class SnowBossClear : MonoBehaviour
                         Invoke("SqueekSound", 2.2f);
                         Invoke("Cheers", 9f);
                         StartCoroutine(ShowTextsAndStage());
-                        PlayerPrefs.SetString("SnowWhiteClothGet", "true");
+                        PlayerPrefs.SetString("SnowWhiteClear", "true");
                         giveItemOnce = true;
                     }
                     

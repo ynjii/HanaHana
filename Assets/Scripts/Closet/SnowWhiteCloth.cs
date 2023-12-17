@@ -10,7 +10,7 @@ public class SnowWhiteCloth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetString("SnowWhiteClothGet") == "true")
+        if (PlayerPrefs.GetString("SnowWhiteClear") == "true")
         {
             GameObject.Find("closetSnow").gameObject
              .transform.GetChild(0).gameObject.SetActive(false);
@@ -32,7 +32,7 @@ public class SnowWhiteCloth : MonoBehaviour
 
     public void PutOnSnowWhiteCloth()
     {
-        if (PlayerPrefs.GetString("SnowWhiteClothGet") == "true"&&selected== "closetSnow")
+        if (PlayerPrefs.GetString("SnowWhiteClear") == "true"&&selected== "closetSnow")
         {
             GameObject.Find("Player").gameObject.GetComponent<Image>().sprite = clothes[0];
             PlayerPrefs.SetString("SnowWhiteCloth", "true");
