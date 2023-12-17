@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class SnowBossClear : MonoBehaviour
 {
 
@@ -17,8 +18,12 @@ public class SnowBossClear : MonoBehaviour
     private float timer = 0;
     [SerializeField] AudioSource[] audio;
     [SerializeField] GameObject goToEndingPotal;
+
+    private Player playerScript;
     private void Awake()
     {
+        playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
+        playerScript.ChangeSprites();
         anim = GetComponent<Animator>();
         anim.SetBool("isCalm", true);
         //페이드아웃 켜지고
@@ -53,6 +58,20 @@ public class SnowBossClear : MonoBehaviour
                     break;
                 //못얻었으면
                 default:
+                    if (!giveItemOnce)
+                    {
+                        //닿았을 때 띠롱소리
+                        audio[0].Play();
+                        //애니메이션 바꾸기
+                        anim.SetBool("isCalm", false);
+                        anim.SetBool("isClear", false);
+                        giveItemOnce = true;
+                        //코루틴호출
+                        StartCoroutine(NoItem());
+
+                    }
+                   
+                    
                     break;
             }
         }
@@ -74,7 +93,47 @@ public class SnowBossClear : MonoBehaviour
             fade_out = false;
         }
     }
-
+    IEnumerator NoItem()
+    {
+        yield return new WaitForSeconds(1.5f);
+        TwinkleEyes();
+        yield return new WaitForSeconds(2f);
+        CatchPlayer();
+        playerScript.gameObject.SetActive(false);
+        yield return new WaitForSeconds(2.1f);
+        ThrowPlayer();
+        ThrowedPlayer();
+        yield return new WaitForSeconds(0.2f);
+        anim.SetBool("idle", true);
+        yield return new WaitForSeconds(3f);
+        texts[2].SetActive(true);
+        yield return new WaitForSeconds(3f);
+        texts[2].SetActive(false);
+        texts[3].SetActive(true);
+        yield return new WaitForSeconds(2f);
+        texts[3].SetActive(false);
+        GameObject.Find("FadePrefab").GetComponent<FadeInOut>().StartFade = true;
+        yield return new WaitForSeconds(3f);
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(Define.Scene.SnowWhite.ToString());
+        yield return null;
+    }
+    private void TwinkleEyes()
+    {
+        audio[4].Play();
+    }
+    private void CatchPlayer()
+    {
+        audio[5].Play();
+    }
+    private void ThrowPlayer()
+    {
+        audio[6].Play();
+    }
+    private void ThrowedPlayer()
+    {
+        audio[7].Play();
+    }
     private void SqueekSound()
     {
         audio[1].Play();
