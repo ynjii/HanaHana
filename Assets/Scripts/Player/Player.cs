@@ -497,7 +497,7 @@ public class Player : MonoBehaviour
             Vector3 flagPosition = collision.gameObject.transform.position;
             SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn", flagPosition);
         }
-        else if (collision.gameObject.CompareTag("Item"))
+        else if (collision.gameObject.CompareTag("Item"))//없어도되는코드..?
         {
             //진짜 아이템 먹었을 때 animation 바꿈
             anim.SetBool("isItemGet", true);

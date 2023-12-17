@@ -23,6 +23,7 @@ public class Define
     {
         MainScene,
         SnowWhiteMap,
+        SnowWhite,
         SnowBoss123,
         SnowBoss4,
         ClosetScene,
