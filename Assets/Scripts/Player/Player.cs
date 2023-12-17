@@ -669,6 +669,16 @@ public class Player : MonoBehaviour
                         typeof(RuntimeAnimatorController)));
                 break;
         }
+        string changeClothes = PlayerPrefs.GetString("SnowWhiteCloth");
+        switch (changeClothes)
+        {
+            case "true":
+                //애니메이터 바꿔주는 코드 넣어주기.
+                break;
+            case "false":
+                //기본 스킨
+                break;
+        }
     }
 }
 
