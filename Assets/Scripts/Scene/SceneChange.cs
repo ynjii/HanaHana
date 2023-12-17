@@ -17,6 +17,7 @@ public class SceneChange : MonoBehaviour
     //이어하기
     public void Change()
     {
+        
         SceneManager.LoadScene("SnowWhite");
         Time.timeScale = 1f; //시간 다시 흐르게
     }
@@ -27,7 +28,7 @@ public class SceneChange : MonoBehaviour
         /*if(EditorUtility.DisplayDialog("게임 세이브 정보 삭제", "정말 삭제 하시겠습니까?", "네", "아니오"))*/
         PlayerPrefs.DeleteAll();
         isNew = true;
-        SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
+        //SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
         SceneManager.LoadScene("SnowWhite");
         Time.timeScale = 1f; //시간 다시 흐르게
     }
@@ -44,10 +45,7 @@ public class SceneChange : MonoBehaviour
 
     public void Stage_Change()
     {
-        isNew = SaveLoad.GetComponent<SaveLoad>().LoadBool("New");
-        if (isNew)
-        {
-            SceneManager.LoadScene("StageScene");
-        }
+        //isNew = SaveLoad.GetComponent<SaveLoad>().LoadBool("New");
+        SceneManager.LoadScene("StageScene");
     }
 }
