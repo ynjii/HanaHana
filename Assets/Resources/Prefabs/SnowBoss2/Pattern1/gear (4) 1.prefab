@@ -410,6 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8415183790191537483}
   - component: {fileID: 9045091889311692084}
+  - component: {fileID: 6222707797722641878}
   m_Layer: 0
   m_Name: red
   m_TagString: Untagged
@@ -484,3 +485,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6222707797722641878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766566930000452003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0de60220ce7ff44cbee3138d1257ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMovingFromStart: 1
+  isCol: 0
+  waitingTime: 0
+  colTag: 2
+  value: 0.05
+  obType: 2
+  r: 1
+  g: 1
+  b: 1
