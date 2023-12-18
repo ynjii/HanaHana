@@ -20,7 +20,7 @@ public class Red_Blue_Laser : MonoBehaviour
     void Update()
     {
         // 빨강 레이저가 활성화 될 때
-        if (_playerScript.player_state != PlayerState.Jump)
+        if (_playerScript.is_jump)
         {
             ActivateMirror(_redMirrorSprites, _redMirrorCols);
             DeActivateMirror(_blueMirrorSprites, _blueMirrorCols);
@@ -37,7 +37,7 @@ public class Red_Blue_Laser : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in sprites)
         {
-            sprite.enabled = true;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
         }
         foreach (Collider2D col in colliders)
         {
@@ -49,7 +49,7 @@ public class Red_Blue_Laser : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in sprites)
         {
-            sprite.enabled = false;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
         }
         foreach (Collider2D col in colliders)
         {

@@ -11,6 +11,7 @@ public class Pattern3 : MonoBehaviour
     [SerializeField] List<GameObject> _patterns;
     [SerializeField] Camera _camera;
     [SerializeField] BossHP _bossHP;
+    private AudioSource _audio;
 
     [SerializeField] GameObject _patternChangeGO;
     [SerializeField] private Animator _bossAnim;
@@ -20,6 +21,7 @@ public class Pattern3 : MonoBehaviour
 
     void Start()
     {
+        _audio = gameObject.GetComponent<AudioSource>();
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         // StartCoroutine(InvertScene());
         StartCoroutine(PatternExecute());
@@ -27,30 +29,32 @@ public class Pattern3 : MonoBehaviour
 
     private void Update()
     {
-        // º¸½º Ã¼·Â/½Ã°£ º¯¼ö°¡ 0ÀÌÇÏ°¡ µÇ¸é ÆÐÅÏ ³Ñ±â´Â Ã³¸®¸¦ ½ÃÀÛ
-        if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover && !isEnd)
+        if (_bossHP.currentHP <= 0 && !GameManager.instance.isGameover)
         {
-            isEnd = true;
-            PatternChange();
+            StartCoroutine(PatternChange());
         }
     }
 
-    private void PatternChange()
+    IEnumerator PatternChange()
     {
-        StopAllCoroutines();
+        foreach (var pattern in _patterns)
+        {
+            pattern.SetActive(false);
+        }
+        
+        _player.Invincibility = true;
         _patternChangeGO.SetActive(true);
 
-        // Ä«¸Þ¶ó shaking
-        _camera.transform.DOShakePosition(3, 1);
+        _audio.Play();
+        
+        // Ä«ï¿½Þ¶ï¿½ shaking
+        _camera.transform.DOShakePosition(3f, new Vector3(0.1f, 0.1f, 0));
 
-        // º¸½º ¾Ö´Ï¸ÞÀÌ¼Ç º¯°æ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         _bossAnim.SetBool("isHideEye", true);
 
-        // ºÒ ½ºÇÁ¶óÀÌÆ®´Â ÀÚµ¿ Àç»ý
-        // ´ÙÀ½ ¾À ·Îµå : º¸½º ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³ª°í ÀÌµ¿
-        _bossAnim.SetBool("isHideEye", false);
-        _clearUI.SetActive(true);
-        Time.timeScale = 0f;
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("SnowBoss4");
     }
 
     IEnumerator InvertScene()
@@ -61,7 +65,7 @@ public class Pattern3 : MonoBehaviour
             _bossAnim.SetBool("isRaiseHand", true);
             CameraController cameraController = _camera.GetComponent<CameraController>();
             cameraController.isReverse = !cameraController.isReverse;
-            _bossAnim.SetBool("isRaiseHand", true);
+            _bossAnim.SetBool("isRaiseHand", false);
         }
     }
 
@@ -71,7 +75,7 @@ public class Pattern3 : MonoBehaviour
 
         for (int i = 0; i < _patterns.Count; i++)
         {
-            int rand = Random.Range(0, 5);
+            int rand = Random.Range(0, _patterns.Count);
             if (executedPatterns.Contains(rand))
             {
                 i--;
@@ -79,7 +83,7 @@ public class Pattern3 : MonoBehaviour
             }
             executedPatterns.Add(rand);
             PatternActivate(rand);
-            yield return new WaitForSeconds(12);
+            yield return new WaitForSeconds(14.5f);
         }
     }
 
