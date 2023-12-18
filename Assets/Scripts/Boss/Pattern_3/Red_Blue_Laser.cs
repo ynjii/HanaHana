@@ -19,13 +19,13 @@ public class Red_Blue_Laser : MonoBehaviour
 
     void Update()
     {
-        // »¡°­ ·¹ÀÌÀú°¡ È°¼ºÈ­ µÉ ¶§
+        // ë¹¨ê°• ë ˆì´ì €ê°€ í™œì„±í™” ë  ë•Œ
         if (_playerScript.is_jump)
         {
             ActivateMirror(_redMirrorSprites, _redMirrorCols);
             DeActivateMirror(_blueMirrorSprites, _blueMirrorCols);
         }
-        // ÆÄ¶õ ·¹ÀÌÀú°¡ È°¼ºÈ­ µÉ ¶§
+        // íŒŒë€ ë ˆì´ì €ê°€ í™œì„±í™” ë  ë•Œ
         else
         {
             ActivateMirror(_blueMirrorSprites, _blueMirrorCols);
