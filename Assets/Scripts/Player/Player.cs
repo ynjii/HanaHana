@@ -178,10 +178,10 @@ public class Player : MonoBehaviour
     private void RayCastProcess()
     {
         //점프중인지 감지하는 레이캐스트. 파란색
-        Debug.DrawRay(rigid.position + new Vector2(-0.4f, 0), Vector3.down, new Color(0, 0, 1));
-        RaycastHit2D jumpLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(-0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
-        Debug.DrawRay(rigid.position + new Vector2(0.4f, 0), Vector3.down, new Color(0, 0, 1));
-        RaycastHit2D jumpRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0.4f, 0), Vector2.down, 1f, LayerMask.GetMask("Platform"));
+        Debug.DrawRay(rigid.position + new Vector2(-0.3f, 0), Vector3.down, new Color(0, 0, 1));
+        RaycastHit2D jumpLeftRayHit = Physics2D.Raycast(rigid.position + new Vector2(-0.3f, 0), Vector2.down, 0.6f, LayerMask.GetMask("Platform"));
+        Debug.DrawRay(rigid.position + new Vector2(0.3f, 0), Vector3.down, new Color(0, 0, 1));
+        RaycastHit2D jumpRightRayHit = Physics2D.Raycast(rigid.position + new Vector2(0.3f, 0), Vector2.down, 0.6f, LayerMask.GetMask("Platform"));
 
         if (jumpLeftRayHit.collider != null || jumpRightRayHit.collider != null)
         {
@@ -194,20 +194,6 @@ public class Player : MonoBehaviour
             {
                 is_jump = true;
             }
-        }
-        //레이캐스트(for 버튼점프 꾹 누를 시 천장붙음 방지)
-        //초록색
-        Debug.DrawRay(rigid.position, Vector3.up, new Color(0, 1, 0));
-        RaycastHit2D headRayHit = Physics2D.Raycast(rigid.position, Vector2.up, 0.1f, LayerMask.GetMask("Platform"));
-        //맞았다는 뜻
-        if (headRayHit.collider != null)
-        {
-            //천장 못 붙게 점프 무시 변수 켜줌
-            ignoreJump = true;
-        }
-        else
-        {
-            ignoreJump = false;
         }
 
 
@@ -227,7 +213,6 @@ public class Player : MonoBehaviour
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
                 this.GetComponent<BoxCollider2D>().enabled = true;
             }
-
         }
         else
         {
