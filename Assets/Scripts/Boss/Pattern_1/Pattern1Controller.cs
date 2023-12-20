@@ -19,11 +19,15 @@ public class Pattern1Controller : MonoBehaviour
     public GameObject pattern3;
     public GameObject pattern4;
     public GameObject pattern5;
-    //public GameObject endPanel;
     public Rigidbody2D other;
+    public GameObject SaveLoad;
 
     void Start()
     {
+        //change respawn point to lava start point
+        Vector3 start_point = new Vector3(10.18f, -1.31f, 0.0f);
+        SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn", start_point);
+
         StartCoroutine(Pattern());
     }
 
@@ -32,29 +36,58 @@ public class Pattern1Controller : MonoBehaviour
         pattern1.SetActive(true);
         yield return new WaitForSeconds(12f);
         pattern1.SetActive(false);
+        DeleteCloneObjects();
         yield return new WaitForSeconds(2f);
+
         pattern4.SetActive(true);
         yield return new WaitForSeconds(12f);
         pattern4.SetActive(false);
+        DeleteCloneObjects();
         yield return new WaitForSeconds(2f);
+
         pattern2.SetActive(true);
         yield return new WaitForSeconds(12f);
-        pattern2.SetActive(false);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
+        pattern2.SetActive(false);
+        DeleteCloneObjects();
         yield return new WaitForSeconds(2f);
+
         pattern3.SetActive(true);
         yield return new WaitForSeconds(12f);
-        pattern3.SetActive(false);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
+        pattern3.SetActive(false);
+        DeleteCloneObjects();
         yield return new WaitForSeconds(2f);
+
         pattern5.SetActive(true);
         yield return new WaitForSeconds(12f);
+        DeleteCloneObjects();
         pattern5.SetActive(false);
-        other.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        //endPanel.SetActive(true);
-        //Time.timeScale = 0f; //시간 정지
-        SceneManager.LoadScene("SnowBoss2");
         //다음 씬()으로 로드
+        SceneManager.LoadScene("SnowBoss2");
+    }
+
+    //짠탄제거
+    public void DeleteCloneObjects()
+    {
+        // 씬 내의 모든 게임 오브젝트 가져오기
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            //클론된 애면
+            if (IsClone(obj))
+            {
+                Destroy(obj); // 클론 오브젝트 삭제
+            }
+        }
+    }
+
+    //클론된애인지 판별
+    private bool IsClone(GameObject obj)
+    {
+        // 이름에 "(Clone)" 문자열이 포함되어 있는지 검사
+        return obj.name.Contains("(Clone)");
     }
 }
