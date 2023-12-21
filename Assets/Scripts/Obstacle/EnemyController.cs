@@ -26,7 +26,10 @@ public class EnemyController : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        if (GetComponent<Animator>() != null)
+        {
+            anim = GetComponent<Animator>();
+        }
         moveDirection = moveForward ? 1f : -1f;
     }
 
@@ -45,7 +48,10 @@ public class EnemyController : MonoBehaviour
     {
         // 이동 방향 설정
         moveDirection = moveForward ? 1f : -1f;
-        anim.SetBool("isWalk", true);
+        if (anim != null)
+        {
+            anim.SetBool("isWalk", true);
+        }
         rigid.velocity = new Vector2(moveDirection * walkingSpeed * 0.5f, rigid.velocity.y);
 
 
