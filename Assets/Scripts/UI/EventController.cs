@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,4 +73,3 @@ public class EventController : MonoBehaviour
         Time.timeScale = 1f;
     }
 }
-*/
