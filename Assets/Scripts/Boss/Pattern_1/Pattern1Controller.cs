@@ -41,6 +41,7 @@ public class Pattern1Controller : MonoBehaviour
 
         pattern4.SetActive(true);
         yield return new WaitForSeconds(12f);
+        other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern4.SetActive(false);
         DeleteCloneObjects();
         yield return new WaitForSeconds(2f);
