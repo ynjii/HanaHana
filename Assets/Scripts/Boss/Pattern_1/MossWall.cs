@@ -6,7 +6,10 @@ using static Define;
 public class MossWall : MonoBehaviour
 {
     public float slidingSpeed = 0.5f; // 미끄러질 속도 조절
+
+    [SerializeField] float jumpingSpeed = 12f;
     private bool isSliding = false;
+    private bool hasAppliedForce = false;
     private GameObject playerOnWall;
     private Rigidbody2D playerRigidbody;
 
@@ -32,6 +35,7 @@ public class MossWall : MonoBehaviour
 
     private IEnumerator SlidePlayerDown(Transform playerTransform)
     {
+        hasAppliedForce = false;
         isSliding = true;
 
         // X축으로 고정
@@ -51,7 +55,7 @@ public class MossWall : MonoBehaviour
 
     void Update()
     {
-        if (playerOnWall&& (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
+        if (playerOnWall && (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
         {
             ExitMossWall();
         }
@@ -62,10 +66,14 @@ public class MossWall : MonoBehaviour
         // 이끼벽을 떠날 때 실행되는 부분
         isSliding = false;
 
+
         // Rigidbody의 제약 조건을 모두 해제
-        if (playerRigidbody != null)
+        if (playerRigidbody != null && !hasAppliedForce)
         {
             playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+            Vector3 force = Vector3.up * jumpingSpeed;
+            playerRigidbody.AddForce(force, ForceMode2D.Impulse);
+            hasAppliedForce = true; // Set the flag to true after applying force
         }
     }
 }

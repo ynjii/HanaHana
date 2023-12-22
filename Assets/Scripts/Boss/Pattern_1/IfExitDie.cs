@@ -11,7 +11,6 @@ public class IfExitDie : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("들어옴");
             playerInside = true;
         }
     }

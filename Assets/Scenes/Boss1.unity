@@ -8233,6 +8233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slidingSpeed: 0.5
+  jumpingSpeed: 12
 --- !u!19719996 &429139579
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -19199,6 +19200,55 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &975100479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 975100480}
+  - component: {fileID: 975100481}
+  m_Layer: 0
+  m_Name: c_right_Fire_block (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &975100480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975100479}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.979332, y: 2.7, z: -0.031539902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2608384643961991005}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &975100481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975100479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84afa2616414faa42984f69f228cb5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cool_time: 7
+  fire: {fileID: 1041423995498265175, guid: 7a8e96d0cb781054c964f4c00431e5ed, type: 3}
+  pos: {fileID: 975100480}
+  fires_index: 0
+  fires: []
 --- !u!1 &977225764
 GameObject:
   m_ObjectHideFlags: 0
@@ -34163,6 +34213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slidingSpeed: 0.5
+  jumpingSpeed: 12
 --- !u!19719996 &1761546522
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -48249,7 +48300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &474483981763211105
 GameObject:
   m_ObjectHideFlags: 0
@@ -52332,6 +52383,7 @@ Transform:
   m_Children:
   - {fileID: 7877998842511478096}
   - {fileID: 7877998841997012438}
+  - {fileID: 975100480}
   m_Father: {fileID: 2608384644930881815}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53124,6 +53176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slidingSpeed: 0.5
+  jumpingSpeed: 12
 --- !u!1 &2608384644930881812
 GameObject:
   m_ObjectHideFlags: 0
@@ -59087,6 +59140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slidingSpeed: 0.1
+  jumpingSpeed: 12
 --- !u!19719996 &6206172709586084844
 TilemapCollider2D:
   m_ObjectHideFlags: 0
