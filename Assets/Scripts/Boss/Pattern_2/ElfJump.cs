@@ -7,14 +7,17 @@ public class ElfJump : MonoBehaviour
     [SerializeField]float jumpingSpeed = 5f;    
     private Rigidbody2D rigid;
 
-    void Start()
-    {    
-    rigid = GetComponent<Rigidbody2D>();    
-    float randomTime=0;
-        while(true){
-            randomTime=Random.Range(0.3f, 3.0f);
-            Invoke("Jump", randomTime);
-        }    
+    private void Start()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    InvokeRepeating("RandomJump", 1.0f, 1.0f); // 매 초마다 RandomJump 메서드를 호출
+    }
+
+    private void RandomJump()
+    {
+        float randomTime = Random.Range(1f, 3.0f);
+        Debug.Log("뭐임? randomTime: " + randomTime);
+        Jump();
     }
     
     private void Jump()

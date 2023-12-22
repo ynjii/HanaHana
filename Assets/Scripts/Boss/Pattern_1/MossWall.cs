@@ -19,6 +19,17 @@ public class MossWall : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            ExitMossWall();
+        }
+    }
+
+
+
+
     private IEnumerator SlidePlayerDown(Transform playerTransform)
     {
         isSliding = true;
