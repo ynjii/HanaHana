@@ -7,6 +7,7 @@ public class MirrorPattern : MonoBehaviour
     [SerializeField] private List<Transform> targetPositions;
     // Start is called before the first frame update
     [SerializeField] private List<GameObject> birdSpawn;
+    [SerializeField] private AudioSource moveSound; //휙 소리
     void Start()
     {
         startEvent();
@@ -23,6 +24,7 @@ public class MirrorPattern : MonoBehaviour
         yield return new WaitForSeconds(3.0f); //3초 대기 후 (fadeouteffect 2초, 1초 후에 움직이기 시작)
         this.GetComponent<CapsuleCollider2D>().enabled = true;
         yield return StartCoroutine(SetActiveGhostEffect(true));//잔상 키기
+        moveSound.Play();
         yield return StartCoroutine(movetToTarget(1f, targetPositions[0].position));//오른쪽으로 이동, 1초동안 움직임
         yield return StartCoroutine(SetActiveGhostEffect(false));//잔상 끄기
         birdSpawn[0].SetActive(true); //새 initiate 하기. (5초동안 새를 내뿜는다)
@@ -34,6 +36,7 @@ public class MirrorPattern : MonoBehaviour
     {
         yield return new WaitForSeconds(6.0f);
         yield return StartCoroutine(SetActiveGhostEffect(true));//잔상 키기
+        moveSound.Play();
         yield return StartCoroutine(movetToTarget(0.5f, targetPositions[1].position));//왼쪽으로 이동, 0.5초동안 움직임
         yield return StartCoroutine(SetActiveGhostEffect(false));//잔상 끄기
         yield return new WaitForSeconds(0.5f);
