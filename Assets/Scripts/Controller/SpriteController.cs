@@ -7,10 +7,10 @@ public class SpriteController : ParentObstacleController
     public enum ObType
     {
         ChangeAnimator,//애니메이터변경
-        StartAnimation, //한번만 함. 더 많이 하려면 스크립트 수정해야함. 현민에게 문의
         ChangeRendererOrder,//렌더러순서 변경
         ChangeSprite,//스프라이트변경
-        FlipSprite//플립
+        FlipSprite,//플립
+        StartAnimation//애니메이션 한번 호출. 더 많이 하려면 스크립트 수정해야함. 현민에게 문의
     }
     public enum RendererOrder
     {
