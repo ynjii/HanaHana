@@ -34,6 +34,11 @@ public class ThrowObj : MonoBehaviour
     [SerializeField]
     private ObjType objType;
 
+    [SerializeField]
+    private bool wantParent = false; //부모에 상속시키려고
+
+    [SerializeField]
+    private Transform parentTransform; //부모에 상속시키려고
 
 
     private void Update()
@@ -74,6 +79,10 @@ public class ThrowObj : MonoBehaviour
                 Vector3 direction = rotation * startDirection;
 
                 GameObject objInstance = Instantiate(objPrefab, transform.position, Quaternion.identity);
+                if (wantParent)
+                {
+                    objInstance.transform.parent = parentTransform;
+                }
                 Rigidbody2D objRigidbody = objInstance.GetComponent<Rigidbody2D>();
 
                 if (objRigidbody != null)
@@ -94,6 +103,10 @@ public class ThrowObj : MonoBehaviour
         if (objPrefab != null)
         {
             GameObject objInstance = Instantiate(objPrefab, transform.position, Quaternion.identity);
+            if (wantParent)
+            {
+                objInstance.transform.parent = parentTransform;
+            }
             Rigidbody2D objRigidbody = objInstance.GetComponent<Rigidbody2D>();
             if (objRigidbody != null)
             {
