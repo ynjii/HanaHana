@@ -219,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeInDuration: 2
   maxAlpha: 1
+  wantColliderSetActive: 1
 --- !u!1 &105303882 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5838857804026354241, guid: 936ef3d390b696b42a1df89e4a7bb414, type: 3}
@@ -304,6 +305,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4943863440552298379, guid: 1cf542be75f22ff4f8abe09550b77adf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943863440552298382, guid: 1cf542be75f22ff4f8abe09550b77adf, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -881,6 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeInDuration: 2
   maxAlpha: 1
+  wantColliderSetActive: 1
 --- !u!1 &709359766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,6 +1555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeInDuration: 2
   maxAlpha: 1
+  wantColliderSetActive: 0
 --- !u!114 &858747306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3191,6 +3198,10 @@ PrefabInstance:
     - target: {fileID: 1853473288129905465, guid: 3aa94b8735dfc7f4094ec81479d744b6, type: 3}
       propertyPath: m_Name
       value: Big_Spirit (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853473288129905469, guid: 3aa94b8735dfc7f4094ec81479d744b6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1853473288129905470, guid: 3aa94b8735dfc7f4094ec81479d744b6, type: 3}
       propertyPath: angleStep
