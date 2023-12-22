@@ -23,11 +23,11 @@ public class BrokenMirror : MonoBehaviour
     {
         if (blType == BlockType.Once)
         {//처음 밟아도 죽을 때
-            AudioSource audio = GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
+            /*AudioSource audio = GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
             if (audio != null && audio.clip.name == "glasscrack")
             {
                 audio.Play();
-            }
+            }*/
             Invoke("setActiveFalse", 0.5f);
         }
         else if (blType == BlockType.Second)

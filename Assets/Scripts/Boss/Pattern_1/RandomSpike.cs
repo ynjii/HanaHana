@@ -24,7 +24,7 @@ public class RandomSpike : MonoBehaviour
     private int Xmax = 1;
     private int[] indexNum;
 
-    void Start()
+    void OnEnable()
     {
         switch (Deact)
         {

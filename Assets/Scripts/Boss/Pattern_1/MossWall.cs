@@ -3,33 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-/// <summary>
-/// 이끼벽. 
-/// 1. 닿으면 플레이어 ridigbody 전부 freeze
-/// 2. 스페이스, 점프 누르면 freeze 풀어(except rotation)
-/// 잘 작동하나? 안 됐던 것 같은데 다시 확인
-/// </summary>
 public class MossWall : MonoBehaviour
 {
-    public Rigidbody2D other;
-    public Define.PlayerState player_state;
+    public float slidingSpeed = 0.5f; // 미끄러질 속도 조절
+    private bool isSliding = false;
+    private GameObject playerOnWall;
+    private Rigidbody2D playerRigidbody;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            other.constraints = RigidbodyConstraints2D.FreezeAll;
+            playerOnWall = collision.gameObject;
+            StartCoroutine(SlidePlayerDown(collision.gameObject.transform));
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            ExitMossWall();
         }
     }
 
 
 
-    void Update()
+
+    private IEnumerator SlidePlayerDown(Transform playerTransform)
     {
-        if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space))
+        isSliding = true;
+
+        // X축으로 고정
+        playerRigidbody = playerTransform.GetComponent<Rigidbody2D>();
+        if (playerRigidbody != null)
         {
-            other.constraints = RigidbodyConstraints2D.FreezeRotation;
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
+        // Y축으로 천천히 미끄러짐
+        while (isSliding)
+        {
+            playerTransform.Translate(Vector3.down * slidingSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    void Update()
+    {
+        if (playerOnWall&& (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
+        {
+            ExitMossWall();
+        }
+    }
+
+    private void ExitMossWall()
+    {
+        // 이끼벽을 떠날 때 실행되는 부분
+        isSliding = false;
+
+        // Rigidbody의 제약 조건을 모두 해제
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
     }
 }

@@ -8,9 +8,9 @@ using UnityEngine;
 public class AlertBlink : MonoBehaviour
 {
     float time;
-    [SerializeField] private int r = 1;
-    [SerializeField] private int g = 1;
-    [SerializeField] private int b = 1;
+    [SerializeField] private float r = 1f; // 0부터 1 사이의 값으로 수정
+    [SerializeField] private float g = 0.87f; // 0부터 1 사이의 값으로 수정
+    [SerializeField] private float b = 0.0039f; // 0부터 1 사이의 값으로 수정
 
     void Update()
     {
@@ -28,6 +28,5 @@ public class AlertBlink : MonoBehaviour
         }
 
         time += Time.deltaTime;
-
     }
 }
