@@ -14,6 +14,7 @@ using UnityEngine.UI;
 public class Pattern1Controller : MonoBehaviour
 {
     //public GameObject phases=new List<GameObject>();
+    private Animator animator;
     public GameObject pattern1;
     public GameObject pattern2;
     public GameObject pattern3;
@@ -22,46 +23,78 @@ public class Pattern1Controller : MonoBehaviour
     public Rigidbody2D other;
     public GameObject SaveLoad;
 
+
     void Start()
     {
         //change respawn point to lava start point
-        Vector3 start_point = new Vector3(10.18f, -1.31f, 0.0f);
+        Vector3 start_point = new Vector3(10.18f, -1.51f, 0.0f);
         SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn", start_point);
+        Transform snowhiteTransform = transform.Find("SnowWhite");
+
+        if (snowhiteTransform != null)
+        {
+            // Get the Animator component of the Snowhite object
+            animator = snowhiteTransform.GetComponent<Animator>();
+            if (animator == null) {
+                Debug.Log("비상!");
+            }
+        }
 
         StartCoroutine(Pattern());
     }
 
     IEnumerator Pattern()
     {
+        animator.SetInteger("level", 1);//phase1_wave
+        yield return new WaitForSeconds(2f);
+        other.constraints = RigidbodyConstraints2D.FreezeRotation;
+        animator.SetInteger("level", 0);
         pattern1.SetActive(true);
         yield return new WaitForSeconds(12f);
         pattern1.SetActive(false);
         DeleteCloneObjects();
-        yield return new WaitForSeconds(2f);
 
+        animator.SetInteger("level", 4);//phase4_bottomup
+        yield return new WaitForSeconds(2f);
+        animator.SetInteger("level", 0);
         pattern4.SetActive(true);
         yield return new WaitForSeconds(12f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern4.SetActive(false);
         DeleteCloneObjects();
-        yield return new WaitForSeconds(2f);
 
+        animator.SetInteger("level", 2);//phase2_fireball
+        yield return new WaitForSeconds(2f);
+        animator.SetInteger("level", 0);
         pattern2.SetActive(true);
         yield return new WaitForSeconds(12f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern2.SetActive(false);
         DeleteCloneObjects();
-        yield return new WaitForSeconds(2f);
 
+        animator.SetInteger("level", 3);//phase3_goflame
+        yield return new WaitForSeconds(2f);
+        animator.SetInteger("level", 0);
         pattern3.SetActive(true);
         yield return new WaitForSeconds(12f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern3.SetActive(false);
         DeleteCloneObjects();
-        yield return new WaitForSeconds(2f);
 
+        animator.SetInteger("level", 5);//phase5_hideeyes
+        yield return new WaitForSeconds(2f);
         pattern5.SetActive(true);
-        yield return new WaitForSeconds(12f);
+        yield return new WaitForSeconds(2.3f);
+        animator.SetInteger("level", 6);//phase6
+        yield return new WaitForSeconds(1.7f);
+        animator.SetInteger("level", 5);//phase5_hideeyes
+        yield return new WaitForSeconds(2.3f);
+        animator.SetInteger("level", 6);//phase6
+        yield return new WaitForSeconds(1.7f);
+        animator.SetInteger("level", 5);//phase5_hideeyes
+        yield return new WaitForSeconds(2.3f);
+        animator.SetInteger("level", 6);//phase6
+        yield return new WaitForSeconds(1.7f);
         DeleteCloneObjects();
         pattern5.SetActive(false);
 

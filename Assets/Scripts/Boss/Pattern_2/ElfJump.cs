@@ -16,7 +16,6 @@ public class ElfJump : MonoBehaviour
     private void RandomJump()
     {
         float randomTime = Random.Range(1f, 3.0f);
-        Debug.Log("뭐임? randomTime: " + randomTime);
         Jump();
     }
     
