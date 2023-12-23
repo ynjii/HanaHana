@@ -14,11 +14,13 @@ public class MossWall : MonoBehaviour
     private bool autoExit = true;
     private GameObject playerOnWall;
     private Rigidbody2D playerRigidbody;
+    private int exitCount = 1;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            exitCount = 1;
             playerOnWall = collision.gameObject;
             audioSource.Play(); //재생
             StartCoroutine(SlidePlayerDown(collision.gameObject.transform));
@@ -27,19 +29,12 @@ public class MossWall : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && autoExit)
+        if (collision.gameObject.CompareTag("Player") && autoExit &&exitCount>0)
         {
-            StartCoroutine(ExitMossWallWithDelay());
+            exitCount--;
+            ExitMossWall();
         }
     }
-
-    private IEnumerator ExitMossWallWithDelay()
-    {
-        yield return new WaitForSeconds(0.1f); // Introduce the delay here
-        ExitMossWall();
-    }
-
-
 
 
     private IEnumerator SlidePlayerDown(Transform playerTransform)
