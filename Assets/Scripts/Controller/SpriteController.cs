@@ -9,7 +9,8 @@ public class SpriteController : ParentObstacleController
         ChangeAnimator,//애니메이터변경
         ChangeRendererOrder,//렌더러순서 변경
         ChangeSprite,//스프라이트변경
-        FlipSprite//플립
+        FlipSprite,//플립
+        StartAnimation//애니메이션 한번 호출. 더 많이 하려면 스크립트 수정해야함. 현민에게 문의
     }
     public enum RendererOrder
     {
@@ -19,7 +20,7 @@ public class SpriteController : ParentObstacleController
         Layer3,
         UI
     }
-    public enum FlipType 
+    public enum FlipType
     {
         X,
         Y
@@ -28,11 +29,12 @@ public class SpriteController : ParentObstacleController
     private Renderer renderer;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private ObType obType;
-    
+
     /// <summary>
     /// ChangeAnimator변수
     /// </summary>
     [SerializeField] private Animator anim;
+    [SerializeField] private string animName; //실행시킬 애니메이션 이름
     [SerializeField] string path;
     /// <summary>
     /// RendererOrder변수
@@ -53,7 +55,10 @@ public class SpriteController : ParentObstacleController
         switch (obType)
         {
             case ObType.ChangeAnimator:
-                StartCoroutine(ChangeAnimator(anim,path));
+                StartCoroutine(ChangeAnimator(anim, path));
+                break;
+            case ObType.StartAnimation:
+                StartCoroutine(StartAnimation(anim, animName));
                 break;
             case ObType.ChangeRendererOrder:
                 StartCoroutine(ChangeRendererOrder());
@@ -77,12 +82,18 @@ public class SpriteController : ParentObstacleController
     /// </summary>
     IEnumerator ChangeAnimator(Animator anim, string path)
     {
-        path = path.Replace("Assets/Resources/","");
-        path = path.Replace(".controller","");
+        path = path.Replace("Assets/Resources/", "");
+        path = path.Replace(".controller", "");
         Debug.Log(path);
         anim.runtimeAnimatorController =
             (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load(path,
                 typeof(RuntimeAnimatorController)));
+        yield return null;
+    }
+
+    IEnumerator StartAnimation(Animator anim, string animName)
+    {
+        anim.Play(animName, 0, 0f);
         yield return null;
     }
 
@@ -117,12 +128,12 @@ public class SpriteController : ParentObstacleController
         {
             spriteRenderer.sprite = inputImage;
         }
-        
+
         yield return null;
     }
     IEnumerator FlipSprite()
     {
-        if (flipType== FlipType.X)
+        if (flipType == FlipType.X)
         {
             spriteRenderer.flipX = true;
         }

@@ -85,6 +85,7 @@ public class Pattern2Controller : MonoBehaviour
         int randomIndex = random.Next(bossPatterns.Count);
         // 선택된 패턴 실행
         bossPatterns[randomIndex].SetActive(true);
+        animator.Play("Boss_HitTable", -1, 0f);
 
         // 이전 패턴 업데이트
         previousIndex = randomIndex;
