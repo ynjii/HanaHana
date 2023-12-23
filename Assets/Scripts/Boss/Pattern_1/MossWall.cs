@@ -6,10 +6,12 @@ using static Define;
 public class MossWall : MonoBehaviour
 {
     public float slidingSpeed = 0.5f; // 미끄러질 속도 조절
+    public AudioSource audioSource;
 
     [SerializeField] float jumpingSpeed = 12f;
     private bool isSliding = false;
     private bool hasAppliedForce = false;
+    private bool autoExit = true;
     private GameObject playerOnWall;
     private Rigidbody2D playerRigidbody;
 
@@ -18,13 +20,14 @@ public class MossWall : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playerOnWall = collision.gameObject;
+            audioSource.Play(); //재생
             StartCoroutine(SlidePlayerDown(collision.gameObject.transform));
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")&&autoExit)
         {
             ExitMossWall();
         }
@@ -57,12 +60,16 @@ public class MossWall : MonoBehaviour
     {
         if (playerOnWall && (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
         {
+            autoExit = false;
             ExitMossWall();
+            autoExit = true;
         }
     }
 
     private void ExitMossWall()
     {
+        audioSource.Stop(); //정지
+
         // 이끼벽을 떠날 때 실행되는 부분
         isSliding = false;
 
@@ -71,8 +78,10 @@ public class MossWall : MonoBehaviour
         if (playerRigidbody != null && !hasAppliedForce)
         {
             playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            Vector3 force = Vector3.up * jumpingSpeed;
-            playerRigidbody.AddForce(force, ForceMode2D.Impulse);
+            if (!autoExit) {
+                Vector3 force = Vector3.up * jumpingSpeed;
+                playerRigidbody.AddForce(force, ForceMode2D.Impulse);
+            }
             hasAppliedForce = true; // Set the flag to true after applying force
         }
     }
