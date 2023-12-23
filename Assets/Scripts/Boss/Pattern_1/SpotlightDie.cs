@@ -18,6 +18,7 @@ public class SpotlightDie : MonoBehaviour
     void Start()
     {
         audioSource = this.gameObject.GetComponent<AudioSource>();
+        audioSource.loop = false;
 
         List<Transform> randomChildren = GetRandomChildren(Spotlight.transform, 3);
         controlSpotlight(randomChildren, blinkSec);
@@ -90,17 +91,18 @@ public class SpotlightDie : MonoBehaviour
 
         if (alertBlink != null && ifExitDie != null)
         {
-            audioSource.loop = false;
-            audioSource.PlayOneShot(appluaseSource);
+            audioSource.clip = appluaseSource;
+            audioSource.Play();
             alertBlink.enabled = true;
             yield return new WaitForSeconds(duration);
-            audioSource.PlayOneShot(spotlightSource);
+            audioSource.clip = spotlightSource;
+            audioSource.Play();
             alertBlink.enabled = false;
 
             ifExitDie.enabled = true;
             Blackout.SetActive(true);
             yield return new WaitForSeconds(1.0f);
-            spotlightAudio.Stop();
+
 
             ifExitDie.enabled = false;
             Blackout.SetActive(false);

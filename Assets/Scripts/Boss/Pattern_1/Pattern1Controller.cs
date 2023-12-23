@@ -47,6 +47,7 @@ public class Pattern1Controller : MonoBehaviour
     IEnumerator Pattern()
     {
         background.Play();
+        other.constraints = RigidbodyConstraints2D.FreezeAll;
         animator.SetInteger("level", 1);//phase1_wave
         yield return new WaitForSeconds(2f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -83,9 +84,9 @@ public class Pattern1Controller : MonoBehaviour
         pattern3.SetActive(false);
         DeleteCloneObjects();
 
-        background.Stop();
         animator.SetInteger("level", 5);//phase5_hideeyes
         yield return new WaitForSeconds(2f);
+        background.Stop();
         pattern5.SetActive(true);
         yield return new WaitForSeconds(2.3f);
         animator.SetInteger("level", 6);//phase6

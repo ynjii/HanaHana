@@ -1,4 +1,4 @@
-  using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Define;
@@ -29,8 +29,14 @@ public class MossWall : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && autoExit)
         {
-            ExitMossWall();
+            StartCoroutine(ExitMossWallWithDelay());
         }
+    }
+
+    private IEnumerator ExitMossWallWithDelay()
+    {
+        yield return new WaitForSeconds(0.1f); // Introduce the delay here
+        ExitMossWall();
     }
 
 
