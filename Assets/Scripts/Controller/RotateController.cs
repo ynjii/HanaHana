@@ -31,13 +31,11 @@ public class RotateController : ParentObstacleController
     /// Swing용 변수
     /// </summary>
     /// <returns></returns>
-    
-    // 각도
-    [SerializeField] private float angle = 30f;
-    // 보간에 사용되는 시간
+
+    [SerializeField] private float angle = 90f; // 최대 회전 각도 (양쪽으로 45도)
     private float lerpTime = 0;
-    // 스윙 속도
-    private float speed = 2f;
+    [SerializeField]
+    private float speed = 45f; // 회전 속도 (도/초), 예: 초당 45도 회전
     /// <summary>
     /// RotateDeltaAxis
     /// </summary>
@@ -139,31 +137,20 @@ public class RotateController : ParentObstacleController
     {
         while (true)
         {
-            // lerpTime을 시간에 따라 증가시켜서 보간을 계산
             lerpTime += Time.deltaTime * speed;
+            float currentAngle = Mathf.Lerp(-angle, angle, GetLerpTParam());
 
-            // 스윙 동작 계산 후, 객체의 회전을 업데이트
-            transform.rotation = CalculateMovementOfPendulum();
+            transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
             yield return null;
         }
         
     }
-    // 스윙 동작의 회전 값을 계산하는 메서드
-    Quaternion CalculateMovementOfPendulum()
+    /*Swing메소드*/
+    float GetLerpTParam()
     {
-        // 전방 각도에서 후방 각도로의 보간을 계산하고 반환
-        return Quaternion.Lerp(Quaternion.Euler(Vector3.forward * angle),
-                               Quaternion.Euler(Vector3.back * angle),
-                               GetLerpTParam());
+        return (Mathf.Sin(lerpTime * Mathf.Deg2Rad) + 1) * 0.5f;
     }
 
-    // 보간에 사용될 t 매개변수 값을 계산하는 메서드
-    private float GetLerpTParam()
-    {
-        // Mathf.Sin 함수를 사용하여 부드러운 보간 효과를 만듦
-        // lerpTime에 따라 Sin 값을 계산하고, 0에서 1 사이의 값으로 변환
-        return (Mathf.Sin(lerpTime) + 1) * 0.5f;
-    }
     /// <summary>
     /// ex) a_Tree2
     /// 트리거가 감지되면 현재위치에서 point를 더한 위치를 기준으로 rotateDelta만큼 회전
