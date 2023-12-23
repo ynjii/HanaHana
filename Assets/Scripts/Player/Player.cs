@@ -558,14 +558,26 @@ public class Player : MonoBehaviour
         player_state = PlayerState.Damaged;
         //레이어변경
         this.gameObject.layer = 7;
-        //투명하게 바꾸기
-        sprite_renderer.color = new Color(1, 1, 1, 0.4f);
         //리액션
-        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        if (!isBorder)//보더면 통 튀면 안 되니까..
+        if(SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
         {
-            rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+            //터져죽기
+            anim.SetBool("isBrokenDie", true);
+            Debug.Log(anim.GetBool("isBrokenDie"));
         }
+        else
+        {
+
+            //튀어올라죽기
+            //투명하게 바꾸기
+            sprite_renderer.color = new Color(1, 1, 1, 0.4f);
+            int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
+            if (!isBorder)//보더면 통 튀면 안 되니까..
+            {
+                rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+            }
+        }
+        
     }
 
     //화면밖으로 나감: 죽음
