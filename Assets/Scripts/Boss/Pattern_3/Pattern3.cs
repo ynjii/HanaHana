@@ -57,14 +57,21 @@ public class Pattern3 : MonoBehaviour
         SceneManager.LoadScene("SnowBoss4");
     }
 
+    IEnumerator BossRaiseHandAnim()
+    {
+        _bossAnim.SetBool("isRaiseHand", true);
+        yield return new WaitForSeconds(1.0f);
+        _bossAnim.SetBool("isRaiseHand", false);
+    }
     IEnumerator InvertScene()
     {
         while (true)
         {
             yield return new WaitForSeconds(15);
-            _bossAnim.SetBool("isRaiseHand", true);
             CameraController cameraController = _camera.GetComponent<CameraController>();
             cameraController.isReverse = !cameraController.isReverse;
+            _bossAnim.SetBool("isRaiseHand", true);
+            yield return new WaitForSeconds(2.0f);
             _bossAnim.SetBool("isRaiseHand", false);
         }
     }
@@ -98,6 +105,8 @@ public class Pattern3 : MonoBehaviour
             }
             _patterns[i].SetActive(false);
         }
+
+        StartCoroutine(BossRaiseHandAnim());
         StartCoroutine(PlayerInvincibility());
     }
 
