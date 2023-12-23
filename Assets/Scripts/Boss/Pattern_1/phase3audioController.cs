@@ -6,9 +6,10 @@ public class phase3audioController : MonoBehaviour
 {
     public GameObject flame;
     public GameObject beep;
+
     void Start()
     {
-        StartCoroutine(sound3());
+            StartCoroutine(sound3());
     }
 
     IEnumerator sound3() {

@@ -1,4 +1,4 @@
-using System.Collections;
+  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Define;
@@ -27,7 +27,7 @@ public class MossWall : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")&&autoExit)
+        if (collision.gameObject.CompareTag("Player") && autoExit)
         {
             ExitMossWall();
         }
@@ -58,7 +58,7 @@ public class MossWall : MonoBehaviour
 
     void Update()
     {
-        if (playerOnWall && (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
+        if (playerOnWall && isSliding&&(Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
         {
             autoExit = false;
             ExitMossWall();
@@ -78,7 +78,8 @@ public class MossWall : MonoBehaviour
         if (playerRigidbody != null && !hasAppliedForce)
         {
             playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-            if (!autoExit) {
+            if (!autoExit)
+            {
                 Vector3 force = Vector3.up * jumpingSpeed;
                 playerRigidbody.AddForce(force, ForceMode2D.Impulse);
             }
