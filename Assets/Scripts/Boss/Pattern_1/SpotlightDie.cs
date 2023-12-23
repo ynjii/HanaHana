@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class SpotlightDie : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip spotlightSource;
+    [SerializeField] private AudioClip appluaseSource;
+
     public GameObject Spotlight;
     public GameObject Blackout;
+
     [SerializeField] private int n = 3;
     [SerializeField] private Player player;
     [SerializeField] private float blinkSec = 3.0f;
 
     void Start()
     {
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+
         List<Transform> randomChildren = GetRandomChildren(Spotlight.transform, 3);
         controlSpotlight(randomChildren, blinkSec);
     }
@@ -81,16 +88,19 @@ public class SpotlightDie : MonoBehaviour
         AlertBlink alertBlink = child.GetComponent<AlertBlink>();
         IfExitDie ifExitDie = child.GetComponent<IfExitDie>();
 
-
         if (alertBlink != null && ifExitDie != null)
         {
+            audioSource.loop = false;
+            audioSource.PlayOneShot(appluaseSource);
             alertBlink.enabled = true;
             yield return new WaitForSeconds(duration);
+            audioSource.PlayOneShot(spotlightSource);
             alertBlink.enabled = false;
 
             ifExitDie.enabled = true;
             Blackout.SetActive(true);
             yield return new WaitForSeconds(1.0f);
+            spotlightAudio.Stop();
 
             ifExitDie.enabled = false;
             Blackout.SetActive(false);
