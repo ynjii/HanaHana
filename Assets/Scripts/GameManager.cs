@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         if (isGameover && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
         {
             //보스씬이면 스노우화이트 세이브포인트부터 시작
-            if (SceneManager.GetActiveScene().name == "SnowBoss4")
+            if (SceneManager.GetActiveScene().name == "SnowBoss4"|| SceneManager.GetActiveScene().name == "SnowBoss3"|| SceneManager.GetActiveScene().name == "SnowBoss2"|| SceneManager.GetActiveScene().name == "SnowBoss1")
             {
                 SceneManager.LoadScene("SnowWhite");
             }

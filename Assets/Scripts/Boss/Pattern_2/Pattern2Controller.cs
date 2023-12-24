@@ -17,9 +17,9 @@ public class Pattern2Controller : MonoBehaviour
     private List<string> bossAnimation = new List<string> { "isCollectingEnergy" };
 
     public List<GameObject> bossPatterns = new List<GameObject>();
-    [SerializeField] Camera cam;
+    [SerializeField] Camera camera;
 
-    [SerializeField] GameObject sceneChangeGO;
+    [SerializeField] GameObject patternChangeGO;
 
     public Slider slHP; //보스 피받아오기
 
@@ -28,20 +28,30 @@ public class Pattern2Controller : MonoBehaviour
 
     private int previousIndex = -1;
     public Animator animator;
-
+    [SerializeField] GameObject startMessage;
+    //player
+    Player player;
+    //페이드아웃
+    [SerializeField] GameObject _fadeOutUI;
     private void Start()
     {
+        //플레이어 스크립트
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         currentHP = slHP.maxValue; //슬라이더 시작값 받아오기
         currentTime = slHP.maxValue;
-
+        StartCoroutine(showStartMessage());
         StartNextPattern();
     }
 
     private void Update()
     {
+        
         if (slHP.value <= 0)
         {
-            StartCoroutine(ChangetoNextScene()); //이거는 전체 보스맵 4개의 패턴에서의 패턴. scene change로 바꾸면 좋을 것 같음.
+            if (player.player_state != Define.PlayerState.Damaged)
+            {
+                StartCoroutine("PatternChange"); //이거는 전체 보스맵 4개의 패턴에서의 패턴. scene change로 바꾸면 좋을 것 같음.
+            }
         }
 
         if (slHP.value <= currentHP - 17f && bossPatterns.Count > 0) //17초 지나면, 그리고 가능한 패턴이 남아있다면
@@ -52,23 +62,7 @@ public class Pattern2Controller : MonoBehaviour
 
     }
 
-    //이건 다음 패턴으로 옮김
-    private IEnumerator ChangetoNextScene()
-    {
-        sceneChangeGO.SetActive(true);
-
-        // 카메라 shaking
-        cam.transform.DOShakePosition(3, 1);
-
-        // 보스 애니메이션 변경
-        animator.SetBool("isHideEye", true);
-
-        // 불 스프라이트는 자동 재생
-        // 다음 씬 로드 : 보스 애니메이션 끝나고 이동
-        yield return new WaitForSeconds(4);
-        animator.SetBool("isHideEye", false);
-        SceneManager.LoadScene("SnowBoss3");
-    }
+    
 
     //랜덤으로 패턴 시작하기. 과거 나온 패턴은 리스트에서 삭제한다. 
     private void StartNextPattern()
@@ -86,9 +80,42 @@ public class Pattern2Controller : MonoBehaviour
         // 선택된 패턴 실행
         bossPatterns[randomIndex].SetActive(true);
         animator.Play("Boss_HitTable", -1, 0f);
-
+        StartCoroutine(PlayerInvincibility(1f));
         // 이전 패턴 업데이트
         previousIndex = randomIndex;
     }
+    //패턴체인지
+    IEnumerator PatternChange()
+    {
+        player.Invincibility = true;
+        patternChangeGO.SetActive(true);
 
+        // camera shaking
+        camera.transform.DOShakePosition(3f, new Vector3(0.1f, 0.1f, 0));
+
+        // 눈비비기
+        animator.SetBool("isHideEye", true);
+
+        yield return new WaitForSeconds(2f);
+        _fadeOutUI.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("SnowBoss3");
+    }
+    //무적
+    IEnumerator PlayerInvincibility(float time)
+    {
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0.5f);
+        player.Invincibility = true;
+        yield return new WaitForSeconds(time);
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+        player.Invincibility = false;
+    }
+    IEnumerator showStartMessage()
+    {
+        startMessage.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        startMessage.SetActive(false);
+        yield return null;
+    }
 }
