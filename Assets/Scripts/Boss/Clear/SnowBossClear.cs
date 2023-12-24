@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SnowBossClear : MonoBehaviour
 {
 
-    [SerializeField] GameObject stage;
+    [SerializeField] GameObject[] stage;
     bool giveItemOnce = false;
     [SerializeField] GameObject[] texts; 
     Animator anim;
@@ -154,9 +154,12 @@ public class SnowBossClear : MonoBehaviour
         yield return new WaitForSeconds(5f);
         texts[1].SetActive(false);
         yield return new WaitForSeconds(2f);
-        stage.SetActive(true);
-        yield return new WaitForSeconds(5f);
-        stage.SetActive(false);
+        stage[0].SetActive(true);
+        yield return new WaitForSeconds(4f);
+        stage[0].SetActive(false);
+        stage[1].SetActive(true);
+        yield return new WaitForSeconds(1f);
+        stage[1].SetActive(false);
         goToEndingPotal.SetActive(true);
     }
 }
