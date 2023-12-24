@@ -16,8 +16,7 @@ public class SceneChange : MonoBehaviour
     private bool isNew = false;
     //이어하기
     public void Change()
-    {
-        
+    {        
         SceneManager.LoadScene("SnowWhite");
         Time.timeScale = 1f; //시간 다시 흐르게
     }
@@ -26,7 +25,23 @@ public class SceneChange : MonoBehaviour
     public void new_Change()
     {
         /*if(EditorUtility.DisplayDialog("게임 세이브 정보 삭제", "정말 삭제 하시겠습니까?", "네", "아니오"))*/
-        PlayerPrefs.DeleteAll();
+        //백설공주 맵 깼을 시 다른데이터는 살려두기. 
+        if (PlayerPrefs.GetString("SnowWhiteClear") == "true")
+        {
+            string cloth=PlayerPrefs.GetString("SnowWhiteCloth");
+            Debug.Log("cloth 정보: " + PlayerPrefs.GetString("SnowWhiteCloth"));
+            Debug.Log("clear 정보: " + PlayerPrefs.GetString("SnowWhiteClear"));
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetString("SnowWhiteClear", "true");
+            PlayerPrefs.SetString("SnowWhiteCloth", cloth);
+            Debug.Log("새로하기 후 cloth 정보: " + PlayerPrefs.GetString("SnowWhiteCloth"));
+            Debug.Log("새로하기 후 clear 정보: " + PlayerPrefs.GetString("SnowWhiteClear"));
+        }
+        else
+        {
+            PlayerPrefs.DeleteAll();
+        }
+        
         isNew = true;
         //SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
         SceneManager.LoadScene("SnowWhite");

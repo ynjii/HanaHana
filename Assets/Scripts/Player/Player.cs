@@ -651,29 +651,49 @@ public class Player : MonoBehaviour
     /// 진짜 아이템 먹으면 애니메이션 컨트롤러 바꿔주기
     /// </summary>
     public void ChangeSprites()
-    {
-        string realItem = PlayerPrefs.GetString("RealItem");
-        switch (realItem)
+    {       
+        //스킨선택따라 갈아입기
+        string changeClothes = PlayerPrefs.GetString("SnowWhiteCloth");
+        switch (changeClothes)
         {
-            case "SnowWhite":
+            case "true":
+                //애니메이터 바꿔주는 코드 넣어주기.
                 anim.runtimeAnimatorController =
-                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_RealItem_SnowWhite",
+                                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/SnowSkinPlayer",
+                                        typeof(RuntimeAnimatorController)));
+                break;
+            case "false":
+                //기본 스킨
+                anim.runtimeAnimatorController =
+                    (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_Default",
                         typeof(RuntimeAnimatorController)));
                 break;
+            //선택을 안 해서 값이 없을경우 기본스킨
             default:
                 anim.runtimeAnimatorController =
                     (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_Default",
                         typeof(RuntimeAnimatorController)));
                 break;
         }
-        string changeClothes = PlayerPrefs.GetString("SnowWhiteCloth");
-        switch (changeClothes)
+        //아이템얻었을경우
+        string realItem = PlayerPrefs.GetString("RealItem");
+        switch (realItem)
         {
-            case "true":
-                //애니메이터 바꿔주는 코드 넣어주기.
-                break;
-            case "false":
-                //기본 스킨
+            case "SnowWhite":
+                //기본스킨일경우 배낭스킨
+                anim.runtimeAnimatorController = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_RealItem_SnowWhite",
+                    typeof(RuntimeAnimatorController)));
+                if (changeClothes == "false")
+                {
+                    anim.runtimeAnimatorController = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/Player_RealItem_SnowWhite",
+                        typeof(RuntimeAnimatorController)));
+                }
+                //백설스킨일경우 배낭스킨
+                if (changeClothes == "true")
+                {
+                    anim.runtimeAnimatorController = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Anim/SnowSkinPlayer_RealItem",
+                        typeof(RuntimeAnimatorController)));
+                }
                 break;
         }
     }
