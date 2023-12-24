@@ -41,7 +41,7 @@ public class CircleScaler : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (isGameOver)
+        if (isGameOver&&!_playerScript.Invincibility)
         {
             _playerScript.Die(transform.position);
         }

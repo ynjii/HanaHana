@@ -35,8 +35,7 @@ public class Pattern3 : MonoBehaviour
         {
             StartCoroutine(PatternChange());
         }
-        //★
-        _player.Invincibility = true;
+        
     }
 
     IEnumerator PatternChange()
