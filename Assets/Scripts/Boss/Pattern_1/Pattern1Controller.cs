@@ -23,13 +23,22 @@ public class Pattern1Controller : MonoBehaviour
     public Rigidbody2D other;
     public GameObject SaveLoad;
     public AudioSource background;
-
-
+    public GameObject pattern1Text;
+    /// <summary>
+    /// Player불러오기
+    /// </summary>
+    private Player player;
+    //카메라
+    private GameObject camera;
+    //패턴체인지효과
+    [SerializeField] GameObject patternChangeGO;
+    
     void Start()
     {
-        //change respawn point to lava start point
-        Vector3 start_point = new Vector3(10.18f, -1.51f, 0.0f);
-        SaveLoad.GetComponent<SaveLoad>().SaveRespawn("respawn", start_point);
+        //플레이어 불러오기
+        player = GameObject.FindWithTag("Player").gameObject.GetComponent<Player>();
+        //카메라 불러오기
+        camera = GameObject.FindWithTag("MainCamera").gameObject;
         Transform snowhiteTransform = transform.Find("SnowWhite");
 
         if (snowhiteTransform != null)
@@ -49,7 +58,11 @@ public class Pattern1Controller : MonoBehaviour
         background.Play();
         other.constraints = RigidbodyConstraints2D.FreezeAll;
         animator.SetInteger("level", 1);//phase1_wave
+        //Run!
+        pattern1Text.SetActive(true);
         yield return new WaitForSeconds(2f);
+        //Run!
+        pattern1Text.SetActive(false);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         animator.SetInteger("level", 0);
         pattern1.SetActive(true);
@@ -103,7 +116,10 @@ public class Pattern1Controller : MonoBehaviour
         pattern5.SetActive(false);
 
         //다음 씬()으로 로드
-        SceneManager.LoadScene("SnowBoss2");
+        if (player.player_state != Define.PlayerState.Damaged)
+        {
+            StartCoroutine("PatternChange");
+        }
     }
 
     //짠탄제거
@@ -128,4 +144,20 @@ public class Pattern1Controller : MonoBehaviour
         // 이름에 "(Clone)" 문자열이 포함되어 있는지 검사
         return obj.name.Contains("(Clone)");
     }
+    //패턴체인지
+    IEnumerator PatternChange()
+    {
+        player.Invincibility = true;
+        patternChangeGO.SetActive(true);
+
+        // camera shaking
+        camera.transform.DOShakePosition(3f, new Vector3(0.1f, 0.1f, 0));
+
+        // 눈비비기
+        animator.SetInteger("level", 5);
+
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("SnowBoss2");
+    }
+
 }
