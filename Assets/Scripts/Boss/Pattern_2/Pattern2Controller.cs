@@ -28,15 +28,18 @@ public class Pattern2Controller : MonoBehaviour
 
     private int previousIndex = -1;
     public Animator animator;
+    [SerializeField] GameObject startMessage;
     //player
     Player player;
+    //페이드아웃
+    [SerializeField] GameObject _fadeOutUI;
     private void Start()
     {
         //플레이어 스크립트
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         currentHP = slHP.maxValue; //슬라이더 시작값 받아오기
         currentTime = slHP.maxValue;
-
+        StartCoroutine(showStartMessage());
         StartNextPattern();
     }
 
@@ -77,7 +80,7 @@ public class Pattern2Controller : MonoBehaviour
         // 선택된 패턴 실행
         bossPatterns[randomIndex].SetActive(true);
         animator.Play("Boss_HitTable", -1, 0f);
-
+        StartCoroutine(PlayerInvincibility(1f));
         // 이전 패턴 업데이트
         previousIndex = randomIndex;
     }
@@ -93,8 +96,26 @@ public class Pattern2Controller : MonoBehaviour
         // 눈비비기
         animator.SetBool("isHideEye", true);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
+        _fadeOutUI.SetActive(true);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("SnowBoss3");
     }
-
+    //무적
+    IEnumerator PlayerInvincibility(float time)
+    {
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0.5f);
+        player.Invincibility = true;
+        yield return new WaitForSeconds(time);
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+        player.Invincibility = false;
+    }
+    IEnumerator showStartMessage()
+    {
+        startMessage.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        startMessage.SetActive(false);
+        yield return null;
+    }
 }

@@ -32,7 +32,8 @@ public class Pattern1Controller : MonoBehaviour
     private GameObject camera;
     //패턴체인지효과
     [SerializeField] GameObject patternChangeGO;
-    
+    //페이드아웃
+    [SerializeField] GameObject _fadeOutUI;
     void Start()
     {
         //플레이어 불러오기
@@ -74,6 +75,7 @@ public class Pattern1Controller : MonoBehaviour
         yield return new WaitForSeconds(2f);
         animator.SetInteger("level", 0);
         pattern4.SetActive(true);
+        StartCoroutine(PlayerInvincibility(1f));
         yield return new WaitForSeconds(12f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern4.SetActive(false);
@@ -83,6 +85,7 @@ public class Pattern1Controller : MonoBehaviour
         yield return new WaitForSeconds(2f);
         animator.SetInteger("level", 0);
         pattern2.SetActive(true);
+        StartCoroutine(PlayerInvincibility(1f));
         yield return new WaitForSeconds(12f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern2.SetActive(false);
@@ -92,6 +95,7 @@ public class Pattern1Controller : MonoBehaviour
         yield return new WaitForSeconds(2f);
         animator.SetInteger("level", 0);
         pattern3.SetActive(true);
+        StartCoroutine(PlayerInvincibility(1f));
         yield return new WaitForSeconds(12f);
         other.constraints = RigidbodyConstraints2D.FreezeRotation;
         pattern3.SetActive(false);
@@ -101,6 +105,7 @@ public class Pattern1Controller : MonoBehaviour
         yield return new WaitForSeconds(2f);
         background.Stop();
         pattern5.SetActive(true);
+        StartCoroutine(PlayerInvincibility(1f));
         yield return new WaitForSeconds(2.3f);
         animator.SetInteger("level", 6);//phase6
         yield return new WaitForSeconds(1.7f);
@@ -156,8 +161,22 @@ public class Pattern1Controller : MonoBehaviour
         // 눈비비기
         animator.SetInteger("level", 5);
 
-        yield return new WaitForSeconds(4f);
+        
+        yield return new WaitForSeconds(2f);
+        _fadeOutUI.SetActive(true);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("SnowBoss2");
     }
+    //무적
+    IEnumerator PlayerInvincibility(float time)
+    {
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0.5f);
+        player.Invincibility = true;
+        yield return new WaitForSeconds(time);
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+        player.Invincibility = false;
+    }
+
 
 }
