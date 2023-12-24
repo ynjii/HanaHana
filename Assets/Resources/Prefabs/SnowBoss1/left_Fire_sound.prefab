@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: -5477845876214400773}
   - component: {fileID: 4369606721220069833}
   - component: {fileID: 4619445024120061696}
-  - component: {fileID: -22979629557791513}
-  - component: {fileID: -8197966465325074233}
+  - component: {fileID: 7486790276707632526}
+  - component: {fileID: 2150465062712773167}
   m_Layer: 8
-  m_Name: right_Fire
+  m_Name: left_Fire_sound
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1d3347b57d614429a69c06a189e628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 3
+  direction: 2
   speed: 11
   bullet_damage: 0
 --- !u!60 &4369606721220069833
@@ -162,14 +162,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!82 &-22979629557791513
+--- !u!114 &7486790276707632526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041423995498265175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fe4a197f108c01468e60bcc0fd3f99b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCol: 0
+  isMoving: 1
+  waitingTime: 0
+--- !u!82 &2150465062712773167
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041423995498265175}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: feba876af38d1d947b0ec3469541c81e, type: 3}
@@ -258,18 +273,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-8197966465325074233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041423995498265175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe4a197f108c01468e60bcc0fd3f99b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isCol: 0
-  isMoving: 1
-  waitingTime: 0
