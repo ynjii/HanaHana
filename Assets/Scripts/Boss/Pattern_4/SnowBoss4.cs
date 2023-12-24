@@ -91,6 +91,8 @@ public class SnowBoss4 : MonoBehaviour
     private bool is_dead = false;
     //죽는거 한 번만 실행해야하니까 그거 위한 변수
     private bool once = false;
+
+    [SerializeField] private GameObject startUI;
     private void Awake()
     {
         Transform child_transform = this.transform.GetChild(0);
@@ -133,7 +135,8 @@ public class SnowBoss4 : MonoBehaviour
         G_target_positions.Add(new Vector3(21.55f, -1.85f, 0));
         //플레이어스크립트가져오기
         player_script = GameObject.FindWithTag("Player").GetComponent<Player>();
-
+        //점프안내판넬 활성화
+        StartCoroutine(showStartText());
         //랜덤패턴시작
         RandomPattern();
     }
@@ -141,6 +144,7 @@ public class SnowBoss4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //카메라흔들리는것때문에 죽게되는 경우를 위한 코드
         //무적이더라도 화면안에 플레이어가 없으면 죽음
         if (!(player_script.gameObject.transform.position.y <= 5.5 && player_script.gameObject.transform.position.y >= -5.5))
@@ -550,4 +554,29 @@ public class SnowBoss4 : MonoBehaviour
             }
         }
     }
+    //무적
+    IEnumerator PlayerInvincibility(float time)
+    {
+        SpriteRenderer playerSprite = player_script.gameObject.GetComponent<SpriteRenderer>();
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0.5f);
+        player_script.Invincibility = true;
+        yield return new WaitForSeconds(time);
+        playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+        player_script.Invincibility = false;
+    }
+    IEnumerator showStartText()
+    {
+        startUI.SetActive(true);
+        float startTime = Time.realtimeSinceStartup;
+
+        while (Time.realtimeSinceStartup - startTime < 2f)
+        {
+            yield return null;
+        }
+
+        startUI.SetActive(false);
+        Time.timeScale = 1;
+        yield return null;
+    }
+
 }

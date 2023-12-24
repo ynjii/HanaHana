@@ -108,10 +108,7 @@ public class Pattern3 : MonoBehaviour
                 }
                 _patterns[j].SetActive(false);
             }
-            if (rand == 0)//사과면 짠탄제거
-            {
-                DeleteCloneObjects();
-            }
+            
             yield return new WaitForSeconds(2f);
             //패턴활성화
             PatternActivate(rand);
@@ -126,6 +123,10 @@ public class Pattern3 : MonoBehaviour
                 StartCoroutine(PlayerInvincibility(1f));
             }
             yield return new WaitForSeconds(14.5f);
+            if (rand == 0)//사과면 짠탄제거
+            {
+                DeleteCloneObjects();
+            }
         }
     }
 
