@@ -83,15 +83,15 @@ public class Pattern3 : MonoBehaviour
 
     IEnumerator PatternExecute()
     {
-        List<int> executedPatterns = new List<int>();
+        HashSet< int > executedPatterns = new HashSet<int>();
         
         for (int i = 0; i < _patterns.Count; i++)
         {
             int rand = Random.Range(0, _patterns.Count);
             if (executedPatterns.Contains(rand))
             {
-                continue;
                 i--;
+                continue;
             }
             //초반멘트
             if (i == 0)
@@ -105,7 +105,7 @@ public class Pattern3 : MonoBehaviour
             yield return new WaitForSeconds(2f);
             //패턴활성화
             PatternActivate(rand);
-            if (rand == 3)
+            if (rand == 3)//원형패턴
             {
                 //3초무적
                 StartCoroutine(PlayerInvincibility(3f));
@@ -118,10 +118,9 @@ public class Pattern3 : MonoBehaviour
             Debug.Log(rand + " rand값");
             foreach(int value in executedPatterns)
             {
-                Debug.Log("List 값 "+value);
+                Debug.Log("해쉬 값 "+value);
             }
             yield return new WaitForSeconds(14.5f);
-            
         }
     }
 
@@ -149,7 +148,6 @@ public class Pattern3 : MonoBehaviour
             }
             _patterns[i].SetActive(false);
         }
-
         StartCoroutine(BossRaiseHandAnim());
         //StartCoroutine(PlayerInvincibility());
     }
