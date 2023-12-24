@@ -21,7 +21,7 @@ public class Pattern3 : MonoBehaviour
     bool isEnd = false;
     [SerializeField] GameObject startText;
     [SerializeField] GameObject naruto;
-
+    [SerializeField] GameObject snowWhite;
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -54,8 +54,9 @@ public class Pattern3 : MonoBehaviour
 
         // ���� �ִϸ��̼� ����
         _bossAnim.SetBool("isHideEye", true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         naruto.SetActive(true);
+        snowWhite.SetActive(false);
         yield return new WaitForSeconds(2f);
         _fadeOutUI.SetActive(true);
         
@@ -84,7 +85,6 @@ public class Pattern3 : MonoBehaviour
     IEnumerator PatternExecute()
     {
         HashSet< int > executedPatterns = new HashSet<int>();
-        
         for (int i = 0; i < _patterns.Count; i++)
         {
             int rand = Random.Range(0, _patterns.Count);
@@ -99,9 +99,19 @@ public class Pattern3 : MonoBehaviour
                 StartCoroutine(StartText(rand));
             }
             executedPatterns.Add(rand);
-            //짠탄제거
-            DeleteCloneObjects();
-            //2초쉬기
+            //다른패턴비활성화 & 2초쉬기
+            for (int j= 0; j < _patterns.Count; j++)
+            {
+                if (j == rand)
+                {
+                    continue;
+                }
+                _patterns[j].SetActive(false);
+            }
+            if (rand == 0)//사과면 짠탄제거
+            {
+                DeleteCloneObjects();
+            }
             yield return new WaitForSeconds(2f);
             //패턴활성화
             PatternActivate(rand);
@@ -114,11 +124,6 @@ public class Pattern3 : MonoBehaviour
             {
                 //1초무적
                 StartCoroutine(PlayerInvincibility(1f));
-            }
-            Debug.Log(rand + " rand값");
-            foreach(int value in executedPatterns)
-            {
-                Debug.Log("해쉬 값 "+value);
             }
             yield return new WaitForSeconds(14.5f);
         }
@@ -142,7 +147,6 @@ public class Pattern3 : MonoBehaviour
         {
             if (i == patternNum)
             {
-                DeleteCloneObjects();
                 _patterns[i].SetActive(true);
                 continue;
             }
