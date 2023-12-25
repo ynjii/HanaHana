@@ -40,7 +40,6 @@ public class SnowWhiteCloth : MonoBehaviour
     }
     public void PutOnBasicCloth()
     {
-        Debug.Log(selected);
         if(selected == "closetBasic")
         {
             GameObject.Find("Player").gameObject.GetComponent<Image>().sprite = clothes[1];
