@@ -84,7 +84,6 @@ public class SpriteController : ParentObstacleController
     {
         path = path.Replace("Assets/Resources/", "");
         path = path.Replace(".controller", "");
-        Debug.Log(path);
         anim.runtimeAnimatorController =
             (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load(path,
                 typeof(RuntimeAnimatorController)));

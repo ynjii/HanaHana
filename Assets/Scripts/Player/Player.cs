@@ -563,7 +563,6 @@ public class Player : MonoBehaviour
         {
             //터져죽기
             anim.SetBool("isBrokenDie", true);
-            Debug.Log(anim.GetBool("isBrokenDie"));
         }
         else
         {

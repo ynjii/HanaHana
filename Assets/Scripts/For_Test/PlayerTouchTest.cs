@@ -26,9 +26,6 @@ public class PlayerTouchTest : MonoBehaviour
         //리지드바디 가져오기
         rigid = GetComponent<Rigidbody2D>();
         //터치 범위 출력하는 디버깅코드
-        Debug.Log("leftButton은 0~" + leftButtonEnd);
-        Debug.Log("rightButton은" + leftButtonEnd + "~" + rightButtonEnd);
-        Debug.Log("jumpButton은" + rightButtonEnd + "~" + jumpButtonEnd);
     }
 
     // Update is called once per frame

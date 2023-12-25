@@ -29,13 +29,9 @@ public class SceneChange : MonoBehaviour
         if (PlayerPrefs.GetString("SnowWhiteClear") == "true")
         {
             string cloth=PlayerPrefs.GetString("SnowWhiteCloth");
-            Debug.Log("cloth 정보: " + PlayerPrefs.GetString("SnowWhiteCloth"));
-            Debug.Log("clear 정보: " + PlayerPrefs.GetString("SnowWhiteClear"));
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetString("SnowWhiteClear", "true");
             PlayerPrefs.SetString("SnowWhiteCloth", cloth);
-            Debug.Log("새로하기 후 cloth 정보: " + PlayerPrefs.GetString("SnowWhiteCloth"));
-            Debug.Log("새로하기 후 clear 정보: " + PlayerPrefs.GetString("SnowWhiteClear"));
         }
         else
         {
