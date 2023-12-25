@@ -95,7 +95,7 @@ public class SnowBoss4 : MonoBehaviour
     [SerializeField] private GameObject startUI;
     private void Awake()
     {
-        Transform child_transform = this.transform.GetChild(0);
+        Transform child_transform = this.transform.GetChild(1);
         //미러 애니메이션 갖고오기(쨍그랑)
         mirror_anim = child_transform.GetComponent<Animator>();
         child_transform = this.transform.GetChild(2);
