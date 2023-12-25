@@ -47,7 +47,6 @@ public class Pattern1Controller : MonoBehaviour
             // Get the Animator component of the Snowhite object
             animator = snowhiteTransform.GetComponent<Animator>();
             if (animator == null) {
-                Debug.Log("비상!");
             }
         }
 

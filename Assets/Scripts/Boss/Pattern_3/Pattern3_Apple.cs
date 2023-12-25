@@ -34,7 +34,6 @@ public class Pattern3_Apple : MonoBehaviour
         if (other.transform.CompareTag("Platform"))
         {
             _audioSource.PlayOneShot(_audioSource.clip);
-            Debug.Log(other.transform.name);
             bounceCount--;
             if (bounceCount >= 0)
             {

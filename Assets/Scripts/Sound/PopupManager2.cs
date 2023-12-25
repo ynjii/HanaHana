@@ -15,7 +15,6 @@ public class PopupManager2 : MonoBehaviour
     public void ShowPopup()
     {
         popup2.SetActive(true);
-        Debug.Log(this.gameObject.name + "에서 ShowPopup()호출" + popup2.gameObject.name + "이 팝업");
 
     }
 
@@ -23,7 +22,6 @@ public class PopupManager2 : MonoBehaviour
     public void ClosePopup()
     {
         popup2.SetActive(false);
-        Debug.Log(this.gameObject.name + "에서 ClosePopup()호출" + popup2.gameObject.name + "이 팝업");
 
     }
 

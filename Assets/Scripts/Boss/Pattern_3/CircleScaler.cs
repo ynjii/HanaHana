@@ -71,7 +71,6 @@ public class CircleScaler : MonoBehaviour
         }
         currentScale.x = Random.Range(minScale.x, maxScale.x);
 
-        Debug.Log($"currentPos: {currentPos}, currentScale: {currentScale}");
         transform.DOMove(currentPos, duration);
         transform.DOScale(currentScale, duration);
     }
@@ -101,7 +100,6 @@ public class CircleScaler : MonoBehaviour
         RaycastHit2D[] hits = Physics2D.RaycastAll( origin, dir, 100f );
         foreach (var hit in hits)
         {
-            Debug.Log($"{hit.transform.name}");
             if (hit.transform.gameObject == gameObject)
             {
                 return false;
