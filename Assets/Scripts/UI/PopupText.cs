@@ -51,6 +51,7 @@ public class PopupText : MonoBehaviour
             currentTextNum = 0;
             fix_panel.SetActive(false);
             popup_text_GO.SetActive(false);
+            Time.timeScale = 1f;
         }
         popup_text.text = text_list[currentTextNum];
     }

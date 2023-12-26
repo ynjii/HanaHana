@@ -84,9 +84,8 @@ public class GameManager : MonoBehaviour
         //만약 뒤로가기키 눌렀을때
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            exitPanel.SetActive(true); //exit팝업착 띄우기
-            Debug.Log("뭐지?");
             Time.timeScale = 0f; //시간 정지
+            exitPanel.SetActive(true); //exit팝업착 띄우기
         }
 
     }

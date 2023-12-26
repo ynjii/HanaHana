@@ -10,7 +10,7 @@ public class PopupManager : MonoBehaviour
     private void Start()
     {
         // 팝업창 초기화
-        popup.SetActive(false);
+        //popup.SetActive(false);
 
         // 버튼 클릭 시 동작 설정
         yesButton.onClick.AddListener(YesAction);

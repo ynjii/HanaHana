@@ -21,6 +21,7 @@ public class TutorialText : MonoBehaviour
     private List<string> text_list1_2 = new List<string>() { "그거 말고요.", "아이템을 전달하지 못하면 무시무시한 일이 생길 거예요.", "Good Luck!" };
     private List<string> text_list1_3 = new List<string>() { "튜토리얼이 끝났습니다. 이제 모험을 떠나볼까요?" };
     public GameObject SaveLoad;
+    public GameObject Button;
 
     void Start()
     {
@@ -33,8 +34,21 @@ public class TutorialText : MonoBehaviour
 
         else if (tutorial_flag == 0)
         {
-            popup_text_prefab.PopupTextList(text_list1_1, true);
-            SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 1);
+
+           
+            // this.object의 child인 prologue를 찾아서 처리
+            Transform prologue = transform.Find("Prologue");
+
+            if (prologue != null)
+            {
+                // prologue를 활성화하고 timescale을 0으로 만들기
+                Button.SetActive(false);
+                prologue.gameObject.SetActive(true);
+                Time.timeScale = 0f;
+
+                // 2초 뒤에 Destroy 호출
+                StartCoroutine(DestroyAfterDelay(prologue.gameObject, 5f));
+            }
         }
 
         else if (tutorial_flag == 2)
@@ -51,6 +65,15 @@ public class TutorialText : MonoBehaviour
         popup_text_prefab.PopupTextList(text_list1_3, true);
         SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 4);
         gameObject.SetActive(false);
+    }
+
+    IEnumerator DestroyAfterDelay(GameObject obj, float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        Destroy(obj);
+        popup_text_prefab.PopupTextList(text_list1_1, true);
+        SaveLoad.GetComponent<SaveLoad>().SaveDeathCount("tutorial", 1);
+        Button.SetActive(true);
     }
 
 }
