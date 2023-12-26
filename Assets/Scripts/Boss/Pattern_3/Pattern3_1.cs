@@ -45,11 +45,11 @@ public class Pattern3_1 : MonoBehaviour
     {
         if (_player.transform.localPosition.x > 0)
         {
-            return Random.Range(3, 8);
+            return Random.Range(3, 7);
         }
         else
         {
-            return Random.Range(-8, -3);
+            return Random.Range(-7, -3);
         }
     }
 
