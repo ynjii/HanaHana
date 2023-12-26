@@ -26,6 +26,7 @@ public class PopupManager : MonoBehaviour
     // 팝업창 닫기
     public void ClosePopup()
     {
+        Time.timeScale = 1f;
         popup.SetActive(false);
     }
 
@@ -38,7 +39,7 @@ public class PopupManager : MonoBehaviour
     // 아니오 버튼 동작
     public void NoAction()
     {
-        // 아니오 버튼을 눌렀을 때의 동작 추가
+        Time.timeScale = 1f;
         ClosePopup(); // 아니오 버튼을 누르면 팝업창을 닫도록 ClosePopup 함수를 호출합니다.
     }
 }
