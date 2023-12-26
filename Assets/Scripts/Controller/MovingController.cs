@@ -76,6 +76,7 @@ public class MovingController : ParentObstacleController
 
     private IEnumerator Move()
     {
+        initialPosition = transform.position;
         Vector3 targetPosition = CalculateTargetPosition(obDirection, distance);
 
         while (movedDistance < distance)
