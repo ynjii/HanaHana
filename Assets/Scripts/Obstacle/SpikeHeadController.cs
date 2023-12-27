@@ -9,7 +9,7 @@ public class SpikeHeadController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // Player와 충돌했을 때 해당 오브젝트의 자식 오브젝트들을 확인
-            foreach (Transform child in this.transform)
+            foreach (Transform child in transform)
             {
                 // 자식 오브젝트의 Swing 스크립트 비활성화
                 Swing swingScript = child.GetComponent<Swing>();
@@ -18,11 +18,11 @@ public class SpikeHeadController : MonoBehaviour
                     swingScript.enabled = false;
                 }
 
-                // 자식 오브젝트의 Swing2 스크립트 활성화
-                Swing2 swing2Script = child.GetComponent<Swing2>();
-                if (swing2Script != null)
+                // 자식 오브젝트의 Rotate2 스크립트 활성화
+                Rotate2 rotate2Script = child.GetComponent<Rotate2>();
+                if (rotate2Script != null)
                 {
-                    swing2Script.enabled = true;
+                    rotate2Script.enabled = true;
                 }
             }
         }

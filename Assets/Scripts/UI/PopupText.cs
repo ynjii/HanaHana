@@ -46,12 +46,12 @@ public class PopupText : MonoBehaviour
     /// <returns></returns>
     public void BTN_NextText()
     {
-        if (++currentTextNum >= text_list.Count)
+    Time.timeScale = 1f;                
+    if (++currentTextNum >= text_list.Count)
         {
             currentTextNum = 0;
             fix_panel.SetActive(false);
             popup_text_GO.SetActive(false);
-            Time.timeScale = 1f;
         }
         popup_text.text = text_list[currentTextNum];
     }
