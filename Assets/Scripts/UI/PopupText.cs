@@ -29,8 +29,8 @@ public class PopupText : MonoBehaviour
     /// <param name="is_fixed"></param>
     /// <returns></returns>
     public void PopupTextList(List<string> text_list_input, bool is_fixed)
-    {
-        popup_text_GO.SetActive(true);
+    {      
+    popup_text_GO.SetActive(true);
         text_list = text_list_input;
         popup_text.text = text_list[currentTextNum];
 
@@ -45,13 +45,13 @@ public class PopupText : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public void BTN_NextText()
-    {
-    Time.timeScale = 1f;                
+    {         
     if (++currentTextNum >= text_list.Count)
         {
             currentTextNum = 0;
             fix_panel.SetActive(false);
             popup_text_GO.SetActive(false);
+            Time.timeScale = 1f;     
         }
         popup_text.text = text_list[currentTextNum];
     }
