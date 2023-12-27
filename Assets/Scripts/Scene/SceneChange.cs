@@ -26,18 +26,28 @@ public class SceneChange : MonoBehaviour
     {
         /*if(EditorUtility.DisplayDialog("게임 세이브 정보 삭제", "정말 삭제 하시겠습니까?", "네", "아니오"))*/
         //백설공주 맵 깼을 시 다른데이터는 살려두기. 
-        if (PlayerPrefs.GetString("SnowWhiteClear") == "true")
-        {
-            string cloth=PlayerPrefs.GetString("SnowWhiteCloth");
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.SetString("SnowWhiteClear", "true");
-            PlayerPrefs.SetString("SnowWhiteCloth", cloth);
-        }
-        else
+        //홈씬에서 눌렀을 때
+        if (SceneManager.GetActiveScene().name == Define.Scene.MainScene.ToString())
         {
             PlayerPrefs.DeleteAll();
         }
-        
+        //스테이지씬에서 눌렀을 때
+        if (SceneManager.GetActiveScene().name == Define.Scene.StageScene.ToString())
+        {
+            if (PlayerPrefs.GetString("SnowWhiteClear") == "true")
+            {
+                string cloth = PlayerPrefs.GetString("SnowWhiteCloth");
+                PlayerPrefs.DeleteAll();
+                PlayerPrefs.SetString("SnowWhiteClear", "true");
+                PlayerPrefs.SetString("SnowWhiteCloth", cloth);
+            }
+            else
+            {
+                PlayerPrefs.DeleteAll();
+            }
+        }
+
+
         isNew = true;
         //SaveLoad.GetComponent<SaveLoad>().SaveBool("New", isNew);
         SceneManager.LoadScene("SnowWhite");
