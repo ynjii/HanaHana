@@ -24,6 +24,7 @@ public class Pattern1Controller : MonoBehaviour
     public GameObject SaveLoad;
     public AudioSource background;
     public GameObject pattern1Text;
+
     /// <summary>
     /// Player불러오기
     /// </summary>
@@ -51,6 +52,14 @@ public class Pattern1Controller : MonoBehaviour
         }
 
         StartCoroutine(Pattern());
+    }
+
+    void Update()
+    {
+        if (player.player_state == Define.PlayerState.Damaged)
+        {
+            StopAllCoroutines();
+        }
     }
 
     IEnumerator Pattern()
