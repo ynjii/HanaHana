@@ -72,9 +72,6 @@ public class SceneChange : MonoBehaviour
 
     public void TurnOffGame()
     {
-        //if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // 에디터에서 실행 중인 경우 종료
-        //else
         Application.Quit(); // 빌드된 게임에서 실행 중인 경우 종료
     }
 }
