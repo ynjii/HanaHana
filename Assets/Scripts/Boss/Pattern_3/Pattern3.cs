@@ -108,6 +108,12 @@ public class Pattern3 : MonoBehaviour
                 _patterns[j].SetActive(false);
             }
             
+            // 게임오버가 되었다면 이후 패턴 진행x
+            if (GameManager.instance.isGameover)
+            {
+                break;
+            }
+            
             yield return new WaitForSeconds(2f);
             //패턴활성화
             PatternActivate(rand);
