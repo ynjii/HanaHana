@@ -13,6 +13,7 @@ public class MossWall : MonoBehaviour
     private bool hasAppliedForce = false;
     private bool autoExit = true;
     private GameObject playerOnWall;
+    private Player playerScript;
     private Rigidbody2D playerRigidbody;
     private int exitCount = 1;
 
@@ -22,6 +23,12 @@ public class MossWall : MonoBehaviour
         {
             exitCount = 1;
             playerOnWall = collision.gameObject;
+            // player 스크립트 가져오기
+            playerScript = playerOnWall.GetComponent<Player>();
+
+            // player 스크립트가 null이 아닌지와 변수가 있는지 확인
+            if (playerScript != null)
+                --playerScript.isMoss;
             audioSource.Play(); //재생
             StartCoroutine(SlidePlayerDown(collision.gameObject.transform));
         }
@@ -59,11 +66,14 @@ public class MossWall : MonoBehaviour
 
     void Update()
     {
-        if (playerOnWall && isSliding&&(Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)))
+        if (playerOnWall && isSliding) {
+        if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)||(playerScript != null&& playerScript.isMoss == 1))
         {
+            playerScript.isMoss = 0;
             autoExit = false;
             ExitMossWall();
             autoExit = true;
+            }
         }
     }
 

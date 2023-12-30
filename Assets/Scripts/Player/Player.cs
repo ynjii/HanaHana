@@ -79,6 +79,8 @@ public class Player : MonoBehaviour
     private bool isIce = false;
     //세이브 관련 변수인듯(소연)
     public GameObject SaveLoad;
+    [HideInInspector]
+    public int isMoss = 0;
     //서현 변수: 입력무시용 변수
     public bool movable = true;
 
@@ -348,6 +350,7 @@ public class Player : MonoBehaviour
             //점프키범위
             if (touch.position.x >= Screen.width * 0.5f && touch.position.x < jumpButtonEnd)
             {
+                isMoss = 1;
                 //그리고 점프중일때 또 점프하지못하게 해야함
                 //점프키누르면
                 //노말라이즈드로 한 거 이제보니 항상 -1,1,0만 되니까 JUMP_CRITERIA 변수가 의미없어지네..?
