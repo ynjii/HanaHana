@@ -22,5 +22,7 @@ public class RealItem : MonoBehaviour
         }
         PlayerPrefs.SetString("RealItem", _realItemName);
         _player.GetComponent<Player>().ChangeSprites();
+        GameObject.Find("RealItemSound").GetComponent<AudioSource>().Play();
+        this.gameObject.SetActive(false);
     }
 }
