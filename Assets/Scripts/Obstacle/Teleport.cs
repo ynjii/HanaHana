@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangePos : MonoBehaviour
+public class Teleport : MonoBehaviour
 {
     [SerializeField]
     Vector3 newPos = new Vector3(0, 0, 0);
