@@ -122,17 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f2a41e9e6b4043a1e11902bafd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpposite: 0
   obType: 0
   obDirection: 3
   gravity_scale: 4
-  isPlatform: 0
-  isOpposite: 0
+  isMovingPlatform: 0
+  isLeftDown: 0
   color: 0
   size: 0
   rend_order: 0
   isCol: 0
   isMoving: 1
-  isEnable: 0
   waitingTime: 0
   distance: 20
   speed: 6
@@ -168,7 +168,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e23f32a62b35b9542951b286f02e0272, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
