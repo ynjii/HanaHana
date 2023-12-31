@@ -17,12 +17,21 @@ public class Pattern3_1 : MonoBehaviour
     public int _reflectionsNum = 4;
     public int max, min;
 
+    private float xRatio;
+
     private bool _lookAtPlayer = true;
     private Vector3 fixedDir;
     static public bool isAppleDestroyed = true;
 
+    [SerializeField] private Camera _mainCamera;
+
     private void Start()
     {
+        // 18.0f => 유니티 기준 화면 크기
+        float xScreenHalfSize = _mainCamera.orthographicSize * _mainCamera.aspect;
+        xRatio = (xScreenHalfSize * 2.0f) / 18.0f;
+        Debug.Log($"xRatio: {xRatio}");
+        
         _lineRenderer = GetComponent<LineRenderer>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _audioSource = gameObject.GetComponent<AudioSource>();
@@ -41,15 +50,15 @@ public class Pattern3_1 : MonoBehaviour
         yield return new WaitForSeconds(3f);
     }
 
-    private int GetShooterRange()
+    private float GetShooterRange()
     {
         if (_player.transform.localPosition.x > 0)
         {
-            return Random.Range(3, 7);
+            return Random.Range(3f * xRatio, 7f * xRatio);
         }
         else
         {
-            return Random.Range(-7, -3);
+            return Random.Range(-7f * xRatio, -3f * xRatio);
         }
     }
 

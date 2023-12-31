@@ -19,12 +19,30 @@ public class CircleScaler : MonoBehaviour
     private Vector3 minPosition = new Vector3(-7, -3, 0);
     private bool isPatternEnd = true;
     private bool isGameOver = false;
-    
+
+    private float xRatio;
+    private float yRatio;
+
+    [SerializeField] private Camera _mainCamera;
     private Vector3 currentPos, currentScale = new Vector3(0,0,0);
-    public CameraController _cameraController;
 
     private void Start()
     {
+        // 화면 크기에 맞게 min, max 값 조정
+        float xScreenHalfSize = _mainCamera.orthographicSize * _mainCamera.aspect;
+        float yScreenHalfSize = _mainCamera.orthographicSize;
+
+        // 18.0f => 유니티 기준 화면 크기
+        xRatio = (xScreenHalfSize * 2.0f) / 18.0f;
+        xRatio = (yScreenHalfSize * 2.0f) / 10.0f;
+
+        initScale = new Vector3(initScale.x * xRatio, initScale.y * yRatio, initScale.z);
+        maxScale = new Vector3(maxScale.x * xRatio, maxScale.y * yRatio, maxScale.z);
+        minScale = new Vector3(minScale.x * xRatio, minScale.y * yRatio, minScale.z);
+        maxPosition = new Vector3(maxPosition.x * xRatio, maxPosition.y * yRatio, maxPosition.z);
+        minPosition = new Vector3(minPosition.x * xRatio, minPosition.y * yRatio, minPosition.z);
+        
+        // 패턴 초기 위치 플레이어 위치로 고정
         playerTransform = GameObject.FindWithTag("Player").transform;
         _playerScript = playerTransform.gameObject.GetComponent<Player>();
         transform.position = playerTransform.position;
@@ -41,6 +59,10 @@ public class CircleScaler : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (_playerScript.Invincibility == false)
+        {
+            isGameOver = CheckGameOver();
+        }
         if (isGameOver&&!_playerScript.Invincibility)
         {
             _playerScript.Die(transform.position);
@@ -81,7 +103,7 @@ public class CircleScaler : MonoBehaviour
         do {
             posX = Random.Range(minPosition.x, maxPosition.x);
             delatX = Mathf.Abs((posX - currentPos.x));
-        } while (delatX < 4f || delatX > 9f);
+        } while (delatX < 4f * xRatio || delatX > 9f * xRatio);
         return posX;
     }
 
@@ -95,6 +117,10 @@ public class CircleScaler : MonoBehaviour
     
     bool CheckGameOver()
     {
+        if (_playerScript.Invincibility)
+        {
+            return false;
+        }
         Vector3 origin = new Vector3(playerTransform.position.x, playerTransform.position.y, 50f);
         Vector3 dir = playerTransform.position - origin;
         RaycastHit2D[] hits = Physics2D.RaycastAll( origin, dir, 100f );
