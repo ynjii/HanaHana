@@ -34,7 +34,7 @@ public class CircleScaler : MonoBehaviour
 
         // 18.0f => 유니티 기준 화면 크기
         xRatio = (xScreenHalfSize * 2.0f) / 18.0f;
-        xRatio = (yScreenHalfSize * 2.0f) / 10.0f;
+        yRatio = (yScreenHalfSize * 2.0f) / 10.0f;
 
         initScale = new Vector3(initScale.x * xRatio, initScale.y * yRatio, initScale.z);
         maxScale = new Vector3(maxScale.x * xRatio, maxScale.y * yRatio, maxScale.z);
@@ -47,6 +47,8 @@ public class CircleScaler : MonoBehaviour
         _playerScript = playerTransform.gameObject.GetComponent<Player>();
         transform.position = playerTransform.position;
         transform.localScale = initScale;
+
+        StartCoroutine(CheckGameOverAfterInvincOver());
     }
 
     private void Update()
@@ -59,10 +61,6 @@ public class CircleScaler : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_playerScript.Invincibility == false)
-        {
-            isGameOver = CheckGameOver();
-        }
         if (isGameOver&&!_playerScript.Invincibility)
         {
             _playerScript.Die(transform.position);
@@ -132,5 +130,11 @@ public class CircleScaler : MonoBehaviour
             }
         }
         return true;
+    }
+
+    IEnumerator CheckGameOverAfterInvincOver()
+    {
+        yield return new WaitForSeconds(1.1f);
+        isGameOver = CheckGameOver();
     }
 }
