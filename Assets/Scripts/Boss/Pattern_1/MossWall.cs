@@ -11,17 +11,15 @@ public class MossWall : MonoBehaviour
     [SerializeField] float jumpingSpeed = 12f;
     private bool isSliding = false;
     private bool hasAppliedForce = false;
-    private bool autoExit = true;
+    private bool autoExit = false;
     private GameObject playerOnWall;
     private Player playerScript;
     private Rigidbody2D playerRigidbody;
-    private int exitCount = 1;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            exitCount = 1;
             playerOnWall = collision.gameObject;
             // player 스크립트 가져오기
             playerScript = playerOnWall.GetComponent<Player>();
@@ -34,15 +32,14 @@ public class MossWall : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.gameObject.CompareTag("Player") && autoExit &&exitCount>0)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            exitCount--;
+            autoExit = true;
             ExitMossWall();
         }
     }
-
 
     private IEnumerator SlidePlayerDown(Transform playerTransform)
     {
@@ -70,9 +67,7 @@ public class MossWall : MonoBehaviour
         if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)||(playerScript != null&& playerScript.isMoss == 1))
         {
             playerScript.isMoss = 0;
-            autoExit = false;
             ExitMossWall();
-            autoExit = true;
             }
         }
     }
@@ -91,9 +86,20 @@ public class MossWall : MonoBehaviour
             playerRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (!autoExit)
             {
-                Vector3 force = Vector3.up * jumpingSpeed;
-                playerRigidbody.AddForce(force, ForceMode2D.Impulse);
+                if (playerOnWall.GetComponent<SpriteRenderer>().flipX)
+                {
+                    // 왼쪽으로 점프
+                    Vector3 force = new Vector3(-100, jumpingSpeed, 0);
+                    playerRigidbody.AddForce(force, ForceMode2D.Impulse);
+                }
+                else
+                {
+                    // 오른쪽으로 점프
+                    Vector3 force = new Vector3(100, jumpingSpeed, 0);
+                    playerRigidbody.AddForce(force, ForceMode2D.Impulse);
+                }
             }
+            autoExit = false;
             hasAppliedForce = true; // Set the flag to true after applying force
         }
     }
