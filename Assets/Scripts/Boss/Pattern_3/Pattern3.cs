@@ -19,6 +19,7 @@ public class Pattern3 : MonoBehaviour
     [SerializeField] private GameObject _fadeOutUI;
     Player _player;
     bool isEnd = false;
+    bool once = false;
     [SerializeField] GameObject startText;
     [SerializeField] GameObject naruto;
     [SerializeField] GameObject snowWhite;
@@ -31,7 +32,7 @@ public class Pattern3 : MonoBehaviour
 
     private void Update()
     {
-        if (_bossHP.currentHP <= 0 && (!GameManager.instance.isGameover||_player.player_state!=Define.PlayerState.Damaged))
+        if (_bossHP.currentHP <= 0 && (!GameManager.instance.isGameover||_player.player_state!=Define.PlayerState.Damaged)&&!once)
         {
             StartCoroutine(PatternChange());
         }
@@ -40,6 +41,7 @@ public class Pattern3 : MonoBehaviour
 
     IEnumerator PatternChange()
     {
+        once = true;
         foreach (var pattern in _patterns)
         {
             pattern.SetActive(false);
@@ -57,8 +59,10 @@ public class Pattern3 : MonoBehaviour
         naruto.SetActive(true);
         snowWhite.SetActive(false);
         yield return new WaitForSeconds(2f);
+        StartCoroutine(LastText());
+        yield return new WaitForSeconds(4f);
         _fadeOutUI.SetActive(true);
-        
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("SnowBoss4");
     }
 
@@ -143,6 +147,19 @@ public class Pattern3 : MonoBehaviour
         {
             startText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Go to circle!";
         }
+        yield return new WaitForSeconds(2f);
+        startText.SetActive(false);
+    }
+    IEnumerator LastText()
+    {
+        //후반멘트        
+        startText.SetActive(true);
+        
+        startText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "백설이가 하늘로 도망갔어요!";
+                
+        yield return new WaitForSeconds(2f);
+        startText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Now you can fly!";
+
         yield return new WaitForSeconds(2f);
         startText.SetActive(false);
     }
