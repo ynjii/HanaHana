@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Define;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 백설공주4패턴 스크립트
@@ -487,6 +488,8 @@ public class SnowBoss4 : MonoBehaviour
         yield return null;
         //코루틴 다 꺼주고
         StopAllCoroutines();
+        //문구띄워주기
+        StartCoroutine(ShowLastText());
         foreach (GameObject obj in afterKilledFlames)
         {
             //불꽃 켜주고
@@ -563,6 +566,14 @@ public class SnowBoss4 : MonoBehaviour
         yield return new WaitForSeconds(time);
         playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
         player_script.Invincibility = false;
+    }
+   IEnumerator ShowLastText()
+    {
+        startUI.SetActive(true);
+        startUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Keep jumping!";
+        yield return new WaitForSeconds(2f);
+        startUI.SetActive(false);
+        yield return null;
     }
     IEnumerator showStartText()
     {
