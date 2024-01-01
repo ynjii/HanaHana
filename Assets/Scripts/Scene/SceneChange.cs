@@ -32,7 +32,7 @@ public class SceneChange : MonoBehaviour
             PlayerPrefs.DeleteAll();
         }
         //스테이지씬에서 눌렀을 때
-        if (SceneManager.GetActiveScene().name == Define.Scene.StageScene.ToString())
+        if (SceneManager.GetActiveScene().name == Define.Scene.StageScene.ToString()|| SceneManager.GetActiveScene().name == Define.Scene.SnowBossClear.ToString())
         {
             if (PlayerPrefs.GetString("SnowWhiteClear") == "true")
             {

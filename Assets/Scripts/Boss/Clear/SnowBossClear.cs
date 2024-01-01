@@ -20,6 +20,7 @@ public class SnowBossClear : MonoBehaviour
     [SerializeField] GameObject goToEndingPotal;
 
     private Player playerScript;
+    private SceneChange clearData;
     private void Awake()
     {
         playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -32,6 +33,7 @@ public class SnowBossClear : MonoBehaviour
         Transform parent_trans = fadeOutPanel.gameObject.transform.parent;
         //켜주기
         parent_trans.gameObject.SetActive(true);
+        clearData = new SceneChange();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -115,7 +117,7 @@ public class SnowBossClear : MonoBehaviour
         texts[3].SetActive(false);
         GameObject.Find("FadePrefab").GetComponent<FadeInOut>().StartFade = true;
         yield return new WaitForSeconds(3f);
-        PlayerPrefs.DeleteAll();
+        clearData.new_Change();
         SceneManager.LoadScene(Define.Scene.SnowWhite.ToString());
         yield return null;
     }
