@@ -15,28 +15,37 @@ public class BrokenMirror : MonoBehaviour
     public SpriteRenderer before_img;
     public Sprite after_img;
 
-
     [SerializeField]
     private BlockType blType;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (blType == BlockType.Once)
-        {//처음 밟아도 죽을 때
-            AudioSource audio = GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
-            if (audio != null && audio.clip.name == "glasscrack")
-            {
-                audio.Play();
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (blType == BlockType.Once)
+            {//처음 밟아도 죽을 때
+                AudioSource audio = GameObject.FindWithTag("SoundController").GetComponent<AudioSource>();
+                if (audio != null && audio.clip.name == "glasscrack")
+                {
+                    audio.Play();
+                }
+                Invoke("setActiveFalse", 0.5f);
             }
-            Invoke("setActiveFalse", 0.5f);
-        }
-        else if (blType == BlockType.Second)
-        {//Second일 때, 아직 안 밟았을 때
-            before_img.sprite = after_img;
-            blType--;
+            else if (blType == BlockType.Second)
+            {//Second일 때, 아직 안 밟았을 때
+                before_img.sprite = after_img;
+                Invoke("DecrementBlockType", 0.5f);
+            }
+
         }
     }
-
+    private void DecrementBlockType()
+    {
+        if (blType == BlockType.Second)
+        {
+            blType--; // 두 번째 밟았을 때만 감소
+        }
+    }
     private void setActiveFalse()
     {
         this.gameObject.SetActive(false);
