@@ -562,7 +562,7 @@ public class Player : MonoBehaviour
         //레이어변경
         this.gameObject.layer = 7;
         //리액션
-        if(SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString())
+        if(SceneManager.GetActiveScene().name == Define.Scene.SnowBoss4.ToString()||SceneManager.GetActiveScene().name==Define.Scene.MerMaid.ToString())
         {
             //터져죽기
             anim.SetBool("isBrokenDie", true);
