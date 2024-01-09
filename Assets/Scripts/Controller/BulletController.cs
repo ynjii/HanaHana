@@ -24,6 +24,8 @@ public class BulletController : ParentObstacleController //타일맵에서는 �
     [SerializeField] private float spewDuration = 3f; // 불이 사라지는 시간
     [SerializeField] private float force = 10f; //불에게 주어지는 힘
 
+    [SerializeField] private int roundNum = 15;
+
     // 각도 증가 단계
     [SerializeField]
     private float angleStep = 30f;
@@ -60,8 +62,29 @@ public class BulletController : ParentObstacleController //타일맵에서는 �
 
     IEnumerator SpewWithCircle()
     {   
-      
-        yield return null;
+        while(true){
+            for (int i = 0; i < roundNum; i++)
+                {
+                    objInstance = Instantiate(objPrefab, transform.position, Quaternion.identity);
+                    Rigidbody2D objRigidbody = objInstance.GetComponent<Rigidbody2D>();
+
+                    Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNum), Mathf.Sin(Mathf.PI * 2 * i / roundNum));
+                    
+                    if (wantParent)
+                    {
+                        objInstance.transform.parent = parentTransform;
+                    }
+
+                    if (objRigidbody != null)
+                    {
+                         objRigidbody.AddForce(dirVec.normalized * force, ForceMode2D.Impulse);
+                    }
+
+                    yield return new WaitForSeconds(spewDuration);
+                    Destroy(objInstance);
+                }
+        yield return new WaitForSeconds(spewInterval);
+        }
     }
 
     IEnumerator SpewWithDegree()
