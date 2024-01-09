@@ -55,11 +55,6 @@ public class MovingController : ParentObstacleController
     /// </summary>
     [SerializeField] LineRenderer line;
     [SerializeField] bool repeatLine = false;//라인을 반복해서 움직이는지, 라인의 끝 꼭짓점 가면 끝나는지
-
-    /// <summary>
-    /// BlowAway변수들
-    /// </summary>
-    private GameObject player; //날아갈 player, collider 충돌 시에 받아온다.
     
     public override IEnumerator Activate()
     {
@@ -169,14 +164,6 @@ public class MovingController : ParentObstacleController
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            player = collision.gameObject;
-        }
-    }
-
     private void BlowAway(ObDirection obDirection) 
     {
         Rigidbody2D player_rigid = player.GetComponent<Rigidbody2D>();
@@ -191,11 +178,11 @@ public class MovingController : ParentObstacleController
                 break;
 
             case ObDirection.Left:
-                player_rigid.AddForce(new Vector2(-speed, 0));
+                player_rigid.AddForce(new Vector2(-speed, speed));
                 break;
 
             case ObDirection.Right:
-                player_rigid.AddForce(new Vector2(speed, 0));
+                player_rigid.AddForce(new Vector2(speed, speed));
                 break;
         }
     }
