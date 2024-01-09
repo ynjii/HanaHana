@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class SpriteController : ParentObstacleController
 {
@@ -11,6 +12,9 @@ public class SpriteController : ParentObstacleController
         ChangeSprite,//스프라이트변경
         FlipSprite,//플립
         StartAnimation//애니메이션 한번 호출. 더 많이 하려면 스크립트 수정해야함. 현민에게 문의
+
+        //애초에 타일맵은 애니메이터 존재 X 타일맵은 애니메이션 바꾸려면 그냥 타일맵을 하나 삭제하고 새로운 걸 나오게 하든지 해야함
+    
     }
     public enum RendererOrder
     {
@@ -28,6 +32,8 @@ public class SpriteController : ParentObstacleController
 
     private Renderer renderer;
     private SpriteRenderer spriteRenderer;
+    private Tilemap tilemap;
+    private Vector3Int cellPosition;
     [SerializeField] private ObType obType;
 
     /// <summary>
@@ -60,7 +66,7 @@ public class SpriteController : ParentObstacleController
             case ObType.StartAnimation:
                 StartCoroutine(StartAnimation(anim, animName));
                 break;
-            case ObType.ChangeRendererOrder:
+            case ObType.ChangeRendererOrder: //타일맵, 스프라이트 모두 가능
                 StartCoroutine(ChangeRendererOrder());
                 break;
             case ObType.ChangeSprite:
