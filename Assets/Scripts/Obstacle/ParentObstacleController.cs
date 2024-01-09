@@ -13,7 +13,7 @@ public class ParentObstacleController : MonoBehaviour
     [SerializeField] private float waitingTime = 0f;
     [SerializeField] private Define.Tags colTag = Define.Tags.Player;
 
-    private GameObject player;
+    protected GameObject player;
 
     IEnumerator WaitforGivenTime()
     {
