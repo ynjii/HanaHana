@@ -582,7 +582,7 @@ Tilemap:
       - {fileID: 412763684, guid: 968652dd81cfa1445820f81473802eba, type: 3}
       - {fileID: 1097740618, guid: 968652dd81cfa1445820f81473802eba, type: 3}
       - {fileID: 1499628637, guid: 968652dd81cfa1445820f81473802eba, type: 3}
-      m_AnimationSpeed: 2.3721347
+      m_AnimationSpeed: 2.3443575
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -748,6 +748,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!58 &141618659
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -773,9 +774,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 158709184}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock_col (2)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3309,9 +3310,9 @@ GameObject:
   - component: {fileID: 304325780}
   - component: {fileID: 304325782}
   - component: {fileID: 304325781}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7477,6 +7478,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &438575592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7663,9 +7665,9 @@ GameObject:
   - component: {fileID: 440307759}
   - component: {fileID: 440307761}
   - component: {fileID: 440307760}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock (1)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8247,6 +8249,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &484278233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9136,6 +9139,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &521485066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10099,6 +10103,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &598960295
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10406,6 +10411,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!82 &609984031
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11662,6 +11668,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &671167089
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11711,6 +11718,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &671167091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13150,6 +13158,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!82 &847515476
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15868,7 +15877,7 @@ Tilemap:
       - {fileID: 412763684, guid: 968652dd81cfa1445820f81473802eba, type: 3}
       - {fileID: 1097740618, guid: 968652dd81cfa1445820f81473802eba, type: 3}
       - {fileID: 1499628637, guid: 968652dd81cfa1445820f81473802eba, type: 3}
-      m_AnimationSpeed: 2.2134056
+      m_AnimationSpeed: 2.303792
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -16008,6 +16017,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &1082813615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17038,6 +17048,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &1192009165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17085,6 +17096,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &1192009167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17938,9 +17950,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1350691240}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock_col (3)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35464,9 +35476,9 @@ GameObject:
   - component: {fileID: 1457957355}
   - component: {fileID: 1457957353}
   - component: {fileID: 1457957356}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: spin2
-  m_TagString: Slope
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38017,7 +38029,7 @@ Tilemap:
       - {fileID: 412763684, guid: 968652dd81cfa1445820f81473802eba, type: 3}
       - {fileID: 1097740618, guid: 968652dd81cfa1445820f81473802eba, type: 3}
       - {fileID: 1499628637, guid: 968652dd81cfa1445820f81473802eba, type: 3}
-      m_AnimationSpeed: 2.0379128
+      m_AnimationSpeed: 2.1605365
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -38157,6 +38169,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &1533345837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38206,6 +38219,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!58 &1533345839
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -38980,6 +38994,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &1550912948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41642,6 +41657,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &1605624383
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -44196,6 +44212,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &1694475876
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -44765,6 +44782,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &1702919109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45985,6 +46003,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!114 &1886316069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46248,6 +46267,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &1894577612
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -46557,6 +46577,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!82 &1898980876
 AudioSource:
   m_ObjectHideFlags: 0
@@ -47468,6 +47489,7 @@ MonoBehaviour:
   _transform: {fileID: 0}
   line: {fileID: 0}
   repeatLine: 0
+  isOpposite: 0
 --- !u!61 &1944131933
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -51310,9 +51332,9 @@ GameObject:
   - component: {fileID: 2084367927}
   - component: {fileID: 2084367929}
   - component: {fileID: 2084367928}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51424,9 +51446,10 @@ GameObject:
   - component: {fileID: 2084584750}
   - component: {fileID: 2084584749}
   - component: {fileID: 2084584748}
-  m_Layer: 6
+  - component: {fileID: 2084584753}
+  m_Layer: 8
   m_Name: crabjump
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51439,7 +51462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084584746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.64, y: -5.24, z: 0}
+  m_LocalPosition: {x: -6, y: -5.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51724,6 +51747,30 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2084584753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084584746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e8f03e434b28458c922a4be7c0577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMovingFromStart: 1
+  isCol: 0
+  waitingTime: 0
+  colTag: 2
+  obType: 5
+  obDirection: 6
+  distance: 4
+  speed: 5
+  _transform: {fileID: 0}
+  line: {fileID: 0}
+  repeatLine: 0
+  isOpposite: 0
 --- !u!1 &2087904467
 GameObject:
   m_ObjectHideFlags: 0
@@ -51735,9 +51782,9 @@ GameObject:
   - component: {fileID: 2087904468}
   - component: {fileID: 2087904470}
   - component: {fileID: 2087904469}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock (1)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54521,9 +54568,9 @@ GameObject:
   - component: {fileID: 3851881122446787679}
   - component: {fileID: 3851881122446787677}
   - component: {fileID: 3851881122446787676}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock (1)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54552,9 +54599,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3851881122663795829}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock_col (2)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54602,9 +54649,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3851881122947070810}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock_col (3)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54699,9 +54746,9 @@ GameObject:
   - component: {fileID: 3851881123314906281}
   - component: {fileID: 3851881123314906283}
   - component: {fileID: 3851881123314906286}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: spin
-  m_TagString: Slope
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54858,9 +54905,9 @@ GameObject:
   - component: {fileID: 3851881123508422700}
   - component: {fileID: 3851881123508422698}
   - component: {fileID: 3851881123508422701}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock (1)
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54954,9 +55001,9 @@ GameObject:
   - component: {fileID: 3851881123570458837}
   - component: {fileID: 3851881123570458835}
   - component: {fileID: 3851881123570458834}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55065,9 +55112,9 @@ GameObject:
   - component: {fileID: 3851881124390340721}
   - component: {fileID: 3851881124390340719}
   - component: {fileID: 3851881124390340718}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: rock
-  m_TagString: Platform
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
