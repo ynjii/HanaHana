@@ -664,7 +664,7 @@ public class Player : MonoBehaviour
     }
     private void Swim()
     {
-        if (SceneManager.GetActiveScene().name == Define.Scene.MerMaid.ToString()||SceneManager.GetActiveScene().name=="YujinTest")
+        if (SceneManager.GetActiveScene().name == Define.Scene.MerMaid.ToString()||SceneManager.GetActiveScene().name=="YujinTest"|| SceneManager.GetActiveScene().name == "YujinMerMaid")
         {
             if (isWater)
             {
