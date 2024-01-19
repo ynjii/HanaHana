@@ -21,7 +21,6 @@ public class EnemyController : MonoBehaviour
     private float moveDirection; //일단 오른쪽으로 출발한다는 전제.
     private Rigidbody2D rigid;
     private Animator anim;
-    private Transform enemyTransform;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,7 +31,6 @@ public class EnemyController : MonoBehaviour
             anim = GetComponent<Animator>();
         }
         moveDirection = moveForward ? 1f : -1f;
-        enemyTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -60,20 +58,17 @@ public class EnemyController : MonoBehaviour
     }
     //원래는 raycast 사용하려고 했는데 힘들었다. 그냥 빈 object 넣어서 platform 처리시킴. 이렇게 해도 되는지 의문이지만... 뭐 아무튼 trigger처리해놔서 큰 문제는 없었다...
     private void OnTriggerEnter2D(Collider2D collision)
-{
-    if (collision.gameObject.CompareTag("Platform"))
     {
-        moveForward = !moveForward;
-        
-        Vector3 enemyScale = enemyTransform.localScale;
-        enemyScale.x = (enemyScale.x == -1) ? 1 : -1;
-        enemyTransform.localScale = enemyScale;
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            moveForward = !moveForward;
+            this.GetComponent<SpriteRenderer>().flipX = !this.GetComponent<SpriteRenderer>().flipX;
+        }
+        if (collision.gameObject.CompareTag("Player") && isJump)
+        {
+            Jump();
+        }
     }
-    if (collision.gameObject.CompareTag("Player") && isJump)
-    {
-        Jump();
-    }
-}
     //이거는 사과맵 중간에 점프하는 난쟁이. 스크립트 분리를 하는게 맞는 것 같다. 그리고 보니까 뛰는 속도가 더 빨라야 하나? 싶기도. 
     //아무튼 플레이하는 거 보니까 원하는대로 작동 안하는 느낌이 있엇음.
     private void Jump()
