@@ -125,6 +125,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -140,7 +152,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 0, y: 1}
+        - {x: -5, y: -1}
+        - {x: -8, y: -3}
+        - {x: -2, y: -7}
+        - {x: 7, y: -7}
+        - {x: 7, y: -2}
+        - {x: 6, y: 1}
       tessellationDetail: 0
       bones: []
       spriteID: d972f36cec1c2ef449f0976e5a8f2bc3
@@ -161,7 +180,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -7, y: -3}
+        - {x: -7, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -1}
+        - {x: 6, y: 2}
+        - {x: 0, y: 1}
       tessellationDetail: 0
       bones: []
       spriteID: 55e7890007092b04f86b83f9e9a79e87
@@ -182,7 +207,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1, y: 2}
+        - {x: -7, y: -3}
+        - {x: -7, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 0}
+        - {x: 5, y: 2}
       tessellationDetail: 0
       bones: []
       spriteID: a849aa00cc390d740a3320f9497d15d4
@@ -203,7 +234,15 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -1, y: 2}
+        - {x: -6, y: 0}
+        - {x: -7, y: -3}
+        - {x: -6, y: -6}
+        - {x: 6, y: -7}
+        - {x: 9, y: -5}
+        - {x: 7, y: 0}
+        - {x: 6, y: 2}
       tessellationDetail: 0
       bones: []
       spriteID: e5f370e5ebeb084439e9f30d2d5a0de6
