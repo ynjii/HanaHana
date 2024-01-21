@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1636998306356988495}
   - component: {fileID: 1636998306356988493}
   - component: {fileID: 1636998306356988494}
+  - component: {fileID: 7398799820031822188}
   m_Layer: 9
   m_Name: octopus1
   m_TagString: Enemy
@@ -160,12 +161,37 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.5625, y: 0.5}
-      - {x: 0.25, y: 0.4375}
-      - {x: -0.25, y: -0.1875}
-      - {x: -0.25, y: -0.6875}
-      - {x: -0.1875, y: -0.9375}
-      - {x: 0.6875, y: -0.9375}
-      - {x: 1, y: -0.8125}
-      - {x: 1, y: 0.4375}
-      - {x: 0.875, y: 0.5}
+    - - {x: 0.6079407, y: 0.31313324}
+      - {x: 0.3692627, y: 0.23256493}
+      - {x: 0.2987213, y: 0.017820358}
+      - {x: 0.55300903, y: 0.01956749}
+      - {x: 0.52272034, y: -0.12690163}
+      - {x: 0.14222717, y: -0.13144875}
+      - {x: -0.025894165, y: -0.43750572}
+      - {x: 0.020843506, y: -0.6496258}
+      - {x: 0.93434143, y: -0.6458359}
+      - {x: 0.7330017, y: -0.1346302}
+      - {x: 0.76293945, y: -0.009525299}
+      - {x: 0.94007874, y: 0.084121704}
+      - {x: 0.94444275, y: 0.2556839}
+      - {x: 0.7992554, y: 0.2929306}
+--- !u!95 &7398799820031822188
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636998306356988502}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c3582d22fcb9b54682f4e0d91c5ebfe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
