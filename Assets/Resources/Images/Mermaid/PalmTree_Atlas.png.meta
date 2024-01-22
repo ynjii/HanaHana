@@ -113,6 +113,30 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -125,10 +149,18 @@ TextureImporter:
         width: 72
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 15, y: 30}
+        - {x: -28, y: 30}
+        - {x: -30, y: -9}
+        - {x: -12, y: -11}
+        - {x: -20, y: -28}
+        - {x: 17, y: -28}
+        - {x: 2.0980606, y: -5.8898907}
+        - {x: 24.21053, y: 0.5263176}
       tessellationDetail: 0
       bones: []
       spriteID: 3a20f488c0f889c4b99f59d9e79f968b
@@ -146,10 +178,18 @@ TextureImporter:
         width: 72
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 25, y: -1}
+        - {x: 15, y: 29}
+        - {x: -27, y: 29}
+        - {x: -30, y: -10}
+        - {x: -12, y: -12}
+        - {x: -22, y: -28}
+        - {x: 12, y: -28}
+        - {x: 1, y: -4}
       tessellationDetail: 0
       bones: []
       spriteID: 6e7d84393480ed24e8493f0180c49365
