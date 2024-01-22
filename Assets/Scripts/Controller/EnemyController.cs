@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     private float moveDirection; //일단 오른쪽으로 출발한다는 전제.
     private Rigidbody2D rigid;
     private Animator anim;
+    private Transform enemyTransform;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
             anim = GetComponent<Animator>();
         }
         moveDirection = moveForward ? 1f : -1f;
+        enemyTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -62,7 +64,10 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             moveForward = !moveForward;
-            this.GetComponent<SpriteRenderer>().flipX = !this.GetComponent<SpriteRenderer>().flipX;
+
+            Vector3 enemyScale = enemyTransform.localScale;
+            enemyScale.x = (enemyScale.x == -1) ? 1 : -1;
+            enemyTransform.localScale = enemyScale;
         }
         if (collision.gameObject.CompareTag("Player") && isJump)
         {
