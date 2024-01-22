@@ -36,6 +36,17 @@ public class ChangeBGAndBGM : MonoBehaviour
                         audioSources[2].enabled = false;
                     }
                 }
+                if (_transform.position.x > 162)
+                {
+                    Image sky_image = Sky.GetComponent<Image>();
+                    sky_image.sprite = backgrounds[1];
+                    if (audioSources != null)
+                    {
+                        audioSources[0].enabled = false;
+                        audioSources[1].enabled = true;
+                        audioSources[2].enabled = false;
+                    }
+                }
                 return;
             case SceneType.SnowWhite:
                 if (_transform.position.x < 382) { 
