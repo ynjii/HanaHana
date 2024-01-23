@@ -131,6 +131,7 @@ public class MovingController : ParentObstacleController
 
     private IEnumerator Move()
     {
+        movedDistance = 0f;
         initialPosition = transform.position;
         Vector3 targetPosition = CalculateTargetPosition(obDirection, distance);//움직이는 목표 지점을 계산한다
 
