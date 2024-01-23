@@ -10,7 +10,8 @@ public class ActiveController : ParentObstacleController
         AlertBlink, //위험한 거 경고용  
         DestroyMyself, //스스로 destroy 한다. 
         SwitchActivateStatus, //트리거되면 활성화 <-> 비활성화
-        AlternatelyActivate //순차적으로 obj를 active 해준다. 
+        AlternatelyActivate, //순차적으로 obj를 active 해준다. 
+        ChangeStatus //obj의 tag나 layer을 바꿔준다.
     }
 
     [SerializeField] private ObType obType;
