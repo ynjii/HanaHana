@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
     private Transform enemyTransform;
 
+    private bool isAnimStart = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,12 +50,13 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private void MoveSide()
     {
-        // 이동 방향 설정
-        moveDirection = moveForward ? 1f : -1f;
-        if (anim != null)
+        if (anim != null && isAnimStart == false)
         {
             anim.SetBool("isWalk", true);
+            isAnimStart = false;
         }
+        // 이동 방향 설정
+        moveDirection = moveForward ? 1f : -1f;
         rigid.velocity = new Vector2(moveDirection * walkingSpeed * 0.5f, rigid.velocity.y);
 
 
