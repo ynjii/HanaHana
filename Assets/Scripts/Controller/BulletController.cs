@@ -112,12 +112,19 @@ public class BulletController : ParentObstacleController //타일맵에서는 �
                     {
                         objRigidbody.AddForce(direction * force, ForceMode2D.Impulse);
                     }
+                    // 일정 시간이 지난 후에 파괴되도록 Invoke 사용 waitfor Second 하면 탄환이 동시에 안 나감
+                    StartCoroutine(DelayedDestroy(spewDuration, objInstance));
                 }
-                yield return new WaitForSeconds(spewDuration);
-                Destroy(objInstance);
             }
             yield return new WaitForSeconds(spewInterval); // 일정 시간 간격으로 반복
         }
+    }
+
+    // 지연 파괴 코루틴
+    IEnumerator DelayedDestroy(float delay, GameObject bulletObject)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(bulletObject);
     }
 
     IEnumerator RandomSpew()

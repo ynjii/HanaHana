@@ -189,7 +189,7 @@ public class ObstacleController : MonoBehaviour
         {
             if (isCol)
                 StartCoroutine(SetIsmoving(true));
-            if (obType == ObType.MoveSide && isMovingPlatform)
+            if (isMovingPlatform)
             {
                 collision.transform.SetParent(transform);
             }
