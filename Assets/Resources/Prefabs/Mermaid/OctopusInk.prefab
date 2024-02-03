@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3339204910046156783}
   - component: {fileID: 2079631706201169823}
   - component: {fileID: 5102137056511745824}
+  - component: {fileID: 6896919324959652441}
   m_Layer: 9
   m_Name: OctopusInk
   m_TagString: Enemy
@@ -123,3 +124,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6896919324959652441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471312378251011002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127ecf093aebb8b45943f0289d8e403a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMovingFromStart: 0
+  isCol: 1
+  isLoop: 0
+  waitingTime: 0
+  colTag: 2
+  obType: 2
+  alertColor: {r: 1, g: 0.87, b: 0.0039, a: 1}
+  repeat: 1
+  altObj: []
+  actObj: {fileID: 0}
+  durationTime: 1
