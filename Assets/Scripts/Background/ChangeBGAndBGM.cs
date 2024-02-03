@@ -25,7 +25,7 @@ public class ChangeBGAndBGM : MonoBehaviour
             case SceneType.None:
                 return;
             case SceneType.MerMaid:
-                if(_transform.position.x< 162)
+                if(_transform.position.x< 219)
                 {
                     Image sky_image = Sky.GetComponent<Image>();
                     sky_image.sprite = backgrounds[0];
@@ -36,7 +36,7 @@ public class ChangeBGAndBGM : MonoBehaviour
                         audioSources[2].enabled = false;
                     }
                 }
-                if (_transform.position.x > 162)
+                if (_transform.position.x > 219)
                 {
                     Image sky_image = Sky.GetComponent<Image>();
                     sky_image.sprite = backgrounds[1];
