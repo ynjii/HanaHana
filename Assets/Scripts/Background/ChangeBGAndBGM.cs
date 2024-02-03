@@ -36,7 +36,7 @@ public class ChangeBGAndBGM : MonoBehaviour
                         audioSources[2].enabled = false;
                     }
                 }
-                if (_transform.position.x > 219)
+                if (_transform.position.x > 219&& _transform.position.x < 448)
                 {
                     Image sky_image = Sky.GetComponent<Image>();
                     sky_image.sprite = backgrounds[1];
@@ -45,6 +45,17 @@ public class ChangeBGAndBGM : MonoBehaviour
                         audioSources[0].enabled = false;
                         audioSources[1].enabled = true;
                         audioSources[2].enabled = false;
+                    }
+                }
+                if (_transform.position.x > 448)
+                {
+                    Image sky_image = Sky.GetComponent<Image>();
+                    sky_image.sprite = backgrounds[2];
+                    if (audioSources != null)
+                    {
+                        audioSources[0].enabled = false;
+                        audioSources[1].enabled = false;
+                        audioSources[2].enabled = true;
                     }
                 }
                 return;
