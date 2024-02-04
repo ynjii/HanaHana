@@ -8,6 +8,8 @@ public class BlowFish : MonoBehaviour
     AudioSource audio;
     float timer=0f;
     bool biggerTrigger = false;
+    InitiatePrefab initiatePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,8 @@ public class BlowFish : MonoBehaviour
         audio = GameObject.Find("PopSound").GetComponent<AudioSource>();
         this.transform.position = new Vector3(Random.Range(-5f, 5f), Random.Range(-3f,3f),0f);
         renderer.material.color = new Color(1, 1, 1, 0.5f);
+        initiatePrefab = GameObject.Find("Initiate").GetComponent<InitiatePrefab>();
+        
     }
 
     // Update is called once per frame
@@ -40,12 +44,14 @@ public class BlowFish : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if (biggerTrigger&&(collision.gameObject.name == "Missile"||collision.gameObject.CompareTag("Player")))
-        {
-            Destroy(this.gameObject);       
+        {   
             //소리재생
             audio.Play();
+            //존재하는 복어숫자 --
+            initiatePrefab.existNum--;
+            //본인파괴
+            Destroy(this.gameObject);       
         }
     }
 }
