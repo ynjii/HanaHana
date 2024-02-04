@@ -14,7 +14,8 @@ public class CircleMovement : MonoBehaviour
     [SerializeField]
     private float degree;
 
-
+    [SerializeField]
+    private bool isOpposite = false;
 
     float posX, posY, angle = 0f;
 
@@ -27,8 +28,10 @@ public class CircleMovement : MonoBehaviour
         posX = rotationCenter.position.x + Mathf.Cos(degree) * rotationRadius;
         posY = rotationCenter.position.y + Mathf.Sin(degree) * rotationRadius;
 
+        int direction = (isOpposite)? -1 : 1;
+
         transform.position = new Vector2(posX, posY);
-        degree = degree + Time.deltaTime * angularSpeed;
+        degree = degree + Time.deltaTime * angularSpeed*direction;
 
         if (degree >= 360f*Mathf.Deg2Rad)
         {
