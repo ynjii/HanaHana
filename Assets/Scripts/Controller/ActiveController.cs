@@ -18,6 +18,7 @@ public class ActiveController : ParentObstacleController
     [SerializeField] private Color alertColor = new Color(1f, 0.87f, 0.0039f, 1f); // RGB 및 알파값으로 수정
     [SerializeField] private bool repeat=true; //alternately visible 용.
     [SerializeField] private List<GameObject> altObj; //alternately visible 용. 
+    [SerializeField] private GameObject actObj; //사라졌다 생기는 obj
     [SerializeField] private float durationTime = 1.0f; //변화하는 시간 
     private Renderer renderer;
     //색 바꿔주게 변수 생성
@@ -115,7 +116,7 @@ public class ActiveController : ParentObstacleController
 
     IEnumerator SwitchActivateStatus()
     {
-        gameObject.SetActive(!gameObject.activeSelf); 
+        actObj.gameObject.SetActive(!actObj.gameObject.activeSelf); 
         yield return null;
     }
 
